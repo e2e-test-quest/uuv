@@ -42,6 +42,7 @@
     "@jnxplus/nx-gradle": "^1.0.0",
     "@nrwl/eslint-plugin-nx": "18.3.5",
     "@nrwl/linter": "18.3.5",
+    "@nx-tools/nx-container": "^6.1.0",
     "@nx/jest": "18.3.5",
     "@nx/js": "18.3.5",
     "@nx/webpack": "18.3.5",

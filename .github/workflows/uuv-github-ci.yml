@@ -58,7 +58,7 @@ jobs:
         with:
           node-version: ${{env.NODE_VERSION}}
           target: "build"
-          exclude: "assistant-electron,runner-flutter"
+          exclude: "assistant-electron,docker-images,runner-flutter"
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
@@ -114,6 +114,31 @@ jobs:
           name: build-artifacts-electron
           path: |
             packages/assistant-electron/dist/uuv-assistant-win32-x64.zip
+
+  build-docker:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+      - name: Cache node modules
+        uses: actions/cache@v4
+        with:
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('./package-lock.json') }}
+          path: |
+            node_modules
+            packages/assistant/node_modules
+            packages/docs/node_modules
+            packages/a11y/node_modules
+            packages/runner-commons/node_modules
+            packages/runner-cypress/node_modules
+            packages/runner-playwright/node_modules
+            packages/vscode-extension/node_modules
+      - name: Use Node.js ${{ inputs.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ inputs.node-version }}
+      - name: Build images
+        run: npx nx run-many --target=docker:build -p docker-images
 
   unit-tests:
     runs-on: ubuntu-22.04
@@ -353,7 +378,7 @@ jobs:
 
   release:
     if: github.ref == 'refs/heads/main'
-    needs: [ integration-tests-cypress, integration-tests-playwright, unit-tests-a11y, unit-tests-playwright, unit-tests-cypress, integration-tests-assistant, unit-tests-runner-flutter ]
+    needs: [ integration-tests-cypress, integration-tests-playwright, unit-tests-a11y, unit-tests-playwright, unit-tests-cypress, integration-tests-assistant, unit-tests-runner-flutter, build-docker ]
     runs-on: ubuntu-22.04
     environment: release
     steps:
@@ -448,7 +473,7 @@ jobs:
       - name: Use Node.js ${{env.NODE_VERSION}}
         uses: actions/setup-node@v4
         with:
-          node-version: ${{env.NODE_VERSION}}            
+          node-version: ${{env.NODE_VERSION}}
       - run: npm install
       - name: Publishing VsCode Extension
         env:
