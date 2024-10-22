@@ -12,7 +12,7 @@ permissions:
   checks: write
 
 env:
-  NODE_VERSION: 20.8.1
+  NODE_VERSION: 20.16.0
   NPM_PACKAGE_SCOPE: uuv
   UUV_BASE_URL: https://e2e-test-quest.github.io
 
@@ -38,6 +38,7 @@ jobs:
             packages/runner-cypress/node_modules
             packages/runner-playwright/node_modules
             packages/vscode-extension/node_modules
+            packages/a11y-dashboard/node_modules
       - name: Use Node.js ${{env.NODE_VERSION}}
         uses: actions/setup-node@v4
         with:
@@ -49,20 +50,17 @@ jobs:
     needs: install
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '17'
       - name: Build artifacts
         uses: ./.github/actions/nx-run-many
         with:
           node-version: ${{env.NODE_VERSION}}
           target: "build"
-          exclude: "assistant-electron,docker-images,runner-flutter"
+          exclude: "assistant-electron,docker-images,runner-flutter,intellij-plugin"
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
           name: build-artifacts
+          include-hidden-files: true
           path: |
             packages/runner-commons/dist
             packages/runner-cypress/dist
@@ -76,6 +74,7 @@ jobs:
             packages/a11y/dist
             packages/a11y/bundle
             packages/assistant-electron/dist/uuv-assistant-win32-x64.zip
+            packages/a11y-dashboard/.output
       - name: Upload docs artifact
         uses: actions/upload-pages-artifact@v3
         with:
@@ -102,18 +101,49 @@ jobs:
             packages/runner-cypress/node_modules
             packages/runner-playwright/node_modules
             packages/vscode-extension/node_modules
+            packages/a11y-dashboard/node_modules
       - name: Use Node.js ${{ inputs.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ inputs.node-version }}
-      - name: Build artifacts electron
+      - name: Build electron artifacts
         run: npx nx build assistant-electron --verbose
-      - name: Upload build artifact electron
+      - name: Upload build electron artifact
         uses: actions/upload-artifact@v4
         with:
           name: build-artifacts-electron
           path: |
             packages/assistant-electron/dist/uuv-assistant-win32-x64.zip
+
+  build-gradle:
+    runs-on: ubuntu-22.04
+    needs: install
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+      - name: Cache node modules
+        uses: actions/cache@v4
+        with:
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('./package-lock.json') }}
+          path: |
+            node_modules
+            packages/assistant/node_modules
+            packages/docs/node_modules
+            packages/a11y/node_modules
+            packages/runner-commons/node_modules
+            packages/runner-cypress/node_modules
+            packages/runner-playwright/node_modules
+            packages/vscode-extension/node_modules
+            packages/a11y-dashboard/node_modules
+      - name: Use Node.js ${{ inputs.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ inputs.node-version }}
+      - name: Build gradle artifacts
+        run: npx nx build intellij-plugin --verbose
 
   build-docker:
     runs-on: ubuntu-latest
@@ -133,12 +163,18 @@ jobs:
             packages/runner-cypress/node_modules
             packages/runner-playwright/node_modules
             packages/vscode-extension/node_modules
+            packages/a11y-dashboard/node_modules
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+          path: packages
       - name: Use Node.js ${{ inputs.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ inputs.node-version }}
       - name: Build images
-        run: npx nx run-many --target=docker:build -p docker-images
+        run: npx nx run-many --target=docker:build
 
   unit-tests:
     runs-on: ubuntu-22.04
@@ -282,6 +318,7 @@ jobs:
             packages/runner-cypress/node_modules
             packages/runner-playwright/node_modules
             packages/vscode-extension/node_modules
+            packages/a11y-dashboard/node_modules
       - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
@@ -334,6 +371,7 @@ jobs:
             packages/runner-cypress/node_modules
             packages/runner-playwright/node_modules
             packages/vscode-extension/node_modules
+            packages/a11y-dashboard/node_modules
       - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
@@ -378,7 +416,7 @@ jobs:
 
   release:
     if: github.ref == 'refs/heads/main'
-    needs: [ integration-tests-cypress, integration-tests-playwright, unit-tests-a11y, unit-tests-playwright, unit-tests-cypress, integration-tests-assistant, unit-tests-runner-flutter, build-docker ]
+    needs: [ integration-tests-cypress, integration-tests-playwright, unit-tests-a11y, unit-tests-playwright, unit-tests-cypress, integration-tests-assistant, unit-tests-runner-flutter, build-docker, build-gradle ]
     runs-on: ubuntu-22.04
     environment: release
     steps:
@@ -466,6 +504,7 @@ jobs:
             packages/runner-cypress/node_modules
             packages/runner-playwright/node_modules
             packages/vscode-extension/node_modules
+            packages/a11y-dashboard/node_modules
       - name: Download Release artifact
         uses: actions/download-artifact@v4
         with:

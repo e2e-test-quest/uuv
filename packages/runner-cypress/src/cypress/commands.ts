@@ -16,6 +16,7 @@ import "@testing-library/cypress/add-commands";
 import "cypress-axe";
 import { ByRoleOptions } from "@testing-library/cypress";
 import {
+  UuvA11yOptions,
   uuvCheckContextWithinFocusedElement,
   uuvFindAllByRole,
   uuvFindByLabelText,
@@ -60,7 +61,7 @@ declare global {
 
       injectUvvA11y(): Cypress.Chainable<void>;
 
-      checkUvvA11y(reference: A11yReferenceEnum, expectedResult?: any, isContainsMode?: boolean): Cypress.Chainable<A11yResult>;
+      checkUvvA11y(options: UuvA11yOptions): Cypress.Chainable<A11yResult>;
 
       showUvvA11yReport(reference: A11yReferenceEnum): Cypress.Chainable<A11yResult[]>;
     }

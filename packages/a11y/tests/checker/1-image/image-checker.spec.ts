@@ -1,6 +1,6 @@
 import { Browser, Page } from "puppeteer";
 import * as path from "path";
-import { A11yResultStatus } from "../../../src/lib/model";
+import { A11yResultStatus, IssueType } from "../../../src/lib/model";
 import { injectUvvA11YAndLoadUrl } from "../../commons-test";
 import { checkTest } from "../ExpectHelper";
 
@@ -21,10 +21,10 @@ describe("1-image", () => {
     return await page.evaluate(async (url, enabledRules) => {
       // @ts-ignore
       const rgaaChecker = new uuvA11y.RgaaChecker(url, enabledRules);
-      const result = await rgaaChecker.validate().toPromise();
+      const usecaseResult = await rgaaChecker.validate().toPromise();
       return {
-        result: result,
-        summary: result.summary()
+        result: usecaseResult.result,
+        summary: usecaseResult.result.rawResult.summary()
       };
     }, url, enabledRules);
   }
@@ -33,7 +33,7 @@ describe("1-image", () => {
     await initA11yOnPage("image-ko.html");
     const { result, summary } = await validateA11y(page.url(), ["1.1"]);
     expect(result.status).toEqual(A11yResultStatus.ERROR);
-    const [_1_1_1_TAG, _1_1_1_ROLE, _1_1_2, _1_1_3, _1_1_4, _1_1_5A, _1_1_5B, _1_1_6A, _1_1_6B, _1_1_6C, _1_1_7, _1_1_8] = result.ruleResults;
+    const [_1_1_1_TAG, _1_1_1_ROLE, _1_1_2, _1_1_3, _1_1_4, _1_1_5A, _1_1_5B, _1_1_6A, _1_1_6B, _1_1_6C, _1_1_7, _1_1_8] = result.rawResult.ruleResults;
     checkTest(_1_1_1_TAG, "1.1.1",
      A11yResultStatus.ERROR,
      [
@@ -147,7 +147,7 @@ describe("1-image", () => {
   it("1.1 - should find success", async () => {
     await initA11yOnPage("image-ok.html");
     const { result, summary } = await validateA11y(page.url(), ["1.1"]);
-    const [_1_1_1_TAG, _1_1_1_ROLE, _1_1_2, _1_1_3, _1_1_4, _1_1_5A, _1_1_5B, _1_1_6A, _1_1_6B, _1_1_6C, _1_1_7, _1_1_8] = result.ruleResults;
+    const [_1_1_1_TAG, _1_1_1_ROLE, _1_1_2, _1_1_3, _1_1_4, _1_1_5A, _1_1_5B, _1_1_6A, _1_1_6B, _1_1_6C, _1_1_7, _1_1_8] = result.rawResult.ruleResults;
     checkTest(_1_1_1_TAG, "1.1.1",
      A11yResultStatus.SUCCESS
     );
@@ -221,7 +221,7 @@ describe("1-image", () => {
   it("1.1 - should find manual", async () => {
     await initA11yOnPage("image-manual.html");
     const { result, summary } = await validateA11y(page.url(), ["1.1"]);
-    const [_1_1_1_TAG, _1_1_1_ROLE, _1_1_2, _1_1_3, _1_1_4, _1_1_5A, _1_1_5B, _1_1_6A, _1_1_6B, _1_1_6C, _1_1_7, _1_1_8] = result.ruleResults;
+    const [_1_1_1_TAG, _1_1_1_ROLE, _1_1_2, _1_1_3, _1_1_4, _1_1_5A, _1_1_5B, _1_1_6A, _1_1_6B, _1_1_6C, _1_1_7, _1_1_8] = result.rawResult.ruleResults;
     checkTest(_1_1_6C, "1.1.6",
      A11yResultStatus.MANUAL,
      [], [

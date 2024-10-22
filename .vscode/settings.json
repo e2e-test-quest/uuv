@@ -1,0 +1,15 @@
+{
+    "cucumber.features": [
+      "example/**/*.feature",
+      "packages/runner-cypress/e2e/**/*.feature",
+      "packages/runner-playwright/e2e/**/*.feature"
+    ],
+    "cucumber.glue": [
+      "packages/runner-cypress/src/cucumber/step_definitions/*/unsafe/**/*.ts",
+      "packages/runner-cypress/src/cucumber/step_definitions/*/generated/**/*.ts",
+      "packages/runner-cypress/src/cucumber/step_definitions/*/generated/enriched/*/*.ts",
+      "packages/runner-playwright/src/cucumber/step_definitions/*/unsafe/**/*.ts",
+      "packages/runner-playwright/src/cucumber/step_definitions/*/generated/**/*.ts",
+      "packages/runner-playwright/src/cucumber/step_definitions/*/generated/enriched/*/*.ts"
+    ]
+}

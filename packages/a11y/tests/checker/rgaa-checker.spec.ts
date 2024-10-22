@@ -21,10 +21,10 @@ describe("Reference - RGAA", () => {
         return await page.evaluate(async (url, enabledRules) => {
             // @ts-ignore
             const rgaaChecker = new uuvA11y.RgaaChecker(url, enabledRules);
-            const result = await rgaaChecker.validate().toPromise();
+            const usecaseResult = await rgaaChecker.validate().toPromise();
             return {
-                result: result,
-                summary: result.summary()
+                result: usecaseResult.result,
+                summary: usecaseResult.result.rawResult.summary()
             };
         }, url, enabledRules);
     }
@@ -37,7 +37,7 @@ describe("Reference - RGAA", () => {
 
     it("should be ok when only one auto criteria is enabled", async () => {
         const { result, summary } = await validateA11y(page.url(), ["1.1"]);
-        const [_1_1_1_TAG] = result.ruleResults;
+        const [_1_1_1_TAG] = result.rawResult.ruleResults;
         expect(result).toBeTruthy();
         expect(result.status).toEqual(A11yResultStatus.ERROR);
         checkTest(_1_1_1_TAG, "1.1.1",
@@ -114,7 +114,7 @@ describe("Reference - RGAA", () => {
         const { result, summary } = await validateA11y(page.url(), ["8.6"]);
         expect(result).toBeTruthy();
         expect(result.status).toEqual(A11yResultStatus.MANUAL);
-        expect(result).toMatchObject(expectedResult);
+        expect(result.rawResult).toMatchObject(expectedResult);
         expect(summary).toEqual({
             status: A11yResultStatus.MANUAL,
             criteria: {

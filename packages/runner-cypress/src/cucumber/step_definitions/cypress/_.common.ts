@@ -15,6 +15,7 @@ import { ByRoleOptions } from "@testing-library/cypress";
 import { Context } from "./_context";
 import Chainable = Cypress.Chainable;
 import { KEY_PRESS } from "@uuv/runner-commons";
+import { A11yReferenceEnum } from "@uuv/a11y";
 
 const contextAlias = "context";
 const foundedChildElementAlias = "foundedChildElement";
@@ -25,7 +26,7 @@ export const shouldGenerateA11yReport = (): boolean => {
 };
 
 export const getA11yResultFilePath = (): string => {
-    return Cypress.env("uuvOptions").report.a11y.outputFile;
+    return Cypress.env("uuvOptions").report.a11y.relativePath;
 };
 
 export const uuvGetContext = (): Chainable<Context> => {
@@ -156,4 +157,15 @@ export function pressKey(key: string) {
             console.error("the command" + key + " is unrecognized.");
             break;
     }
+}
+
+export type UuvA11yOptions = {
+    reference: A11yReferenceEnum;
+    runnerOptions?: any;
+    expectedResult?: UuvA11yExpectedResult
+}
+
+export type UuvA11yExpectedResult = {
+    value: any;
+    isContainsMode?: boolean;
 }

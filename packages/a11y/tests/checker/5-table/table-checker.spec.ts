@@ -22,10 +22,10 @@ describe("5-table", () => {
     return await page.evaluate(async (url, enabledRules) => {
       // @ts-ignore
       const rgaaChecker = new uuvA11y.RgaaChecker(url, enabledRules);
-      const result = await rgaaChecker.validate().toPromise();
+      const usecaseResult = await rgaaChecker.validate().toPromise();
       return {
-        result: result,
-        summary: result.summary()
+        result: usecaseResult.result,
+        summary: usecaseResult.result.rawResult.summary()
       };
     }, url, enabledRules);
   }
@@ -34,7 +34,7 @@ describe("5-table", () => {
     await initA11yOnPage("table-with-header.html");
     const { result, summary } = await validateA11y(page.url(), ["5.1"]);
     expect(result.status).toEqual(A11yResultStatus.ERROR);
-    const [_5_1_1_TAG, _5_1_1_ROLE] = result.ruleResults;
+    const [_5_1_1_TAG, _5_1_1_ROLE] = result.rawResult.ruleResults;
     // Caption inside element different of table is not detected
     checkTest(_5_1_1_TAG, "5.1.1",
      A11yResultStatus.ERROR,
@@ -80,7 +80,7 @@ describe("5-table", () => {
     await initA11yOnPage("table-with-header.html");
     const { result, summary } = await validateA11y(page.url(), ["5.2"]);
     expect(result.status).toEqual(A11yResultStatus.MANUAL);
-    const [_5_2_1] = result.ruleResults;
+    const [_5_2_1] = result.rawResult.ruleResults;
     // Caption inside element different of table is not detected
     checkTest(_5_2_1, "5.2.1",
      A11yResultStatus.MANUAL,
@@ -116,7 +116,7 @@ describe("5-table", () => {
     await initA11yOnPage("table.html");
     const { result, summary } = await validateA11y(page.url(), ["5.3"]);
     expect(result.status).toEqual(A11yResultStatus.MANUAL);
-    const [_5_3_1] = result.ruleResults;
+    const [_5_3_1] = result.rawResult.ruleResults;
     checkTest(_5_3_1, "5.3.1",
      A11yResultStatus.MANUAL,
      [],
@@ -143,7 +143,7 @@ describe("5-table", () => {
     await initA11yOnPage("table.html");
     const { result, summary } = await validateA11y(page.url(), ["5.4"]);
     expect(result.status).toEqual(A11yResultStatus.ERROR);
-    const [_5_4_1] = result.ruleResults;
+    const [_5_4_1] = result.rawResult.ruleResults;
     checkTest(_5_4_1, "5.4.1",
      A11yResultStatus.ERROR,
      [
@@ -182,7 +182,7 @@ describe("5-table", () => {
     await initA11yOnPage("table.html");
     const { result, summary } = await validateA11y(page.url(), ["5.5"]);
     expect(result.status).toEqual(A11yResultStatus.MANUAL);
-    const [_5_5_1] = result.ruleResults;
+    const [_5_5_1] = result.rawResult.ruleResults;
     checkTest(_5_5_1, "5.5.1",
      A11yResultStatus.MANUAL,
      [],
@@ -216,7 +216,7 @@ describe("5-table", () => {
     await initA11yOnPage("table.html");
     const { result, summary } = await validateA11y(page.url(), ["5.6"]);
     expect(result.status).toEqual(A11yResultStatus.MANUAL);
-    const [_5_6_1, _5_6_2, _5_6_3, _5_6_4] = result.ruleResults;
+    const [_5_6_1, _5_6_2, _5_6_3, _5_6_4] = result.rawResult.ruleResults;
     const allTablesOfContent = [
       "table[data-testid=table]",
       "table[data-testid=table-with-summary]",
@@ -287,7 +287,7 @@ describe("5-table", () => {
     await initA11yOnPage("table-with-header.html");
     const { result, summary } = await validateA11y(page.url(), ["5.7"]);
     expect(result.status).toEqual(A11yResultStatus.ERROR);
-    const [_5_7_1_COLUMN, _5_7_1_ROW, _5_7_2_COLUMN, _5_7_2_ROW, _5_7_3, _5_7_5_COLUMN, _5_7_5_ROW, _5_7_4] = result.ruleResults;
+    const [_5_7_1_COLUMN, _5_7_1_ROW, _5_7_2_COLUMN, _5_7_2_ROW, _5_7_3, _5_7_5_COLUMN, _5_7_5_ROW, _5_7_4] = result.rawResult.ruleResults;
     checkTest(_5_7_1_COLUMN, "5.7.1",
      A11yResultStatus.ERROR,
      [
@@ -406,7 +406,7 @@ describe("5-table", () => {
     await initA11yOnPage("table-presentation.html");
     const { result, summary } = await validateA11y(page.url(), ["5.8"]);
     expect(result.status).toEqual(A11yResultStatus.ERROR);
-    const [_5_8_1] = result.ruleResults;
+    const [_5_8_1] = result.rawResult.ruleResults;
     checkTest(_5_8_1, "5.8.1",
      A11yResultStatus.ERROR,
      [

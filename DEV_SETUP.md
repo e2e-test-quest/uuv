@@ -171,6 +171,13 @@ npx nx show projects
 npx nx graph
 ```
 
+### Display available tasks for a project
+
+For example, to show the available tasks for the project `runner-cypress`
+```shell
+npx nx show project runner-cypress --json false
+```
+
 ### Run a target for a project
 
 For example, to run the target `myCommand` for the project `runner-cypress`

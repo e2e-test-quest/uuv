@@ -1,0 +1,27 @@
+{
+  "name": "a11y-dashboard",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "packages/a11y-dashboard/src",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": [
+        "{options.outputFile}"
+      ],
+      "options": {
+        "lintFilePatterns": [
+          "packages/a11y-dashboard/src/**/*.{ts,js,vue}"
+        ],
+        "fix": false,
+        "eslintConfig": "packages/a11y-dashboard/.eslintrc.json"
+      }
+    },
+    "docker:build": {
+      "executor": "@nx-tools/nx-container:build",
+      "options": {
+        "context": "./packages/a11y-dashboard"
+      }
+    }
+  }
+}

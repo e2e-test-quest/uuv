@@ -77,3 +77,10 @@ packages/vscode-extension/.vscode-test/
 packages/vscode-extension/out/
 packages/vscode-extension/*.vsix
 packages/vscode-extension/packages/
+
+# Nuxt dev/build outputs
+.output
+.data
+.nuxt
+.nitro
+.cache

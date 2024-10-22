@@ -1,0 +1,45 @@
+{
+    "appName": "UUV A11y Dashboard",
+    "appList": {
+      "headline": "Welcome to ",
+      "detailsHeadline": "Using this web application, you can consult the results of automatic accessibility checks performed by the UUV tool",
+      "subHeadline": "Here are the available applications :"
+    },
+    "appDetails": {
+      "headline": "Application ",
+      "detailsHeadline": "Here are the available usecases :"
+    },
+    "usecaseDetails": {
+      "headline": "Application ",
+      "subHeadline": "Usecase "
+    },
+    "card": {
+        "lastRun": "Last run: ",
+        "noRunYet": "No run yet",
+        "actionButton": "Open"
+    },
+    "general": {
+      "noContentFound": "No content found"
+    },
+    "component": {
+      "result" : {
+        "count" : {
+          "error": "Errors",
+          "warning": "Warnings",
+          "notice": "Notices"
+        },
+        "headline": "Run date",
+        "resultSelection": "Select a date to show stats for :",
+        "element": "HTML Element",
+        "fixHelp": "How to fix"
+      },
+      "bulkImporter": {
+        "tips": "To perform a bulk import of applications, usecases and results, fill in the json file containing the information, then click on the import button.",
+        "importFileLabel": "Select a json file",
+        "importButton": "Import",
+        "loading": "Loading...",
+        "success": "The operation is successfully completed",
+        "error": "An error has occurred"
+      }
+    }
+  }

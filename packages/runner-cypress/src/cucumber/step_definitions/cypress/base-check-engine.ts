@@ -516,8 +516,10 @@ Then(`${key.then.element.withSelector}`, function(selector: string) {
 Then(
  `${key.then.a11y.axecore.default}`,
   function() {
-   cy.injectAxe();
-   cy.checkA11y();
+    cy.injectUvvA11y();
+    cy.checkUvvA11y({
+      reference: A11yReferenceEnum.WCAG_WEB
+    });
  });
 
 /**
@@ -526,9 +528,12 @@ Then(
 Then(
  `${key.then.a11y.axecore.onlyCritical}`,
   function() {
-   cy.injectAxe();
-   cy.checkA11y(undefined, {
-     includedImpacts: ["critical"]
+   cy.injectUvvA11y();
+   cy.checkUvvA11y({
+      reference: A11yReferenceEnum.WCAG_WEB,
+      runnerOptions: {
+        includedImpacts: ["critical"]
+      }
    });
  });
 
@@ -538,9 +543,12 @@ Then(
 Then(
  `${key.then.a11y.axecore.withImpacts}`,
   function(impacts: any) {
-   cy.injectAxe();
-   cy.checkA11y(undefined, {
-     includedImpacts: [impacts]
+   cy.injectUvvA11y();
+   cy.checkUvvA11y({
+      reference: A11yReferenceEnum.WCAG_WEB,
+      runnerOptions: {
+        includedImpacts: [impacts]
+      }
    });
  });
 
@@ -550,12 +558,15 @@ Then(
 Then(
  `${key.then.a11y.axecore.withTags}`,
   function(tags: any) {
-   cy.injectAxe();
-   cy.checkA11y(undefined, {
-     runOnly: {
-       type: "tag",
-       values: [tags]
-     }
+   cy.injectUvvA11y();
+   cy.checkUvvA11y({
+      reference: A11yReferenceEnum.WCAG_WEB,
+      runnerOptions: {
+        runOnly: {
+          type: "tag",
+          values: [tags]
+        }
+      }
    });
  });
 
@@ -579,9 +590,12 @@ Then(
 Then(
  `${key.then.a11y.axecore.withFixtureOption}`,
   function(option: any) {
-   cy.injectAxe();
+   cy.injectUvvA11y();
    cy.fixture(option).then(data => {
-     cy.checkA11y(undefined, data);
+    cy.checkUvvA11y({
+      reference: A11yReferenceEnum.WCAG_WEB,
+      runnerOptions: data
+    });
    });
  });
 
@@ -593,21 +607,34 @@ Then(
  `${key.then.a11y.rgaa.default}`,
   function() {
    cy.injectUvvA11y();
-   cy.checkUvvA11y(A11yReferenceEnum.RGAA);
+   cy.checkUvvA11y({
+    reference: A11yReferenceEnum.RGAA
+   });
  });
 
 Then(
  `${key.then.a11y.rgaa.defaultWithResult}`,
   function(expectedResult: string) {
    cy.injectUvvA11y();
-   cy.checkUvvA11y(A11yReferenceEnum.RGAA, JSON.parse(expectedResult));
+   cy.checkUvvA11y({
+    reference: A11yReferenceEnum.RGAA,
+    expectedResult: {
+      value: JSON.parse(expectedResult)
+    }
+   });
  });
 
 Then(
  `${key.then.a11y.rgaa.defaultWithResultContaining}`,
   function(expectedResult: string) {
    cy.injectUvvA11y();
-   cy.checkUvvA11y(A11yReferenceEnum.RGAA, JSON.parse(expectedResult), true);
+   cy.checkUvvA11y({
+    reference: A11yReferenceEnum.RGAA,
+    expectedResult: {
+      value: JSON.parse(expectedResult),
+      isContainsMode: true
+    }
+   });
 });
 
 function haveKeyBoardFocused() {

@@ -22,10 +22,10 @@ describe("6-link", () => {
     return await page.evaluate(async (url, enabledRules) => {
       // @ts-ignore
       const rgaaChecker = new uuvA11y.RgaaChecker(url, enabledRules);
-      const result = await rgaaChecker.validate().toPromise();
+      const usecaseResult = await rgaaChecker.validate().toPromise();
       return {
-        result: result,
-        summary: result.summary()
+        result: usecaseResult.result,
+        summary: usecaseResult.result.rawResult.summary()
       };
     }, url, enabledRules);
   }
@@ -34,7 +34,7 @@ describe("6-link", () => {
     await initA11yOnPage("link.html");
     const { result, summary } = await validateA11y(page.url(), ["6.1"]);
     expect(result.status).toEqual(A11yResultStatus.ERROR);
-    const [_6_1_1_AUTO, _6_1_2_AUTO, _6_1_4_AUTO, _6_1_5_NO_SVG, _6_1_1, _6_1_2_MANUAL, _6_1_3, _6_1_4, _6_1_5_SVG] = result.ruleResults;
+    const [_6_1_1_AUTO, _6_1_2_AUTO, _6_1_4_AUTO, _6_1_5_NO_SVG, _6_1_1, _6_1_2_MANUAL, _6_1_3, _6_1_4, _6_1_5_SVG] = result.rawResult.ruleResults;
 
     checkTest(_6_1_1_AUTO, "6.1.1",
      A11yResultStatus.ERROR,
@@ -169,7 +169,7 @@ describe("6-link", () => {
     await initA11yOnPage("link.html");
     const { result, summary } = await validateA11y(page.url(), ["6.2"]);
     expect(result.status).toEqual(A11yResultStatus.ERROR);
-    const [_6_2_1] = result.ruleResults;
+    const [_6_2_1] = result.rawResult.ruleResults;
 
     checkTest(_6_2_1, "6.2.1",
      A11yResultStatus.ERROR,

@@ -49,7 +49,32 @@ describe("UUV Cli Cypress", () => {
     expect(mockOpen).toHaveBeenCalledWith(
       {
         project: projectDir,
-        env: {}
+        env: {
+          uuvOptions: {
+            command: "open",
+            browser: "chrome",
+            baseUrl: undefined,
+            extraArgs: {},
+            projectDir: process.cwd(),
+            report: {
+              outputDir: "reports",
+              a11y: {
+                  enabled: undefined,
+                  outputFile: path.join(process.cwd(), "reports", "a11y-report.json"),
+                  relativePath: path.join("reports", "a11y-report.json")
+              },
+              html: {
+                  enabled: undefined,
+                  outputDir: path.join("reports", "e2e/html")
+              },
+              junit: {
+                  enabled: undefined,
+                  outputFile: "reports/e2e/junit-report.xml"
+              }
+            },
+            targetTestFile: null
+          }
+        }
       }
     );
   });
@@ -62,7 +87,34 @@ describe("UUV Cli Cypress", () => {
         project: projectDir,
         env: {
           a: "valueA",
-          b: "valueB"
+          b: "valueB",
+          uuvOptions: {
+            command: "open",
+            browser: "chrome",
+            baseUrl: undefined,
+            extraArgs: {
+              a: "valueA",
+              b: "valueB",
+            },
+            projectDir: process.cwd(),
+            report: {
+              outputDir: "reports",
+              a11y: {
+                  enabled: undefined,
+                  outputFile: path.join(process.cwd(), "reports", "a11y-report.json"),
+                  relativePath: path.join("reports", "a11y-report.json")
+              },
+              html: {
+                  enabled: undefined,
+                  outputDir: path.join("reports", "e2e/html")
+              },
+              junit: {
+                  enabled: undefined,
+                  outputFile: "reports/e2e/junit-report.xml"
+              }
+            },
+            targetTestFile: null
+          }
         }
       }
     );
@@ -82,11 +134,13 @@ describe("UUV Cli Cypress", () => {
             browser: "chrome",
             baseUrl: undefined,
             extraArgs: {},
+            projectDir: process.cwd(),
             report: {
               outputDir: "reports",
               a11y: {
                   enabled: undefined,
-                  outputFile: path.join(process.cwd(), "reports", "a11y-report.json")
+                  outputFile: path.join(process.cwd(), "reports", "a11y-report.json"),
+                  relativePath: path.join("reports", "a11y-report.json")
               },
               html: {
                   enabled: undefined,
@@ -122,11 +176,13 @@ describe("UUV Cli Cypress", () => {
             browser: "chrome",
             baseUrl: targetUrl,
             extraArgs: {},
+            projectDir: process.cwd(),
             report: {
               outputDir: "reports",
               a11y: {
                   enabled: undefined,
-                  outputFile: path.join(process.cwd(), "reports", "a11y-report.json")
+                  outputFile: path.join(process.cwd(), "reports", "a11y-report.json"),
+                  relativePath: path.join("reports", "a11y-report.json")
               },
               html: {
                   enabled: undefined,
@@ -159,11 +215,13 @@ describe("UUV Cli Cypress", () => {
             browser: "chrome",
             baseUrl: undefined,
             extraArgs: {},
+            projectDir: process.cwd(),
             report: {
               outputDir: "reports",
               a11y: {
                   enabled: undefined,
-                  outputFile: path.join(process.cwd(), "reports", "a11y-report.json")
+                  outputFile: path.join(process.cwd(), "reports", "a11y-report.json"),
+                  relativePath: path.join("reports", "a11y-report.json")
               },
               html: {
                   enabled: true,
@@ -196,11 +254,13 @@ describe("UUV Cli Cypress", () => {
             browser: "chrome",
             baseUrl: undefined,
             extraArgs: {},
+            projectDir: process.cwd(),
             report: {
               outputDir: "reports",
               a11y: {
                   enabled: undefined,
-                  outputFile: path.join(process.cwd(), "reports", "a11y-report.json")
+                  outputFile: path.join(process.cwd(), "reports", "a11y-report.json"),
+                  relativePath: path.join("reports", "a11y-report.json")
               },
               html: {
                   enabled: undefined,
@@ -237,11 +297,13 @@ describe("UUV Cli Cypress", () => {
             browser: "chrome",
             baseUrl: undefined,
             extraArgs: {},
+            projectDir: process.cwd(),
             report: {
               outputDir: "reports",
               a11y: {
                   enabled: true,
-                  outputFile: path.join(process.cwd(), "reports", "a11y-report.json")
+                  outputFile: path.join(process.cwd(), "reports", "a11y-report.json"),
+                  relativePath: path.join("reports", "a11y-report.json")
               },
               html: {
                   enabled: undefined,
@@ -275,11 +337,13 @@ describe("UUV Cli Cypress", () => {
             browser: browser,
             baseUrl: undefined,
             extraArgs: {},
+            projectDir: process.cwd(),
             report: {
               outputDir: "reports",
               a11y: {
                   enabled: undefined,
-                  outputFile: path.join(process.cwd(), "reports", "a11y-report.json")
+                  outputFile: path.join(process.cwd(), "reports", "a11y-report.json"),
+                  relativePath: path.join("reports", "a11y-report.json")
               },
               html: {
                   enabled: undefined,
@@ -314,11 +378,13 @@ describe("UUV Cli Cypress", () => {
             browser: "chrome",
             baseUrl: undefined,
             extraArgs: {},
+            projectDir: process.cwd(),
             report: {
               outputDir: "reports",
               a11y: {
                   enabled: undefined,
-                  outputFile: path.join(process.cwd(), "reports", "a11y-report.json")
+                  outputFile: path.join(process.cwd(), "reports", "a11y-report.json"),
+                  relativePath: path.join("reports", "a11y-report.json")
               },
               html: {
                   enabled: undefined,
@@ -355,11 +421,13 @@ describe("UUV Cli Cypress", () => {
             command: "e2e",
             browser: "chrome",
             baseUrl: undefined,
+            projectDir: process.cwd(),
             report: {
               outputDir: "reports",
               a11y: {
                   enabled: undefined,
-                  outputFile: path.join(process.cwd(), "reports", "a11y-report.json")
+                  outputFile: path.join(process.cwd(), "reports", "a11y-report.json"),
+                  relativePath: path.join("reports", "a11y-report.json")
               },
               html: {
                   enabled: undefined,

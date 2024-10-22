@@ -39,7 +39,7 @@
     "unit-tests": "jest --runInBand --coverage --config=./jest.config.ts --testPathIgnorePatterns=src/tests/report",
     "verify-report": "jest --runInBand --coverage --config=./jest.config.ts --testPathPattern=src/tests/report",
     "e2e-test:run": "ts-node test.ts e2e",
-    "e2e-test:open": "ts-node test.ts open --",
+    "e2e-test:open": "ts-node test.ts open",
     "test": "npm run unit-test && npm run e2e-test:run",
     "lint": "eslint -c .eslintrc.json"
   },
@@ -56,11 +56,12 @@
     "cypress-real-events": "^1.10.0",
     "is-admin": "4.0.0",
     "junit-report-merger": "^7.0.0",
+    "lodash": "^4.17.21",
     "multiple-cucumber-html-reporter": "3.8.0",
     "path-browserify": "^1.0.1",
     "ts-node": "10.9.2",
     "typescript": "5.7.2",
-    "webpack": "5.94.0"
+    "webpack": "5.95.0"
   },
   "types": "./dist/index.d.ts",
   "main": "./dist/index.js",

@@ -8,6 +8,7 @@ import {
 } from "@badeball/cypress-cucumber-preprocessor";
 import fs from "fs";
 import { UUVListenerHelper, UUVEventEmitter } from "@uuv/runner-commons/runner/event";
+import path from "path";
 
 export async function setupNodeEvents (
   on: Cypress.PluginEvents,
@@ -68,7 +69,7 @@ export async function setupNodeEvents (
     const generateA11yReport = config.env["uuvOptions"].report.a11y.enabled;
     clearA11yReport(a11yReportFilePath);
     if (generateA11yReport === true) {
-      initA11yReport(a11yReportFilePath);
+      await initA11yReport(a11yReportFilePath);
     }
     UUVEventEmitter.getInstance().emitProgressStart();
   });
@@ -127,10 +128,16 @@ export async function setupNodeEvents (
     }
   }
 
-  function initA11yReport(reportFilePath: string) {
+  async function initA11yReport(reportFilePath: string) {
+    // eslint-disable-next-line dot-notation
+    const packageJson = await import(path.join(config.env["uuvOptions"].projectDir, "package.json"));
+
     const emptyReport = {
-      date: (new Date()).toISOString(),
-      features: []
+      app: {
+        name: packageJson.name,
+        description: packageJson.description,
+        usecases: []
+      }
     };
     fs.writeFileSync(reportFilePath, JSON.stringify(emptyReport, null, 4), { flag: "w" });
   }

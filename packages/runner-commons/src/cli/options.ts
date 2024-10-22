@@ -6,6 +6,7 @@ export enum UUV_TARGET_COMMAND {
 
 export type UUVCliOptions = {
     baseUrl: string;
+    projectDir: string;
     command: UUV_TARGET_COMMAND;
     browser: string;
     targetTestFile: string;
@@ -13,6 +14,7 @@ export type UUVCliOptions = {
         outputDir: string,
         a11y: {
             enabled: boolean,
+            relativePath: string,
             outputFile: string
         },
         html: {
