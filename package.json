@@ -47,7 +47,7 @@
     "@nx/webpack": "18.3.5",
     "@nxrocks/nx-flutter": "^9.0.0",
     "@theunderscorer/nx-semantic-release": "2.4.0",
-    "@types/jest": "29.5.13",
+    "@types/jest": "29.5.14",
     "@types/node": "20.12.12",
     "@typescript-eslint/eslint-plugin": "5.62.0",
     "@typescript-eslint/parser": "5.62.0",
