@@ -52,7 +52,7 @@
     "babel-plugin-lodash": "^3.3.4",
     "chokidar": "^3.5.3",
     "jest-junit": "^16.0.0",
-    "jest-puppeteer": "10.1.2",
+    "jest-puppeteer": "10.1.4",
     "puppeteer": "23.6.0",
     "tslib": "^2.3.0",
     "webpack": "^5.89.0",
