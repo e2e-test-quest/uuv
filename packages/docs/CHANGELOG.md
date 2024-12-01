@@ -1,3 +1,25 @@
+# [1.64.0](https://github.com/e2e-test-quest/uuv/compare/docs-v1.63.0...docs-v1.64.0) (2024-12-01)
+
+
+### Bug Fixes
+
+* **assistant:** update codemirror ([fe073ce](https://github.com/e2e-test-quest/uuv/commit/fe073ce266a22c26b9c3dc90d499c2d51e345f5e))
+* **assistant:** update dependency antd to v5.22.2 ([ca58136](https://github.com/e2e-test-quest/uuv/commit/ca581367951ff18f4abdd048e92fd9f34582c7ff))
+* **deps:** update dependency @cucumber/gherkin to v30.0.4 ([ca4c17d](https://github.com/e2e-test-quest/uuv/commit/ca4c17d20f08c9819b6e335fa6acced2ca5c675a))
+* **deps:** update dependency @cucumber/messages to v27.0.2 ([d86ba3d](https://github.com/e2e-test-quest/uuv/commit/d86ba3d9509f035873c991332a5d843c52696d0b))
+* **runner-playwright:** update dependency nanoid to v3.3.8 ([1129db9](https://github.com/e2e-test-quest/uuv/commit/1129db97724767746ff6e83e99fcf2a842953ed5))
+* update package-lock.json,[#891](https://github.com/e2e-test-quest/uuv/issues/891) ([db788d0](https://github.com/e2e-test-quest/uuv/commit/db788d08371ef942001b20195ae7313f39c5fea7))
+
+
+### Features
+
+* **assistant:** update dependency @codemirror/view to v6.35.0 ([fd83add](https://github.com/e2e-test-quest/uuv/commit/fd83add8a853f97a5e402c41c6e8963ec6a194c4))
+* **assistant:** update dependency antd to v5.22.1 ([338f997](https://github.com/e2e-test-quest/uuv/commit/338f9979a03d7d9c285cb434852e8009644c7e85))
+* **deps:** update dependency tslib to v2.8.1 ([c745d59](https://github.com/e2e-test-quest/uuv/commit/c745d59f74e7cf264b0ae97f349b34310e040410))
+* **runner-cypress:** update dependency cypress to v13.16.0 ([b28d613](https://github.com/e2e-test-quest/uuv/commit/b28d613e87e36014b1a2d4f9099e870e8014c38a))
+* **runner-playwright:** update dependency typescript to v5.7.2 ([2ca7685](https://github.com/e2e-test-quest/uuv/commit/2ca7685328dd251f74d84c608303bf7fd7c2db85))
+* **runner-playwright:** update playwright monorepo to v1.49.0 ([976b46c](https://github.com/e2e-test-quest/uuv/commit/976b46cebfeb88faa1a2767f04ee43d89303ad91))
+
 # [1.64.0](https://github.com/e2e-test-quest/uuv/compare/docs-v1.63.0...docs-v1.64.0) (2024-11-24)
 
 
