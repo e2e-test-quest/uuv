@@ -1,0 +1,14 @@
+@import "bootstrap/dist/css/bootstrap.css";
+@import "bootstrap-icons/font/bootstrap-icons.min.css";
+
+.logo {
+  height: 50px;
+}
+
+.text-justify  {
+  text-align: justify !important;
+}
+
+.text-warning {
+  color: #fd7e14 !important;
+}

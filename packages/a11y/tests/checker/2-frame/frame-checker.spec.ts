@@ -21,10 +21,10 @@ describe("2-frame", () => {
     return await page.evaluate(async (url, enabledRules) => {
       // @ts-ignore
       const rgaaChecker = new uuvA11y.RgaaChecker(url, enabledRules);
-      const result = await rgaaChecker.validate().toPromise();
+      const usecaseResult = await rgaaChecker.validate().toPromise();
       return {
-        result: result,
-        summary: result.summary()
+        result: usecaseResult.result,
+        summary: usecaseResult.result.rawResult.summary()
       };
     }, url, enabledRules);
   }
@@ -33,7 +33,7 @@ describe("2-frame", () => {
     await initA11yOnPage("iframe.html");
     const { result, summary } = await validateA11y(page.url(), ["2.1"]);
     expect(result.status).toEqual(A11yResultStatus.ERROR);
-    const [_2_1_1, _2_2_1] = result.ruleResults;
+    const [_2_1_1, _2_2_1] = result.rawResult.ruleResults;
     checkTest(_2_1_1, "2.1.1",
       A11yResultStatus.ERROR,
      [
@@ -60,7 +60,7 @@ describe("2-frame", () => {
     await initA11yOnPage("iframe.html");
     const { result, summary } = await validateA11y(page.url(), ["2.2"]);
     expect(result.status).toEqual(A11yResultStatus.MANUAL);
-    const [_2_2_1] = result.ruleResults;
+    const [_2_2_1] = result.rawResult.ruleResults;
     checkTest(_2_2_1, "2.2.1",
         A11yResultStatus.MANUAL,
         [],
@@ -87,7 +87,7 @@ describe("2-frame", () => {
     await initA11yOnPage("frame.html");
     const { result, summary } = await validateA11y(page.url(), ["2.1"]);
     expect(result.status).toEqual(A11yResultStatus.ERROR);
-    const [_2_1_1, _2_2_1] = result.ruleResults;
+    const [_2_1_1, _2_2_1] = result.rawResult.ruleResults;
     checkTest(_2_1_1, "2.1.1",
      A11yResultStatus.ERROR,
      [
@@ -114,7 +114,7 @@ describe("2-frame", () => {
     await initA11yOnPage("frame.html");
     const { result, summary } = await validateA11y(page.url(), ["2.2"]);
     expect(result.status).toEqual(A11yResultStatus.MANUAL);
-    const [_2_2_1] = result.ruleResults;
+    const [_2_2_1] = result.rawResult.ruleResults;
     checkTest(_2_2_1, "2.2.1",
      A11yResultStatus.MANUAL,
      [],

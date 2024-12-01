@@ -91,7 +91,10 @@ export class UUVCliCypressRunner implements UUVCliRunner {
     executeOpenCommand(options: Partial<UUVCliOptions>) {
         return this.getCypress().open({
             project: this.projectDir,
-            env: options.extraArgs,
+            env: {
+                uuvOptions: options,
+                ...options.extraArgs
+            },
         });
     }
 

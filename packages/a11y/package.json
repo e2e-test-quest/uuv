@@ -38,6 +38,7 @@
   },
   "dependencies": {
     "@testing-library/dom": "^9.3.3",
+    "axe-core": "^4.10.0",
     "dom-accessibility-api": "^0.7.0",
     "emulate-tab": "^1.2.1",
     "jquery": "^3.7.1",

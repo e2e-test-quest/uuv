@@ -1,0 +1,6 @@
+services:
+  uuv-a11y-dashboard:
+    image: e2etesting/uuv-a11y-dashboard
+    restart: always
+    ports:
+      - 3000:3000

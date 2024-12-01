@@ -5,6 +5,27 @@
   "root": "packages/docker-images",
   "projectType": "library",
   "targets": {
+    "docker:build:chromium": {
+      "executor": "@nx-tools/nx-container:build",
+      "options": {
+        "target": "chromium",
+        "context": "./packages/docker-images"
+      }
+    },
+    "docker:build:chrome": {
+      "executor": "@nx-tools/nx-container:build",
+      "options": {
+        "target": "chrome",
+        "context": "./packages/docker-images"
+      }
+    },
+    "docker:build": {
+      "executor": "nx:noop",
+      "dependsOn": [
+        "docker:build:chromium",
+        "docker:build:chrome"
+      ]
+    }
   },
   "tags": []
 }

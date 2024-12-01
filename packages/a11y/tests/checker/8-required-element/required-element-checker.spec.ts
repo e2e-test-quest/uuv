@@ -22,10 +22,10 @@ describe("8-required-element", () => {
         return await page.evaluate(async (url, enabledRules) => {
             // @ts-ignore
             const rgaaChecker = new uuvA11y.RgaaChecker(url, enabledRules);
-            const result = await rgaaChecker.validate().toPromise();
+            const usecaseResult = await rgaaChecker.validate().toPromise();
             return {
-                result: result,
-                summary: result.summary()
+                result: usecaseResult.result,
+                summary: usecaseResult.result.rawResult.summary()
             };
         }, url, enabledRules);
     }
@@ -34,7 +34,7 @@ describe("8-required-element", () => {
         await initA11yOnPage(nonCompliantPage);
         const { result, summary } = await validateA11y(page.url(), ["8.1"]);
         expect(result.status).toEqual(A11yResultStatus.ERROR);
-        const [_8_1_1, _8_1_2, _8_1_3] = result.ruleResults;
+        const [_8_1_1, _8_1_2, _8_1_3] = result.rawResult.ruleResults;
         checkTest(_8_1_1, "8.1.1",
             A11yResultStatus.ERROR,
             [
@@ -78,7 +78,7 @@ describe("8-required-element", () => {
         await initA11yOnPage("html-without-lang.html");
         const { result, summary } = await validateA11y(page.url(), ["8.3"]);
         expect(result.status).toEqual(A11yResultStatus.ERROR);
-        const [_8_3_1] = result.ruleResults;
+        const [_8_3_1] = result.rawResult.ruleResults;
         checkTest(_8_3_1, "8.3.1",
             A11yResultStatus.ERROR,
             [
@@ -104,7 +104,7 @@ describe("8-required-element", () => {
         await initA11yOnPage(nonCompliantPage);
         const { result, summary } = await validateA11y(page.url(), ["8.3"]);
         expect(result.status).toEqual(A11yResultStatus.SUCCESS);
-        const [_8_3_1] = result.ruleResults;
+        const [_8_3_1] = result.rawResult.ruleResults;
         checkTest(_8_3_1, "8.3.1",
             A11yResultStatus.SUCCESS
         );
@@ -127,7 +127,7 @@ describe("8-required-element", () => {
         await initA11yOnPage(nonCompliantPage);
         const { result, summary } = await validateA11y(page.url(), ["8.4"]);
         expect(result.status).toEqual(A11yResultStatus.MANUAL);
-        const [_8_4_1] = result.ruleResults;
+        const [_8_4_1] = result.rawResult.ruleResults;
         checkTest(_8_4_1, "8.4.1",
             A11yResultStatus.MANUAL,
             [],
@@ -154,7 +154,7 @@ describe("8-required-element", () => {
         await initA11yOnPage("html-lang.html");
         const { result, summary } = await validateA11y(page.url(), ["8.5"]);
         expect(result.status).toEqual(A11yResultStatus.ERROR);
-        const [_8_5_1] = result.ruleResults;
+        const [_8_5_1] = result.rawResult.ruleResults;
         checkTest(_8_5_1, "8.5.1",
             A11yResultStatus.ERROR,
             [
@@ -180,7 +180,7 @@ describe("8-required-element", () => {
         await initA11yOnPage("html-with-title.html");
         const { result, summary } = await validateA11y(page.url(), ["8.5"]);
         expect(result.status).toEqual(A11yResultStatus.SUCCESS);
-        const [_8_5_1] = result.ruleResults;
+        const [_8_5_1] = result.rawResult.ruleResults;
         checkTest(_8_5_1, "8.5.1",
             A11yResultStatus.SUCCESS
         );
@@ -203,7 +203,7 @@ describe("8-required-element", () => {
         await initA11yOnPage("html-with-title.html");
         const { result, summary } = await validateA11y(page.url(), ["8.6"]);
         expect(result.status).toEqual(A11yResultStatus.MANUAL);
-        const [_8_6_1] = result.ruleResults;
+        const [_8_6_1] = result.rawResult.ruleResults;
         checkTest(_8_6_1, "8.6.1",
             A11yResultStatus.MANUAL,
             [],
@@ -230,7 +230,7 @@ describe("8-required-element", () => {
         await initA11yOnPage("html-with-title.html");
         const { result, summary } = await validateA11y(page.url(), ["8.7"]);
         expect(result.status).toEqual(A11yResultStatus.MANUAL);
-        const [_8_7_1] = result.ruleResults;
+        const [_8_7_1] = result.rawResult.ruleResults;
         checkTest(_8_7_1, "8.7.1",
             A11yResultStatus.MANUAL,
             [],
@@ -257,7 +257,7 @@ describe("8-required-element", () => {
         await initA11yOnPage("html-multi-lang.html");
         const { result, summary } = await validateA11y(page.url(), ["8.8"]);
         expect(result.status).toEqual(A11yResultStatus.MANUAL);
-        const [_8_8_1] = result.ruleResults;
+        const [_8_8_1] = result.rawResult.ruleResults;
         checkTest(_8_8_1, "8.8.1",
             A11yResultStatus.MANUAL,
             [],
@@ -285,7 +285,7 @@ describe("8-required-element", () => {
         await initA11yOnPage("dir.html");
         const { result, summary } = await validateA11y(page.url(), ["8.10"]);
         expect(result.status).toEqual(A11yResultStatus.ERROR);
-        const [_8_10_1, _8_10_2] = result.ruleResults;
+        const [_8_10_1, _8_10_2] = result.rawResult.ruleResults;
         checkTest(_8_10_1, "8.10.1",
             A11yResultStatus.ERROR,
             [

@@ -21,7 +21,7 @@ beforeEach(function () {
 
 after(function () {
     if (shouldGenerateA11yReport()) {
-        cy.showUvvA11yReport(A11yReferenceEnum.RGAA);
+        // cy.showUvvA11yReport(A11yReferenceEnum.RGAA);
     }
     return null;
 });

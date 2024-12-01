@@ -20,17 +20,17 @@
     "paths": {
       "@uuv/a11y": ["packages/a11y/src/index.ts"],
       "@uuv/runner-commons": ["packages/runner-commons/src/index.ts"],
-      "@uuv/runner-commons/wording/mobile": [
-        "packages/runner-commons/src/assets/i18n/mobile/index.ts"
-      ],
-      "@uuv/runner-commons/wording/web": [
-        "packages/runner-commons/src/assets/i18n/web/index.ts"
-      ],
       "@uuv/runner-commons/runner/event": [
         "packages/runner-commons/src/runner/event/index.ts"
       ],
       "@uuv/runner-commons/test": [
         "packages/runner-commons/src/tests/index.ts"
+      ],
+      "@uuv/runner-commons/wording/mobile": [
+        "packages/runner-commons/src/assets/i18n/mobile/index.ts"
+      ],
+      "@uuv/runner-commons/wording/web": [
+        "packages/runner-commons/src/assets/i18n/web/index.ts"
       ],
       "@uuv/runner-cypress": ["packages/runner-cypress/src/index.ts"],
       "@uuv/runner-playwright": ["packages/runner-playwright/src/index.ts"]

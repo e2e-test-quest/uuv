@@ -9,7 +9,6 @@ Feature: Ko
     Then I should see a title named "Welcome to Weather App - ko"
     And I should see a button named "Get started"
 
-  @ko
   Scenario: Weather - Town List must be ok
     # Click on <Get started> button
     When I click on button named "Get started"
@@ -59,3 +58,8 @@ Feature: Ko
     When I click on button named "Start timer"
     And I set timeout with value 9000
     Then I click on button named "Timer ended"
+
+  @ko
+  Scenario: axe core failed
+    When I visit path "https://e2e-test-quest.github.io/weather-app/?isStarted=true"
+    Then I should not have any axe-core accessibility issue

@@ -92,7 +92,8 @@
       },
       "rgaa": {
         "default": "",
-        "defaultWithResult": ""
+        "defaultWithResult": "",
+        "defaultWithResultContaining": ""
       }
     }
   }
