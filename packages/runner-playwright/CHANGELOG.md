@@ -1,3 +1,16 @@
+# [3.22.0](https://github.com/e2e-test-quest/uuv/compare/runner-playwright-v3.21.0...runner-playwright-v3.22.0) (2024-12-01)
+
+
+### Bug Fixes
+
+* **runner-playwright:** update dependency nanoid to v3.3.8 ([1129db9](https://github.com/e2e-test-quest/uuv/commit/1129db97724767746ff6e83e99fcf2a842953ed5))
+* update package-lock.json,[#891](https://github.com/e2e-test-quest/uuv/issues/891) ([db788d0](https://github.com/e2e-test-quest/uuv/commit/db788d08371ef942001b20195ae7313f39c5fea7))
+
+
+### Features
+
+* **runner-playwright:** update dependency typescript to v5.7.2 ([2ca7685](https://github.com/e2e-test-quest/uuv/commit/2ca7685328dd251f74d84c608303bf7fd7c2db85))
+
 # [3.21.0](https://github.com/e2e-test-quest/uuv/compare/runner-playwright-v3.20.0...runner-playwright-v3.21.0) (2024-11-24)
 
 
