@@ -1,3 +1,11 @@
+# [1.0.0-beta.54](https://github.com/e2e-test-quest/uuv/compare/a11y-v1.0.0-beta.53...a11y-v1.0.0-beta.54) (2024-12-01)
+
+
+### Bug Fixes
+
+* **runner-playwright:** update dependency nanoid to v3.3.8 ([1129db9](https://github.com/e2e-test-quest/uuv/commit/1129db97724767746ff6e83e99fcf2a842953ed5))
+* update package-lock.json,[#891](https://github.com/e2e-test-quest/uuv/issues/891) ([db788d0](https://github.com/e2e-test-quest/uuv/commit/db788d08371ef942001b20195ae7313f39c5fea7))
+
 # [1.0.0-beta.53](https://github.com/e2e-test-quest/uuv/compare/a11y-v1.0.0-beta.52...a11y-v1.0.0-beta.53) (2024-11-24)
 
 
