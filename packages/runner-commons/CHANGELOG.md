@@ -1,3 +1,11 @@
+## [2.36.1](https://github.com/e2e-test-quest/uuv/compare/runner-commons-v2.36.0...runner-commons-v2.36.1) (2024-12-01)
+
+
+### Bug Fixes
+
+* **runner-playwright:** update dependency nanoid to v3.3.8 ([1129db9](https://github.com/e2e-test-quest/uuv/commit/1129db97724767746ff6e83e99fcf2a842953ed5))
+* update package-lock.json,[#891](https://github.com/e2e-test-quest/uuv/issues/891) ([db788d0](https://github.com/e2e-test-quest/uuv/commit/db788d08371ef942001b20195ae7313f39c5fea7))
+
 # [2.36.0](https://github.com/e2e-test-quest/uuv/compare/runner-commons-v2.35.0...runner-commons-v2.36.0) (2024-11-24)
 
 
