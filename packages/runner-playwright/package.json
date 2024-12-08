@@ -88,7 +88,7 @@
   },
   "devDependencies": {
     "@types/minimist": "1.2.5",
-    "@types/node": "20.12.12",
+    "@types/node": "22.10.1",
     "chalk": "^4.1.2",
     "cross-env": "7.0.3",
     "eslint-plugin-cucumber": "2.0.0",
