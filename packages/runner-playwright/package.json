@@ -96,6 +96,6 @@
     "eslint-plugin-playwright": "1.8.3",
     "ts-loader": "9.4.2",
     "tsconfig-paths": "4.2.0",
-    "webpack": "5.94.0"
+    "webpack": "5.97.1"
   }
 }
