@@ -85,7 +85,7 @@
     "@testing-library/user-event": "14.5.2",
     "@types/jest": "29.5.14",
     "@types/jquery": "3.5.32",
-    "@types/node": "20.12.12",
+    "@types/node": "22.10.2",
     "@types/react": "18.3.18",
     "@types/react-dom": "18.3.5",
     "@types/styled-components": "5.1.34",
