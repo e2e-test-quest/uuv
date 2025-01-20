@@ -104,7 +104,7 @@
     "@types/node": "20.12.12",
     "chalk": "^4.1.2",
     "cross-env": "7.0.3",
-    "eslint-plugin-cypress": "2.15.2",
+    "eslint-plugin-cypress": "4.1.0",
     "ts-loader": "9.5.2",
     "tsconfig-paths": "4.2.0"
   }
