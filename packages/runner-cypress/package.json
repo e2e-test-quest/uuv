@@ -60,7 +60,7 @@
     "multiple-cucumber-html-reporter": "3.9.0",
     "path-browserify": "^1.0.1",
     "ts-node": "10.9.2",
-    "typescript": "5.7.2",
+    "typescript": "5.7.3",
     "webpack": "5.97.1"
   },
   "types": "./dist/index.d.ts",
