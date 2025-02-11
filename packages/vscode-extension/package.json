@@ -97,7 +97,7 @@
     "webpack-cli": "^5.1.4"
   },
   "dependencies": {
-    "@cucumber/gherkin": "^30.0.0",
+    "@cucumber/gherkin": "^31.0.0",
     "@cucumber/messages": "^27.0.0",
     "@types/node-ipc": "^9.2.3",
     "@uuv/runner-commons": "2.43.0",
