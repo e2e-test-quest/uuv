@@ -61,7 +61,7 @@
     "@uiw/codemirror-theme-github": "^4.22.1",
     "@uiw/react-codemirror": "^4.22.1",
     "@uuv/runner-commons": "2.43.0",
-    "antd": "5.22.7",
+    "antd": "5.24.0",
     "figlet": "1.8.0",
     "inspector-dom": "0.1.1",
     "playwright-chromium": "1.50.1",
