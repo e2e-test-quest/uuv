@@ -104,7 +104,7 @@
     "react-router-dom": "^7.0.0",
     "react-scripts": "^5.0.1",
     "replace-json-property": "1.9.0",
-    "styled-components": "6.1.14",
+    "styled-components": "6.1.15",
     "ts-jest": "29.2.5",
     "ts-loader": "^9.4.2",
     "ts-node": "10.9.2",
