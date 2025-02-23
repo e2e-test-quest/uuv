@@ -26,6 +26,7 @@ class UUVRunSettingsEditor() : SettingsEditor<UUVRunConfiguration>() {
     private lateinit var targetScript: LabeledComponent<ComboBoxWithHistory>
     private lateinit var targetTestFile: LabeledComponent<JTextField>
     private lateinit var specificEnvironmentVariable: EnvironmentVariablesComponent
+    private lateinit var targetBrowser: LabeledComponent<JTextField>
 
     init {
         this.createUIComponents()
@@ -38,6 +39,7 @@ class UUVRunSettingsEditor() : SettingsEditor<UUVRunConfiguration>() {
         targetScript.component.selectedItem = uuvRunConfiguration.targetScript
         targetTestFile.component.text = uuvRunConfiguration.targetTestFile
         specificEnvironmentVariable.envs = UUVUtils.toMap(uuvRunConfiguration.specificEnvironmentVariable)
+        targetBrowser.component.text = uuvRunConfiguration.targetBrowser
     }
 
     private fun getProjectHomeDir(uuvRunConfiguration: UUVRunConfiguration): String? =
@@ -52,6 +54,7 @@ class UUVRunSettingsEditor() : SettingsEditor<UUVRunConfiguration>() {
         uuvRunConfiguration.targetScript = targetScript.component.selectedItem as String
         uuvRunConfiguration.targetTestFile = targetTestFile.component.text
         uuvRunConfiguration.specificEnvironmentVariable = UUVUtils.toJsonString(specificEnvironmentVariable.envs)
+        uuvRunConfiguration.targetBrowser = targetBrowser.component.text
     }
 
     override fun createEditor(): JComponent {
@@ -59,7 +62,7 @@ class UUVRunSettingsEditor() : SettingsEditor<UUVRunConfiguration>() {
     }
 
     private fun createUIComponents() {
-        mainPanel = JPanel(GridLayout(5,1, 0, 3))
+        mainPanel = JPanel(GridLayout(6 ,1, 0, 3))
         val projectHomeDirPanel = JPanel()
         val fileChooser = FileChooserDescriptorFactory.createSingleFolderDescriptor()
         val textFieldWithBrowseButton = TextFieldWithBrowseButton(JTextField(45))
@@ -92,6 +95,12 @@ class UUVRunSettingsEditor() : SettingsEditor<UUVRunConfiguration>() {
         targetTestFilePanel.layout = FlowLayout(FlowLayout.LEFT)
         targetTestFilePanel.add(targetTestFile)
         mainPanel.add(targetTestFilePanel)
+
+        val targetBrowserPanel = JPanel()
+        targetBrowser = LabeledComponent.create(JTextField(10, ), UiMessage.message("runconfiguration.field.targetbrowser"), BorderLayout.WEST)
+        targetBrowserPanel.layout = FlowLayout(FlowLayout.LEFT)
+        targetBrowserPanel.add(targetBrowser)
+        mainPanel.add(targetBrowserPanel)
 
         val specificEnvironmentVariablePanel = JPanel()
         specificEnvironmentVariable = EnvironmentVariablesComponent()

@@ -3,6 +3,8 @@ package com.e2etesting.uuv.intellijplugin.run.configuration
 import com.e2etesting.uuv.intellijplugin.UUVUtils
 import com.e2etesting.uuv.intellijplugin.message.TechMessage
 import com.e2etesting.uuv.intellijplugin.message.UiMessage
+import com.e2etesting.uuv.intellijplugin.model.DEFAULT_TARGET_BROWSER
+import com.e2etesting.uuv.intellijplugin.model.UUVTargetScript
 import com.e2etesting.uuv.intellijplugin.run.console.UUVConsoleProperties
 import com.intellij.execution.DefaultExecutionResult
 import com.intellij.execution.ExecutionException
@@ -55,6 +57,12 @@ class UUVRunConfiguration(project: Project?, factory: ConfigurationFactory?, nam
             options.specificEnvironmentVariable = specificEnvironmentVariable
         }
 
+    var targetBrowser: String?
+        get() = options.targetBrowser
+        set(targetBrowser) {
+            options.targetBrowser = targetBrowser
+        }
+
     override fun getConfigurationEditor(): SettingsEditor<out UUVRunConfiguration?> {
         return UUVRunSettingsEditor()
     }
@@ -97,12 +105,20 @@ class UUVRunConfiguration(project: Project?, factory: ConfigurationFactory?, nam
 
             private fun getCommandLineToExecute(): GeneralCommandLine {
                 val envParameter = TechMessage.message("cmd.parameter.teamcity.enable")
-
                 val parameters: MutableList<String> = arrayOf(envParameter).toMutableList()
+
                 if(this@UUVRunConfiguration.targetTestFile != null) {
                     parameters.add(TechMessage.message("cmd.parameter.targettestfile",
                         this@UUVRunConfiguration.targetTestFile!!
                     ))
+                }
+
+                if(this@UUVRunConfiguration.targetScript != UUVTargetScript.open.toString()) {
+                    val browser = if(this@UUVRunConfiguration.targetBrowser != null)
+                                    this@UUVRunConfiguration.targetBrowser!!
+                                  else
+                                    DEFAULT_TARGET_BROWSER
+                    parameters.add(TechMessage.message("cmd.parameter.targetbrowser", browser))
                 }
 
                 return if (!useLocalScript) {

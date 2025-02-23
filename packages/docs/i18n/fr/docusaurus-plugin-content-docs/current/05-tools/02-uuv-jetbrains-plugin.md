@@ -37,11 +37,12 @@ Une configuration d'exécution UUV contient les paramètres suivants :
 
 ![Custom run configuration](@site/static/img/docs/jetbrain-plugin/run-custom-run-config.png)
 
-| Paramètres            | Obligatoire | Description                                                                                                                               |
-|-----------------------|-------------|-------------------------------------------------------------------------------------------------------------------------------------------|
-| Project Directory     | Oui         | Doit être le répertoire contenant le package.json où la dépendance uuv est installée                                                      |
-| Target script         | Oui         | `open` : pour ouvrir l'interface graphique du runner<br/> `e2e` : pour exécuter les tests (sans interface graphique du runner)            |
-| Use local npm script  | Non         | Cochez cette case si, pour une raison quelconque, vous ne pouvez pas exécuter les scripts **npx** à partir de votre ordinateur            |
+| Paramètres            | Obligatoire | Description                                                                                                                              |
+|-----------------------|-------------|------------------------------------------------------------------------------------------------------------------------------------------|
+| Project Directory     | Oui         | Doit être le répertoire contenant le package.json où la dépendance uuv est installée                                                     |
+| Target script         | Oui         | `open` : pour ouvrir l'interface graphique du runner<br/> `e2e` : pour exécuter les tests (sans interface graphique du runner)           |
+| Use local npm script  | Non         | Cochez cette case si, pour une raison quelconque, vous ne pouvez pas exécuter les scripts **npx** à partir de votre ordinateur           |
 | Target test file      | Non         | **Si vide** : tous les fichiers de test seront inclus<br/>**Si défini** : contient un chemin `specPattern` relatif au paramètre ProjetDir |
-| Environment variables | Non         | Surcharge les variables d'environnements     |
+| Target Browser        | Non         | Valeur par défaut : `chrome`<br/> Navigateur cible pour l'exécution des tests                                                            |
+| Environment variables | Non         | Surcharge les variables d'environnements                                                                                                 |
 
