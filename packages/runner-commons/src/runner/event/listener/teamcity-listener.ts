@@ -70,7 +70,7 @@ export class TeamCityUUVEventListener {
     }
 
     logTeamCity(line) {
-        console.log("newReal" + line);
+        console.log(line);
     }
 
     teamcityFlowId(name) {
