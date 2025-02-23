@@ -54,7 +54,7 @@
     "chokidar": "4.0.1",
     "cucumber-json-report-formatter": "0.1.4",
     "lodash": "^4.17.21",
-    "multiple-cucumber-html-reporter": "3.9.1",
+    "multiple-cucumber-html-reporter": "3.9.0",
     "nanoid": "^3.3.7",
     "playwright-bdd": "^6.5.0",
     "ts-node": "10.9.2",

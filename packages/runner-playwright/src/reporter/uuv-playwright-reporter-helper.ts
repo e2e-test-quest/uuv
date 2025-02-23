@@ -536,6 +536,7 @@ class UuvPlaywrightReporterHelper {
         report.generate({
             jsonDir: reportDirJson,
             reportPath: reportDirHtml,
+            useCDN: true,
             metadata: {
                 browser: {
                     // eslint-disable-next-line @typescript-eslint/ban-ts-comment

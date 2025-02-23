@@ -134,6 +134,7 @@ export class UUVCliCypressRunner implements UUVCliRunner {
         report.generate({
             jsonDir: jsonReportDir,
             reportPath: htmlReportDir,
+            useCDN: true,
             metadata: {
                 browser: {
                     name: options.browser,
