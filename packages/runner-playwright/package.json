@@ -48,7 +48,7 @@
     "@playwright/test": "^1.44.1",
     "@uuv/a11y": "1.0.0-beta.65",
     "@uuv/runner-commons": "2.46.0",
-    "axe-core": "4.10.2",
+    "axe-core": "4.10.3",
     "axe-playwright": "2.1.0",
     "chalk-table": "^1.0.2",
     "chokidar": "4.0.1",
