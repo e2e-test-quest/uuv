@@ -64,7 +64,7 @@
     "antd": "5.24.0",
     "figlet": "1.8.0",
     "inspector-dom": "0.1.1",
-    "playwright-chromium": "1.50.1",
+    "playwright-chromium": "1.51.1",
     "tabbable": "6.2.0"
   },
   "browserslist": {
