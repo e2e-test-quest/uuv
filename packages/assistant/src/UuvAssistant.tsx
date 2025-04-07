@@ -95,7 +95,10 @@ function UuvAssistant(props: UuvAssistantProps) {
       case ActionEnum.WITHIN:
       case ActionEnum.EXPECT:
       case ActionEnum.CLICK:
-        selectionHelper.startSelect();
+        selectionHelper.startSelect(true);
+        break;
+      case ActionEnum.TYPE:
+        selectionHelper.startSelect(false);
         break;
       case ActionEnum.KEYBOARD_GLOBAL_NAVIGATION:
         setDisplayedKeyboardNavigation(KeyboardNavigationModeEnum.NONE);
@@ -285,6 +288,9 @@ function UuvAssistant(props: UuvAssistantProps) {
         }),
         getItem(ActionEnum.WITHIN.toString(), ActionEnum.WITHIN, false, () => {
           handleMouseNavigationChoice(ActionEnum.WITHIN);
+        }),
+        getItem(ActionEnum.TYPE.toString(), ActionEnum.TYPE, false, () => {
+          handleMouseNavigationChoice(ActionEnum.TYPE);
         })
       ]
     ),

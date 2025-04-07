@@ -12,7 +12,7 @@
  */
 
 import { Translator } from "./abstract-translator";
-import { BaseSentence, StepCaseEnum, TranslateSentences } from "./model";
+import { BaseSentence, EnrichedSentence, EnrichedSentenceRole, StepCaseEnum, TranslateSentences } from "./model";
 import { EN_ROLES } from "@uuv/runner-commons/wording/web/en";
 
 const stepCase = StepCaseEnum.WHEN;
@@ -29,7 +29,13 @@ export class TypeTranslator extends Translator {
         accessibleName: string,
         content: string
     ): TranslateSentences {
-        return this.getSentenceFromAccessibleRoleAndName(accessibleRole, accessibleName);
+        const response = this.initResponse();
+        const computedKey = accessibleRole === "textbox" ? "key.when.type" : "key.when.enter";
+        const sentence = this.computeSentenceFromKeyRoleNameAndContent(computedKey, accessibleRole, accessibleName, content);
+        response.sentences = [
+            stepCase + sentence,
+        ];
+        return response;
     }
 
     override getSentenceFromDomSelector(htmlElem: HTMLElement | SVGElement): TranslateSentences {
@@ -38,14 +44,32 @@ export class TypeTranslator extends Translator {
         const sentence = this.computeSentenceFromKeyAndSelector(computedKey, this.getSelector(htmlElem));
         const clickSentence: BaseSentence = this.getSentenceFromKey("key.when.type.withContext");
         const resetContextSentence: BaseSentence = this.getSentenceFromKey("key.when.resetContext");
+        const content = htmlElem instanceof HTMLInputElement || htmlElem instanceof HTMLTextAreaElement ? htmlElem.value : htmlElem.getAttribute("value") ?? htmlElem.firstChild?.textContent?.trim();
         response.sentences = [
             stepCase + sentence,
-            StepCaseEnum.AND + clickSentence.wording.replace("{string}", this.getMockedDataForHtmlElement(htmlElem)),
+            StepCaseEnum.AND + clickSentence.wording.replace("{string}", this.getMockedDataForHtmlElement(htmlElem, content)),
             StepCaseEnum.AND + resetContextSentence.wording
         ];
         return response;
     }
 
+    override computeSentenceFromKeyRoleNameAndContent(computedKey: string, accessibleRole: string, accessibleName: string, content: string) {
+        return this.jsonEnriched.enriched
+            .filter((value: EnrichedSentence) => value.key === computedKey)
+            .map((enriched: EnrichedSentence) => {
+                const sentenceAvailable = enriched.wording;
+                const role = EN_ROLES.filter((role: EnrichedSentenceRole) => role.id === accessibleRole)[0];
+                return sentenceAvailable
+                    .replaceAll("(n)", "")
+                    .replaceAll("$roleName", role?.name ?? accessibleRole)
+                    .replaceAll("$definiteArticle", role?.getDefiniteArticle())
+                    .replaceAll("$indefiniteArticle", role?.getIndefiniteArticle())
+                    .replaceAll("$namedAdjective", role?.namedAdjective())
+                    .replaceAll("$ofDefiniteArticle", role?.getOfDefiniteArticle())
+                    .replace("{string}", `"${content}"`)
+                    .replace("{string}", `"${accessibleName}"`);
+            })[0];
+    }
     private buildSentencesWithRoleAndName(accessibleRole: string, accessibleName: string) {
         const role = EN_ROLES.find(role => role.shouldGenerateTypeSentence && role.id === accessibleRole);
         if (role) {
@@ -75,27 +99,38 @@ export class TypeTranslator extends Translator {
     }
 
     private getMockedDataForAccessibleRole(accessibleRole: string): string {
+        let content = this.selectedHtmlElem instanceof HTMLInputElement || this.selectedHtmlElem instanceof HTMLTextAreaElement ? this.selectedHtmlElem.value : this.selectedHtmlElem.getAttribute("value") ?? this.selectedHtmlElem.firstChild?.textContent?.trim();
+        if (content) {
+            content = "\"" + content + "\"";
+        } else {
+            content = undefined;
+        }
         if (accessibleRole === "spinbutton") {
-            return "\"123\"";
+            return content ?? "\"123\"";
         }
         if (accessibleRole === "slider") {
-            return "\"3\"";
+            return content ?? "\"3\"";
         }
-        return "\"Lorem ipsum\"";
+        return content ?? "\"Lorem ipsum\"";
     }
 
-    private getMockedDataForHtmlElement(htmlElem: HTMLElement | SVGElement): string {
+    private getMockedDataForHtmlElement(htmlElem: HTMLElement | SVGElement, content?: string): string {
+        if (content) {
+            content = "\"" + content + "\"";
+        } else {
+            content = undefined;
+        }
         if (htmlElem.tagName.toLowerCase() === "input") {
             if (htmlElem.getAttribute("type") === "number") {
-                return "\"123\"";
+                return content ?? "\"123\"";
             }
             if (htmlElem.getAttribute("type") === "date") {
-                return "\"30/07/2024\"";
+                return content ?? "\"30/07/2024\"";
             }
             if (htmlElem.getAttribute("type") === "time") {
-                return "\"14:03\"";
+                return content ?? "\"14:03\"";
             }
         }
-        return "\"Lorem ipsum\"";
+        return content ?? "\"Lorem ipsum\"";
     }
 }
