@@ -25,24 +25,30 @@ export abstract class Translator {
         const accessibleName = computeAccessibleName(htmlElem);
         this.selectedHtmlElem = htmlElem;
 
-        let response;
-        if (accessibleRole && accessibleName) {
-            const content = htmlElem.getAttribute("value") ?? htmlElem.firstChild?.textContent?.trim();
-            if (content) {
-                response = this.getSentenceFromAccessibleRoleAndNameAndContent(
-                    accessibleRole,
-                    accessibleName,
-                    content
-                );
+        let response = {
+            suggestion: undefined,
+            sentences: []
+        } as TranslateSentences;
+        if (htmlElem.getAttribute("type") !== "hidden") {
+            if (accessibleRole && accessibleName) {
+                const content = htmlElem instanceof HTMLInputElement || htmlElem instanceof HTMLTextAreaElement ? htmlElem.value : htmlElem.getAttribute("value") ?? htmlElem.firstChild?.textContent?.trim();
+                if (content) {
+                    response = this.getSentenceFromAccessibleRoleAndNameAndContent(
+                        accessibleRole,
+                        accessibleName,
+                        content
+                    );
+                } else {
+                    response = this.getSentenceFromAccessibleRoleAndName(
+                        accessibleRole,
+                        accessibleName
+                    );
+                }
             } else {
-                response = this.getSentenceFromAccessibleRoleAndName(
-                    accessibleRole,
-                    accessibleName
-                );
+                response = this.getSentenceFromDomSelector(htmlElem);
+                response.suggestion = new Suggestion();
             }
-        } else {
-            response = this.getSentenceFromDomSelector(htmlElem);
-            response.suggestion = new Suggestion();
+
         }
         return response;
     }

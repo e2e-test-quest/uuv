@@ -96,7 +96,7 @@ export async function buildResultSentence(
   const sentences: string[] = [];
   let foundSubmitButton = false;
   const promises = formElementForCompletion
-    .filter(element => !isDisabled(element))
+    .filter(element => !isDisabled(element) && !isHidden(element))
     .map(async formElement => {
       if (!isButton(formElement) || (isSubmitButton(formElement) && !foundSubmitButton)) {
         let translator = typeTranslator;
@@ -123,4 +123,7 @@ function isSubmitButton(element: FocusableElement): boolean {
 
 function isDisabled(element: FocusableElement): boolean {
   return (element as HTMLInputElement).disabled;
+}
+function isHidden(element: FocusableElement): boolean {
+  return (element as HTMLInputElement).type === "hidden";
 }

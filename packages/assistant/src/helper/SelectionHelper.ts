@@ -20,6 +20,7 @@ import { Translator } from "../translator/abstract-translator";
 import { ClickTranslator } from "../translator/click-translator";
 import { ExpectTranslator } from "../translator/expect-translator";
 import { WithinTranslator } from "../translator/within-translator";
+import { TypeTranslator } from "../translator/type-translator";
 
 export class SelectionHelper {
     private inspector!: Inspector;
@@ -38,8 +39,10 @@ export class SelectionHelper {
         this.onReset = onReset;
     }
 
-    public startSelect() {
-        this.enableDisabledField();
+    public startSelect(enableDisabledField: boolean) {
+        if (enableDisabledField) {
+            this.enableDisabledField();
+        }
         const onKeyDown = (e: KeyboardEvent) => {
             if (e.key === "Escape") {
                 this.onReset();
@@ -54,7 +57,7 @@ export class SelectionHelper {
 
     public async buildResultSentence(
         el: FocusableElement,
-        action: ActionEnum.EXPECT | ActionEnum.CLICK | ActionEnum.WITHIN,
+        action: ActionEnum.EXPECT | ActionEnum.CLICK | ActionEnum.WITHIN  | ActionEnum.TYPE,
         isDisabled: boolean
     ): Promise<TranslateSentences> {
         let translator: Translator;
@@ -67,6 +70,9 @@ export class SelectionHelper {
             break;
           case ActionEnum.CLICK:
             translator = new ClickTranslator();
+            break;
+          case ActionEnum.TYPE:
+            translator = new TypeTranslator();
             break;
         }
         return translator.translate(el);
