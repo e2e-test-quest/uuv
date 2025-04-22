@@ -31,7 +31,11 @@ export abstract class Translator {
         } as TranslateSentences;
         if (htmlElem.getAttribute("type") !== "hidden") {
             if (accessibleRole && accessibleName) {
-                const content = htmlElem instanceof HTMLInputElement || htmlElem instanceof HTMLTextAreaElement ? htmlElem.value : htmlElem.getAttribute("value") ?? htmlElem.firstChild?.textContent?.trim();
+                const isInputHtmlOrTextArea = htmlElem instanceof HTMLInputElement || htmlElem instanceof HTMLTextAreaElement;
+                const content = isInputHtmlOrTextArea ?
+                    /* eslint-disable  @typescript-eslint/no-explicit-any */
+                    (htmlElem as any).value :
+                    htmlElem.getAttribute("value") ?? htmlElem.firstChild?.textContent?.trim();
                 if (content) {
                     response = this.getSentenceFromAccessibleRoleAndNameAndContent(
                         accessibleRole,

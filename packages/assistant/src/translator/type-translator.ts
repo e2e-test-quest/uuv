@@ -44,7 +44,11 @@ export class TypeTranslator extends Translator {
         const sentence = this.computeSentenceFromKeyAndSelector(computedKey, this.getSelector(htmlElem));
         const clickSentence: BaseSentence = this.getSentenceFromKey("key.when.type.withContext");
         const resetContextSentence: BaseSentence = this.getSentenceFromKey("key.when.resetContext");
-        const content = htmlElem instanceof HTMLInputElement || htmlElem instanceof HTMLTextAreaElement ? htmlElem.value : htmlElem.getAttribute("value") ?? htmlElem.firstChild?.textContent?.trim();
+        const isInputHtmlorTextArea = htmlElem instanceof HTMLInputElement || htmlElem instanceof HTMLTextAreaElement;
+        const content = isInputHtmlorTextArea ?
+            /* eslint-disable  @typescript-eslint/no-explicit-any */
+            (htmlElem as any).value :
+            htmlElem.getAttribute("value") ?? htmlElem.firstChild?.textContent?.trim();
         response.sentences = [
             stepCase + sentence,
             StepCaseEnum.AND + clickSentence.wording.replace("{string}", this.getMockedDataForHtmlElement(htmlElem, content)),
@@ -99,7 +103,11 @@ export class TypeTranslator extends Translator {
     }
 
     private getMockedDataForAccessibleRole(accessibleRole: string): string {
-        let content = this.selectedHtmlElem instanceof HTMLInputElement || this.selectedHtmlElem instanceof HTMLTextAreaElement ? this.selectedHtmlElem.value : this.selectedHtmlElem.getAttribute("value") ?? this.selectedHtmlElem.firstChild?.textContent?.trim();
+        const isInputHtmlOrTextArea = this.selectedHtmlElem instanceof HTMLInputElement || this.selectedHtmlElem instanceof HTMLTextAreaElement;
+        let content = isInputHtmlOrTextArea ?
+            /* eslint-disable  @typescript-eslint/no-explicit-any */
+            (this.selectedHtmlElem as any).value :
+            this.selectedHtmlElem.getAttribute("value") ?? this.selectedHtmlElem.firstChild?.textContent?.trim();
         if (content) {
             content = "\"" + content + "\"";
         } else {

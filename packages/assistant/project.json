@@ -80,7 +80,7 @@
           "packages/assistant/src/**/*.{jsx,tsx}"
         ],
         "fix": true,
-        "eslintConfig": "packages/assistant/.eslintrc.json"
+        "eslintConfig": "packages/assistant/.eslintrc.js"
       }
     },
     "semantic-release": {
