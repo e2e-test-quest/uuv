@@ -42,7 +42,7 @@
     "build-conf": "node compute-conf.js",
     "build-bundle": "node bundle-script.js",
     "package": "npm pack --pack-destination=\"../../dist/packages\"",
-    "lint": "eslint -c .eslintrc.json",
+    "lint": "eslint -c .eslintrc.js",
     "test": "npm run unit-tests && npm run e2e-test:run",
     "unit-tests": "jest --coverage",
     "e2e-test:run": "npm run uuv e2e --",

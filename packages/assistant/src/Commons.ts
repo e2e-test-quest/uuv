@@ -21,6 +21,7 @@ export enum ActionEnum {
   WITHIN = "Within",
   EXPECT = "Expect",
   CLICK = "Click",
+  TYPE = "Type",
   KEYBOARD_GLOBAL_NAVIGATION = "Keyboard Navigation",
   FORM_COMPLETION_MOUSE = "Form Mouse Completion",
   FORM_COMPLETION_KEYBOARD = "Form Keyboard Completion"
