@@ -61,7 +61,7 @@
     "nuxt": "^3.10.0",
     "sass": "1.83.4",
     "ts-node": "10.9.2",
-    "typescript": "5.7.3",
+    "typescript": "5.8.3",
     "vue-tsc": "^2.1.6"
   }
 }
