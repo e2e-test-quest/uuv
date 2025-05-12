@@ -14,7 +14,7 @@
 import { ByRoleOptions } from "@testing-library/cypress";
 import { Context } from "./_context";
 import Chainable = Cypress.Chainable;
-import { KEY_PRESS } from "@uuv/runner-commons";
+import { KEY_PRESS } from "@uuv/runner-commons/step-definition-generator";
 import { A11yReferenceEnum } from "@uuv/a11y";
 
 const contextAlias = "context";

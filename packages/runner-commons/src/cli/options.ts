@@ -10,6 +10,8 @@ export type UUVCliOptions = {
     command: UUV_TARGET_COMMAND;
     browser: string;
     targetTestFile: string;
+    translationFile: string;
+    translations: any;
     report: {
         outputDir: string,
         a11y: {
@@ -25,6 +27,6 @@ export type UUVCliOptions = {
             enabled: boolean,
             outputFile: string
         }
-    },
+    };
     extraArgs: any;
 }

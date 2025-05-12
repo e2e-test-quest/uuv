@@ -26,6 +26,7 @@ import {
 } from "./core-engine";
 import { key } from "@uuv/runner-commons/wording/web";
 import { pressKey } from "./_.common";
+import { Translator } from '@uuv/runner-commons/translator';
 
 // Begin of General Section
 
@@ -60,7 +61,12 @@ Then(
  * key.when.click.description
  * */
 When(`${key.when.click}`, function(name: string) {
-    click("$roleId", name);
+    const translatedName = Translator.translateString(
+      name,
+      Cypress.env("uuvOptions").translations
+    );
+    console.log(`translatedName --> ${translatedName}`);
+    click("$roleId", translatedName);
 });
 
 // End of Click Section

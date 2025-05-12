@@ -11,7 +11,7 @@
  * understanding English or French.
  */
 
-import { DEFAULT_TIMEOUT, IContext } from "@uuv/runner-commons";
+import { DEFAULT_TIMEOUT, IContext } from "@uuv/runner-commons/runner/step-definitions";
 
 
 export class Context implements IContext {

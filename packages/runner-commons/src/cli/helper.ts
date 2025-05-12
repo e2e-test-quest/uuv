@@ -5,6 +5,8 @@ import path from "path";
 import { UUV_TARGET_COMMAND, UUVCliOptions } from "./options";
 import { isEmpty } from "lodash";
 import cp from "child_process";
+import { cosmiconfig } from "cosmiconfig";
+import { Translator } from '../translator';
 
 export class UUVCliHelper {
     /**
@@ -45,14 +47,22 @@ export class UUVCliHelper {
     }
 
     private static getTargetCommand(argv): UUV_TARGET_COMMAND {
-        return UUV_TARGET_COMMAND[(argv._[0] ).toUpperCase()];
+        return UUV_TARGET_COMMAND[(argv._[0]).toUpperCase()];
     }
 
-    static extractArgs(projectDir: string, defaultBrowser): Partial<UUVCliOptions> {
+    static async readUUVConfig(): Promise<Partial<UUVCliOptions>> {
+      const explorer = cosmiconfig("uuv");
+      const configResult = await explorer.search();
+
+      return configResult ? configResult.config : {};
+    }
+
+    static async extractArgs(projectDir: string, defaultBrowser): Promise<Partial<UUVCliOptions>> {
         const argv: any = minimist(process.argv.slice(2));
         const browser = argv.browser ? argv.browser : defaultBrowser;
         const env = argv.env ? JSON.parse(argv.env.replace(/'/g, "\"")) : {};
         const targetTestFile = argv.targetTestFile ? argv.targetTestFile : null;
+        const uuvConfig = await this.readUUVConfig();
 
         const reportDir = path.join(projectDir, "reports");
         // eslint-disable-next-line dot-notation
@@ -60,20 +70,26 @@ export class UUVCliHelper {
         // eslint-disable-next-line dot-notation
         process.env["ENABLE_VSCODE_LISTENER"] = env.enableVsCodeListener;
 
-        return {
+        console.debug(`  -> uuvConfig: ${JSON.stringify(uuvConfig)}`);
+        const translationFile = argv.translationFile ?? uuvConfig.translationFile;
+
+      const processCwd = process.cwd();
+      return {
             // eslint-disable-next-line dot-notation
             baseUrl: process.env["UUV_BASE_URL"],
-            projectDir: process.cwd(),
+            projectDir: processCwd,
             browser,
             extraArgs: env,
             targetTestFile,
             command: this.getTargetCommand(argv),
+            translationFile: translationFile,
+            translations: Translator.readTranslationFile(processCwd, translationFile),
             report: {
                 outputDir: reportDir,
                 a11y: {
                     enabled: argv.generateA11yReport,
                     relativePath: path.join("reports", "a11y-report.json"),
-                    outputFile: path.join(process.cwd(), reportDir, "a11y-report.json")
+                    outputFile: path.join(processCwd, reportDir, "a11y-report.json")
                 },
                 html: {
                     enabled: argv.generateHtmlReport,
@@ -98,6 +114,10 @@ export class UUVCliHelper {
         console.debug(`  -> env: ${JSON.stringify(options.extraArgs)}`);
         if (options.targetTestFile) {
             console.debug(`  -> targetTestFile: ${options.targetTestFile}`);
+        }
+        if (options.translationFile) {
+          console.debug(`  -> translationFile: ${options.translationFile}`);
+          console.debug(`  -> translations: ${JSON.stringify(options.translations)}`);
         }
         console.debug("\n");
     }

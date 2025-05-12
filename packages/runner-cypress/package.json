@@ -107,5 +107,8 @@
     "eslint-plugin-cypress": "4.1.0",
     "ts-loader": "9.5.2",
     "tsconfig-paths": "4.2.0"
+  },
+  "uuv": {
+    "translationFile": "translations/en.json"
   }
 }

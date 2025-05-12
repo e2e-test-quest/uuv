@@ -15,7 +15,7 @@ export class UUVCliEngine {
 
             this.checkArguments();
 
-            const options = UUVCliHelper.extractArgs(this.runner.projectDir, this.runner.defaultBrowser);
+            const options = await UUVCliHelper.extractArgs(this.runner.projectDir, this.runner.defaultBrowser);
 
             UUVCliHelper.printVariables(options);
 

@@ -53,6 +53,15 @@
     <configurationType implementation="com.e2etesting.uuv.intellijplugin.run.configuration.UUVRunConfigurationType"/>
     <runLineMarkerContributor implementationClass="com.e2etesting.uuv.intellijplugin.run.configuration.UUVRunLineMarkerContributor"  language="Gherkin"/>
     <postStartupActivity implementation="com.e2etesting.uuv.intellijplugin.listener.UUVPostStartupActivity"/>
+    <codeInsight.declarativeInlayProvider
+                    language="Gherkin"
+                    implementationClass="com.e2etesting.uuv.intellijplugin.inlayhint.UUVVariableInlayHintProvider"
+                    isEnabledByDefault="true"
+                    group="VARIABLES_GROUP"
+                    providerId="gherkin.variables.inlay"
+                    bundle="messages.uiMessage"
+                    nameKey="gherkin.variables.inlay.provider.name"
+                    descriptionKey="settings.inlay.gherkin.variables.description"/>
   </extensions>
   <actions>
     <group id="com.e2etesting.uuv.intellijplugin.action.group">

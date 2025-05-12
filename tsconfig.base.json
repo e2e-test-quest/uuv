@@ -32,6 +32,15 @@
       "@uuv/runner-commons/wording/web": [
         "packages/runner-commons/src/assets/i18n/web/index.ts"
       ],
+      "@uuv/runner-commons/step-definition-generator": [
+        "packages/runner-commons/src/step-definition-generator/index.ts"
+      ],
+      "@uuv/runner-commons/runner/step-definitions": [
+        "packages/runner-commons/src/runner/step-definitions/index.ts"
+      ],
+      "@uuv/runner-commons/translator": [
+        "packages/runner-commons/src/translator/index.ts"
+      ],
       "@uuv/runner-cypress": ["packages/runner-cypress/src/index.ts"],
       "@uuv/runner-playwright": ["packages/runner-playwright/src/index.ts"]
     }

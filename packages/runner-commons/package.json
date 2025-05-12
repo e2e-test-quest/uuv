@@ -58,6 +58,21 @@
       "require": "./dist/index.js",
       "types": "./dist/index.d.ts"
     },
+    "./step-definition-generator": {
+      "import": "./dist/step-definition-generator/index.js",
+      "require": "./dist/step-definition-generator/index.js",
+      "types": "./dist/step-definition-generator/index.d.ts"
+    },
+    "./runner/step-definitions": {
+      "import": "./dist/runner/step-definitions/index.js",
+      "require": "./dist/runner/step-definitions/index.js",
+      "types": "./dist/runner/step-definitions/index.d.ts"
+    },
+    "./translator": {
+      "import": "./dist/translator/index.js",
+      "require": "./dist/translator/index.js",
+      "types": "./dist/translator/index.d.ts"
+    },
     "./wording/web": {
       "import": "./dist/assets/i18n/web/index.js",
       "require": "./dist/assets/i18n/web/index.js",
