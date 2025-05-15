@@ -1,4 +1,4 @@
-FROM node:22.9.0-bullseye-slim as base
+FROM node:22.15.1-bullseye-slim as base
 
 ENV HOME="/app"
 
