@@ -5,7 +5,7 @@
   "sourceRoot": "packages/a11y-dashboard/src",
   "targets": {
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "outputs": [
         "{options.outputFile}"
       ],
@@ -14,13 +14,14 @@
           "packages/a11y-dashboard/src/**/*.{ts,js,vue}"
         ],
         "fix": false,
-        "eslintConfig": "packages/a11y-dashboard/.eslintrc.json"
+        "eslintConfig": "packages/a11y-dashboard/eslint.config.mjs"
       }
     },
     "docker:build": {
       "executor": "@nx-tools/nx-container:build",
       "options": {
-        "context": "./packages/a11y-dashboard"
+        "context": "./packages/a11y-dashboard",
+        "file": "./packages/a11y-dashboard/Dockerfile"
       }
     }
   }

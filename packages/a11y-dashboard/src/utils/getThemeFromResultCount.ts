@@ -1,4 +1,4 @@
-import { ResultCount } from "../models";
+import type { ResultCount } from "../models";
 
 export default function getThemeFromResultCount(resultCount?: ResultCount): string {
     if(resultCount) {

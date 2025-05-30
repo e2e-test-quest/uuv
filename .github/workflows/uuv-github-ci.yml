@@ -418,6 +418,7 @@ jobs:
         with:
           node-version: ${{env.NODE_VERSION}}
           target: "lint"
+          exclude: "docs"
 
   release:
     if: github.ref == 'refs/heads/main'
@@ -438,6 +439,8 @@ jobs:
         with:
           name: build-artifacts-electron
           path: packages/assistant-electron/dist
+      - name: Install dependencies
+        run: npm install
       - name: Release public packages
         uses: ./.github/actions/nx-run-many
         env:

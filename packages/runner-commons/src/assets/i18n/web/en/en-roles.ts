@@ -16,11 +16,11 @@ class EnAccessibleRole extends AccessibleRole {
         override name: string,
         private definiteArticle: DEFINITE_ARTICLE = DEFINITE_ARTICLE.THE,
         private indefiniteArticle: INDEFINITE_ARTICLE = INDEFINITE_ARTICLE.A,
-        override shouldGenerateClickSentence: boolean = false,
-        override shouldGenerateTypeSentence: boolean = true,
-        override shouldGenerateContainsSentence: boolean = true,
-        override shouldGenerateKeyboardSentence: boolean = false,
-        override shouldGenerateCheckedSentence: boolean = false
+        override shouldGenerateClickSentence = false,
+        override shouldGenerateTypeSentence = true,
+        override shouldGenerateContainsSentence = true,
+        override shouldGenerateKeyboardSentence = false,
+        override shouldGenerateCheckedSentence = false
     ) {
         super();
     }

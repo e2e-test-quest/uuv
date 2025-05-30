@@ -1,7 +1,6 @@
-import { createError, defineEventHandler, getQuery } from 'h3';
+import { createError, defineEventHandler } from 'h3';
 
 export default defineEventHandler(async (event) => {
-  const q = getQuery(event);
   const models = event.context.$models;
   const { App, AccessibilityIssue } = models;
 
@@ -27,6 +26,7 @@ export default defineEventHandler(async (event) => {
       ]
     });
     return apps;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
     throw createError({
       statusCode: 400,

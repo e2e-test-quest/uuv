@@ -23,6 +23,9 @@
       "@uuv/runner-commons/runner/event": [
         "packages/runner-commons/src/runner/event/index.ts"
       ],
+      "@uuv/runner-commons/runner/utils": [
+        "packages/runner-commons/src/runner/utils.ts"
+      ],
       "@uuv/runner-commons/test": [
         "packages/runner-commons/src/tests/index.ts"
       ],

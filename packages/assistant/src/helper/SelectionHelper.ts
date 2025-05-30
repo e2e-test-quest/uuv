@@ -12,7 +12,7 @@
  */
 
 
-import * as Inspector from "inspector-dom";
+import Inspector from "inspector-dom";
 import { FocusableElement } from "tabbable";
 import { TranslateSentences } from "../translator/model";
 import { ActionEnum, UUV_DISABLED_CLASS } from "../Commons";

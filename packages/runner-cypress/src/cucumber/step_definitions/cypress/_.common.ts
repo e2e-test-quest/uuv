@@ -62,8 +62,11 @@ function addContextOptions(context: Context, roleOptions: any): any {
     return Object.assign(roleOptions, retour);
 }
 
-/* eslint-disable  @typescript-eslint/ban-types */
-function abstractFindBy(callBackFunction: Function, inputToSearch: any, inputOptions: any) : Cypress.Chainable<JQuery<HTMLElement>> {
+
+function abstractFindBy(
+    callBackFunction: (inputToSearch: any, options: any) => Cypress.Chainable<JQuery<HTMLElement>>,
+    inputToSearch: any, inputOptions: any
+) : Cypress.Chainable<JQuery<HTMLElement>> {
     return cy.uuvGetContext().then(context => {
         // console.log(contextAlias, context);
         const parentElement = context.withinFocusedElement;

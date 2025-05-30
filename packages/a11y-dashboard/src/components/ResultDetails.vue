@@ -1,6 +1,7 @@
 <script setup lang="ts">
-  import { PropType, ComputedRef, computed } from 'vue';
-  import { Result, ResultCount } from "../models";
+  import { computed } from 'vue';
+  import type { PropType, ComputedRef } from 'vue';
+  import type { Result, ResultCount } from "../models";
 
   createTooltips();
   

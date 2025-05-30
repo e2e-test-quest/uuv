@@ -21,10 +21,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx",
-    "paths": {
-        "@uuv/runner-commons/wording/web/*": ["../runner-commons/src/assets/i18n/web/*"]
-    }
+    "jsx": "react-jsx"
   },
   "include": [
     "src",

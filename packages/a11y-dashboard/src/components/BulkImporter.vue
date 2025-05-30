@@ -31,6 +31,7 @@
             "Content-Type": "application/json",
         }
     })
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     .then((response: any) => {
       if (response?.message === 'Bulk import successful' && !response?.error) {
         notifyResult('success');
