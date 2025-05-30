@@ -80,7 +80,6 @@ function UuvAssistant(props: UuvAssistantProps) {
     return () => {
       reset();
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -124,7 +123,6 @@ function UuvAssistant(props: UuvAssistantProps) {
       default:
         break;
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedAction]);
 
   useEffect(() => {
@@ -156,7 +154,6 @@ function UuvAssistant(props: UuvAssistantProps) {
         endLoading();
       });
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [displayedKeyboardNavigation]);
 
   function onElementSelection(el: HTMLElement) {

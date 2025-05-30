@@ -21,6 +21,7 @@ export default defineEventHandler(async (event) => {
       });
     }
     return result;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
     throw createError({
       statusCode: 400,

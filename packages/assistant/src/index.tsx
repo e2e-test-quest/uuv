@@ -15,8 +15,7 @@ import React from "react";
 import "./index.css";
 import UuvAssistant from "./UuvAssistant";
 import { createRoot } from "react-dom/client";
-// eslint-disable-next-line import/no-webpack-loader-syntax
-import css from "!!css-loader!./UuvAssistant.css";
+import css from './UuvAssistant.css?inline';
 import { UUV_ASSISTANT_BAR_WIDTH } from "./Commons";
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */

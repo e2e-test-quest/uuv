@@ -9,14 +9,16 @@
       "executor": "@nx-tools/nx-container:build",
       "options": {
         "target": "chromium",
-        "context": "./packages/docker-images"
+        "context": "./packages/docker-images",
+        "file": "./packages/docker-images/Dockerfile"
       }
     },
     "docker:build:chrome": {
       "executor": "@nx-tools/nx-container:build",
       "options": {
         "target": "chrome",
-        "context": "./packages/docker-images"
+        "context": "./packages/docker-images",
+        "file": "./packages/docker-images/Dockerfile"
       }
     },
     "docker:build": {

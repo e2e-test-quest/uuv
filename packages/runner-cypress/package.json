@@ -40,11 +40,11 @@
     "verify-report": "jest --runInBand --coverage --config=./jest.config.ts --testPathPattern=src/tests/report",
     "e2e-test:run": "ts-node test.ts e2e",
     "e2e-test:open": "ts-node test.ts open",
-    "test": "npm run unit-test && npm run e2e-test:run",
-    "lint": "eslint -c .eslintrc.json"
+    "test": "npm run unit-tests && npm run e2e-test:run",
+    "lint": "eslint -c .eslintrc.js"
   },
   "dependencies": {
-    "@badeball/cypress-cucumber-preprocessor": "20.1.2",
+    "@badeball/cypress-cucumber-preprocessor": "22.0.1",
     "@cypress/webpack-preprocessor": "6.0.4",
     "@testing-library/cypress": "10.0.3",
     "@uuv/a11y": "1.0.0-beta.69",

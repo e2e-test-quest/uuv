@@ -54,7 +54,7 @@
 
 #uuvAssistantMainBar {
     position: fixed;
-    height: calc(100vh - 30px);
+    height: calc(100vh);
     top: 0;
     right: 0;
     background-color: var(--ua-bg-color);

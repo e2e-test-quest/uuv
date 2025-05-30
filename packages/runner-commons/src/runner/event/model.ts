@@ -1,7 +1,7 @@
 export const UUV_IPC_SERVER_NAME = "uuvIpcServer";
 export const UUV_IPC_PUBLISHER = "uuvIpcPublisher";
 
-export interface UUVEvent {
+export type UUVEvent = {
     type: UUVEventType;
     data: UUVEventProgressStart |
         UUVEventTestSuiteStarted |
@@ -24,41 +24,39 @@ export enum UUVEventType {
     PROGRESS_FINISH = "progressFinish",
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface UUVEventProgressStart {}
+export type UUVEventProgressStart = object;
 
-export interface UUVEventTestSuiteStarted {
+export type UUVEventTestSuiteStarted = {
     testSuiteName: string;
     testSuitelocation: string;
 }
 
-export interface UUVEventTestStarted {
+export type UUVEventTestStarted = {
     testName: string;
     testSuiteName: string;
     testSuitelocation: string;
 }
 
-export interface UUVEventTestFinished {
+export type UUVEventTestFinished = {
     testName: string;
     testSuiteName: string;
     duration: number;
 }
 
-export interface UUVEventTestFailed {
+export type UUVEventTestFailed = {
     testName: string;
     testSuiteName: string;
     duration: number;
 }
 
-export interface UUVEventTestIgnored {
+export type UUVEventTestIgnored = {
     testName: string;
     testSuiteName: string;
     duration?: number;
 }
 
-export interface UUVEventTestSuiteFinished {
+export type UUVEventTestSuiteFinished = {
     testSuiteName: string;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface UUVEventProgressFinish {}
+export type UUVEventProgressFinish = object

@@ -53,6 +53,12 @@
         "buildTargetName": "build",
         "serveTargetName": "serve"
       }
+    },
+    {
+      "plugin": "@nx/eslint/plugin",
+      "options": {
+        "targetName": "lint"
+      }
     }
   ]
 }
