@@ -418,6 +418,7 @@ jobs:
         with:
           node-version: ${{env.NODE_VERSION}}
           target: "lint"
+          exclude: "docs"
 
   release:
     if: github.ref == 'refs/heads/main'

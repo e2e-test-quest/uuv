@@ -1,12 +1,13 @@
-{
+module.exports = {
     "env": {
         "browser": true,
-        "es2021": true
+        "es2021": true,
+        "cypress/globals": true
     },
     "extends": [
         "eslint:recommended",
-        "plugin:@typescript-eslint/recommended",
-        "plugin:playwright/playwright-test"
+        "plugin:@nx/typescript",
+        "plugin:cypress/recommended"
     ],
     "overrides": [
         {
@@ -19,7 +20,26 @@
             "files": ["**/base-check-engine.ts", "**/based-role-check-engine.ts"],
             "rules": {
                 "cucumber/expression-type": "off",
-                "playwright/no-standalone-expect": "off"
+                "cucumber/async-then": "off"
+            }
+        },
+        {
+            "files": ["**/commands.ts"],
+            "rules": {
+                "@typescript-eslint/no-namespace": "off"
+            }
+        },
+        {
+            "files": ["**/*.ts"],
+            "rules": {
+                "cypress/no-assigning-return-values": "off",
+                "@typescript-eslint/no-var-requires": "off"
+            }
+        },
+        {
+            "files": ["**/uuv-cli.ts"],
+            "rules": {
+                "@typescript-eslint/no-var-requires": "off"
             }
         }
     ],
@@ -29,9 +49,8 @@
         "sourceType": "module"
     },
     "plugins": [
-        "@typescript-eslint",
-        "cucumber",
-        "jest"
+        "cypress",
+        "cucumber"
     ],
     "rules": {
         "no-negated-in-lhs": "error",
@@ -91,7 +110,7 @@
         ],
         "space-infix-ops": "error",
         "eol-last": "error",
-        "linebreak-style": ["error", "unix"],
+        "linebreak-style": ["error", process.platform === "win32" ? "windows" : "unix"],
         "no-with": "error",
         "brace-style": "error",
         "space-before-function-paren": ["off"],
@@ -111,14 +130,15 @@
             }
         ],
         "no-multiple-empty-lines": 2,
+        "cypress/no-assigning-return-values": "error",
+        "cypress/no-unnecessary-waiting": "error",
+        "cypress/assertion-before-screenshot": "warn",
+        "cypress/no-force": "warn",
+        "cypress/no-async-tests": "error",
+        "cypress/no-pause": "error",
         "cucumber/async-then": 2,
-         "cucumber/expression-type": 2,
-        "cucumber/no-restricted-tags": [2, "wip", "broken", "foo"],
-        "cucumber/no-arrow-functions": 2,
-      "jest/no-disabled-tests": "warn",
-      "jest/no-focused-tests": "error",
-      "jest/no-identical-title": "error",
-      "jest/prefer-to-have-length": "warn",
-      "jest/valid-expect": "error"
+        "cucumber/expression-type": 2,
+        "cucumber/no-restricted-tags": "off",
+        "cucumber/no-arrow-functions": 2
     }
-}
+};

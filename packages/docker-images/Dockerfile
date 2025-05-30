@@ -1,4 +1,4 @@
-FROM node:22.2.0-bookworm-slim as base
+FROM node:22.2.0-bookworm-slim AS base
 
 ENV PROJECT_WORKSPACE="/workspace"
 ADD uuv-command-builder.sh /
@@ -9,7 +9,7 @@ RUN mkdir $PROJECT_WORKSPACE && \
 
 WORKDIR $PROJECT_WORKSPACE
 
-FROM base as chromium
+FROM base AS chromium
 RUN apt-get update && \
     apt-get -y install --no-install-recommends \
         chromium \
@@ -19,7 +19,7 @@ RUN apt-get update && \
     chromium --version && \
     rm -rf /var/lib/apt/lists/*
 
-FROM base as chrome
+FROM base AS chrome
 RUN apt-get update && \
     apt-get -y install --no-install-recommends \
         libgtk2.0-0 \

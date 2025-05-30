@@ -1,6 +1,6 @@
 <script setup lang="ts">
-  import { PropType } from 'vue';
-  import { ResultCount } from "../models";
+  import type { PropType } from 'vue';
+  import type { ResultCount } from "../models";
 
   createTooltips();
   
@@ -32,7 +32,7 @@
     <div class="card-footer d-flex justify-content-between align-items-end">
       <span class="small" v-if="props.lastRunDate">{{$t("card.lastRun")}}<span class="fw-bold">{{toFormattedDate(props.lastRunDate)}}</span></span>
       <span class="small fw-bold" v-else>{{$t("card.noRunYet")}}</span>
-      <RouterLink v-if="props.openLink" :to="props.openLink" :class="'btn btn-primary btn-sm'"><i class="bi bi-eye-fill me-1" aria-hidden></i>{{$t("card.actionButton")}}</RouterLink>
+      <RouterLink v-if="props.openLink" :to="props.openLink" :class="'btn btn-primary btn-sm d-flex'"><i class="bi bi-eye-fill me-1" aria-hidden></i>{{$t("card.actionButton")}}</RouterLink>
     </div>
   </div>
 </template>

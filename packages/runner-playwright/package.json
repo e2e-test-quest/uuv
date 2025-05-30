@@ -40,11 +40,11 @@
     "verify-report": "jest --runInBand --coverage --config=./jest.config.ts --testPathPattern=src/tests/report",
     "e2e-test:run": "ts-node test.ts e2e",
     "e2e-test:open": "ts-node test.ts open --",
-    "test": "npm run unit-test && npm run e2e-test:run"
+    "test": "npm run unit-tests && npm run e2e-test:run"
   },
   "dependencies": {
-    "@cucumber/tag-expressions": "^6.0.0",
     "@cucumber/cucumber": "11.0.1",
+    "@cucumber/tag-expressions": "^6.0.0",
     "@playwright/test": "^1.44.1",
     "@uuv/a11y": "1.0.0-beta.69",
     "@uuv/runner-commons": "2.49.0",
@@ -93,6 +93,7 @@
     "@types/node": "20.12.12",
     "chalk": "^4.1.2",
     "cross-env": "7.0.3",
+    "eslint": "9.27.0",
     "eslint-plugin-cucumber": "2.0.0",
     "eslint-plugin-jest": "27.9.0",
     "eslint-plugin-playwright": "2.2.0",

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { PropType } from 'vue';
+  import type { PropType } from 'vue';
   
   const props = defineProps({
     items:  Object as PropType<{label: string, url: string}[]>

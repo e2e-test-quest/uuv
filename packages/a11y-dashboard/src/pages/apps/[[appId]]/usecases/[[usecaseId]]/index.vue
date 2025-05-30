@@ -1,5 +1,6 @@
 <script setup lang="ts">
-  import { reactive, computed, ComputedRef } from 'vue';
+  import type { ComputedRef } from 'vue';
+  import { reactive, computed } from 'vue';
   import 'chartjs-adapter-moment';
   import {
     Chart as ChartJS,
@@ -10,13 +11,16 @@
     LineElement,
     Title,
     Tooltip,
-    Legend,
+    Legend
+  } from 'chart.js';
+  import type {
     ChartData,
     Point,
     ChartOptions
   } from 'chart.js';
   import { Line } from 'vue-chartjs';
-  import { App, Result, Usecase, DEFAULT_DATE_FORMAT } from '../../../../../models';
+  import { DEFAULT_DATE_FORMAT } from '../../../../../models';
+  import type { App, Result, Usecase } from '../../../../../models';
   import { useRoute } from 'vue-router';
 
   definePageMeta({

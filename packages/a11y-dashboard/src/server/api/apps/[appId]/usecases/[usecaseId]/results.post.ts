@@ -32,6 +32,7 @@ export default defineEventHandler(async (event) => {
 
     setResponseStatus(event, 201);
     return result;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
     await transaction.rollback();
     throw createError({

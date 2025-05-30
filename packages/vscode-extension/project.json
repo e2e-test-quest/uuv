@@ -23,6 +23,19 @@
         "^build"
       ]
     },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": [
+        "{options.outputFile}"
+      ],
+      "options": {
+        "lintFilePatterns": [
+          "packages/vscode-extension/src/**/*.{ts,js,feature}"
+        ],
+        "fix": false,
+        "eslintConfig": "packages/vscode-extension/.eslintrc.js"
+      }
+    },
     "semantic-release": {
       "executor": "@theunderscorer/nx-semantic-release:semantic-release",
       "options": {

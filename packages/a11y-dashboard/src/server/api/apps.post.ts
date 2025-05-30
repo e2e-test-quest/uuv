@@ -9,6 +9,7 @@ export default defineEventHandler(async (event) => {
     const appData = await App.create(body);
     setResponseStatus(event, 201);
     return appData;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
     throw createError({
       statusCode: 400,

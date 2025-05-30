@@ -11,6 +11,7 @@ import { UuvCustomFormatter } from "./uuv-custom-formatter";
 import parseTagsExpression from "@cucumber/tag-expressions";
 import path from "path";
 import { UUVEventEmitter } from "@uuv/runner-commons/runner/event";
+import { updateChartJsVersion } from "@uuv/runner-commons/runner/utils";
 
 
 const NANOS_IN_SECOND = 1000000000;
@@ -551,6 +552,7 @@ class UuvPlaywrightReporterHelper {
                 },
             },
         });
+        updateChartJsVersion(reportDirHtml, "2.5.0", "2.6.0");
     }
 
     private async generateHtmlReport() {

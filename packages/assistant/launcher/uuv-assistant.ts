@@ -33,6 +33,7 @@ export class UuvAssistant {
             `var translator = ${translatorFn.toString()}; console.log('translator'); console.log(translator);` :
             "var translator = null;";
 
+        console.log(`${translatorDeclaration} - ${__dirname}${conf.unifiedFile}`);
         await browserContext.addInitScript({
             content: `${translatorDeclaration}`
         });

@@ -1,11 +1,11 @@
 {
   "root": true,
-  "plugins": ["@nrwl/nx"],
+  "plugins": ["@nx/eslint-plugin"],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
-        "@nrwl/nx/enforce-module-boundaries": [
+        "@nx/enforce-module-boundaries": [
           "error",
           {
             "enforceBuildableLibDependency": true,
@@ -13,7 +13,8 @@
               "nanoid",
               "@cucumber/cucumber",
               "@cucumber/messages",
-              "@cucumber/gherkin"
+              "@cucumber/gherkin",
+              "@uuv/a11y"
             ],
             "depConstraints": [
               {
@@ -24,16 +25,6 @@
           }
         ]
       }
-    },
-    {
-      "files": ["*.ts", "*.tsx"],
-      "extends": ["plugin:@nrwl/nx/typescript"],
-      "rules": {}
-    },
-    {
-      "files": ["*.js", "*.jsx"],
-      "extends": ["plugin:@nrwl/nx/javascript"],
-      "rules": {}
     },
     {
       "files": ["*.spec.ts", "*.spec.tsx", "*.spec.js", "*.spec.jsx"],

@@ -34,7 +34,7 @@
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "outputs": [
         "{options.outputFile}"
       ],
@@ -43,7 +43,7 @@
           "packages/runner-playwright/src/**/*.{ts,js,feature}"
         ],
         "fix": false,
-        "eslintConfig": "packages/runner-playwright/.eslintrc.json",
+        "eslintConfig": "packages/runner-playwright/.eslintrc.js",
         "ignorePath": "packages/runner-playwright/.eslintignore"
       }
     },

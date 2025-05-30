@@ -5,9 +5,8 @@ module.exports = {
     },
     "extends": [
         "eslint:recommended",
-        "plugin:@typescript-eslint/recommended",
+        "plugin:@nx/typescript",
         "plugin:react/recommended",
-        "react-app"
     ],
     "overrides": [
         {
@@ -23,7 +22,6 @@ module.exports = {
         "sourceType": "module"
     },
     "plugins": [
-        "@typescript-eslint",
         "jest",
         "react"
     ],
@@ -104,6 +102,6 @@ module.exports = {
                 "nonwords": false
             }
         ],
-        "no-multiple-empty-lines": 2
+        "no-multiple-empty-lines": 2,
     }
 }

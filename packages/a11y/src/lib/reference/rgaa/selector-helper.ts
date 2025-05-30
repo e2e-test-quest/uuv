@@ -29,7 +29,7 @@
 
  /** CSS SELECTOR HELPER *******/
  class CssSelectorRule {
-   constructor(readonly attributes: string[], readonly selector: string = "", readonly role: string = selector) {
+   constructor(readonly attributes: string[], readonly selector = "", readonly role: string = selector) {
      this.selector = selector;
      this.role = role;
      this.attributes = attributes;

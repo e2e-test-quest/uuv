@@ -42,7 +42,9 @@ export type AccessibilityIssue = {
     type: IssueType;
     code: string;
     message: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     selector: any | null;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     domElement: any | null;
     runnerExtras: RunnerExtras;
 };

@@ -65,6 +65,7 @@ export default defineEventHandler(async (event) => {
       // Return success response
       setResponseStatus(event, 201);
       return { message: 'Bulk import successful' };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
       // Rollback the transaction in case of an error
       await transaction.rollback();

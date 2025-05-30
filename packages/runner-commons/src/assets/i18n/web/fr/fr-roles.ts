@@ -17,11 +17,11 @@ class FrAccessibleRole extends AccessibleRole {
         override name: string,
         private definiteArticle: FR_DEFINITE_ARTICLE,
         private indefiniteArticle: FR_INDEFINITE_ARTICLE,
-        override shouldGenerateClickSentence: boolean = false,
-        override shouldGenerateTypeSentence: boolean = true,
-        override shouldGenerateContainsSentence: boolean = true,
-        override shouldGenerateKeyboardSentence: boolean = false,
-        override shouldGenerateCheckedSentence: boolean = false
+        override shouldGenerateClickSentence = false,
+        override shouldGenerateTypeSentence = true,
+        override shouldGenerateContainsSentence = true,
+        override shouldGenerateKeyboardSentence = false,
+        override shouldGenerateCheckedSentence = false
     ) {
         super();
     }

@@ -1,8 +1,7 @@
 <script setup lang="ts">
-  import { reactive } from 'vue';
+  import { reactive, computed } from 'vue';
   import { useRoute } from 'vue-router';
-  import { App, Usecase } from '../../../models';
-  import { computed } from 'vue';
+  import type { App, Usecase } from '../../../models';
 
   definePageMeta({
     middleware: [
