@@ -1,3 +1,11 @@
+# [1.0.0-beta.70](https://github.com/e2e-test-quest/uuv/compare/a11y-v1.0.0-beta.69...a11y-v1.0.0-beta.70) (2025-06-01)
+
+
+### Features
+
+* **assistant:** fix assistant uuv test, [#1006](https://github.com/e2e-test-quest/uuv/issues/1006) ([d670572](https://github.com/e2e-test-quest/uuv/commit/d6705723ef7f6f94962b63d52788db721c80c2e2))
+* update cypress to v14, nx to v21, eslint to v9 and move assitant builder to vite ([acb7240](https://github.com/e2e-test-quest/uuv/commit/acb7240b160084c77de27cb6c9effd774dd015c2))
+
 # [1.0.0-beta.69](https://github.com/e2e-test-quest/uuv/compare/a11y-v1.0.0-beta.68...a11y-v1.0.0-beta.69) (2025-05-11)
 
 
