@@ -1,3 +1,10 @@
+# [3.36.0](https://github.com/e2e-test-quest/uuv/compare/runner-playwright-v3.35.1...runner-playwright-v3.36.0) (2025-06-01)
+
+
+### Features
+
+* update cypress to v14, nx to v21, eslint to v9 and move assitant builder to vite ([acb7240](https://github.com/e2e-test-quest/uuv/commit/acb7240b160084c77de27cb6c9effd774dd015c2))
+
 ## [3.35.1](https://github.com/e2e-test-quest/uuv/compare/runner-playwright-v3.35.0...runner-playwright-v3.35.1) (2025-05-13)
 
 

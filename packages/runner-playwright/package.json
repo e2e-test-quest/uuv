@@ -1,6 +1,6 @@
 {
   "name": "@uuv/playwright",
-  "version": "3.35.1",
+  "version": "3.36.0",
   "type": "commonjs",
   "author": "Louis Fredice NJAKO MOLOM (https://github.com/luifr10) & Stanley SERVICAL (https://github.com/stanlee974)",
   "description": "A solution to facilitate the writing and execution of E2E tests understandable by any human being using cucumber(BDD) and playwright",
@@ -46,7 +46,7 @@
     "@cucumber/cucumber": "11.0.1",
     "@cucumber/tag-expressions": "^6.0.0",
     "@playwright/test": "^1.44.1",
-    "@uuv/a11y": "1.0.0-beta.69",
+    "@uuv/a11y": "1.0.0-beta.70",
     "@uuv/runner-commons": "2.49.0",
     "axe-core": "4.10.3",
     "axe-playwright": "2.1.0",
