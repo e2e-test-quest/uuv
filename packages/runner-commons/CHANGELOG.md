@@ -1,3 +1,11 @@
+# [2.50.0](https://github.com/e2e-test-quest/uuv/compare/runner-commons-v2.49.0...runner-commons-v2.50.0) (2025-06-01)
+
+
+### Features
+
+* **assistant:** fix assistant uuv test, [#1006](https://github.com/e2e-test-quest/uuv/issues/1006) ([d670572](https://github.com/e2e-test-quest/uuv/commit/d6705723ef7f6f94962b63d52788db721c80c2e2))
+* update cypress to v14, nx to v21, eslint to v9 and move assitant builder to vite ([acf7a37](https://github.com/e2e-test-quest/uuv/commit/acf7a370a633e5bab196c006f3ec63ac494000a0))
+
 # [2.49.0](https://github.com/e2e-test-quest/uuv/compare/runner-commons-v2.48.0...runner-commons-v2.49.0) (2025-05-11)
 
 
