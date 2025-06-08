@@ -158,9 +158,8 @@ Ajouter un nouveau fichier `tsconfig.e2e.json` pour inclure les types nécessair
 Créer un fichier `.ts` ou `.js` dans le dossier `uuv/cucumber/step_definitions/`.<br/>
 Voici un exemple :
 ```typescript title='uuv/cucumber/step_definitions/my-custom-step-definitions.ts'
-import {Given, When, Then} from "@cucumber/cucumber";
 import { expect } from "@playwright/test";
-import { World } from "@uuv/playwright";
+import { World, Given, Then } from "@uuv/playwright";
 
 Given('My first custom step definition', async function () {
     const myVar = 'foo';

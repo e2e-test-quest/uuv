@@ -12,7 +12,6 @@
  */
 
 import { key } from "@uuv/runner-commons/wording/web";
-import { Then, When } from "@cucumber/cucumber";
 import {
   click,
   COOKIE_NAME,
@@ -29,7 +28,7 @@ import {
   notFoundWithRoleAndName,
   withinRoleAndName
 } from "./core-engine";
-import { World } from "../../preprocessor/run/world";
+import { Then, When } from "../../preprocessor/run/world";
 import { expect } from "@playwright/test";
 
 // Begin of General Section
@@ -37,14 +36,14 @@ import { expect } from "@playwright/test";
 /**
  * key.when.withinElement.roleAndName.description
  * */
-When(`${key.when.withinElement.roleAndName}`, async function(this: World, name: string) {
+When(`${key.when.withinElement.roleAndName}`, async function(name: string) {
   return await withinRoleAndName(this, "$roleId", name);
 });
 
 /**
  * key.then.element.withRoleAndName.description
  * */
-Then(`${key.then.element.withRoleAndName}`, async function(this: World, name: string) {
+Then(`${key.then.element.withRoleAndName}`, async function(name: string) {
   await findWithRoleAndName(this, "$roleId", name);
 });
 
@@ -53,7 +52,7 @@ Then(`${key.then.element.withRoleAndName}`, async function(this: World, name: st
  * */
 Then(
  `${key.then.element.not.withRoleAndName}`,
- async function(this: World, name: string) {
+ async function(name: string) {
    await notFoundWithRoleAndName(this, "$roleId", name);
  }
 );
@@ -64,7 +63,7 @@ Then(
 /**
  * key.when.click.description
  * */
-When(`${key.when.click}`, async function(this: World, name: string) {
+When(`${key.when.click}`, async function(name: string) {
     await click(this, "$roleId", name);
 });
 
@@ -75,7 +74,7 @@ When(`${key.when.click}`, async function(this: World, name: string) {
 /**
  * key.when.type.description
  * */
-When(`${key.when.type}`, async function(this: World, textToType: string, name: string) {
+When(`${key.when.type}`, async function(textToType: string, name: string) {
   await getPageOrElement(this).then(async (element) => {
     const byRole = await element.getByRole("$roleId", { name: name, exact: true });
     await expect(byRole).toHaveCount(1, { timeout: await getTimeout(this) });
@@ -87,7 +86,7 @@ When(`${key.when.type}`, async function(this: World, textToType: string, name: s
 /**
  * key.when.enter.description
  * */
-When(`${key.when.enter}`, async function(this: World, textToType: string, name: string) {
+When(`${key.when.enter}`, async function(textToType: string, name: string) {
     await getPageOrElement(this).then(async (element) => {
         const byRole = await element.getByRole("$roleId", { name: name, includeHidden: true, exact: true });
         await expect(byRole).toHaveCount(1);
@@ -104,7 +103,7 @@ When(`${key.when.enter}`, async function(this: World, textToType: string, name: 
  * */
 Then(
  `${key.then.element.withRoleAndNameAndContent}`,
- async function(this: World, name: string, expectedTextContent: string) {
+ async function(name: string, expectedTextContent: string) {
    await findWithRoleAndNameAndContent(this, "$roleId", name, expectedTextContent);
  }
 );
@@ -114,7 +113,7 @@ Then(
  * */
 Then(
  `${key.then.element.withRoleAndNameAndContentDisabled}`,
- async function(this: World, name: string, expectedTextContent: string) {
+ async function(name: string, expectedTextContent: string) {
    await findWithRoleAndNameAndContentDisable(this, "$roleId", name, expectedTextContent);
  }
 );
@@ -124,7 +123,7 @@ Then(
  * */
 Then(
  `${key.then.element.withRoleAndNameAndContentEnabled}`,
- async function(this: World, name: string, expectedTextContent: string) {
+ async function(name: string, expectedTextContent: string) {
    await findWithRoleAndNameAndContentEnable(this, "$roleId", name, expectedTextContent);
  }
 );
@@ -138,7 +137,7 @@ Then(
  * */
 Then(
  `${key.then.element.withRoleAndNameFocused}`,
- async function(this: World, name: string) {
+ async function(name: string) {
    await findWithRoleAndNameFocused(this, "$roleId", name);
  }
 );
@@ -148,7 +147,7 @@ Then(
  * */
 Then(
  `${key.then.element.previousWithRoleAndNameFocused}`,
- async function(this: World, name: string) {
+ async function(name: string) {
    await this.page.keyboard.press("ShiftLeft+Tab");
    await findWithRoleAndNameFocused(this, "$roleId", name);
  }
@@ -159,7 +158,7 @@ Then(
  * */
 Then(
  `${key.then.element.nextWithRoleAndNameFocused}`,
- async function(this: World, name: string) {
+ async function(name: string) {
    await this.page.keyboard.press("Tab");
    await findWithRoleAndNameFocused(this, "$roleId", name);
  }
@@ -173,7 +172,7 @@ Then(
  * */
 Then(
   `${key.then.element.withRoleAndNameAndChecked}`,
-  async function(this: World, name: string) {
+  async function(name: string) {
     await findWithRoleAndNameAndChecked(this, "$roleId", name);
   }
 );
@@ -183,7 +182,7 @@ Then(
 * */
 Then(
   `${key.then.element.withRoleAndNameAndUnchecked}`,
-  async function(this: World, name: string) {
+  async function(name: string) {
     await findWithRoleAndNameAndUnchecked(this, "$roleId", name);
   }
 );

@@ -5,7 +5,7 @@ export default defineConfig({
   testDir: buildConfig(
       ["e2e/*.feature"],
       [
-        "cucumber/step_definitions/**/*.{js,ts}",
+        "../../../node_modules/@uuv/playwright/dist/cucumber/preprocessor/index.js",
         "../../../node_modules/@uuv/playwright/dist/cucumber/step_definitions/playwright/**/*.js"
       ]
   ),

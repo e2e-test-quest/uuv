@@ -14,8 +14,12 @@ import { UUVListenerHelper } from "@uuv/runner-commons";
 export default defineConfig({
   testDir: buildConfig(
       ["e2e/*.feature"],
-      [ "src/cucumber/step_definitions/playwright/**/*.{ts,js}" ],
-      "tests/.features-gen"
+      [
+        "src/cucumber/preprocessor/index.ts",
+        "src/cucumber/step_definitions/playwright/**/*.{ts,js}"
+      ],
+      "tests/.features-gen",
+      "e2e"
   ),
   testMatch: ["**/*.spec.ts", "**/*.{ts,js}"],
   /* Run tests in files in parallel */

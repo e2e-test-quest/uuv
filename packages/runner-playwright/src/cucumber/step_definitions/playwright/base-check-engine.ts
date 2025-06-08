@@ -16,7 +16,7 @@ import { key } from "@uuv/runner-commons/wording/web";
 import { checkA11y, injectAxe } from "axe-playwright";
 import { devices, expect } from "@playwright/test";
 import { Locator, Page } from "playwright";
-import { DataTable, Given, Then, When } from "@cucumber/cucumber";
+import { DataTable } from "@cucumber/cucumber";
 import {
     addCookie,
     click,
@@ -37,14 +37,14 @@ import {
     withinRoleAndName,
     getTimeout
 } from "./core-engine";
-import { World } from "../../preprocessor/run/world";
+import { World, Given, Then, When } from "../../preprocessor/run/world";
 import { ContextObject, RunOptions } from "axe-core";
 import path from "path";
 
 /**
  * key.given.viewport.preset.description
  * */
-Given(`${key.given.viewport.preset}`, async function(this: World, viewportPreset: string) {
+Given(`${key.given.viewport.preset}`, async function(viewportPreset: string) {
   await this.page.setViewportSize(devices[viewportPreset].viewport);
 });
 
@@ -53,7 +53,7 @@ Given(`${key.given.viewport.preset}`, async function(this: World, viewportPreset
  * */
 Given(
  `${key.given.viewport.withWidthAndHeight}`, async function
- (this: World, width: number, height: number) {
+ (width: number, height: number) {
    await this.page.setViewportSize({ width: width, height: height });
  }
 );
@@ -63,7 +63,7 @@ Given(
  * */
 Given(
  `${key.given.keyboard.startNavigationFromTheTop}`,
- async function(this: World) {
+ async function() {
    await this.page.mouse.click(0.5, 0.5);
  }
 );
@@ -71,7 +71,7 @@ Given(
 /**
  * key.when.visit.description
  * */
-Given(`${key.when.visit}`, { timeout: 60 * 1000 }, async function(this: World, siteUrl: string) {
+Given(`${key.when.visit}`, async function(siteUrl: string) {
   await deleteCookieByName(this, COOKIE_NAME.SELECTED_ELEMENT);
   await this.page.goto(`${siteUrl}`);
 });
@@ -79,7 +79,7 @@ Given(`${key.when.visit}`, { timeout: 60 * 1000 }, async function(this: World, s
 /**
  * key.when.click.withContext.description
  * */
-When(`${key.when.click.withContext}`, async function(this: World) {
+When(`${key.when.click.withContext}`, async function() {
   const keyBoardFocusTargetObj = keyBoardFocusTarget(this);
   if ((await keyBoardFocusTargetObj.count()) === 1) {
     await keyBoardFocusTargetObj.click({ timeout: DEFAULT_TIMEOUT });
@@ -91,7 +91,7 @@ When(`${key.when.click.withContext}`, async function(this: World) {
 /**
  * key.when.click.withRole.description
  * */
-When(`${key.when.click.withRole}`, async function(this: World, role: string, name: string) {
+When(`${key.when.click.withRole}`, async function(role: string, name: string) {
   await click(this, role, name);
 });
 
@@ -99,7 +99,7 @@ When(`${key.when.click.withRole}`, async function(this: World, role: string, nam
 /**
  * key.when.withinElement.ariaLabel.description
  * */
-When(`${key.when.withinElement.ariaLabel}`, async function(this: World, expectedAriaLabel: string) {
+When(`${key.when.withinElement.ariaLabel}`, async function(expectedAriaLabel: string) {
   const sanitizedExpectedAriaLabel = encodeURIComponent(expectedAriaLabel).replaceAll("%20", " ");
   await getPageOrElement(this).then(async (element) => {
     const locator = element.getByLabel(sanitizedExpectedAriaLabel, { exact: true });
@@ -112,7 +112,7 @@ When(`${key.when.withinElement.ariaLabel}`, async function(this: World, expected
 /**
  * key.when.resetContext.description
  * */
-When(`${key.when.resetContext}`, async function(this: World) {
+When(`${key.when.resetContext}`, async function() {
   await deleteCookieByName(this, COOKIE_NAME.SELECTED_ELEMENT);
   await deleteCookieByName(this, COOKIE_NAME.TIMEOUT);
   const keyBoardFocusTargetObj = keyBoardFocusTarget(this);
@@ -124,7 +124,7 @@ When(`${key.when.resetContext}`, async function(this: World) {
 /**
  * key.when.withinElement.selector.description
  * */
-When(`${key.when.withinElement.selector}`, async function(this: World, selector: string) {
+When(`${key.when.withinElement.selector}`, async function(selector: string) {
   await getPageOrElement(this).then(async (element) => {
     const locator = element.locator(selector);
     await expect(locator).toHaveCount(1, { timeout: await getTimeout(this) });
@@ -136,21 +136,21 @@ When(`${key.when.withinElement.selector}`, async function(this: World, selector:
 /**
  * key.when.type.withContext.description
  * */
-When(`${key.when.type.withContext}`, async function(this: World, textToType: string) {
+When(`${key.when.type.withContext}`, async function(textToType: string) {
     await type(this, textToType);
 });
 
 /**
  * key.when.enter.withContext.description
  * */
-When(`${key.when.enter.withContext}`, async function(this: World, textToType: string) {
+When(`${key.when.enter.withContext}`, async function(textToType: string) {
     await type(this, textToType);
 });
 
 /**
  * key.when.keyboard.multiplePress.description
  * */
-When(`${key.when.keyboard.multiplePress}`, async function(this: World, nbTimes: number, key: string) {
+When(`${key.when.keyboard.multiplePress}`, async function(nbTimes: number, key: string) {
   for (let i = 1; i <= nbTimes; i++) {
     await pressKey(this, key);
   }
@@ -159,42 +159,42 @@ When(`${key.when.keyboard.multiplePress}`, async function(this: World, nbTimes: 
 /**
  * key.when.keyboard.press.description
  * */
-When(`${key.when.keyboard.press}`, async function(this: World, key: string) {
+When(`${key.when.keyboard.press}`, async function(key: string) {
   await pressKey(this, key);
 });
 
 /**
  * key.when.keyboard.previousElement.description
  * */
-When(`${key.when.keyboard.previousElement}`, async function(this: World) {
+When(`${key.when.keyboard.previousElement}`, async function() {
   await this.page.keyboard.press("ShiftLeft+Tab");
 });
 
 /**
  * key.when.keyboard.nextElement.description
  * */
-When(`${key.when.keyboard.nextElement}`, async function(this: World) {
+When(`${key.when.keyboard.nextElement}`, async function() {
   await this.page.keyboard.press("Tab");
 });
 
 /**
  * key.when.timeout.description
  * */
-When(`${key.when.timeout}`, async function(this: World, newTimeout: number) {
+When(`${key.when.timeout}`, async function(newTimeout: number) {
   await addCookie(this, COOKIE_NAME.TIMEOUT, new TimeoutCookie("timeout", newTimeout));
 });
 
 /**
  * key.when.withinElement.roleAndName.description
  * */
-When(`${key.when.withinElement.roleAndName}`, async function(this: World, role: string, name: string) {
+When(`${key.when.withinElement.roleAndName}`, async function(role: string, name: string) {
   await withinRoleAndName(this, role, name);
 });
 
 /**
  * key.when.withinElement.testId.description
  * */
-When(`${key.when.withinElement.testId}`, async function(this: World, testId: string) {
+When(`${key.when.withinElement.testId}`, async function(testId: string) {
   testId = encodeURIComponent(testId);
   await getPageOrElement(this).then(async (element) => {
     const locator = element.getByTestId(testId);
@@ -209,7 +209,7 @@ When(`${key.when.withinElement.testId}`, async function(this: World, testId: str
  * */
 When(
  `${key.when.mock.withBody}`,
- async function(this: World, verb: string, url: string, name: string, body: any) {
+ async function(verb: string, url: string, name: string, body: any) {
    await addCookie(this, COOKIE_NAME.MOCK_URL, new MockCookie(name, url, verb));
    await this.page.route(url, async route => {
      await route.fulfill({ body });
@@ -223,7 +223,7 @@ When(
  * */
 When(
  `${key.when.mock.withStatusCode}`,
- async function(this: World, verb: string, url: string, name: string, statusCode: number) {
+ async function(verb: string, url: string, name: string, statusCode: number) {
    await addCookie(this, COOKIE_NAME.MOCK_URL, new MockCookie(name, url, verb));
    await this.page.route(url, async route => {
      await route.fulfill({ status: statusCode });
@@ -237,7 +237,7 @@ When(
  * */
 When(
  `${key.when.mock.withFixture}`,
- async function(this: World, verb: string, url: string, name: string, fixture: any) {
+ async function(verb: string, url: string, name: string, fixture: any) {
    await addCookie(this, COOKIE_NAME.MOCK_URL, new MockCookie(name, url, verb));
    const data = fs.readFileSync(path.join(getConfigDir(), `playwright/fixtures/${fixture}`), "utf8");
    await this.page.route(url, async route => {
@@ -251,7 +251,7 @@ When(
 /**
  * key.then.element.withSelector.description
  * */
-Then(`${key.then.element.withSelector}`, async function(this: World, selector: string) {
+Then(`${key.then.element.withSelector}`, async function(selector: string) {
   await getPageOrElement(this).then(async (element) => expect(element.locator(selector)).toHaveCount(1, { timeout: await getTimeout(this) }));
 });
 
@@ -260,7 +260,7 @@ Then(`${key.then.element.withSelector}`, async function(this: World, selector: s
  * */
 When(
  `${key.when.headers.forUriAndMethod}`,
- async function(this: World, url: string, method: string, headersToSet: DataTable) {
+ async function(url: string, method: string, headersToSet: DataTable) {
    await this.page.route(url, async route => {
      const headers = route.request().headers();
      await route.continue({ headers: { ...headers, ...headersToSet.rowsHash() } });
@@ -273,7 +273,7 @@ When(
  * */
 When(
  `${key.when.headers.forUri}`,
- async function(this: World, url: string, headersToSet: DataTable) {
+ async function(url: string, headersToSet: DataTable) {
    await this.page.route(url, async route => {
      const headers = route.request().headers();
      await route.continue({ headers: { ...headers, ...headersToSet.rowsHash() } });
@@ -284,14 +284,14 @@ When(
 /**
  * key.then.element.withRoleAndName.description
  * */
-Then(`${key.then.element.withRoleAndName}`, async function(this: World, role: string, name: string) {
+Then(`${key.then.element.withRoleAndName}`, async function(role: string, name: string) {
   await findWithRoleAndName(this, role, name);
 });
 
 /**
  * key.then.element.withContent.description
  * */
-Then(`${key.then.element.withContent}`, async function(this: World, textContent: string) {
+Then(`${key.then.element.withContent}`, async function(textContent: string) {
   // TODO partie pris de faire en exactitude. A voir si on doit faire 2 phrases https://playwright.dev/docs/api/class-locator#locator-get-by-text
   await getPageOrElement(this).then(async (element) => expect(element.getByText(textContent, { exact: true })).toHaveCount(1, { timeout: await getTimeout(this) }));
 });
@@ -299,14 +299,14 @@ Then(`${key.then.element.withContent}`, async function(this: World, textContent:
 /**
  * key.then.element.not.withContent.description
  * */
-Then(`${key.then.element.not.withContent}`, async function(this: World, textContent: string) {
+Then(`${key.then.element.not.withContent}`, async function(textContent: string) {
   await getPageOrElement(this).then(async (element) => expect(element.getByText(textContent, { exact: true })).toHaveCount(0, { timeout: await getTimeout(this) }));
 });
 
 /**
  * key.then.element.withTestId.description
  * */
-Then(`${key.then.element.withTestId}`, async function(this: World, testId: string) {
+Then(`${key.then.element.withTestId}`, async function(testId: string) {
   testId = encodeURIComponent(testId);
   await getPageOrElement(this).then(async (element) => expect(element.getByTestId(testId, { exact: true })).toHaveCount(1, { timeout: await getTimeout(this) }));
 });
@@ -314,7 +314,7 @@ Then(`${key.then.element.withTestId}`, async function(this: World, testId: strin
 /**
  * key.then.element.not.withTestId.description
  * */
-Then(`${key.then.element.not.withTestId}`, async function(this: World, testId: string) {
+Then(`${key.then.element.not.withTestId}`, async function(testId: string) {
   testId = encodeURIComponent(testId);
   await getPageOrElement(this).then(async (element) => expect(element.getByTestId(testId, { exact: true })).toHaveCount(0, { timeout: await getTimeout(this) }));
 });
@@ -324,7 +324,7 @@ Then(`${key.then.element.not.withTestId}`, async function(this: World, testId: s
  * */
 Then(
  `${key.then.a11y.axecore.default}`,
- async function(this: World) {
+ async function() {
    await injectAxe(this.page as Page);
    await checkA11y(this.page as Page);
  });
@@ -334,7 +334,7 @@ Then(
  * */
 Then(
  `${key.then.a11y.axecore.withFixtureOption}`,
- async function(this: World, option: any) {
+ async function(option: any) {
    await injectAxe(this.page as Page);
    const optionFile = await fs.readFileSync(path.join(getConfigDir(), `playwright/fixtures/${option}`));
    const optionJson = JSON.parse(optionFile.toString());
@@ -353,7 +353,7 @@ function getConfigDir(): string {
  * */
 Then(
  `${key.then.a11y.axecore.withFixtureContextAndFixtureOption}`,
- async function(this: World, context: any, option: any) {
+ async function(context: any, option: any) {
    await injectAxe(this.page as Page);
    const contextFile = await fs.readFileSync(path.join(getConfigDir(), `playwright/fixtures/${context}`));
    const optionFile = await fs.readFileSync(path.join(getConfigDir(), `playwright/fixtures/${option}`));
@@ -368,7 +368,7 @@ Then(
  * */
 Then(
  `${key.then.a11y.axecore.onlyCritical}`,
- async function(this: World) {
+ async function() {
    await injectAxe(this.page as Page);
    await checkA11y(this.page as Page, undefined, {
      includedImpacts: ["critical"]
@@ -380,7 +380,7 @@ Then(
  * */
 Then(
  `${key.then.a11y.axecore.withImpacts}`,
- async function(this: World, impacts: any) {
+ async function(impacts: any) {
    await injectAxe(this.page as Page);
    await checkA11y(this.page as Page, undefined, {
      includedImpacts: [impacts]
@@ -392,7 +392,7 @@ Then(
  * */
 Then(
  `${key.then.a11y.axecore.withTags}`,
- async function(this: World, tags: any) {
+ async function(tags: any) {
    await injectAxe(this.page as Page);
    await checkA11y(this.page as Page, undefined, {
      axeOptions: {
@@ -409,7 +409,7 @@ Then(
  * */
 Then(
  `${key.then.element.not.withRoleAndName}`,
- async function(this: World, role: string, name: string) {
+ async function(role: string, name: string) {
    await notFoundWithRoleAndName(this, role, name);
  }
 );
@@ -419,7 +419,7 @@ Then(
  * */
 Then(
  `${key.then.element.withRoleAndNameAndContent}`,
- async function(this: World, expectedRole: string, name: string, expectedTextContent: string) {
+ async function(expectedRole: string, name: string, expectedTextContent: string) {
    await findWithRoleAndNameAndContent(this, expectedRole, name, expectedTextContent);
  }
 );
@@ -429,7 +429,7 @@ Then(
  * */
 Then(
  `${key.then.element.withRoleAndNameFocused}`,
- async function(this: World, expectedRole: string, name: string) {
+ async function(expectedRole: string, name: string) {
    await findWithRoleAndNameFocused(this, expectedRole, name);
  }
 );
@@ -439,7 +439,7 @@ Then(
  * */
 Then(
  `${key.then.element.withSelectorFocused}`,
- async function(this: World, selector: string) {
+ async function(selector: string) {
    await getPageOrElement(this).then(async (element) => {
      const locator = element.locator(selector);
      await locator.focus({ timeout: 10000 });
@@ -453,7 +453,7 @@ Then(
  * */
 Then(
  `${key.then.element.withRoleAndNameAndContentDisabled}`,
- async function(this: World, expectedRole: string, name: string, expectedTextContent: string) {
+ async function(expectedRole: string, name: string, expectedTextContent: string) {
    await findWithRoleAndNameAndContentDisable(this, expectedRole, name, expectedTextContent);
  }
 );
@@ -463,7 +463,7 @@ Then(
  * */
 Then(
  `${key.then.element.withRoleAndNameAndContentEnabled}`,
- async function(this: World, expectedRole: string, name: string, expectedTextContent: string) {
+ async function(expectedRole: string, name: string, expectedTextContent: string) {
    await findWithRoleAndNameAndContentEnable(this, expectedRole, name, expectedTextContent);
  }
 );
@@ -471,7 +471,7 @@ Then(
 /**
  * key.then.element.withAriaLabel.description
  * */
-Then(`${key.then.element.withAriaLabel}`, async function(this: World, expectedAriaLabel: string) {
+Then(`${key.then.element.withAriaLabel}`, async function(expectedAriaLabel: string) {
   expectedAriaLabel = encodeURIComponent(expectedAriaLabel);
   await getPageOrElement(this).then(async (element) => expect(element.getByLabel(expectedAriaLabel, { exact: true })).toHaveCount(1, { timeout: await getTimeout(this) }));
 });
@@ -479,7 +479,7 @@ Then(`${key.then.element.withAriaLabel}`, async function(this: World, expectedAr
 /**
  * key.then.element.not.withAriaLabel.description
  * */
-Then(`${key.then.element.not.withAriaLabel}`, async function(this: World, expectedAriaLabel: string) {
+Then(`${key.then.element.not.withAriaLabel}`, async function(expectedAriaLabel: string) {
   expectedAriaLabel = encodeURIComponent(expectedAriaLabel);
   await getPageOrElement(this).then(async (element) => expect(element.getByLabel(expectedAriaLabel, { exact: true })).toHaveCount(0, { timeout: await getTimeout(this) }));
 });
@@ -487,7 +487,7 @@ Then(`${key.then.element.not.withAriaLabel}`, async function(this: World, expect
 /**
  * key.then.element.withAriaLabelAndContent.description
  * */
-Then(`${key.then.element.withAriaLabelAndContent}`, async function(this: World, expectedAriaLabel: string, expectedTextContent: string) {
+Then(`${key.then.element.withAriaLabelAndContent}`, async function(expectedAriaLabel: string, expectedTextContent: string) {
   expectedAriaLabel = encodeURIComponent(expectedAriaLabel);
   await getPageOrElement(this).then(async (element) => {
     const byLabel = element.getByLabel(expectedAriaLabel, { exact: true });
@@ -499,7 +499,7 @@ Then(`${key.then.element.withAriaLabelAndContent}`, async function(this: World, 
 /**
  * key.then.element.previousWithRoleAndNameFocused.description
  * */
-When(`${key.then.element.previousWithRoleAndNameFocused}`, async function(this: World, expectedRole: string, name: string) {
+When(`${key.then.element.previousWithRoleAndNameFocused}`, async function(expectedRole: string, name: string) {
   await this.page.keyboard.press("ShiftLeft+Tab");
   await findWithRoleAndNameFocused(this, expectedRole, name);
 });
@@ -507,7 +507,7 @@ When(`${key.then.element.previousWithRoleAndNameFocused}`, async function(this: 
 /**
  * "key.then.element.nextWithRoleAndNameFocused.description
  * */
-When(`${key.then.element.nextWithRoleAndNameFocused}`, async function(this: World, expectedRole: string, name: string) {
+When(`${key.then.element.nextWithRoleAndNameFocused}`, async function(expectedRole: string, name: string) {
   await this.page.keyboard.press("Tab");
   await findWithRoleAndNameFocused(this, expectedRole, name);
 });
@@ -516,7 +516,7 @@ When(`${key.then.element.nextWithRoleAndNameFocused}`, async function(this: Worl
 /**
  * key.then.wait.mock.description
  * */
-Then(`${key.then.wait.mock}`, async function(this: World, name: string) {
+Then(`${key.then.wait.mock}`, async function(name: string) {
   const cookie = await getCookie(this, COOKIE_NAME.MOCK_URL);
   expect(() => {
     if (!cookie.isValid()) {
@@ -538,7 +538,7 @@ Then(`${key.then.wait.mock}`, async function(this: World, name: string) {
 /**
  * key.then.wait.milliSeconds.description
  * */
-Then(`${key.then.wait.milliSeconds}`, async function(this: World, ms: number) {
+Then(`${key.then.wait.milliSeconds}`, async function(ms: number) {
   await this.page.waitForTimeout(ms);
 });
 
@@ -547,7 +547,7 @@ Then(`${key.then.wait.milliSeconds}`, async function(this: World, ms: number) {
  * */
 Then(
  `${key.then.attributes.withValues}`,
- async function(this: World, expectedAttributeList: DataTable) {
+ async function(expectedAttributeList: DataTable) {
    await getPageOrElement(this).then(async (element) => {
      // console.debug("expectedAttributeList.raw(),", expectedAttributeList.raw())
      for (const expectedAttribute of expectedAttributeList.raw()) {
@@ -565,7 +565,7 @@ Then(
  * */
 Then(
  `${key.then.list.withNameAndContent}`,
- async function(this: World, expectedListName: string, expectedElementsOfList: DataTable) {
+ async function(expectedListName: string, expectedElementsOfList: DataTable) {
    await withinRoleAndName(this, "list", expectedListName);
    await getPageOrElement(this).then(async (element) => {
      const listitem = await element.getByRole("listitem", { exact: true }).all();
@@ -614,7 +614,7 @@ function keyBoardFocusTarget(world: World) {
   return world.page.locator(":focus");
 }
 
-async function setMockAsConsumed(name: string, mock: MockCookie, world: World<any>) {
+async function setMockAsConsumed(name: string, mock: MockCookie, world: World) {
   const newMockCookie = new MockCookie(name, mock.url, mock.verb);
   newMockCookie.isConsumed = true;
   await addCookie(world, COOKIE_NAME.MOCK_URL, newMockCookie);

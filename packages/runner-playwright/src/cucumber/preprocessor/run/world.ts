@@ -1,52 +1,29 @@
-import { APIRequestContext, Browser, BrowserContext, Page, TestInfo } from "@playwright/test";
-import { World as CucumberWorld, IWorldOptions } from "@cucumber/cucumber";
+import { Page, TestInfo } from "@playwright/test";
+import { createBdd, test as base } from "playwright-bdd";
 
-// See: https://playwright.dev/docs/test-fixtures#built-in-fixtures
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type WorldOptions<ParametersType = any> = IWorldOptions<ParametersType> & {
-  page: Page;
-  context: BrowserContext;
-  browser: Browser;
-  browserName: string;
-  request: APIRequestContext;
-  testInfo: TestInfo;
-};
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export class World<ParametersType = any> extends CucumberWorld<ParametersType> {
-  constructor(protected options: WorldOptions<ParametersType>) {
-    super(options);
-  }
-
-  get page() {
-    return this.options.page;
-  }
+export class World {
+  constructor(public page: Page, public testInfo: TestInfo) {}
 
   get context() {
-    return this.options.context;
+    return this.page.context();
   }
 
   get browser() {
-    return this.options.browser;
-  }
-
-  get browserName() {
-    return this.options.browserName;
+    return this.page.context().browser();
   }
 
   get request() {
-    return this.options.request;
-  }
-
-  get testInfo() {
-    return this.options.testInfo;
-  }
-
-  async init() {
-    // async setup before each test
-  }
-
-  async destroy() {
-    // async teardown after each test
+    return this.page.request;
   }
 }
+
+export const test = base.extend<{ world: World }>({
+  world: async ({ page, $testInfo }, use) => {
+    const world: World = new World(page, $testInfo);
+    await use(world);
+  },
+});
+
+export const { Given, When, Then } = createBdd(test, {
+  worldFixture: "world"
+});

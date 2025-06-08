@@ -1,6 +1,5 @@
-import {Given, When, Then} from "@cucumber/cucumber";
 import { expect } from "@playwright/test";
-import { World } from "@uuv/playwright";
+import { World, Given, Then } from "@uuv/playwright";
 
 Given('My first custom step definition', async function () {
     const myVar = 'foo';
