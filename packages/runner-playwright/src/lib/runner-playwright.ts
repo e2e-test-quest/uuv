@@ -34,9 +34,13 @@ export class UUVCliPlaywrightRunner implements UUVCliRunner {
     }
 
     async prepare(options: Partial<UUVCliOptions>) {
-        console.log("running preprocessor...");
-        this.executeSystemCommand(`npx bddgen -c ${this.projectDir}/playwright.config.ts`);
-        console.log("preprocessor executed\n");
+        try {
+            console.log("running preprocessor...");
+            this.executeSystemCommand(`npx bddgen -c ${this.projectDir}/playwright.config.ts`);
+            console.log("preprocessor executed\n");
+        } catch (e) {
+            console.warn(chalk.redBright("An error occured during preprocessor, please be sure to use existing step definitions"));
+        }
         this.setEnvironmentVariables(options);
     }
 
@@ -146,8 +150,14 @@ function executeSystemCommandHelper(command: string) {
     execSync(command, { stdio: "inherit" });
 }
 
-export function executePreprocessor(projectDir: string) {
+export function executePreprocessor(projectDir: string): boolean {
     console.log("running preprocessor...");
-    executeSystemCommandHelper(`npx bddgen -c ${projectDir}/playwright.config.ts`);
-    console.log("preprocessor executed\n");
+    try {
+        executeSystemCommandHelper(`npx bddgen -c ${projectDir}/playwright.config.ts`);
+        console.log("preprocessor executed\n");
+        return true;
+    } catch (e) {
+        console.warn(chalk.redBright("An error occured during preprocessor, please be sure to use existing step definitions"));
+        return false;
+    }
 }

@@ -31,19 +31,22 @@ chokidar.watch(`${projectDir}/e2e`, {
   ignoreInitial: true,
   ignored: (path, stats) => !!stats && stats.isFile() && !path.endsWith(".feature")
 })
- .on("change", () => {
+ .on("change", path => {
    console.log(chalk.yellowBright("\nRefreshing test files..."));
-   executePreprocessor(projectDir);
-   console.log(chalk.yellowBright("Test files refreshed\n"));
+   if (executePreprocessor(projectDir)) {
+        console.log(chalk.yellowBright(`Test file ${path} refreshed\n`));
+   }
  })
  .on("add", path => {
    console.log(chalk.yellowBright(`\nFile ${path} has been added`));
-   executePreprocessor(projectDir);
-   console.log(chalk.yellowBright("Test files refreshed\n"));
+     if (executePreprocessor(projectDir)) {
+        console.log(chalk.yellowBright(`Test file ${path} refreshed\n`));
+     }
  })
  .on("unlink", path => {
    console.log(chalk.yellowBright(`\nFile ${path} has been removed`));
-   executePreprocessor(projectDir);
-   console.log(chalk.yellowBright("Test files refreshed\n"));
+   if (executePreprocessor(projectDir)) {
+       console.log(chalk.yellowBright(`Test file ${path} refreshed\n`));
+   }
  });
 
