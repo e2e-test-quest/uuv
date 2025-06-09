@@ -22,6 +22,7 @@ import _ from "lodash";
 export class UUVCliPlaywrightRunner implements UUVCliRunner {
     name = "Playwright";
     defaultBrowser = "chrome";
+    watchProcess?: cp.ChildProcess | null;
 
     constructor(public projectDir, private tempDir) {}
 
@@ -59,7 +60,20 @@ export class UUVCliPlaywrightRunner implements UUVCliRunner {
     }
 
     executeOpenCommand(options: Partial<UUVCliOptions>) {
-        cp.fork(path.join(__dirname, "watch-test-files"), [this.tempDir, this.projectDir]);
+        this.watchProcess = cp.fork(path.join(__dirname, "watch-test-files"), [this.tempDir, this.projectDir]);
+        process.on("exit", () => this.cleanup(this.watchProcess));
+        process.on("SIGINT", () => {
+            this.cleanup(this.watchProcess);
+            process.exit();
+        });
+        process.on("SIGTERM", () => {
+            this.cleanup(this.watchProcess);
+            process.exit();
+        });
+        process.on("uncaughtException", (err) => {
+            this.cleanup(this.watchProcess);
+            throw err;
+        });
         this.runPlaywright(options);
     }
 
@@ -117,6 +131,14 @@ export class UUVCliPlaywrightRunner implements UUVCliRunner {
     private executeSystemCommand(command: string) {
         executeSystemCommandHelper(command);
     }
+
+    private cleanup(watchProcess?: cp.ChildProcess | null) {
+        if (watchProcess) {
+            console.log("Stopping file watcher...");
+            watchProcess.kill();
+            console.log("File watcher stopped");
+        }
+    };
 }
 
 function executeSystemCommandHelper(command: string) {
