@@ -291,7 +291,6 @@ export async function click(world: World, role: any, name: string) {
     });
     await expect(byRole).toHaveCount(1, { timeout: await getTimeout(world) });
     await byRole.click();
-    await world.page.waitForLoadState();
     await deleteCookieByName(world, COOKIE_NAME.SELECTED_ELEMENT);
   });
 }
