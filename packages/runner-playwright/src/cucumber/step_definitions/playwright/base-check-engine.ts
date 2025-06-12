@@ -11,12 +11,12 @@
  * understanding English or French.
  */
 
-import { DEFAULT_TIMEOUT, fs, KEY_PRESS } from "@uuv/runner-commons";
-import { key } from "@uuv/runner-commons/wording/web";
-import { checkA11y, injectAxe } from "axe-playwright";
-import { devices, expect } from "@playwright/test";
-import { Locator, Page } from "playwright";
-import { DataTable } from "@cucumber/cucumber";
+import {DEFAULT_TIMEOUT, fs, KEY_PRESS} from "@uuv/runner-commons";
+import {key} from "@uuv/runner-commons/wording/web";
+import {checkA11y, injectAxe} from "axe-playwright";
+import {devices, expect} from "@playwright/test";
+import {Locator, Page} from "playwright";
+import {DataTable} from "@cucumber/cucumber";
 import {
     addCookie,
     click,
@@ -30,15 +30,15 @@ import {
     findWithRoleAndNameFocused,
     getCookie,
     getPageOrElement,
+    getTimeout,
     MockCookie,
     notFoundWithRoleAndName,
     SelectedElementCookie,
     TimeoutCookie,
-    withinRoleAndName,
-    getTimeout
+    withinRoleAndName
 } from "./core-engine";
-import { World, Given, Then, When } from "../../preprocessor/run/world";
-import { ContextObject, RunOptions } from "axe-core";
+import {Given, Then, When, World} from "../../preprocessor/run/world";
+import {ContextObject, RunOptions} from "axe-core";
 import path from "path";
 
 /**
@@ -580,6 +580,28 @@ Then(
      await expect(foundedElement).toEqual(expectedElementsOfList.raw());
    });
  }
+);
+
+/**
+ * key.then.list.withNameAndContent.description
+ * */
+Then(
+    `${key.then.grid.withNameAndContent}`,
+    async function(expectedListName: string, expectedElementsOfList: DataTable) {
+        await findWithRoleAndName(this, "grid", expectedListName);
+        await getPageOrElement(this).then(async (element) => {
+            const rows = await element.getByRole("row", { exact: true }).all();
+
+            const actualTableContent = await Promise.all(rows.map(async (row, index) => {
+                const cellsElement = await row.getByRole(index === 0 ? "columnheader" : "gridcell", { exact: true }).all();
+                return await Promise.all(cellsElement.map(async (cell): Promise<number> => {
+                    return (await cell.textContent()).trim();
+                }));
+            }));
+            await expect(actualTableContent.length).toEqual(expectedElementsOfList.raw().length);
+            await expect(actualTableContent).toEqual(expectedElementsOfList.raw());
+        });
+    }
 );
 
 async function pressKey(world: World, key: string) {
