@@ -507,7 +507,7 @@ export const FR_ROLES: AccessibleRole[] = [
         id: "table",
         name: "tableau",
         definiteArticle: FR_DEFINITE_ARTICLE.LE,
-        indefiniteArticle: FR_INDEFINITE_ARTICLE.UNE
+        indefiniteArticle: FR_INDEFINITE_ARTICLE.UN
     },
     {
         id: "tablist",
