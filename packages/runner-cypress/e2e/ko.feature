@@ -1,15 +1,14 @@
 Feature: Ko
 
-  Background:
-    Given I visit path "https://e2e-test-quest.github.io/weather-app/"
-
   @ko
   Scenario: Homepage - Bad title
+    Given I visit path "https://e2e-test-quest.github.io/weather-app/"
     # Verify elements on landing page
     Then I should see a title named "Welcome to Weather App - ko"
     And I should see a button named "Get started"
 
   Scenario: Weather - Town List must be ok
+    Given I visit path "https://e2e-test-quest.github.io/weather-app/"
     # Click on <Get started> button
     When I click on button named "Get started"
     # Checks the list of available towns.
@@ -20,6 +19,7 @@ Feature: Ko
 
   @ko
   Scenario: TownResearch - Bad textbox name
+    Given I visit path "https://e2e-test-quest.github.io/weather-app/"
     # Click on <Get started> button
     When I click on button named "Get started"
     # Type sentence "i" on input field
@@ -33,24 +33,29 @@ Feature: Ko
 
   @ko
   Scenario: Error when waiting a mock without instanciate a mock before
+    Given I visit path "https://e2e-test-quest.github.io/weather-app/"
     Then I should consume a mock named "uuvFixture"
 
   @ko
   Scenario: Radio button - Ko unchecked
-      Then I should see a radio named "Small (under 150000)" unchecked
+    Given I visit path "https://e2e-test-quest.github.io/weather-app/"
+    Then I should see a radio named "Small (under 150000)" unchecked
 
   @ko
   Scenario: Radio button - Ko checked
-      Then I should see a radio named "Medium (150000 to 1 million)" checked
+    Given I visit path "https://e2e-test-quest.github.io/weather-app/"
+    Then I should see a radio named "Medium (150000 to 1 million)" checked
 
   @ko
   Scenario: Checkbox - Ko unchecked
-      Then I should see a checkbox named "Allow automatic update" checked
+    Given I visit path "https://e2e-test-quest.github.io/weather-app/"
+    Then I should see a checkbox named "Allow automatic update" checked
 
   @ko
   Scenario: Checkbox - Ko checked
-      When I click on element with role "checkbox" and name "Allow automatic update"
-      Then I should see a checkbox named "Allow automatic update" unchecked
+    Given I visit path "https://e2e-test-quest.github.io/weather-app/"
+    When I click on element with role "checkbox" and name "Allow automatic update"
+    Then I should see a checkbox named "Allow automatic update" unchecked
 
   @ko
   Scenario: click failed with custom timeout
@@ -63,3 +68,16 @@ Feature: Ko
   Scenario: axe core failed
     When I visit path "https://e2e-test-quest.github.io/weather-app/?isStarted=true"
     Then I should not have any axe-core accessibility issue
+
+  @ko
+  Scenario: Table content should failed when wrong content
+    When I visit path "https://e2e-test-quest.github.io/simple-webapp/table.html"
+    Then I should see a table named "HTML Table Example" and containing
+      | Company                       | Contact          | Country |
+      | ----------------------------- | ---------------- | ------- |
+      | Alfreds Futterkiste           | Maria Anders     | Germany |
+      | Centro comercial Moctezuma    | Etienne Daaho    | Mexico  |
+      | Ernst Handel                  | Roland Mendel    | Austria |
+      | Island Trading                | Helen Bennett    | UK      |
+      | Laughing Bacchus Winecellars  | Yoshi Tannamuri  | Canada  |
+      | Magazzini Alimentari Riuniti  | Giovanni Rovelli | Italy   |

@@ -10,8 +10,8 @@ describe("Runner Playwright JunitReport", () => {
     });
 
     test("Should have good results", () => {
-        expect(report.testsuites.tests).toEqual("128");
-        expect(report.testsuites.failures).toEqual("8");
+        expect(report.testsuites.tests).toEqual("133");
+        expect(report.testsuites.failures).toEqual("9");
         expect(report.testsuites.errors).toEqual("0");
         expect(report.testsuites.skipped).toEqual("0");
     });
@@ -37,5 +37,13 @@ describe("Runner Playwright JunitReport", () => {
         const testCase = JunitReportHelper.getTestCase(report, "ko.feature.spec.js", "Ko › click failed with custom timeout");
         expect(testCase?.failure._).toContain("Error: Timed out 9000ms waiting for expect(locator).toHaveCount(expected)");
         expect(testCase?.failure._).toContain("Locator: getByRole('button', { name: 'Timer ended', exact: true })");
+    });
+
+    test("Should fail for test : Ko table", () => {
+        const testCase = JunitReportHelper.getTestCase(report, "ko.feature.spec.js", "Ko › Table content should failed when wrong content");
+        expect(testCase?.failure._).toContain("Error: cell at index [2, 1] should be Etienne Daaho");
+        expect(testCase?.failure._).toContain("Locator: getByRole('row').nth(2).getByRole('cell').nth(1)");
+        expect(testCase?.failure._).toContain("Expected string: \"Etienne Daaho\"");
+        expect(testCase?.failure._).toContain("Received string: \"Francisco Chang\"");
     });
 });

@@ -180,6 +180,16 @@
   "wording": "I should see a list named {string} and containing"
  },
  {
+  "key": "key.then.grid.withNameAndContent",
+  "description": "Checks that there is a list with the specified [name](https://russmaxdesign.github.io/html-elements-names/) containing list items.<br/> <u>Example</u>\\n```gherkin\\nThen I should see a list named \"test-list\" and containing\\n| First element   |\\n| Second element  |\\n| Third element   |\\n```",
+  "wording": "I should see a grid named {string} and containing"
+ },
+  {
+    "key": "key.then.table.withNameAndContent",
+    "description": "Checks that there is a table with the specified [name](https://russmaxdesign.github.io/html-elements-names/) containing list items.<br/> <u>Example</u>\\n```gherkin\\nThen I should see a list named \"test-list\" and containing\\n| First element   |\\n| Second element  |\\n| Third element   |\\n```",
+    "wording": "I should see a table named {string} and containing"
+  },
+ {
   "key": "key.then.element.not.withContent",
   "description": "Checks that an Html element does not exists with the specified content",
   "wording": "I should not see an element with content {string}"

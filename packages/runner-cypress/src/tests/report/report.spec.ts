@@ -12,8 +12,8 @@ describe("Runner Cypress JunitReport", () => {
     });
 
     test("Should have good results", () => {
-        expect(report.testsuites.tests).toEqual("132");
-        expect(report.testsuites.failures).toEqual("9");
+        expect(report.testsuites.tests).toEqual("137");
+        expect(report.testsuites.failures).toEqual("10");
         expect(report.testsuites.errors).toBeUndefined();
         expect(report.testsuites.skipped).toBeUndefined();
     });
@@ -36,6 +36,11 @@ describe("Runner Cypress JunitReport", () => {
     test("Should fail for test : Ko axe core failed", () => {
         const testCase = JunitReportHelper.getTestCase(report, "Ko", "Ko axe core failed");
         expect(testCase?.failure._).toContain("A11y validation failed: expected 1 to equal 0");
+    });
+
+    test("Should fail for test : Ko table", () => {
+        const testCase = JunitReportHelper.getTestCase(report, "Ko", "Ko Table content should failed when wrong content");
+        expect(testCase?.failure._).toContain("Expected the table content [[\"Company\",\"Contact\",\"Country\"],[\"Alfreds Futterkiste\",\"Maria Anders\",\"Germany\"],[\"Centro comercial Moctezuma\",\"Francisco Chang\",\"Mexico\"],[\"Ernst Handel\",\"Roland Mendel\",\"Austria\"],[\"Island Trading\",\"Helen Bennett\",\"UK\"],[\"Laughing Bacchus Winecellars\",\"Yoshi Tannamuri\",\"Canada\"],[\"Magazzini Alimentari Riuniti\",\"Giovanni Rovelli\",\"Italy\"]] to equals [[\"Company\",\"Contact\",\"Country\"],[\"Alfreds Futterkiste\",\"Maria Anders\",\"Germany\"],[\"Centro comercial Moctezuma\",\"Etienne Daaho\",\"Mexico\"],[\"Ernst Handel\",\"Roland Mendel\",\"Austria\"],[\"Island Trading\",\"Helen Bennett\",\"UK\"],[\"Laughing Bacchus Winecellars\",\"Yoshi Tannamuri\",\"Canada\"],[\"Magazzini Alimentari Riuniti\",\"Giovanni Rovelli\",\"Italy\"]]: expected [ Array(7) ] to deeply equal [ Array(7) ]");
     });
 });
 

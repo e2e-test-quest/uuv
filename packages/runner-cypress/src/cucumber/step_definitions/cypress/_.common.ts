@@ -16,6 +16,7 @@ import { Context } from "./_context";
 import Chainable = Cypress.Chainable;
 import { KEY_PRESS } from "@uuv/runner-commons";
 import { A11yReferenceEnum } from "@uuv/a11y";
+import { DataTable } from "@badeball/cypress-cucumber-preprocessor";
 
 const contextAlias = "context";
 const foundedChildElementAlias = "foundedChildElement";
@@ -62,6 +63,28 @@ function addContextOptions(context: Context, roleOptions: any): any {
     return Object.assign(roleOptions, retour);
 }
 
+export function removeHeaderSeparatorLine(pExpectedElementsOfList: DataTable) {
+    const expectedElementsOfList = pExpectedElementsOfList.raw();
+    if (expectedElementsOfList.length > 1) {
+        expectedElementsOfList.splice(1, 1);
+    }
+    return expectedElementsOfList;
+}
+
+export function expectTableToHaveContent(expectedElementsOfList: string[][], cellAccessibleRole: string) {
+    const actualTableContent: string[][] = [];
+    // eslint-disable-next-line cypress/unsafe-to-chain-command
+    cy.findAllByRole("row").each(($row, index) => {
+        const cellRole = index === 0 ? "columnheader" : cellAccessibleRole;
+        cy.findAllByRole(cellRole, { container: $row }).then(($cells) => {
+            const ligne = Array.from($cells, cell => cell.textContent?.trim() ?? "");
+            actualTableContent.push(ligne);
+        });
+    }).then(() => {
+        assert.equal(actualTableContent.length, expectedElementsOfList.length);
+        assert.deepEqual(actualTableContent, expectedElementsOfList, `Expected the table content ${JSON.stringify(actualTableContent)} to equals ${JSON.stringify(expectedElementsOfList)}`);
+    });
+}
 
 function abstractFindBy(
     callBackFunction: (inputToSearch: any, options: any) => Cypress.Chainable<JQuery<HTMLElement>>,

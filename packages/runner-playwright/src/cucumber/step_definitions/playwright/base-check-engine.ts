@@ -30,14 +30,14 @@ import {
     findWithRoleAndNameFocused,
     getCookie,
     getPageOrElement,
+    getTimeout,
     MockCookie,
     notFoundWithRoleAndName,
     SelectedElementCookie,
     TimeoutCookie,
-    withinRoleAndName,
-    getTimeout
+    withinRoleAndName
 } from "./core-engine";
-import { World, Given, Then, When } from "../../preprocessor/run/world";
+import { Given, Then, When, World } from "../../preprocessor/run/world";
 import { ContextObject, RunOptions } from "axe-core";
 import path from "path";
 
@@ -581,6 +581,56 @@ Then(
    });
  }
 );
+
+/**
+ * key.then.grid.withNameAndContent.description
+ * */
+Then(
+    `${key.then.grid.withNameAndContent}`,
+    async function(expectedListName: string, pExpectedElementsOfList: DataTable) {
+        const expectedElementsOfList = removeHeaderSeparatorLine(pExpectedElementsOfList);
+        await findWithRoleAndName(this, "grid", expectedListName);
+        await getPageOrElement(this).then(async (element) => {
+            await expectTableToHaveContent(element, expectedElementsOfList, "gridcell");
+        });
+    }
+);
+
+/**
+ * key.then.table.withNameAndContent.description
+ * */
+Then(
+    `${key.then.table.withNameAndContent}`,
+    async function(expectedListName: string, pExpectedElementsOfList: DataTable) {
+        const expectedElementsOfList = removeHeaderSeparatorLine(pExpectedElementsOfList);
+        await findWithRoleAndName(this, "table", expectedListName);
+        await getPageOrElement(this).then(async (element) => {
+            await expectTableToHaveContent(element, expectedElementsOfList, "cell");
+        });
+    }
+);
+
+function removeHeaderSeparatorLine(pExpectedElementsOfList: DataTable) {
+    const expectedElementsOfList = pExpectedElementsOfList.raw();
+    if (expectedElementsOfList.length > 1) {
+        expectedElementsOfList.splice(1, 1);
+    }
+    return expectedElementsOfList;
+}
+
+async function expectTableToHaveContent(element: Locator, expectedElementsOfList: string[][], pCellAccessibleRole: string) {
+    const rows = await element.getByRole("row", { exact: true }).all();
+    return await Promise.all(rows.map(async (row: Locator, rowNumber: number) => {
+        const cellAccessibleRole = rowNumber === 0 ? "columnheader" : pCellAccessibleRole;
+        const cellsElement = await row.getByRole(cellAccessibleRole as any, { exact: true }).all();
+        let cellNumber = 0;
+        return await Promise.all(cellsElement.map((cell: Locator) => {
+            const expectedValue = expectedElementsOfList[rowNumber][cellNumber];
+            expect(cell, { message: `${cellAccessibleRole} at index [${rowNumber}, ${cellNumber}] should be ${expectedValue}` }).toHaveAccessibleName(expectedValue);
+            cellNumber++;
+        }));
+    }));
+}
 
 async function pressKey(world: World, key: string) {
   switch (key) {

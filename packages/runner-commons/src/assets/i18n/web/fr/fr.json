@@ -180,6 +180,16 @@
     "wording": "je dois voir une liste nommée {string} et contenant"
   },
   {
+    "key": "key.then.grid.withNameAndContent",
+    "description": "Vérifie qu'il existe une liste avec le nom et les éléments de liste spécifiés.<br/> <u>Exemple</u>\\n```gherkin\\nAlors je dois voir une liste nommée \"test-list\" et contenant\\n| Premier élément   |\\n| Deuxième élément  |\\n| Troisième élément   |\\n```",
+    "wording": "je dois voir une grille nommée {string} et contenant"
+  },
+  {
+    "key": "key.then.table.withNameAndContent",
+    "description": "Vérifie qu'il existe une liste avec le nom et les éléments de liste spécifiés.<br/> <u>Exemple</u>\\n```gherkin\\nAlors je dois voir une liste nommée \"test-list\" et contenant\\n| Premier élément   |\\n| Deuxième élément  |\\n| Troisième élément   |\\n```",
+    "wording": "je dois voir un tableau nommé {string} et contenant"
+  },
+  {
     "key": "key.then.element.not.withContent",
     "description": "Vérifie qu'un élément Html n'existe pas avec le contenu spécifié",
     "wording": "je ne dois pas voir un élément qui contient {string}"
