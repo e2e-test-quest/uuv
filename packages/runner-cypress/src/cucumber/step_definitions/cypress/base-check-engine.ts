@@ -28,7 +28,7 @@ import {
     withinRoleAndName
 } from "./core-engine";
 import { A11yReferenceEnum } from "@uuv/a11y";
-import { pressKey } from "./_.common";
+import { expectTableToHaveContent, pressKey, removeHeaderSeparatorLine } from "./_.common";
 
 /**
  * key.when.visit.description
@@ -482,6 +482,38 @@ Then(
       });
     });
  }
+);
+
+/**
+ * key.then.grid.withNameAndContent.description
+ * */
+Then(
+    `${key.then.grid.withNameAndContent}`,
+    function(expectedListName: string, pExpectedElementsOfList: DataTable) {
+        const expectedElementsOfList = removeHeaderSeparatorLine(pExpectedElementsOfList);
+        cy.uuvFindByRole("grid", { name: expectedListName })
+            .uuvFoundedElement()
+            .should("exist")
+            .within(() => {
+                expectTableToHaveContent(expectedElementsOfList, "gridcell");
+            });
+    }
+);
+
+/**
+ * key.then.table.withNameAndContent.description
+ * */
+Then(
+    `${key.then.table.withNameAndContent}`,
+    function(expectedListName: string, pExpectedElementsOfList: DataTable) {
+        const expectedElementsOfList = removeHeaderSeparatorLine(pExpectedElementsOfList);
+        cy.uuvFindByRole("table", { name: expectedListName })
+            .uuvFoundedElement()
+            .should("exist")
+            .within(() => {
+                expectTableToHaveContent(expectedElementsOfList, "cell");
+            });
+    }
 );
 
 /**

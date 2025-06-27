@@ -78,6 +78,12 @@
     "list": {
       "withNameAndContent": ""
     },
+    "grid": {
+      "withNameAndContent": ""
+    },
+    "table": {
+      "withNameAndContent": ""
+    },
     "attributes": {
       "withValues": ""
     },
