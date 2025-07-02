@@ -115,6 +115,11 @@
   "wording": "I start a keyboard navigation from the top of the page"
  },
  {
+  "key": "key.then.page.withTitle",
+  "description": "Checks the current html page have the specified title",
+  "wording": "I should see the page title {string}"
+ },
+ {
   "key": "key.then.attributes.withValues",
   "description": "Checks Html attributes of the selected element",
   "wording": "I should see these attributes with values"

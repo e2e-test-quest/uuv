@@ -115,6 +115,11 @@
     "wording": "je commence une navigation au clavier depuis le haut de la page"
   },
   {
+    "key": "key.then.page.withTitle",
+    "description": "Vérifie que la page courante a le bon titre",
+    "wording": "je dois voir le titre de page {string}"
+  },
+  {
     "key": "key.then.attributes.withValues",
     "description": "Vérifie des attributs Html de l'élément sélectionné",
     "wording": "je dois voir les attributs avec valeurs suivantes"

@@ -282,6 +282,13 @@ When(
 );
 
 /**
+ * key.then.page.withTitle.description
+ * */
+Then(`${key.then.page.withTitle}`, async function(pageTitle: string) {
+    await expect(this.page).toHaveTitle(pageTitle);
+});
+
+/**
  * key.then.element.withRoleAndName.description
  * */
 Then(`${key.then.element.withRoleAndName}`, async function(role: string, name: string) {

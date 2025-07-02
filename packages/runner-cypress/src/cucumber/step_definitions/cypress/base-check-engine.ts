@@ -291,6 +291,13 @@ When(`${key.when.headers.forUri}`, function(url: string, headersToSet: DataTable
 ////////////////////////////////////////////
 
 /**
+ * key.then.page.withTitle.description
+ * */
+Then(`${key.then.page.withTitle}`, function(pageTitle: string) {
+    cy.title().should("eq", pageTitle);
+});
+
+/**
  * key.then.element.withContent.description
  * */
 Then(`${key.then.element.withContent}`, function(textContent: string) {

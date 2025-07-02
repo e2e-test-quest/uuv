@@ -46,6 +46,9 @@
     }
   },
   "then": {
+    "page": {
+      "withTitle": ""
+    },
     "element": {
       "withContent": "",
       "withRoleAndName": "",
