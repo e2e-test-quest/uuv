@@ -3,7 +3,7 @@ import { setupNodeEvents } from "./src/cypress/cypress.config";
 
 export default defineConfig({
     port: 9000,
-    video: true,
+    video: false,
     e2e: {
         baseUrl: "https://e2e-test-quest.github.io/simple-webapp",
         specPattern: "e2e/**/*.{cy.ts,feature}",

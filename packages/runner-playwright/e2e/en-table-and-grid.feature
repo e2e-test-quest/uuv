@@ -11,6 +11,17 @@ Feature: Table and grid
       | BMW          | M50     | 60000  |
       | Aston Martin | DBX     | 190000 |
 
+  Scenario: key.then.treegrid.withNameAndContent
+    When I visit path "https://e2e-test-quest.github.io/simple-webapp/treegrid.html"
+    Then I should see a treegrid named "HTML Treegrid Example" and containing
+      | Make         | Model   | Price  |
+      | ------------ | ------- | ------ |
+      | Toyota       | Celica  | 35000  |
+      | Ford         | Mondeo  | 32000  |
+      | Porsche      | Boxster | 72000  |
+      | BMW          | M50     | 60000  |
+      | Aston Martin | DBX     | 190000 |
+
   Scenario: key.then.table.withNameAndContent
     When I visit path "https://e2e-test-quest.github.io/simple-webapp/table.html"
     Then I should see a table named "HTML Table Example" and containing

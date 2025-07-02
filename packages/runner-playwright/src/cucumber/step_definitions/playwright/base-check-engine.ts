@@ -597,6 +597,20 @@ Then(
 );
 
 /**
+ * key.then.treegrid.withNameAndContent.description
+ * */
+Then(
+    `${key.then.treegrid.withNameAndContent}`,
+    async function(expectedListName: string, pExpectedElementsOfList: DataTable) {
+        const expectedElementsOfList = removeHeaderSeparatorLine(pExpectedElementsOfList);
+        await findWithRoleAndName(this, "treegrid", expectedListName);
+        await getPageOrElement(this).then(async (element) => {
+            await expectTableToHaveContent(element, expectedElementsOfList, "gridcell");
+        });
+    }
+);
+
+/**
  * key.then.table.withNameAndContent.description
  * */
 Then(

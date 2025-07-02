@@ -81,6 +81,9 @@
     "grid": {
       "withNameAndContent": ""
     },
+    "treegrid": {
+      "withNameAndContent": ""
+    },
     "table": {
       "withNameAndContent": ""
     },

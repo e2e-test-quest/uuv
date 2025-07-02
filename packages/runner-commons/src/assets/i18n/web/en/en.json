@@ -181,12 +181,17 @@
  },
  {
   "key": "key.then.grid.withNameAndContent",
-  "description": "Checks that there is a list with the specified [name](https://russmaxdesign.github.io/html-elements-names/) containing list items.<br/> <u>Example</u>\\n```gherkin\\nThen I should see a list named \"test-list\" and containing\\n| First element   |\\n| Second element  |\\n| Third element   |\\n```",
+  "description": "Checks that there is a grid with the specified [name](https://russmaxdesign.github.io/html-elements-names/) containing list items.<br/> <u>Example</u>\\n```gherkin\\nWhen I visit path \"https://e2e-test-quest.github.io/simple-webapp/grid.html\"\\nThen I should see a grid named \"HTML Grid Example\" and containing\\n| Make         | Model   | Price  |\\n| ------------ | ------- | ------ |\\n| Toyota       | Celica  | 35000  |\\n| Ford         | Mondeo  | 32000  |\\n| Porsche      | Boxster | 72000  |\\n| BMW          | M50     | 60000  |\\n| Aston Martin | DBX     | 190000 |\\n```",
   "wording": "I should see a grid named {string} and containing"
  },
   {
+    "key": "key.then.treegrid.withNameAndContent",
+    "description": "Checks that there is a treegrid with the specified [name](https://russmaxdesign.github.io/html-elements-names/) containing list items.<br/> <u>Example</u>\\n```gherkin\\nWhen I visit path \"https://e2e-test-quest.github.io/simple-webapp/treegrid.html\"\\nThen I should see a treegrid named \"HTML Treegrid Example\" and containing\\n| Make         | Model   | Price  |\\n| ------------ | ------- | ------ |\\n| Toyota       | Celica  | 35000  |\\n| Ford         | Mondeo  | 32000  |\\n| Porsche      | Boxster | 72000  |\\n| BMW          | M50     | 60000  |\\n| Aston Martin | DBX     | 190000 |\\n```",
+    "wording": "I should see a treegrid named {string} and containing"
+  },
+  {
     "key": "key.then.table.withNameAndContent",
-    "description": "Checks that there is a table with the specified [name](https://russmaxdesign.github.io/html-elements-names/) containing list items.<br/> <u>Example</u>\\n```gherkin\\nThen I should see a list named \"test-list\" and containing\\n| First element   |\\n| Second element  |\\n| Third element   |\\n```",
+    "description": "Checks that there is a table with the specified [name](https://russmaxdesign.github.io/html-elements-names/) containing list items.<br/> <u>Example</u>\\n```gherkin\\nThen I should see a table named \"test-list\" and containing\\n| Company                       | Contact          | Country |\\n| ----------------------------- | ---------------- | ------- |\\n| Alfreds Futterkiste           | Maria Anders     | Germany |\\n| Centro comercial Moctezuma    | Francisco Chang  | Mexico  |\\n| Ernst Handel                  | Roland Mendel    | Austria |\\n| Island Trading                | Helen Bennett    | UK      |\\n| Laughing Bacchus Winecellars  | Yoshi Tannamuri  | Canada  |\\n| Magazzini Alimentari Riuniti  | Giovanni Rovelli | Italy   |\\n```",
     "wording": "I should see a table named {string} and containing"
   },
  {

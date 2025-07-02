@@ -501,6 +501,23 @@ Then(
 );
 
 /**
+ * key.then.treegrid.withNameAndContent.description
+ * */
+Then(
+    `${key.then.treegrid.withNameAndContent}`,
+    function(expectedListName: string, pExpectedElementsOfList: DataTable) {
+        const expectedElementsOfList = removeHeaderSeparatorLine(pExpectedElementsOfList);
+        cy.uuvFindByRole("treegrid", { name: expectedListName })
+            .uuvFoundedElement()
+            .should("exist")
+            .within(() => {
+                expectTableToHaveContent(expectedElementsOfList, "gridcell");
+            });
+    }
+);
+
+
+/**
  * key.then.table.withNameAndContent.description
  * */
 Then(
