@@ -24,7 +24,7 @@ describe("Runner Playwright JunitReport", () => {
     test("Should fail for test : Ko Homepage - Bad title", () => {
         const testCase = JunitReportHelper.getTestCase(report, "ko.feature.spec.js", "Ko › Homepage - Bad title");
         expect(testCase?.failure._).toContain("Error: Timed out 6000ms waiting for expect(locator).toHaveCount(expected)");
-        expect(testCase?.failure._).toContain("Locator: getByRole('heading', { name: 'Welcome to Weather App - ko', exact: true, includeHidden: true })");
+        expect(testCase?.failure._).toContain("Locator: getByRole('heading', { name: 'Welcome to Weather App - ko', exact: true })");
     });
 
     test("Should fail for test : Ko TownResearch - Bad textbox name", () => {

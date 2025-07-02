@@ -88,7 +88,7 @@ export async function getPageOrElement(world: World): Promise<any> {
           pointer = pointer.getByLabel(filter.value, { exact: true });
           break;
         case FILTER_TYPE.ROLE:
-          pointer = pointer.getByRole(filter.value, { includeHidden: true, exact: true });
+          pointer = pointer.getByRole(filter.value, { exact: true });
           break;
         case FILTER_TYPE.TEST_ID:
           pointer = pointer.getByTestId(filter.value);
@@ -175,7 +175,6 @@ export async function notFoundWithRoleAndName(world: World, role: string, name: 
   role = encodeURIComponent(role);
   await getPageOrElement(world).then(async (element) => await expect(element.getByRole(role, {
     name: name,
-    includeHidden: true,
     exact: true
   })).toHaveCount(0, { timeout: await getTimeout(world) }));
 
@@ -184,7 +183,7 @@ export async function notFoundWithRoleAndName(world: World, role: string, name: 
 export async function findWithRoleAndNameAndContent(world: World, expectedRole: string, name: string, expectedTextContent: string | undefined = undefined, setFocus = false): Promise<any> {
   expectedRole = encodeURIComponent(expectedRole);
   await getPageOrElement(world).then(async (element) => {
-    const byRole = await element.getByRole(expectedRole, { name: name, includeHidden: true, exact: true });
+    const byRole = await element.getByRole(expectedRole, { name: name, exact: true });
     await expect(byRole).toHaveCount(1, { timeout: await getTimeout(world) });
     if (expectedTextContent !== undefined) {
       await checkTextContentLocator(byRole, expectedTextContent);
@@ -197,7 +196,7 @@ export async function findWithRoleAndNameFocused(world: World, expectedRole: str
   expectedRole = encodeURIComponent(expectedRole);
   await getPageOrElement(world).then(async (element) => {
     // console.log("final:",expectedRole,name)
-    const byRole = await element.getByRole(expectedRole, { name: name, includeHidden: true, exact: true });
+    const byRole = await element.getByRole(expectedRole, { name: name, exact: true });
     await expect(byRole).toHaveCount(1, { timeout: await getTimeout(world) });
     await expect(byRole).toBeFocused();
   });
@@ -206,7 +205,7 @@ export async function findWithRoleAndNameFocused(world: World, expectedRole: str
 export async function findWithRoleAndNameAndChecked(world: World, expectedRole: string, name: string): Promise<any> {
   expectedRole = encodeURIComponent(expectedRole);
   await getPageOrElement(world).then(async (element) => {
-    const byRole = await element.getByRole(expectedRole, { name: name, includeHidden: true, exact: true });
+    const byRole = await element.getByRole(expectedRole, { name: name, exact: true });
     await expect(byRole).toHaveCount(1, { timeout: await getTimeout(world) });
     await expect(byRole).toBeChecked();
   });
@@ -215,7 +214,7 @@ export async function findWithRoleAndNameAndChecked(world: World, expectedRole: 
 export async function findWithRoleAndNameAndUnchecked(world: World, expectedRole: string, name: string): Promise<any> {
   expectedRole = encodeURIComponent(expectedRole);
   await getPageOrElement(world).then(async (element) => {
-    const byRole = await element.getByRole(expectedRole, { name: name, includeHidden: true, exact: true });
+    const byRole = await element.getByRole(expectedRole, { name: name, exact: true });
     await expect(byRole).toHaveCount(1, { timeout: await getTimeout(world) });
     await expect(byRole).not.toBeChecked();
   });
@@ -224,7 +223,7 @@ export async function findWithRoleAndNameAndUnchecked(world: World, expectedRole
 export async function findWithRoleAndNameAndContentDisable(world: World, expectedRole: string, name: string, expectedTextContent: string) {
   expectedRole = encodeURIComponent(expectedRole);
   await getPageOrElement(world).then(async (element) => {
-    const byRole = await element.getByRole(expectedRole, { name: name, includeHidden: true, exact: true });
+    const byRole = await element.getByRole(expectedRole, { name: name, exact: true });
     await expect(byRole).toHaveCount(1, { timeout: await getTimeout(world) });
     await checkTextContentLocator(byRole, expectedTextContent);
     await expect(byRole).toBeDisabled();
@@ -234,7 +233,7 @@ export async function findWithRoleAndNameAndContentDisable(world: World, expecte
 export async function findWithRoleAndNameAndContentEnable(world: World, expectedRole: string, name: string, expectedTextContent: string) {
   expectedRole = encodeURIComponent(expectedRole);
   await getPageOrElement(world).then(async (element) => {
-    const byRole = element.getByRole(expectedRole, { name: name, includeHidden: true, exact: true });
+    const byRole = element.getByRole(expectedRole, { name: name, exact: true });
     await expect(byRole).toHaveCount(1, { timeout: await getTimeout(world) });
     await checkTextContentLocator(byRole, expectedTextContent);
     await expect(byRole).toBeEnabled();

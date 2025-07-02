@@ -88,7 +88,7 @@ When(`${key.when.type}`, async function(textToType: string, name: string) {
  * */
 When(`${key.when.enter}`, async function(textToType: string, name: string) {
     await getPageOrElement(this).then(async (element) => {
-        const byRole = await element.getByRole("$roleId", { name: name, includeHidden: true, exact: true });
+        const byRole = await element.getByRole("$roleId", { name: name, exact: true });
         await expect(byRole).toHaveCount(1);
         await byRole.type(textToType);
         await deleteCookieByName(this, COOKIE_NAME.SELECTED_ELEMENT);
