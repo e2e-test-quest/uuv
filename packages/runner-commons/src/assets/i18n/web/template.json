@@ -90,6 +90,9 @@
     "table": {
       "withNameAndContent": ""
     },
+    "title": {
+      "withNameAndLevel": ""
+    },
     "attributes": {
       "withValues": ""
     },

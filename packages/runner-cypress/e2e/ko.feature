@@ -81,3 +81,8 @@ Feature: Ko
       | Island Trading                | Helen Bennett    | UK      |
       | Laughing Bacchus Winecellars  | Yoshi Tannamuri  | Canada  |
       | Magazzini Alimentari Riuniti  | Giovanni Rovelli | Italy   |
+
+  @ko
+  Scenario: Title should failed when bad level
+    When I visit path "https://e2e-test-quest.github.io/simple-webapp/grid.html"
+    Then I should see a title named "HTML Grid Example" with level 2

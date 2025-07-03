@@ -161,12 +161,12 @@ export async function deleteCookieByName(world: World, cookieName: COOKIE_NAME) 
   ]);
 }
 
-export async function findWithRoleAndName(world: World, role: string, name: string): Promise<any> {
-  await findWithRoleAndNameAndContent(world, role, name);
+export async function findWithRoleAndName(world: World, role: string, name: string, otherRoleOptions = {}): Promise<any> {
+  await findWithRoleAndNameAndContent(world, role, name, undefined, otherRoleOptions);
 }
 
 export async function withinRoleAndName(world: World, role: string, name: string) {
-  await findWithRoleAndNameAndContent(world, role, name, undefined, true);
+  await findWithRoleAndNameAndContent(world, role, name, undefined);
   await addCookie(world, COOKIE_NAME.SELECTED_ELEMENT, new SelectedElementCookie(FILTER_TYPE.SELECTOR, `role=${role}[name="${name}"]`));
 
 }
@@ -180,10 +180,10 @@ export async function notFoundWithRoleAndName(world: World, role: string, name: 
 
 }
 
-export async function findWithRoleAndNameAndContent(world: World, expectedRole: string, name: string, expectedTextContent: string | undefined = undefined, setFocus = false): Promise<any> {
+export async function findWithRoleAndNameAndContent(world: World, expectedRole: string, name: string, expectedTextContent: string | undefined = undefined, otherRoleOptions = {}): Promise<any> {
   expectedRole = encodeURIComponent(expectedRole);
   await getPageOrElement(world).then(async (element) => {
-    const byRole = await element.getByRole(expectedRole, { name: name, exact: true });
+    const byRole = await element.getByRole(expectedRole, { name: name, exact: true, ...otherRoleOptions });
     await expect(byRole).toHaveCount(1, { timeout: await getTimeout(world) });
     if (expectedTextContent !== undefined) {
       await checkTextContentLocator(byRole, expectedTextContent);

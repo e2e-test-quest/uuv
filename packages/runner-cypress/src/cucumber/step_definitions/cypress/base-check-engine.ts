@@ -541,6 +541,15 @@ Then(
 );
 
 /**
+ * key.then.title.withNameAndLevel.description
+ * */
+Then(`${key.then.title.withNameAndLevel}`, function(name: string, level: number) {
+    cy.uuvFindByRole("heading", { name, level })
+        .uuvFoundedElement()
+        .should("exist");
+});
+
+/**
  * key.then.attributes.withValues.description
  * */
 Then(

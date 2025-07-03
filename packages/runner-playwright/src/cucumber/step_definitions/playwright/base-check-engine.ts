@@ -631,6 +631,13 @@ Then(
     }
 );
 
+/**
+ * key.then.title.withNameAndLevel.description
+ * */
+Then(`${key.then.title.withNameAndLevel}`, async function(name: string, level: number) {
+    await findWithRoleAndName(this, "heading", name, { level });
+});
+
 function removeHeaderSeparatorLine(pExpectedElementsOfList: DataTable) {
     const expectedElementsOfList = pExpectedElementsOfList.raw();
     if (expectedElementsOfList.length > 1) {

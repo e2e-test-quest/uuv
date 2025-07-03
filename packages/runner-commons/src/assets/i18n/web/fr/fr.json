@@ -120,6 +120,11 @@
     "wording": "je dois voir le titre de page {string}"
   },
   {
+    "key": "key.then.title.withNameAndLevel",
+    "description": "Vérifie l'existence d'un élément Html ayant le rôle `heading`, le [nom accessible](https://russmaxdesign.github.io/html-elements-names/) et le niveau spécifiés",
+    "wording": "je dois voir un titre nommé {string} avec le niveau {int}"
+  },
+  {
     "key": "key.then.attributes.withValues",
     "description": "Vérifie des attributs Html de l'élément sélectionné",
     "wording": "je dois voir les attributs avec valeurs suivantes"

@@ -120,6 +120,11 @@
   "wording": "I should see the page title {string}"
  },
  {
+  "key": "key.then.title.withNameAndLevel",
+  "description": "Checks that an Html element exists with [accessible role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles#aria_role_types) `heading`, the specified [name](https://russmaxdesign.github.io/html-elements-names/) and title level",
+  "wording": "I should see a title named {string} with level {int}"
+ },
+ {
   "key": "key.then.attributes.withValues",
   "description": "Checks Html attributes of the selected element",
   "wording": "I should see these attributes with values"
