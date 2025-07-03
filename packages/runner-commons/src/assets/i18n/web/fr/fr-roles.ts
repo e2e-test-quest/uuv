@@ -116,7 +116,8 @@ export const FR_ROLES: AccessibleRole[] = [
         name: "boîte à choix",
         definiteArticle: FR_DEFINITE_ARTICLE.LA,
         indefiniteArticle: FR_INDEFINITE_ARTICLE.UNE,
-        shouldGenerateKeyboardSentence: true
+        shouldGenerateKeyboardSentence: true,
+        shouldGenerateClickSentence: true
     },
     {
         id: "command",
@@ -259,7 +260,9 @@ export const FR_ROLES: AccessibleRole[] = [
         id: "listitem",
         name: "élément de liste",
         definiteArticle: FR_DEFINITE_ARTICLE.L,
-        indefiniteArticle: FR_INDEFINITE_ARTICLE.UN
+        indefiniteArticle: FR_INDEFINITE_ARTICLE.UN,
+        shouldGenerateKeyboardSentence: true,
+        shouldGenerateClickSentence: true
     },
     {
         id: "log",
@@ -347,7 +350,9 @@ export const FR_ROLES: AccessibleRole[] = [
         id: "option",
         name: "option",
         definiteArticle: FR_DEFINITE_ARTICLE.L,
-        indefiniteArticle: FR_INDEFINITE_ARTICLE.UNE
+        indefiniteArticle: FR_INDEFINITE_ARTICLE.UNE,
+        shouldGenerateKeyboardSentence: true,
+        shouldGenerateClickSentence: true
     },
     {
         id: "presentation",
