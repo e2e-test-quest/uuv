@@ -73,7 +73,6 @@ function UuvAssistant(props: UuvAssistantProps) {
   const [expectedKeyboardNavigation, setExpectedKeyboardNavigation] = useState<FocusableElement[]>([]);
   const [displayedKeyboardNavigation, setDisplayedKeyboardNavigation] = useState<KeyboardNavigationModeEnum>(KeyboardNavigationModeEnum.NONE);
 
-
   const selectionHelper = new SelectionHelper(onElementSelection, reset);
 
   useEffect(() => {
@@ -244,7 +243,8 @@ function UuvAssistant(props: UuvAssistantProps) {
    disabled: boolean,
    onClick?: () => void,
    icon?: React.ReactNode,
-   children?: MenuItem[]
+   children?: MenuItem[],
+   onTitleClick?: () => void
   ): MenuItem {
     return {
       key,
@@ -252,7 +252,8 @@ function UuvAssistant(props: UuvAssistantProps) {
       disabled,
       children,
       label,
-      onClick
+      onClick,
+      onTitleClick
     } as MenuItem;
   }
 
@@ -274,7 +275,7 @@ function UuvAssistant(props: UuvAssistantProps) {
       false,
       undefined,
         <div className={"menu-custom-svg-container"}>
-          <img src={CssHelper.getBase64File(mouseIcon)} aria-hidden={true} alt="" className={"menu-custom-svg-from-black-to-white"}/>
+          <img src={CssHelper.getBase64File(mouseIcon)}  aria-label={"mouse selection"} className={"menu-custom-svg-from-black-to-white"}/>
         </div>,
       [
         getItem(ActionEnum.EXPECT.toString(), ActionEnum.EXPECT, false, () => {
@@ -289,7 +290,8 @@ function UuvAssistant(props: UuvAssistantProps) {
         getItem(ActionEnum.TYPE.toString(), ActionEnum.TYPE, false, () => {
           handleMouseNavigationChoice(ActionEnum.TYPE);
         })
-      ]
+      ],
+      () => handleMouseNavigationChoice(ActionEnum.EXPECT)
     ),
     getItem(
       "Keyboard actions",
@@ -297,13 +299,14 @@ function UuvAssistant(props: UuvAssistantProps) {
       false,
       undefined,
       <div className={"menu-custom-svg-container"}>
-        <img src={CssHelper.getBase64File(keyboardIcon)} aria-hidden={true} alt="" className={"menu-custom-svg-from-black-to-white"}/>
+        <img src={CssHelper.getBase64File(keyboardIcon)} aria-label={"keyboard selection"} className={"menu-custom-svg-from-black-to-white"}/>
       </div>,
       [
         getItem("Keyboard navigation", "KeybNav", false, () => {
           handleKeyboardNavigationChoice();
         })
-      ]
+      ],
+      () => handleKeyboardNavigationChoice()
     ),
     getItem(
       "Form actions",
@@ -311,13 +314,14 @@ function UuvAssistant(props: UuvAssistantProps) {
       false,
       undefined,
       <div className={"menu-custom-svg-container"}>
-        <img src={CssHelper.getBase64File(formIcon)} aria-hidden={true} alt="" className={"menu-custom-svg-from-black-to-white"}/>
+        <img src={CssHelper.getBase64File(formIcon)} aria-label={"form selection"} className={"menu-custom-svg-from-black-to-white"}/>
       </div>,
       [
         getItem("Form completion with mouse", "FormCompletionMouse", false, () => {
           handleFormCompletionChoice();
         })
-      ]
+      ],
+      () => handleFormCompletionChoice()
     )
   ];
 
