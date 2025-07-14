@@ -88,3 +88,6 @@ Feature: English Test Step Definition
     And I should see these attributes with values
     | class | fname-class |
     And I reset context
+
+  Scenario: image
+    Then I should see an image named "UUV Logo fixture"

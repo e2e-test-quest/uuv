@@ -84,7 +84,7 @@ export const EN_ROLES: AccessibleRole[] = [
     { id: "gridcell", name: "grid cell" },
     { id: "group", name: "group" },
     { id: "heading", name: "title" },
-    { id: "img", name: "picture" },
+    { id: "img", name: "image", indefiniteArticle: INDEFINITE_ARTICLE.AN },
     { id: "landmark", name: "landmark" },
     { id: "link", name: "link", shouldGenerateKeyboardSentence: true, shouldGenerateClickSentence: true },
     { id: "list", name: "list", shouldGenerateContainsSentence: false, shouldGenerateTypeSentence: false },

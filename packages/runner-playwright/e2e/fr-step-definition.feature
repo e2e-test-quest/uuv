@@ -96,3 +96,6 @@ Fonctionnalité: Dictionnaire français de phrases de base utilisant playwright
       Et je dois voir les attributs avec valeurs suivantes
         | class | fname-class |
       Et je reinitialise le contexte
+
+    Scénario: image
+      Alors je dois voir une image nommée "UUV Logo fixture"

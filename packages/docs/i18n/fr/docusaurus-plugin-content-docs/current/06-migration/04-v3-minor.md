@@ -10,3 +10,8 @@ Pour `@uuv/playwright 3.0.1 -> 3.1.0`
 Pour `@uuv/playwright 3.36.0 -> 3.37.0`
 - Mettez à jour les imports de vos propres phrases si vous en avez :
   - `import {Given, When, Then} from "@cucumber/cucumber";` -> `import { World, Given, Then } from "@uuv/playwright";`
+
+## Replacement des phrases picture pour la langue anglaise
+For `@uuv/playwright 3.41.0 -> 3.42.0`
+- Replacement des phrases picture:
+  - `Then I should see an picture named "UUV Logo fixture"` -> `Then I should see an image named "UUV Logo fixture"`
