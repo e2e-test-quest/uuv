@@ -61,6 +61,8 @@
       "previousWithRoleAndNameFocused": "",
       "withRoleAndNameAndContentDisabled": "",
       "withRoleAndNameAndContentEnabled": "",
+      "withRoleAndNameDisabled": "",
+      "withRoleAndNameEnabled": "",
       "withAriaLabel": "",
       "withAriaLabelAndContent": "",
       "withSelector": "",

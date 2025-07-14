@@ -55,6 +55,18 @@
       "section": "contains"
     },
     {
+      "key": "key.then.element.withRoleAndNameDisabled",
+      "description": "Checks that an Html element exists with the specified [accessible role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles#aria_role_types), [name](https://russmaxdesign.github.io/html-elements-names/), and with the disabled attribute set to true",
+      "wording": "I should see $indefiniteArticle $roleName named {string} disabled",
+      "section": "contains"
+    },
+    {
+      "key": "key.then.element.withRoleAndNameEnabled",
+      "description": "Checks that an Html element exists with the specified [accessible role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles#aria_role_types), [name](https://russmaxdesign.github.io/html-elements-names/), and with the disabled attribute set to false",
+      "wording": "I should see $indefiniteArticle $roleName named {string} enabled",
+      "section": "contains"
+    },
+    {
       "key": "key.when.type",
       "description": "Writes the sentence given as a parameter inside the specified field (useful for example to fill in a form field)",
       "wording": "I type the sentence {string} in $definiteArticle $roleName named {string}",

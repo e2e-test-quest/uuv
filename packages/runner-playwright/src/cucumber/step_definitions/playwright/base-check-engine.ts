@@ -25,8 +25,8 @@ import {
     FILTER_TYPE,
     findWithRoleAndName,
     findWithRoleAndNameAndContent,
-    findWithRoleAndNameAndContentDisable,
-    findWithRoleAndNameAndContentEnable,
+    findWithRoleAndNameAndContentDisabled,
+    findWithRoleAndNameAndContentEnabled,
     findWithRoleAndNameFocused,
     getCookie,
     getPageOrElement,
@@ -461,7 +461,7 @@ Then(
 Then(
  `${key.then.element.withRoleAndNameAndContentDisabled}`,
  async function(expectedRole: string, name: string, expectedTextContent: string) {
-   await findWithRoleAndNameAndContentDisable(this, expectedRole, name, expectedTextContent);
+   await findWithRoleAndNameAndContentDisabled(this, expectedRole, name, expectedTextContent);
  }
 );
 
@@ -471,7 +471,7 @@ Then(
 Then(
  `${key.then.element.withRoleAndNameAndContentEnabled}`,
  async function(expectedRole: string, name: string, expectedTextContent: string) {
-   await findWithRoleAndNameAndContentEnable(this, expectedRole, name, expectedTextContent);
+   await findWithRoleAndNameAndContentEnabled(this, expectedRole, name, expectedTextContent);
  }
 );
 

@@ -43,10 +43,10 @@ Fonctionnalité: Dictionnaire français de phrases de base utilisant cypress
       Alors je dois voir un élément avec le rôle "button" et le nom "Reset" et pour contenu "Reset"
 
     Scénario: key.then.element.withRoleAndNameAndContentDisabled
-      Alors je dois voir un élément avec le rôle "textbox" et le nom "First name" et pour contenu "John" inactif
+      Alors je dois voir un élément avec le rôle "textbox" et le nom "First name" et pour contenu "John" désactivé
 
     Scénario: key.then.element.withRoleAndNameAndContentEnabled
-      Alors je dois voir un élément avec le rôle "textbox" et le nom "Last name" et pour contenu "Doe" actif
+      Alors je dois voir un élément avec le rôle "textbox" et le nom "Last name" et pour contenu "Doe" activé
 
     Scénario: key.then.list.withNameAndContent
       Alors je dois voir une liste nommée "test-list" et contenant

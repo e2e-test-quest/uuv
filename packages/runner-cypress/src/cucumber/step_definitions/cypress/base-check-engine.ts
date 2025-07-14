@@ -21,8 +21,8 @@ import {
     click,
     findWithRoleAndName,
     findWithRoleAndNameAndContent,
-    findWithRoleAndNameAndContentDisable,
-    findWithRoleAndNameAndContentEnable,
+    findWithRoleAndNameAndContentDisabled,
+    findWithRoleAndNameAndContentEnabled,
     findWithRoleAndNameFocused,
     notFoundWithRoleAndName,
     withinRoleAndName
@@ -388,7 +388,7 @@ Then(
 Then(
  `${key.then.element.withRoleAndNameAndContentDisabled}`,
   function(expectedRole: string, name: string, expectedTextContent: string) {
-   findWithRoleAndNameAndContentDisable(expectedRole, name, expectedTextContent);
+   findWithRoleAndNameAndContentDisabled(expectedRole, name, expectedTextContent);
  }
 );
 
@@ -398,7 +398,7 @@ Then(
 Then(
  `${key.then.element.withRoleAndNameAndContentEnabled}`,
   function(expectedRole: string, name: string, expectedTextContent: string) {
-   findWithRoleAndNameAndContentEnable(expectedRole, name, expectedTextContent);
+   findWithRoleAndNameAndContentEnabled(expectedRole, name, expectedTextContent);
  }
 );
 

@@ -220,7 +220,7 @@ export async function findWithRoleAndNameAndUnchecked(world: World, expectedRole
   });
 }
 
-export async function findWithRoleAndNameAndContentDisable(world: World, expectedRole: string, name: string, expectedTextContent: string) {
+export async function findWithRoleAndNameAndContentDisabled(world: World, expectedRole: string, name: string, expectedTextContent: string) {
   expectedRole = encodeURIComponent(expectedRole);
   await getPageOrElement(world).then(async (element) => {
     const byRole = await element.getByRole(expectedRole, { name: name, exact: true });
@@ -230,12 +230,30 @@ export async function findWithRoleAndNameAndContentDisable(world: World, expecte
   });
 }
 
-export async function findWithRoleAndNameAndContentEnable(world: World, expectedRole: string, name: string, expectedTextContent: string) {
+export async function findWithRoleAndNameDisabled(world: World, expectedRole: string, name: string) {
+  expectedRole = encodeURIComponent(expectedRole);
+  await getPageOrElement(world).then(async (element) => {
+    const byRole = await element.getByRole(expectedRole, { name: name, exact: true });
+    await expect(byRole).toHaveCount(1, { timeout: await getTimeout(world) });
+    await expect(byRole).toBeDisabled();
+  });
+}
+
+export async function findWithRoleAndNameAndContentEnabled(world: World, expectedRole: string, name: string, expectedTextContent: string) {
   expectedRole = encodeURIComponent(expectedRole);
   await getPageOrElement(world).then(async (element) => {
     const byRole = element.getByRole(expectedRole, { name: name, exact: true });
     await expect(byRole).toHaveCount(1, { timeout: await getTimeout(world) });
     await checkTextContentLocator(byRole, expectedTextContent);
+    await expect(byRole).toBeEnabled();
+  });
+}
+
+export async function findWithRoleAndNameEnabled(world: World, expectedRole: string, name: string) {
+  expectedRole = encodeURIComponent(expectedRole);
+  await getPageOrElement(world).then(async (element) => {
+    const byRole = element.getByRole(expectedRole, { name: name, exact: true });
+    await expect(byRole).toHaveCount(1, { timeout: await getTimeout(world) });
     await expect(byRole).toBeEnabled();
   });
 }

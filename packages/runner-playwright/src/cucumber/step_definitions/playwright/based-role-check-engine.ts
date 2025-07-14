@@ -13,20 +13,22 @@
 
 import { key } from "@uuv/runner-commons/wording/web";
 import {
-  click,
-  COOKIE_NAME,
-  deleteCookieByName,
-  findWithRoleAndName,
-  findWithRoleAndNameAndChecked,
-  findWithRoleAndNameAndContent,
-  findWithRoleAndNameAndContentDisable,
-  findWithRoleAndNameAndContentEnable,
-  findWithRoleAndNameAndUnchecked,
-  findWithRoleAndNameFocused,
-  getPageOrElement,
-  getTimeout,
-  notFoundWithRoleAndName,
-  withinRoleAndName
+    click,
+    COOKIE_NAME,
+    deleteCookieByName,
+    findWithRoleAndName,
+    findWithRoleAndNameAndChecked,
+    findWithRoleAndNameAndContent,
+    findWithRoleAndNameAndContentDisabled,
+    findWithRoleAndNameAndContentEnabled,
+    findWithRoleAndNameAndUnchecked,
+    findWithRoleAndNameDisabled,
+    findWithRoleAndNameEnabled,
+    findWithRoleAndNameFocused,
+    getPageOrElement,
+    getTimeout,
+    notFoundWithRoleAndName,
+    withinRoleAndName
 } from "./core-engine";
 import { Then, When } from "../../preprocessor/run/world";
 import { expect } from "@playwright/test";
@@ -114,8 +116,18 @@ Then(
 Then(
  `${key.then.element.withRoleAndNameAndContentDisabled}`,
  async function(name: string, expectedTextContent: string) {
-   await findWithRoleAndNameAndContentDisable(this, "$roleId", name, expectedTextContent);
+   await findWithRoleAndNameAndContentDisabled(this, "$roleId", name, expectedTextContent);
  }
+);
+
+/**
+ * key.then.element.withRoleAndNameDisabled.description
+ * */
+Then(
+    `${key.then.element.withRoleAndNameDisabled}`,
+    async function(name: string) {
+        await findWithRoleAndNameDisabled(this, "$roleId", name);
+    }
 );
 
 /**
@@ -124,8 +136,18 @@ Then(
 Then(
  `${key.then.element.withRoleAndNameAndContentEnabled}`,
  async function(name: string, expectedTextContent: string) {
-   await findWithRoleAndNameAndContentEnable(this, "$roleId", name, expectedTextContent);
+   await findWithRoleAndNameAndContentEnabled(this, "$roleId", name, expectedTextContent);
  }
+);
+
+/**
+ * key.then.element.withRoleAndNameEnabled.description
+ * */
+Then(
+    `${key.then.element.withRoleAndNameEnabled}`,
+    async function(name: string) {
+        await findWithRoleAndNameEnabled(this, "$roleId", name);
+    }
 );
 
 // End of Content Section

@@ -41,7 +41,7 @@ Feature: English Test Step Definition
     Then I should see an element with role "textbox" and name "First name" and content "John" disabled
 
   Scenario: key.then.element.withRoleAndNameAndContentEnabled
-    Then I should see an element with role "textbox" and name "Last name" and content "Doe" not disabled
+    Then I should see an element with role "textbox" and name "Last name" and content "Doe" enabled
 
   Scenario: key.then.list.withNameAndContent
     Then I should see a list named "test-list" and containing

@@ -77,7 +77,7 @@ export function findWithRoleAndNameAndContent(expectedRole: string, name: string
         });
 }
 
-export function findWithRoleAndNameAndContentDisable(expectedRole: string, name: string, expectedTextContent: string) {
+export function findWithRoleAndNameAndContentDisabled(expectedRole: string, name: string, expectedTextContent: string) {
     cy.uuvFindByRole(expectedRole, { name })
         .uuvFoundedElement()
         .should("exist")
@@ -89,7 +89,15 @@ export function findWithRoleAndNameAndContentDisable(expectedRole: string, name:
         .should("eq", "disabled");
 }
 
-export function findWithRoleAndNameAndContentEnable(expectedRole: string, name: string, expectedTextContent: string) {
+export function findWithRoleAndNameDisabled(expectedRole: string, name: string) {
+    cy.uuvFindByRole(expectedRole, { name })
+        .uuvFoundedElement()
+        .should("exist")
+        .invoke("attr", "disabled")
+        .should("eq", "disabled");
+}
+
+export function findWithRoleAndNameAndContentEnabled(expectedRole: string, name: string, expectedTextContent: string) {
     cy.uuvFindByRole(expectedRole, { name })
         .uuvFoundedElement()
         .should("exist")
@@ -97,6 +105,14 @@ export function findWithRoleAndNameAndContentEnable(expectedRole: string, name: 
             assert.equal(response.length, 1);
             assertTextContent(response, expectedTextContent);
         })
+        .invoke("attr", "disabled")
+        .should("eq", undefined);
+}
+
+export function findWithRoleAndNameEnabled(expectedRole: string, name: string) {
+    cy.uuvFindByRole(expectedRole, { name })
+        .uuvFoundedElement()
+        .should("exist")
         .invoke("attr", "disabled")
         .should("eq", undefined);
 }

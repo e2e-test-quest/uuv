@@ -1,4 +1,5 @@
 Feature: English Test Step Definition
+
   Background:
     When I visit path "https://e2e-test-quest.github.io/simple-webapp/"
 
@@ -9,7 +10,7 @@ Feature: English Test Step Definition
     And within the element with aria-label "flegend"
 
   Scenario: key.then.element.not.withAriaLabel
-    Then I should not see an element with aria-label "NOT flegend"
+    Then I should not see an element with aria-label "[NOT] flegend"
 
   Scenario: key.then.element.withAriaLabelAndContent
     Then I should see an element with aria-label "flegend" and content "Personalia"
@@ -24,7 +25,7 @@ Feature: English Test Step Definition
     Then I should see an element with testId "fieldset"
 
   Scenario: key.then.element.not.withTestId
-    Then I should not see an element with testId "NOT fieldset"
+    Then I should not see an element with testId "[NOT] fieldset"
 
   Scenario: key.then.element.withRoleAndName
     Then I should see an element with role "heading" and name "Grouping Form Data with Fieldset"
@@ -40,7 +41,7 @@ Feature: English Test Step Definition
     Then I should see an element with role "textbox" and name "First name" and content "John" disabled
 
   Scenario: key.then.element.withRoleAndNameAndContentEnabled
-    Then I should see an element with role "textbox" and name "Last name" and content "Doe" not disabled
+    Then I should see an element with role "textbox" and name "Last name" and content "Doe" enabled
 
   Scenario: key.then.list.withNameAndContent
     Then I should see a list named "test-list" and containing
@@ -57,7 +58,7 @@ Feature: English Test Step Definition
     And within the element with testId "fieldset"
     And within the element with role "button" and name "Submit"
     When I click
-     And I reset context
+    And I reset context
     Then I should see a title named "404"
 
   Scenario: key.then.element.key.when.click.button without context

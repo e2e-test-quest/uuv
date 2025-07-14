@@ -152,12 +152,12 @@
   {
     "key": "key.then.element.withRoleAndNameAndContentDisabled",
     "description": "Vérifie qu'un élément Html existe avec le [rôle accessible](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles#aria_role_types), le [nom accessible](https://russmaxdesign.github.io/html-elements-names/) et le contenu spécifiés, et avec l'attribut disabled à true",
-    "wording": "je dois voir un élément avec le rôle {string} et le nom {string} et pour contenu {string} inactif"
+    "wording": "je dois voir un élément avec le rôle {string} et le nom {string} et pour contenu {string} désactivé"
   },
   {
     "key": "key.then.element.withRoleAndNameAndContentEnabled",
     "description": "Vérifie qu'un élément Html existe avec le [rôle accessible](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles#aria_role_types), le [nom accessible](https://russmaxdesign.github.io/html-elements-names/) et le contenu spécifiés et avec l'attribut disabled à false",
-    "wording": "je dois voir un élément avec le rôle {string} et le nom {string} et pour contenu {string} actif"
+    "wording": "je dois voir un élément avec le rôle {string} et le nom {string} et pour contenu {string} activé"
   },
   {
     "key": "key.then.element.withRoleAndNameAndContent",
