@@ -40,7 +40,7 @@
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
-    "electron": "33.4.5",
+    "electron": "33.4.11",
     "electron-installer-zip": "0.1.2",
     "electron-packager": "17.1.2",
     "eslint": "8.57.1"
