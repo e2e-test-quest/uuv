@@ -13,7 +13,7 @@
   <link rel="manifest" href="/manifest.json" />
   <script type="module" src="/src/index.tsx"></script>
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener('DOMContentLoaded', () => {
       // const event = new CustomEvent('UUVAssistantReadyToLoad', {detail: {translator: () => {return 'toto'}}});
       const event = new Event('UUVAssistantReadyToLoad');
       document.dispatchEvent(event);
@@ -26,7 +26,8 @@
 <main role="main" style="margin: 0 20px">
   <h1>Grouping Form Data with Fieldset</h1>
 
-  <p data-testid='sentence'>The fieldset element is used to group related data in a form, and the legend element defines a caption for the</p>
+  <p data-testid='sentence'>The fieldset element is used to group related data in a form, and the legend element defines
+    a caption for the</p>
 
   <div>
     <label id="test-list-label">test-list</label>
@@ -69,7 +70,21 @@
       <input type="submit" value="firstSubmitButton">
       <button type="submit">secondSubmitButton</button>
       <button type="reset">Reset</button>
+      <details>
+        <div>title</div>
+        <div role="button" class="button" onclick="alert('test')">div button</div>
+        <div>div sans enfants</div>
+        <div><span>div avec enfants</span></div>
+        <div style="border: 1px solid black">
+          <div>div avec enfants 2ème niveau</div>
+          <div>div avec enfants 2ème niveau</div>
+        </div>
+        <div aria-hidden="true">aria hidden</div>
+      </details>
+
+
     </fieldset>
+
   </form>
   <input type="submit" value="Submit">
 

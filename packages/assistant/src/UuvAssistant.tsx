@@ -29,22 +29,41 @@ import {
   Spin,
   theme,
   Tooltip,
-  Typography
+  Typography,
 } from "antd";
-import { CloseOutlined, CopyOutlined, DoubleLeftOutlined, DoubleRightOutlined } from "@ant-design/icons";
+import {
+  CloseOutlined,
+  CopyOutlined,
+  DoubleLeftOutlined,
+  DoubleRightOutlined,
+  HighlightOutlined,
+} from "@ant-design/icons";
 import { StyleProvider } from "@ant-design/cssinjs";
 import { CssHelper } from "./helper/CssHelper";
 import { FocusableElement } from "tabbable";
 
-import CodeMirror, { EditorView, Extension, gutter } from "@uiw/react-codemirror";
+import CodeMirror, {
+  EditorView,
+  Extension,
+  gutter,
+} from "@uiw/react-codemirror";
 import { StreamLanguage } from "@codemirror/language";
 import { gherkin } from "@codemirror/legacy-modes/mode/gherkin";
 import { githubDark } from "@uiw/codemirror-theme-github";
 
 import * as KeyboardNavigationHelper from "./helper/KeyboardNavigationHelper";
 import * as FormCompletionHelper from "./helper/FormCompletionHelper";
-import { buildResultingScript, buildUuvGutter } from "./helper/ResultScriptHelper";
-import { ActionEnum, AdditionalLayerEnum, KeyboardNavigationModeEnum, ResultSentence, VisibilityEnum } from "./Commons";
+import {
+  buildResultingScript,
+  buildUuvGutter,
+} from "./helper/ResultScriptHelper";
+import {
+  ActionEnum,
+  AdditionalLayerEnum,
+  KeyboardNavigationModeEnum,
+  ResultSentence,
+  VisibilityEnum,
+} from "./Commons";
 import * as LayerHelper from "./helper/LayerHelper";
 import { SelectionHelper } from "./helper/SelectionHelper";
 import { TranslateSentences } from "./translator/model";
@@ -72,8 +91,9 @@ function UuvAssistant(props: UuvAssistantProps) {
   const [currentKeyboardNavigation, setCurrentKeyboardNavigation] = useState<FocusableElement[]>([]);
   const [expectedKeyboardNavigation, setExpectedKeyboardNavigation] = useState<FocusableElement[]>([]);
   const [displayedKeyboardNavigation, setDisplayedKeyboardNavigation] = useState<KeyboardNavigationModeEnum>(KeyboardNavigationModeEnum.NONE);
+  const [refineHighlight, setRefineHighlight] = useState<boolean>(true);
 
-  const selectionHelper = new SelectionHelper(onElementSelection, reset);
+  const selectionHelper = new SelectionHelper(onElementSelection, reset, refineHighlight);
 
   useEffect(() => {
     return () => {
@@ -201,6 +221,11 @@ function UuvAssistant(props: UuvAssistantProps) {
         content: "Result copied to the clipboard"
       });
     }
+  };
+
+  const onRefineHighlight = () => {
+    clearAllAdditionalLayer();
+    setRefineHighlight(!refineHighlight);
   };
 
   async function buildFormCompletionResultSentence(selectedForm: HTMLFormElement) {
@@ -347,137 +372,207 @@ function UuvAssistant(props: UuvAssistantProps) {
   }
 
   return (
-   <div id='uuvAssistantMenu'>
-     <StyleProvider container={props.assistantRoot}>
-       <ConfigProvider
-        theme={{
-          algorithm: isDark ? theme.darkAlgorithm : theme.defaultAlgorithm,
-          token: {
-            fontSize: 18,
-            zIndexBase: 9999999989,
-            zIndexPopupBase: 9999999999
-          }
-        }}
-       >
-       {visibility === VisibilityEnum.WITH_RESULT ?
-          <Flex id='uuvAssistantResultZone' vertical={true}>
-            <header>
-              <Flex justify={"space-between"} align={"center"}>
-                <Typography.Title level={2}>Result of <span className={"secondary"}>{displayedResult.toString()}</span></Typography.Title>
-                <Tooltip placement='bottom' title='Close' getPopupContainer={(triggerNode) => getAsideParentInHierarchy(triggerNode)}>
-                  <Button type='link' shape='circle' icon={<CloseOutlined />} className='primary' onClick={() => {
-                    clearAllAdditionalLayer();
-                    setVisibility(VisibilityEnum.WITHOUT_RESULT);
-                  }} />
-                </Tooltip>
-              </Flex>
-            </header>
-            <div id={"toolbar"}>
-              <Flex justify={"space-between"} align={"center"}>
-                <Tooltip placement='bottom' title='Copy' getPopupContainer={(triggerNode) => getAsideParentInHierarchy(triggerNode)}>
-                  <Button type='link'
-                          shape='circle'
-                          icon={<CopyOutlined />}
-                          className='primary'
-                          disabled={generatedScript.length === 0}
-                          onClick={copyResult}
-                  />
-                </Tooltip>
-                {/*{displayedResult === ActionEnum.KEYBOARD_GLOBAL_NAVIGATION ?*/}
-                {/*  <Radio.Group*/}
-                {/*     options={[*/}
-                {/*       { label: 'Current', title: "Current navigation", value: KeyboardNavigationModeEnum.CURRENT_NAVIGATION },*/}
-                {/*       { label: 'Expected', title: "Navigation based on element position", value: KeyboardNavigationModeEnum.EXPECTED_NAVIGATION }*/}
-                {/*     ]}*/}
-                {/*     optionType="button"*/}
-                {/*     buttonStyle="solid"*/}
-                {/*     value={displayedKeyboardNavigation}*/}
-                {/*     onChange={switchKeyboardNavigationMode}*/}
-                {/*  />*/}
-                {/*  : ""}*/}
-              </Flex>
-            </div>
-            <CodeMirror
-             readOnly={true}
-             indentWithTab={true}
-             value={generatedScript}
-             height='100%'
-             extensions={[
-               StreamLanguage.define(gherkin),
-               EditorView.lineWrapping,
-               uuvGutter,
-               EditorView.contentAttributes.of({ "aria-label": "Generated UUV Script" })
-             ]}
-             theme={githubDark}
-             aria-label={"tot"}
-            />
-          </Flex>
-          : ""}
-         {visibility !== VisibilityEnum.HIDE ?
-          <Sider
-           reverseArrow={true}
-           defaultCollapsed={true}
-           id={"uuvAssistantMainBar"}
-           onCollapse={(value) => {
-             if (value) {
-              setVisibility(VisibilityEnum.WITHOUT_RESULT);
-             } else {
-              setVisibility(VisibilityEnum.WITH_RESULT);
-             }
-           }}>
-            <Flex align={"center"} vertical={true}>
-              <Flex align={"center"} vertical={true} className={"uuvAssistantAvatarContainer"}>
-                <Avatar className={"uuvAssistantAvatar"} size='large'>
-                  <Tooltip placement='top' title='Go to steps definition'
-                           getPopupContainer={(triggerNode) => getAsideParentInHierarchy(triggerNode)}>
-                    <a href='https://e2e-test-quest.github.io/uuv/docs/category/description-of-sentences'>
-                      <img
-                       src={CssHelper.getBase64File(uuvLogoJson)}
-                       alt='UUV logo'
-                       className={"uuvAssistantIcon"}
-                      />
-                    </a>
+    <div id="uuvAssistantMenu">
+      <StyleProvider container={props.assistantRoot}>
+        <ConfigProvider
+          theme={{
+            algorithm: isDark ? theme.darkAlgorithm : theme.defaultAlgorithm,
+            token: {
+              fontSize: 18,
+              zIndexBase: 9999999989,
+              zIndexPopupBase: 9999999999,
+            },
+          }}
+        >
+          {visibility === VisibilityEnum.WITH_RESULT ? (
+            <Flex id="uuvAssistantResultZone" vertical={true}>
+              <header>
+                <Flex justify={"space-between"} align={"center"}>
+                  <Typography.Title level={2}>
+                    Result of{" "}
+                    <span className={"secondary"}>
+                      {displayedResult.toString()}
+                    </span>
+                  </Typography.Title>
+                  <Tooltip
+                    placement="bottom"
+                    title="Close"
+                    getPopupContainer={(triggerNode) =>
+                      getAsideParentInHierarchy(triggerNode)
+                    }
+                  >
+                    <Button
+                      type="link"
+                      shape="circle"
+                      icon={<CloseOutlined />}
+                      className="primary"
+                      onClick={() => {
+                        clearAllAdditionalLayer();
+                        setVisibility(VisibilityEnum.WITHOUT_RESULT);
+                      }}
+                    />
                   </Tooltip>
-                </Avatar>
-                <Text className='uuvAssistantTitle'>UUV</Text>
-              </Flex>
-              <Divider />
-                {!isLoading ?
-                    <React.Fragment>
-                      <Menu
-                        mode="inline"
-                        items={actionMenuItems}
-                        getPopupContainer={(triggerNode) => getAsideParentInHierarchy(triggerNode)}
-                      />
-                      <Divider/>
-                      <Tooltip placement="left" title={getBottomButtonLabel()}
-                               getPopupContainer={(triggerNode) => getAsideParentInHierarchy(triggerNode)}>
-                        <Button
-                            size={"large"}
-                            type={"link"}
-                            block={true}
-                            style={{ background: "#001529", bottom: 0 }}
-                            icon={
-                              visibility === VisibilityEnum.WITH_RESULT
-                                ? <DoubleRightOutlined aria-hidden={true}/>
-                                : <DoubleLeftOutlined aria-hidden={true}/>
-                            }
-                            onClick={() => setVisibility(
-                                visibility === VisibilityEnum.WITH_RESULT ?
-                                    VisibilityEnum.WITHOUT_RESULT :
-                                    VisibilityEnum.WITH_RESULT
-                            )}
-                            aria-label={getBottomButtonLabel()}
-                        />
-                      </Tooltip>
-                    </React.Fragment>
-                : <Spin tip='Loading' size='large' spinning={isLoading} /> }
+                </Flex>
+              </header>
+              <div id={"toolbar"}>
+                <Flex justify={"space-between"} align={"center"}>
+                  <Tooltip
+                    placement="bottom"
+                    title="Copy"
+                    getPopupContainer={(triggerNode) =>
+                      getAsideParentInHierarchy(triggerNode)
+                    }
+                  >
+                    <Button
+                      type="link"
+                      shape="circle"
+                      icon={<CopyOutlined />}
+                      className="primary"
+                      disabled={generatedScript.length === 0}
+                      onClick={copyResult}
+                    />
+                  </Tooltip>
+                  <Tooltip
+                    placement="bottom"
+                    title="Refine current highlight"
+                    getPopupContainer={(triggerNode) =>
+                      getAsideParentInHierarchy(triggerNode)
+                    }
+                  >
+                    <Button
+                      type={refineHighlight ? "primary" : "link"}
+                      shape="circle"
+                      icon={<HighlightOutlined />}
+                      className="primary"
+                      disabled={generatedScript.length === 0}
+                      onClick={onRefineHighlight}
+                      aria-pressed={refineHighlight}
+                    />
+                  </Tooltip>
+                  {/*{displayedResult === ActionEnum.KEYBOARD_GLOBAL_NAVIGATION ?*/}
+                  {/*  <Radio.Group*/}
+                  {/*     options={[*/}
+                  {/*       { label: 'Current', title: "Current navigation", value: KeyboardNavigationModeEnum.CURRENT_NAVIGATION },*/}
+                  {/*       { label: 'Expected', title: "Navigation based on element position", value: KeyboardNavigationModeEnum.EXPECTED_NAVIGATION }*/}
+                  {/*     ]}*/}
+                  {/*     optionType="button"*/}
+                  {/*     buttonStyle="solid"*/}
+                  {/*     value={displayedKeyboardNavigation}*/}
+                  {/*     onChange={switchKeyboardNavigationMode}*/}
+                  {/*  />*/}
+                  {/*  : ""}*/}
+                </Flex>
+              </div>
+              <CodeMirror
+                readOnly={true}
+                indentWithTab={true}
+                value={generatedScript}
+                height="100%"
+                extensions={[
+                  StreamLanguage.define(gherkin),
+                  EditorView.lineWrapping,
+                  uuvGutter,
+                  EditorView.contentAttributes.of({
+                    "aria-label": "Generated UUV Script",
+                  }),
+                ]}
+                theme={githubDark}
+                aria-label={"tot"}
+              />
             </Flex>
-          </Sider>
-          : ""}
-       </ConfigProvider>
-     </StyleProvider>
-   </div>
+          ) : (
+            ""
+          )}
+          {visibility !== VisibilityEnum.HIDE ? (
+            <Sider
+              reverseArrow={true}
+              defaultCollapsed={true}
+              id={"uuvAssistantMainBar"}
+              onCollapse={(value) => {
+                if (value) {
+                  setVisibility(VisibilityEnum.WITHOUT_RESULT);
+                } else {
+                  setVisibility(VisibilityEnum.WITH_RESULT);
+                }
+              }}
+            >
+              <Flex align={"center"} vertical={true}>
+                <Flex
+                  align={"center"}
+                  vertical={true}
+                  className={"uuvAssistantAvatarContainer"}
+                >
+                  <Avatar className={"uuvAssistantAvatar"} size="large">
+                    <Tooltip
+                      placement="top"
+                      title="Go to steps definition"
+                      getPopupContainer={(triggerNode) =>
+                        getAsideParentInHierarchy(triggerNode)
+                      }
+                    >
+                      <a href="https://e2e-test-quest.github.io/uuv/docs/category/description-of-sentences">
+                        <img
+                          src={CssHelper.getBase64File(uuvLogoJson)}
+                          alt="UUV logo"
+                          className={"uuvAssistantIcon"}
+                        />
+                      </a>
+                    </Tooltip>
+                  </Avatar>
+                  <Text className="uuvAssistantTitle">UUV</Text>
+                </Flex>
+                <Divider />
+                {!isLoading ? (
+                  <React.Fragment>
+                    <Menu
+                      mode="inline"
+                      items={actionMenuItems}
+                      getPopupContainer={(triggerNode) =>
+                        getAsideParentInHierarchy(triggerNode)
+                      }
+                    />
+                    <Divider />
+                    <Tooltip
+                      placement="left"
+                      title={getBottomButtonLabel()}
+                      getPopupContainer={(triggerNode) =>
+                        getAsideParentInHierarchy(triggerNode)
+                      }
+                    >
+                      <Button
+                        size={"large"}
+                        type={"link"}
+                        block={true}
+                        style={{ background: "#001529", bottom: 0 }}
+                        icon={
+                          visibility === VisibilityEnum.WITH_RESULT ? (
+                            <DoubleRightOutlined aria-hidden={true} />
+                          ) : (
+                            <DoubleLeftOutlined aria-hidden={true} />
+                          )
+                        }
+                        onClick={() =>
+                          setVisibility(
+                            visibility === VisibilityEnum.WITH_RESULT
+                              ? VisibilityEnum.WITHOUT_RESULT
+                              : VisibilityEnum.WITH_RESULT,
+                          )
+                        }
+                        aria-label={getBottomButtonLabel()}
+                      />
+                    </Tooltip>
+                  </React.Fragment>
+                ) : (
+                  <Spin tip="Loading" size="large" spinning={isLoading} />
+                )}
+              </Flex>
+            </Sider>
+          ) : (
+            ""
+          )}
+        </ConfigProvider>
+      </StyleProvider>
+    </div>
   );
 }
 
