@@ -1,5 +1,6 @@
 import { FocusableElement } from "tabbable";
 import { AdditionalLayerEnum, UUV_ASSISTANT_BAR_WIDTH } from "../Commons";
+import { HIGHLIGHT_ORANGE_PROPS } from "./HighlightHelper";
 
 const SVG_NAMESPACE = "http://www.w3.org/2000/svg";
 
@@ -7,11 +8,6 @@ export interface Point {
     x: number;
     y: number;
 }
-
-export const HIGHLIGHTER_PROPS = {
-    width: 4,
-    borderColor: "orange"
-};
 
 export const ORDER_PROPS = {
     radius: 12,
@@ -63,10 +59,10 @@ function drawHighlight(layerContainer: Element, targetElement: FocusableElement,
     const highlightArea = document.createElementNS(SVG_NAMESPACE, "rect");
     highlightArea.setAttribute("class", "element-border");
     highlightArea.setAttribute("id", `element-border-${order}`);
-    highlightArea.setAttribute("width", `${targetElement.getBoundingClientRect().width + (HIGHLIGHTER_PROPS.width * 2)}`);
-    highlightArea.setAttribute("height", `${targetElement.getBoundingClientRect().height + (HIGHLIGHTER_PROPS.width * 2)}`);
-    highlightArea.setAttribute("x", `${window.scrollX + targetElement.getBoundingClientRect().x - HIGHLIGHTER_PROPS.width}`);
-    highlightArea.setAttribute("y", `${window.scrollY + targetElement.getBoundingClientRect().y - HIGHLIGHTER_PROPS.width}`);
+    highlightArea.setAttribute("width", `${targetElement.getBoundingClientRect().width + (HIGHLIGHT_ORANGE_PROPS.width * 2)}`);
+    highlightArea.setAttribute("height", `${targetElement.getBoundingClientRect().height + (HIGHLIGHT_ORANGE_PROPS.width * 2)}`);
+    highlightArea.setAttribute("x", `${window.scrollX + targetElement.getBoundingClientRect().x - HIGHLIGHT_ORANGE_PROPS.width}`);
+    highlightArea.setAttribute("y", `${window.scrollY + targetElement.getBoundingClientRect().y - HIGHLIGHT_ORANGE_PROPS.width}`);
     layerContainer.append(highlightArea);
 }
 
@@ -132,7 +128,8 @@ export function buildLayer(
     elements: HTMLElement[],
     additionalStyle: string,
     isFullWith: boolean,
-    displayLinkBetweenElements: boolean
+    displayLinkBetweenElements: boolean,
+    displayNavigationOrder = true
 ) {
     initSvgElement(layerShadowRoot, layer, additionalStyle, isFullWith);
     const layerContainer = layerShadowRoot.querySelector(`#${layer.toString()}-svg`);
@@ -146,9 +143,11 @@ export function buildLayer(
                 }
             });
         }
-        elements.forEach((currentElement, index, allElements) => {
+        elements.forEach((currentElement, index) => {
             drawHighlight(layerContainer, currentElement, index);
-            drawNavigationOrder(layerContainer, currentElement, index);
+            if (displayNavigationOrder) {
+              drawNavigationOrder(layerContainer, currentElement, index);
+            }
         });
     }
 }
@@ -157,7 +156,9 @@ export function addLayerToShadowDom(dom: ShadowRoot, layer: AdditionalLayerEnum)
     const newLayer = document.createElement("div");
     newLayer.setAttribute("id", layer.toString());
     newLayer.setAttribute("class", "uvv-assistant-additional-layer");
-    dom.appendChild(newLayer);
+    if (!dom.getElementById(layer.toString())) {
+      dom.appendChild(newLayer);
+    }
 }
 
 export function removeLayerToShadowDom(dom: ShadowRoot, layer: AdditionalLayerEnum) {
