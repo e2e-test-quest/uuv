@@ -21,7 +21,7 @@ import { ExpectTranslator } from '../translator/expect-translator';
 import { WithinTranslator } from '../translator/within-translator';
 import { TypeTranslator } from '../translator/type-translator';
 import { InformativeNodesHelper } from './InformativeNodesHelper';
-import { HighLightHelper } from './HighlightHelper';
+import { HighLightHelper } from './highlight/HighlightHelper';
 
 export class SelectionHelper {
   private onReset!: () => void;
@@ -57,19 +57,6 @@ export class SelectionHelper {
     } else {
       this.highLightHelper.enableBasicHighlight();
     }
-  }
-
-  private resetEvent(
-    onKeyDown: (e: KeyboardEvent) => void,
-    onMouseOver: (e) => void,
-    onMouseOut: (e) => void,
-  ) {
-    this.onReset();
-    this.highLightHelper.cancel();
-    document.removeEventListener('keydown', onKeyDown);
-    document.removeEventListener('mouseover', onMouseOver);
-    document.removeEventListener('mouseout', onMouseOut);
-    this.revertDisabledField();
   }
 
   public async buildResultSentence(
