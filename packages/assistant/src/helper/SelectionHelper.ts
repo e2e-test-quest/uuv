@@ -12,85 +12,107 @@
  */
 
 
-import Inspector from "inspector-dom";
-import { FocusableElement } from "tabbable";
-import { TranslateSentences } from "../translator/model";
-import { ActionEnum, UUV_DISABLED_CLASS } from "../Commons";
-import { Translator } from "../translator/abstract-translator";
-import { ClickTranslator } from "../translator/click-translator";
-import { ExpectTranslator } from "../translator/expect-translator";
-import { WithinTranslator } from "../translator/within-translator";
-import { TypeTranslator } from "../translator/type-translator";
+import { FocusableElement } from 'tabbable';
+import { TranslateSentences } from '../translator/model';
+import { ActionEnum, UUV_DISABLED_CLASS } from '../Commons';
+import { Translator } from '../translator/abstract-translator';
+import { ClickTranslator } from '../translator/click-translator';
+import { ExpectTranslator } from '../translator/expect-translator';
+import { WithinTranslator } from '../translator/within-translator';
+import { TypeTranslator } from '../translator/type-translator';
+import { InformativeNodesHelper } from './InformativeNodesHelper';
+import { HighLightHelper } from './HighlightHelper';
 
 export class SelectionHelper {
-    private inspector!: Inspector;
-    private onReset!: () => void;
+  private onReset!: () => void;
+  private highLightHelper: HighLightHelper;
+  private refineHighlight: boolean;
+  constructor(
+    onSelect: (el: HTMLElement) => void,
+    onReset: () => void,
+    refineHighlight: boolean
+  ) {
+    this.highLightHelper = new HighLightHelper(onSelect);
+    this.onReset = onReset;
+    this.refineHighlight = refineHighlight;
+  }
 
-    constructor(onSelect: (el: HTMLElement) => void, onReset: () => void) {
-        this.inspector = Inspector({
-            root: "body",
-            outlineStyle: "2px solid red",
-            onClick: (el: HTMLElement) => {
-                this.inspector.cancel();
-                onSelect(el);
-                this.revertDisabledField();
-            }
-        });
-        this.onReset = onReset;
+  private readonly onKeyDown = (e: KeyboardEvent) => {
+    if (e.key === 'Escape') {
+      this.onReset();
+      this.highLightHelper.cancel();
+      this.revertDisabledField();
+      document.removeEventListener('keydown', this.onKeyDown);
     }
+  };
 
-    public startSelect(enableDisabledField: boolean) {
-        if (enableDisabledField) {
-            this.enableDisabledField();
-        }
-        const onKeyDown = (e: KeyboardEvent) => {
-            if (e.key === "Escape") {
-                this.onReset();
-                this.inspector.cancel();
-                document.removeEventListener("keydown", onKeyDown);
-                this.revertDisabledField();
-            }
-        };
-        document.addEventListener("keydown", onKeyDown);
-        this.inspector.enable();
+  public startSelect(enableDisabledField: boolean) {
+    if (enableDisabledField) {
+      this.enableDisabledField();
     }
+    document.addEventListener('keydown', this.onKeyDown);
 
-    public async buildResultSentence(
-        el: FocusableElement,
-        action: ActionEnum.EXPECT | ActionEnum.CLICK | ActionEnum.WITHIN  | ActionEnum.TYPE,
-        isDisabled: boolean
-    ): Promise<TranslateSentences> {
-        let translator: Translator;
-        switch (action) {
-          case ActionEnum.WITHIN:
-            translator = new WithinTranslator();
-            break;
-          case ActionEnum.EXPECT:
-            translator = new ExpectTranslator();
-            break;
-          case ActionEnum.CLICK:
-            translator = new ClickTranslator();
-            break;
-          case ActionEnum.TYPE:
-            translator = new TypeTranslator();
-            break;
-        }
-        return translator.translate(el);
+    if (this.refineHighlight) {
+      this.highLightHelper.enableRefinedHighlight()
+    } else {
+      this.highLightHelper.enableBasicHighlight();
     }
+  }
 
-    private enableDisabledField() {
-        const disabledElement = document.querySelectorAll(":disabled");
-        disabledElement.forEach(elem => {
-            elem.className = `${elem.className} ${UUV_DISABLED_CLASS}`;
-            elem.removeAttribute("disabled");
-        });
-    }
+  private resetEvent(
+    onKeyDown: (e: KeyboardEvent) => void,
+    onMouseOver: (e) => void,
+    onMouseOut: (e) => void,
+  ) {
+    this.onReset();
+    this.highLightHelper.cancel();
+    document.removeEventListener('keydown', onKeyDown);
+    document.removeEventListener('mouseover', onMouseOver);
+    document.removeEventListener('mouseout', onMouseOut);
+    this.revertDisabledField();
+  }
 
-    private revertDisabledField() {
-        const disabledElement = document.querySelectorAll(`.${UUV_DISABLED_CLASS}`);
-        disabledElement.forEach(elem => {
-            elem.className = elem.className.replaceAll(UUV_DISABLED_CLASS, "");
-            elem.setAttribute("disabled", "true");
-        });
+  public async buildResultSentence(
+    el: FocusableElement,
+    action:
+      | ActionEnum.EXPECT
+      | ActionEnum.CLICK
+      | ActionEnum.WITHIN
+      | ActionEnum.TYPE,
+    isDisabled: boolean,
+  ): Promise<TranslateSentences> {
+    let translator: Translator;
+    switch (action) {
+      case ActionEnum.WITHIN:
+        translator = new WithinTranslator();
+        break;
+      case ActionEnum.EXPECT:
+        translator = new ExpectTranslator();
+        break;
+      case ActionEnum.CLICK:
+        translator = new ClickTranslator();
+        break;
+      case ActionEnum.TYPE:
+        translator = new TypeTranslator();
+        break;
     }
+    return translator.translate(el);
+  }
+
+  private enableDisabledField() {
+    const disabledElement = document.querySelectorAll(':disabled');
+    disabledElement.forEach((elem) => {
+      elem.className = `${elem.className} ${UUV_DISABLED_CLASS}`;
+      elem.removeAttribute('disabled');
+    });
+  }
+
+  private revertDisabledField() {
+    const disabledElement = document.querySelectorAll(`.${UUV_DISABLED_CLASS}`);
+    disabledElement.forEach((elem) => {
+      elem.className = elem.className.replaceAll(UUV_DISABLED_CLASS, '');
+      elem.setAttribute('disabled', 'true');
+    });
+  }
+
 }

@@ -14,7 +14,7 @@
 import { FocusableElement } from "tabbable";
 import { AdditionalLayerEnum } from "../Commons";
 import * as LayerHelper from "./LayerHelper";
-import { HIGHLIGHTER_PROPS } from "./LayerHelper";
+import { HIGHLIGHT_ORANGE_PROPS } from "./HighlightHelper";
 import { Translator } from "../translator/abstract-translator";
 import { TypeTranslator } from "../translator/type-translator";
 import { ClickTranslator } from "../translator/click-translator";
@@ -30,8 +30,8 @@ function buildAdditionalStyle(elements: HTMLElement[]) {
       completeStyle = `${completeStyle}
       
       .element-border {
-        stroke-width: ${HIGHLIGHTER_PROPS.width};
-        stroke: ${HIGHLIGHTER_PROPS.borderColor};
+        stroke-width: ${HIGHLIGHT_ORANGE_PROPS.width};
+        stroke: ${HIGHLIGHT_ORANGE_PROPS.borderColor};
         fill-opacity: 10%;
         fill: black;
         cursor: pointer;

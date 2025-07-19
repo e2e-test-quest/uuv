@@ -14,10 +14,10 @@
 import { FocusableElement, tabbable } from "tabbable";
 import { AdditionalLayerEnum, ResultSentence } from "../Commons";
 import * as LayerHelper from "./LayerHelper";
-import { HIGHLIGHTER_PROPS } from "./LayerHelper";
 import { StepCaseEnum } from "../translator/model";
 import { KeyboardNavigationTranslator } from "../translator/keyboard-navigation-translator";
 import { Translator } from "../translator/abstract-translator";
+import { HIGHLIGHT_ORANGE_PROPS } from "./HighlightHelper";
 
 const translator: Translator = new KeyboardNavigationTranslator();
 
@@ -98,8 +98,8 @@ function buildAdditionalStyle(elements: HTMLElement[]) {
       completeStyle = `${completeStyle}
                 
         #element-border-${index}:has(~ #order-${index}:hover), #element-border-${index}:has(~ #order-content-${index}:hover) {
-          stroke-width: ${HIGHLIGHTER_PROPS.width};
-          stroke: ${HIGHLIGHTER_PROPS.borderColor};
+          stroke-width: ${HIGHLIGHT_ORANGE_PROPS.width};
+          stroke: ${HIGHLIGHT_ORANGE_PROPS.borderColor};
           fill: transparent;
         }
         
