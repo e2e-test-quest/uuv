@@ -1,5 +1,5 @@
-import Inspector from "../inspector-dom";
-import { InformativeNodesHelper } from "./InformativeNodesHelper";
+import Inspector from "./inspector-dom";
+import { InformativeNodesHelper } from "../InformativeNodesHelper";
 
 export const HIGHLIGHT_ORANGE_PROPS = {
   width: 4,

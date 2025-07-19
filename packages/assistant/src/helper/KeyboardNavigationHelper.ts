@@ -17,7 +17,7 @@ import * as LayerHelper from "./LayerHelper";
 import { StepCaseEnum } from "../translator/model";
 import { KeyboardNavigationTranslator } from "../translator/keyboard-navigation-translator";
 import { Translator } from "../translator/abstract-translator";
-import { HIGHLIGHT_ORANGE_PROPS } from "./HighlightHelper";
+import { HIGHLIGHT_ORANGE_PROPS } from "./highlight/HighlightHelper";
 
 const translator: Translator = new KeyboardNavigationTranslator();
 

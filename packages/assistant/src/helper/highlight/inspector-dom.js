@@ -1,3 +1,6 @@
+import { computeAccessibleName, getRole } from "dom-accessibility-api";
+import { removeTooltip, showTooltip } from "./tooltip-helper";
+
 const VALID_CLASSNAME = /^[_a-zA-Z\- ]*$/;
 
 const constructCssPath = (el) => {
@@ -13,7 +16,7 @@ const constructCssPath = (el) => {
       path.unshift(selector);
       break;
     } else if (el.className && VALID_CLASSNAME.test(el.className)) {
-      selector += `.${el.className.trim().replace(/\s+/g, '.')}`;
+      selector += `.${el.className.trim().replace(/\s+/g, ".")}`;
     } else {
       let sib = el,
         nth = 1;
@@ -23,7 +26,7 @@ const constructCssPath = (el) => {
         }
       }
       if (nth !== 1) {
-        selector += ':nth-of-type(' + nth + ')';
+        selector += ":nth-of-type(" + nth + ")";
       }
     }
 
@@ -32,13 +35,13 @@ const constructCssPath = (el) => {
     el = el.parentNode;
   }
 
-  return path.join(' > ');
+  return path.join(" > ");
 };
 
 var defaultProps = {
   root: "body",
   outlineStyle: "5px solid rgba(204, 146, 62, 0.3)",
-  onClick: (el) => console.log("Element was clicked:", constructCssPath(el))
+  onClick: (el) => console.log("Element was clicked:", constructCssPath(el)),
 };
 
 var Inspector = (props = {}) => {
@@ -50,17 +53,48 @@ var Inspector = (props = {}) => {
   let onClick = props.onClick || defaultProps.onClick;
   let onMouseOver = props.onMouseOver;
   let onMouseOut = props.onMouseOut;
-  let selected, excludedElements;
-
-  const removeHighlight = (el) => {
-    if (el) {
-      el.style.outline = "none";
-    }
-  };
+  let selected, excludedElements, activeOverlay;
 
   const highlight = (el) => {
     el.style.outline = outlineStyle;
     el.style.outlineOffset = `-${el.style.outlineWidth}`;
+    if (activeOverlay) {
+      removeHighlightOverlay(activeOverlay);
+    }
+    activeOverlay = applyHighlightOverlay(el);
+    const name = computeAccessibleName(el);
+    const role = getRole(el);
+    const content = [];
+    let state;
+    if (name && role) {
+      content.push("✅ Good");
+      state = "good";
+    } else if (name || role) {
+      content.push("⚠️ Warning");
+      state = "warning";
+    } else {
+      content.push("❌ Danger");
+      state = "danger";
+    }
+    content.push();
+    content.push(`<b>Name: </b>${name}`);
+    content.push(`<b>Role: </b>${role || ""}`);
+    showTooltip(
+      el,
+      content.join("<br />"),
+      state
+    );
+  };
+
+  const removeHighlight = (el) => {
+    if (el) {
+      el.style.outline = "none";
+      if (activeOverlay) {
+        removeHighlightOverlay(activeOverlay);
+        activeOverlay = null;
+      }
+    }
+    removeTooltip();
   };
 
   const shouldBeExcluded = (ev) => {
@@ -87,7 +121,7 @@ var Inspector = (props = {}) => {
     if (shouldBeExcluded(ev)) {
       return;
     }
-    removeHighlight(ev.target);
+    onMouseOut(ev.target);
   };
 
   const handleClick = (ev) => {
@@ -154,8 +188,30 @@ var Inspector = (props = {}) => {
     enable,
     cancel,
     removeHighlight,
-    highlight
+    highlight,
   };
 };
+
+function applyHighlightOverlay(target) {
+  const rect = target.getBoundingClientRect();
+  const overlay = document.createElement("div");
+  overlay.style.position = "absolute";
+  overlay.style.top = `${rect.top + window.scrollY}px`;
+  overlay.style.left = `${rect.left + window.scrollX}px`;
+  overlay.style.width = `${rect.width}px`;
+  overlay.style.height = `${rect.height}px`;
+  overlay.style.background = "rgba(255, 0, 0, 0.05)";
+  overlay.style.pointerEvents = "none";
+  overlay.style.zIndex = "9999998";
+
+  document.body.appendChild(overlay);
+  return overlay;
+}
+
+function removeHighlightOverlay(overlay) {
+  if (overlay) {
+overlay.remove();
+}
+}
 
 export default Inspector;
