@@ -14,7 +14,7 @@
 import { FocusableElement } from "tabbable";
 import { AdditionalLayerEnum } from "../Commons";
 import * as LayerHelper from "./LayerHelper";
-import { HIGHLIGHT_ORANGE_PROPS } from "./HighlightHelper";
+import { HIGHLIGHT_ORANGE_PROPS } from "./highlight/HighlightHelper";
 import { Translator } from "../translator/abstract-translator";
 import { TypeTranslator } from "../translator/type-translator";
 import { ClickTranslator } from "../translator/click-translator";
