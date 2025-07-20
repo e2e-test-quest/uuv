@@ -147,3 +147,7 @@
 #uuvAssistantMenu .ant-menu-submenu.ant-menu-submenu-vertical {
     margin: 20px 0;
 }
+
+#uuvAssistantMenu .settings {
+    background-color: var(--ua-bg-color);
+}

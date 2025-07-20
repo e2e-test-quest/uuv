@@ -1,3 +1,4 @@
+
 /**
  * Software Name : UUV
  *
@@ -19,24 +20,29 @@ import formIcon from "./assets/form.json";
 import {
   Avatar,
   Button,
+  Card,
   ConfigProvider,
   Divider,
   Flex,
+  Form,
   Layout,
   Menu,
   MenuProps,
   message,
+  Row,
   Spin,
+  Switch,
   theme,
   Tooltip,
   Typography,
 } from "antd";
 import {
+  CheckOutlined,
   CloseOutlined,
   CopyOutlined,
   DoubleLeftOutlined,
   DoubleRightOutlined,
-  HighlightOutlined,
+  SettingOutlined,
 } from "@ant-design/icons";
 import { StyleProvider } from "@ant-design/cssinjs";
 import { CssHelper } from "./helper/CssHelper";
@@ -69,7 +75,7 @@ import { SelectionHelper } from "./helper/SelectionHelper";
 import { TranslateSentences } from "./translator/model";
 
 const { Sider } = Layout;
-const { Text } = Typography;
+const { Text, Title } = Typography;
 type MenuItem = Required<MenuProps>["items"][number];
 
 type UuvAssistantProps = {
@@ -91,9 +97,9 @@ function UuvAssistant(props: UuvAssistantProps) {
   const [currentKeyboardNavigation, setCurrentKeyboardNavigation] = useState<FocusableElement[]>([]);
   const [expectedKeyboardNavigation, setExpectedKeyboardNavigation] = useState<FocusableElement[]>([]);
   const [displayedKeyboardNavigation, setDisplayedKeyboardNavigation] = useState<KeyboardNavigationModeEnum>(KeyboardNavigationModeEnum.NONE);
-  const [refineHighlight, setRefineHighlight] = useState<boolean>(true);
+  const [intelligentHighlight, setIntelligentHighlight] = useState<boolean>(true);
 
-  const selectionHelper = new SelectionHelper(onElementSelection, reset, refineHighlight);
+  const selectionHelper = new SelectionHelper(onElementSelection, reset, intelligentHighlight);
 
   useEffect(() => {
     return () => {
@@ -103,7 +109,7 @@ function UuvAssistant(props: UuvAssistantProps) {
 
   useEffect(() => {
     setUuvGutter(
-     buildUuvGutter()
+      buildUuvGutter()
     );
   }, [generatedScript]);
 
@@ -164,11 +170,11 @@ function UuvAssistant(props: UuvAssistantProps) {
       }
       KeyboardNavigationHelper.buildResultSentence(keyboardNavigationElement).then(resultSentences => {
         setGeneratedScript(
-            buildResultingScript(
-                "Your amazing feature name",
-                "Keyboard Navigation",
-                resultSentences.map(sentence => sentence.result)
-            )
+          buildResultingScript(
+            "Your amazing feature name",
+            "Keyboard Navigation",
+            resultSentences.map(sentence => sentence.result)
+          )
         );
         endLoading();
       });
@@ -193,11 +199,11 @@ function UuvAssistant(props: UuvAssistantProps) {
         } as ResultSentence;
       });
       setGeneratedScript(
-          buildResultingScript(
-              "Your amazing feature name",
-              `Action - ${selectedAction}`,
-              data.map(sentence => sentence.result)
-          )
+        buildResultingScript(
+          "Your amazing feature name",
+          `Action - ${selectedAction}`,
+          data.map(sentence => sentence.result)
+        )
       );
       setDisplayedResult(selectedAction);
       setSelectedAction(ActionEnum.NONE);
@@ -223,18 +229,18 @@ function UuvAssistant(props: UuvAssistantProps) {
     }
   };
 
-  const onRefineHighlight = () => {
+  const switchRefineHighlight = () => {
     clearAllAdditionalLayer();
-    setRefineHighlight(!refineHighlight);
+    setIntelligentHighlight(!intelligentHighlight);
   };
 
   async function buildFormCompletionResultSentence(selectedForm: HTMLFormElement) {
     const sentences = await FormCompletionHelper.buildResultSentence(selectedForm);
     setGeneratedScript(
       buildResultingScript(
-          "Your amazing feature name",
-          `Action - ${selectedAction}`,
-          sentences
+        "Your amazing feature name",
+        `Action - ${selectedAction}`,
+        sentences
       )
     );
     clearAllAdditionalLayer();
@@ -263,13 +269,13 @@ function UuvAssistant(props: UuvAssistantProps) {
   }
 
   function getItem(
-   label: React.ReactNode,
-   key: React.Key,
-   disabled: boolean,
-   onClick?: () => void,
-   icon?: React.ReactNode,
-   children?: MenuItem[],
-   onTitleClick?: () => void
+    label: React.ReactNode,
+    key: React.Key,
+    disabled: boolean,
+    onClick?: () => void,
+    icon?: React.ReactNode,
+    children?: MenuItem[],
+    onTitleClick?: () => void
   ): MenuItem {
     return {
       key,
@@ -293,15 +299,23 @@ function UuvAssistant(props: UuvAssistantProps) {
     return document.body;
   }
 
+  const switchShowSettings = () => {
+    if (visibility === VisibilityEnum.SETTINGS) {
+      setVisibility(VisibilityEnum.WITHOUT_RESULT);
+    } else {
+      setVisibility(VisibilityEnum.SETTINGS);
+    }
+  };
+
   const actionMenuItems: MenuItem[] = [
     getItem(
       "Mouse actions",
       "mouse-actions",
       false,
       undefined,
-        <div className={"menu-custom-svg-container"}>
-          <img src={CssHelper.getBase64File(mouseIcon)}  aria-label={"mouse selection"} className={"menu-custom-svg-from-black-to-white"}/>
-        </div>,
+      <div className={"menu-custom-svg-container"}>
+        <img src={CssHelper.getBase64File(mouseIcon)}  aria-label={"mouse selection"} className={"menu-custom-svg-from-black-to-white"}/>
+      </div>,
       [
         getItem(ActionEnum.EXPECT.toString(), ActionEnum.EXPECT, false, () => {
           handleMouseNavigationChoice(ActionEnum.EXPECT);
@@ -371,6 +385,10 @@ function UuvAssistant(props: UuvAssistantProps) {
     }
   }
 
+  type FieldType = {
+    intelligentHighlight?: boolean;
+  };
+
   return (
     <div id="uuvAssistantMenu">
       <StyleProvider container={props.assistantRoot}>
@@ -432,23 +450,6 @@ function UuvAssistant(props: UuvAssistantProps) {
                       onClick={copyResult}
                     />
                   </Tooltip>
-                  <Tooltip
-                    placement="bottom"
-                    title="Refine current highlight"
-                    getPopupContainer={(triggerNode) =>
-                      getAsideParentInHierarchy(triggerNode)
-                    }
-                  >
-                    <Button
-                      type={refineHighlight ? "primary" : "link"}
-                      shape="circle"
-                      icon={<HighlightOutlined />}
-                      className="primary"
-                      disabled={generatedScript.length === 0}
-                      onClick={onRefineHighlight}
-                      aria-pressed={refineHighlight}
-                    />
-                  </Tooltip>
                   {/*{displayedResult === ActionEnum.KEYBOARD_GLOBAL_NAVIGATION ?*/}
                   {/*  <Radio.Group*/}
                   {/*     options={[*/}
@@ -477,8 +478,74 @@ function UuvAssistant(props: UuvAssistantProps) {
                   }),
                 ]}
                 theme={githubDark}
-                aria-label={"tot"}
+                aria-label={"Generated UUV Script"}
               />
+            </Flex>
+          ) : (
+            ""
+          )}
+          {visibility === VisibilityEnum.SETTINGS ? (
+            <Flex id="uuvAssistantResultZone" vertical={true}>
+              <header>
+                <Flex justify={"space-between"} align={"center"}>
+                  <Title level={2}>
+                    Settings
+                  </Title>
+                  <Tooltip
+                    placement="bottom"
+                    title="Close"
+                    getPopupContainer={(triggerNode) =>
+                      getAsideParentInHierarchy(triggerNode)
+                    }
+                  >
+                    <Button
+                      type="link"
+                      shape="circle"
+                      icon={<CloseOutlined />}
+                      className="primary"
+                      onClick={() => {
+                        clearAllAdditionalLayer();
+                        setVisibility(VisibilityEnum.WITHOUT_RESULT);
+                      }}
+                    />
+                  </Tooltip>
+                </Flex>
+              </header>
+              <div >
+                <Flex justify={"space-between"} align={"center"}>
+                  <Form
+                    name="basic"
+                    labelCol={{ span: 20 }}
+                    wrapperCol={{ span: 50 }}
+                    style={{ maxWidth: 600 }}
+                    size={"large"}
+                    initialValues={{ remember: true }}
+                  >
+                    <Row>
+                      <Card size="small" className="settings" variant="borderless" title="General" style={{ width: "100%" }}>
+                        <Card.Meta
+                          title={
+                          <Form.Item<FieldType>
+                            label="Intelligent Highlighter" labelAlign={"left"}
+                            colon={false}
+                          >
+                            <Switch
+                              title={`${intelligentHighlight ? "disable" : "active"} intelligent highlight`}
+                              checkedChildren={<CheckOutlined />}
+                              unCheckedChildren={<CloseOutlined />}
+                              defaultChecked
+                              onClick={switchRefineHighlight}
+                            />
+                          </Form.Item>
+                        }
+                          description={<span>This intelligent highlighter help you to find only informative elements</span>}
+                        />
+                      </Card>
+                      <Divider />
+                    </Row>
+                  </Form>
+                </Flex>
+              </div>
             </Flex>
           ) : (
             ""
@@ -531,6 +598,23 @@ function UuvAssistant(props: UuvAssistantProps) {
                         getAsideParentInHierarchy(triggerNode)
                       }
                     />
+                    <Divider />
+                    <Tooltip
+                      placement="bottom"
+                      title={`${visibility === VisibilityEnum.SETTINGS ? "Close" : "Open"} settings module`}
+                      getPopupContainer={(triggerNode) =>
+                        getAsideParentInHierarchy(triggerNode)
+                      }
+                    >
+                      <Button type={visibility === VisibilityEnum.SETTINGS ? "primary" : "link"}
+                              onClick={switchShowSettings}
+                              icon={<SettingOutlined />}
+                              shape="circle"
+                              className="primary"
+                              aria-pressed={visibility === VisibilityEnum.SETTINGS}
+                      >
+                      </Button>
+                    </Tooltip>
                     <Divider />
                     <Tooltip
                       placement="left"
