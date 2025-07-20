@@ -9,6 +9,7 @@ import {
     A11yReference
 } from "../model/";
 import { QueryResult } from "../query";
+import { Translator } from '@uuv/assistant/src/translator/abstract-translator';
 
 export class Engine {
     constructor(
@@ -41,7 +42,7 @@ export class Engine {
         if (rule.shouldNotExist) {
             if ($el?.length > 0) {
                 for (const element of $el) {
-                    const selector = this.getSelector(element);
+                    const selector = Translator.getSelector(element);
                     const validation = a11YRuleresult.getOrAddValidation(rule.criterion);
                     validation.errorNodes.push({
                         node: element,
@@ -75,7 +76,7 @@ export class Engine {
         validation.status = A11yResultStatus.SUCCESS;
         for (const element of queryResults) {
             const domNode = element.domNode;
-            const selector = this.getSelector(domNode);
+            const selector = Translator.getSelector(domNode);
             const attributesToCheck: string[] = [];
             rule.attributes.forEach((attribute) => {
                 const childData = attribute.split(":");

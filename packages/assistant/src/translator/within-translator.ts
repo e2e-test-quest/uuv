@@ -40,7 +40,7 @@ export class WithinTranslator extends Translator {
     override getSentenceFromDomSelector(htmlElem: HTMLElement | SVGElement): TranslateSentences {
         const response = this.initResponse();
         const computedKey = "key.when.withinElement.selector";
-        const sentence = this.computeSentenceFromKeyAndSelector(computedKey, this.getSelector(htmlElem));
+        const sentence = this.computeSentenceFromKeyAndSelector(computedKey, Translator.getSelector(htmlElem));
         response.sentences = [stepCase + sentence];
         return response;
     }

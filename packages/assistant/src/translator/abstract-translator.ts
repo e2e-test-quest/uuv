@@ -65,7 +65,7 @@ export abstract class Translator {
     abstract getSentenceFromAccessibleRoleAndNameAndContent(accessibleRole: string, accessibleName: string, content: string): TranslateSentences;
 
     /* eslint-disable  @typescript-eslint/no-explicit-any */
-    protected getSelector(element: any) {
+    static getSelector(element: any) {
         const path: string[] = [];
         while (element.nodeType === Node.ELEMENT_NODE) {
             let selector: string = element.nodeName.toLowerCase();

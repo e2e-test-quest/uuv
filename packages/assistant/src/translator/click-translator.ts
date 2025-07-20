@@ -35,7 +35,7 @@ export class ClickTranslator extends Translator {
     override getSentenceFromDomSelector(htmlElem: HTMLElement | SVGElement): TranslateSentences {
         const response = this.initResponse();
         const computedKey = "key.when.withinElement.selector";
-        const sentence = this.computeSentenceFromKeyAndSelector(computedKey, this.getSelector(htmlElem));
+        const sentence = this.computeSentenceFromKeyAndSelector(computedKey, Translator.getSelector(htmlElem));
         const clickSentence: BaseSentence = this.getSentenceFromKey("key.when.click.withContext");
         response.sentences = [stepCase + sentence, StepCaseEnum.THEN + clickSentence.wording];
         return response;

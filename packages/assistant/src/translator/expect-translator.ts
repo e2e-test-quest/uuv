@@ -44,7 +44,7 @@ export class ExpectTranslator extends Translator {
     override getSentenceFromDomSelector(htmlElem: HTMLElement | SVGElement): TranslateSentences {
         const response = this.initResponse();
         const computedKey = "key.then.element.withSelector";
-        const sentence = this.computeSentenceFromKeyAndSelector(computedKey, this.getSelector(htmlElem));
+        const sentence = this.computeSentenceFromKeyAndSelector(computedKey, Translator.getSelector(htmlElem));
         response.sentences = [stepCase + sentence];
         return response;
     }

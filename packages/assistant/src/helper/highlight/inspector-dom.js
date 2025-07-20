@@ -1,47 +1,13 @@
 import { computeAccessibleName, getRole } from "dom-accessibility-api";
 import { removeTooltip, showTooltip } from "./tooltip-helper";
+import { Translator } from "../../translator/abstract-translator";
 
 const VALID_CLASSNAME = /^[_a-zA-Z\- ]*$/;
-
-const constructCssPath = (el) => {
-  if (!(el instanceof Element)) {
-    return;
-  }
-
-  let path = [];
-  while (el.nodeType === Node.ELEMENT_NODE) {
-    let selector = el.nodeName.toLowerCase();
-    if (el.id) {
-      selector += `#${el.id}`;
-      path.unshift(selector);
-      break;
-    } else if (el.className && VALID_CLASSNAME.test(el.className)) {
-      selector += `.${el.className.trim().replace(/\s+/g, ".")}`;
-    } else {
-      let sib = el,
-        nth = 1;
-      while ((sib = sib.previousElementSibling)) {
-        if (sib.nodeName.toLowerCase() === selector) {
-          nth++;
-        }
-      }
-      if (nth !== 1) {
-        selector += ":nth-of-type(" + nth + ")";
-      }
-    }
-
-    path.unshift(selector);
-
-    el = el.parentNode;
-  }
-
-  return path.join(" > ");
-};
 
 var defaultProps = {
   root: "body",
   outlineStyle: "5px solid rgba(204, 146, 62, 0.3)",
-  onClick: (el) => console.log("Element was clicked:", constructCssPath(el)),
+  onClick: (el) => console.log("Element was clicked:", Translator.getSelector(el)),
 };
 
 var Inspector = (props = {}) => {
@@ -76,9 +42,12 @@ var Inspector = (props = {}) => {
       content.push("❌ Danger");
       state = "danger";
     }
-    content.push();
-    content.push(`<b>Name: </b>${name}`);
-    content.push(`<b>Role: </b>${role || ""}`);
+    const selector = `<label><b>Selector: </b></label><span>${Translator.getSelector(el)}</span>`;
+    const tagName = `<label><b>Tag name: </b></label><span>${el.tagName.toLowerCase()}</span>`;
+    const type = el.type ? `<div><label><b>Type: </b></label><span>${el.type}</span></div>` : "";
+    content.push(`<p><div>${tagName}</div><div>${type}</div><div>${selector}</div></p>`);
+    content.push(`<label><b>Name: </b></label><span>${name}</span>`);
+    content.push(`<label><b>Role: </b></label><span>${role || ""}</span>`);
     showTooltip(
       el,
       content.join("<br />"),

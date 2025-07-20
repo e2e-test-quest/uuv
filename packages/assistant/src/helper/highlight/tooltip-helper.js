@@ -29,7 +29,6 @@ export function showTooltip(el, content, state) {
   tooltipEl.style.padding = "6px 10px";
   tooltipEl.style.borderRadius = "4px";
   tooltipEl.style.fontSize = "14px";
-  tooltipEl.style.maxWidth = "500px";
   tooltipEl.style.zIndex = "9999999";
   tooltipEl.style.whiteSpace = "nowrap";
   tooltipEl.style.boxShadow = "0 0 6px rgba(0,0,0,0.2)";
