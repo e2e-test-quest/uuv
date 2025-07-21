@@ -34,6 +34,8 @@ export function showTooltip(el, content, state) {
   tooltipEl.style.boxShadow = "0 0 6px rgba(0,0,0,0.2)";
   tooltipEl.style.pointerEvents = "none";
   tooltipEl.style.transition = "opacity 0.2s";
+  tooltipEl.style.width = "300px";
+  tooltipEl.style.maxWidth = "300px";
 
   document.body.appendChild(tooltipEl);
 

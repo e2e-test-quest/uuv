@@ -42,15 +42,14 @@ var Inspector = (props = {}) => {
       content.push("❌ Danger");
       state = "danger";
     }
-    const selector = `<label><b>Selector: </b></label><span>${Translator.getSelector(el)}</span>`;
+    const selector = `<label><b>Selector: </b></label><span style="text-wrap: wrap">${Translator.getSelector(el)}</span>`;
     const tagName = `<label><b>Tag name: </b></label><span>${el.tagName.toLowerCase()}</span>`;
     const type = el.type ? `<div><label><b>Type: </b></label><span>${el.type}</span></div>` : "";
     content.push(`<p><div>${tagName}</div><div>${type}</div><div>${selector}</div></p>`);
-    content.push(`<label><b>Name: </b></label><span>${name}</span>`);
-    content.push(`<label><b>Role: </b></label><span>${role || ""}</span>`);
+    content.push(`<div><div><label><b>Name: </b></label><span>${name}</span></div><div><label><b>Role: </b></label><span>${role || ""}</span></div></div>`);
     showTooltip(
       el,
-      content.join("<br />"),
+      content.join("<hr style='opacity: 0.3' />"),
       state
     );
   };
