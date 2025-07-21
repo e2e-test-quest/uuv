@@ -82,10 +82,10 @@
                 <h2>To start, enter the url of your web application, then validate :</h2>
                 <p>@uuv library (User centric Usecases Validator) is an ecosystem that simplifies the writing of End to End tests in a BDD approach and a user-centric way. With this tool, we can generate cucumber sentences that will use an execution engine like cypress with @uuv/cypress or playwright with @uuv/playwright.</p>
             </div>
-            <div id='search'>
+            <form id="search" onsubmit="goToUrl()">
                 <input id="target_url" type="text" placeholder='https://google.fr' onfocus='onFocus()' onblur='onBlur()'/>
-                <button onclick='goToUrl()'>Open</button>
-            </div>
+                <button type="submit">Open</button>
+            </form>
         </div>
     </div>
 
@@ -95,7 +95,7 @@
         function goToUrl() {
             let url = PLACE_HOLDER;
             const userUrl = document.getElementById("target_url").value;
-            if (userUrl) {
+            if (userUrl && userUrl !== STAR_VALUE) {
                 url = userUrl;
             }
             window.electronAPI.setUrl(url);
