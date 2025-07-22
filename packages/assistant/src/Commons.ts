@@ -24,7 +24,9 @@ export enum ActionEnum {
   TYPE = "Type",
   KEYBOARD_GLOBAL_NAVIGATION = "Keyboard Navigation",
   FORM_COMPLETION_MOUSE = "Form Mouse Completion",
-  FORM_COMPLETION_KEYBOARD = "Form Keyboard Completion"
+  TABLE_AND_GRID_EXPECT = "Table and Grid Expect",
+  FORM_COMPLETION_KEYBOARD = "Form Keyboard Completion",
+  RECORD = "Record"
 }
 
 export enum KeyboardNavigationModeEnum {
@@ -37,6 +39,7 @@ export enum AdditionalLayerEnum {
   CURRENT_NAVIGATION = "keyboard-layer-current-navigation",
   EXPECTED_NAVIGATION = "keyboard-layer-expected-navigation",
   FORM_COMPLETION = "form-layer-completion",
+  ARRAY_COMPLETION = "array-layer-completion",
 }
 
 export const UUV_DISABLED_CLASS = "uuv-is-disabled";

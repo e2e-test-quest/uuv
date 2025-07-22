@@ -14,6 +14,7 @@
 import { computeAccessibleName, getRole } from "dom-accessibility-api";
 import { BaseSentence, EnrichedSentence, EnrichedSentenceRole, EnrichedSentenceWrapper, Suggestion, TranslateSentences } from "./model";
 import { EN_ROLES, enBasedRoleSentences, enSentences } from "@uuv/runner-commons/wording/web/en";
+import { getByRole } from "@testing-library/dom";
 
 export abstract class Translator {
     protected jsonBase: BaseSentence[] = enSentences;
@@ -124,6 +125,8 @@ export abstract class Translator {
         return this.jsonEnriched.enriched
             .filter((value: EnrichedSentence) => value.key === computedKey)
             .map((enriched: EnrichedSentence) => {
+                const table = getByRole(document.body, "table", { name: accessibleName });
+                console.log(table);
                 const sentenceAvailable = enriched.wording;
                 const role = EN_ROLES.filter((role: EnrichedSentenceRole) => role.id === accessibleRole)[0];
                 return sentenceAvailable

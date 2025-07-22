@@ -17,6 +17,7 @@ import uuvLogoJson from "./assets/uuvLogo.json";
 import mouseIcon from "./assets/mouse.json";
 import keyboardIcon from "./assets/keyboard.json";
 import formIcon from "./assets/form.json";
+import datatableIcon from "./assets/datatable.json";
 import {
   Avatar,
   Button,
@@ -59,6 +60,7 @@ import { githubDark } from "@uiw/codemirror-theme-github";
 
 import * as KeyboardNavigationHelper from "./helper/KeyboardNavigationHelper";
 import * as FormCompletionHelper from "./helper/FormCompletionHelper";
+import * as TableAndGridHelper from "./helper/TableAndGridHelper";
 import {
   buildResultingScript,
   buildUuvGutter,
@@ -141,6 +143,15 @@ function UuvAssistant(props: UuvAssistantProps) {
           AdditionalLayerEnum.FORM_COMPLETION,
           [].slice.call(document.forms),
           buildFormCompletionResultSentence,
+          reset
+        );
+        break;
+      case ActionEnum.TABLE_AND_GRID_EXPECT:
+        TableAndGridHelper.show(
+          props.assistantAdditionalLayersRoot,
+          AdditionalLayerEnum.ARRAY_COMPLETION,
+          [].slice.call(document.querySelectorAll("table, [role=grid], [role=treegrid]")),
+          buildTableAndGridExpectResultSentence,
           reset
         );
         break;
@@ -249,6 +260,21 @@ function UuvAssistant(props: UuvAssistantProps) {
     setSelectedAction(ActionEnum.NONE);
     endLoading();
   }
+  async function buildTableAndGridExpectResultSentence(selectedArray: HTMLTableElement | HTMLElement) {
+    const sentences = await TableAndGridHelper.buildResultSentence(selectedArray);
+    setGeneratedScript(
+      buildResultingScript(
+        "Your amazing feature name",
+        `Action - ${selectedAction}`,
+        sentences
+      )
+    );
+    clearAllAdditionalLayer();
+    setVisibility(VisibilityEnum.WITH_RESULT);
+    setDisplayedResult(ActionEnum.TABLE_AND_GRID_EXPECT);
+    setSelectedAction(ActionEnum.NONE);
+    endLoading();
+  }
 
   const handleMouseNavigationChoice = (newValue: ActionEnum) => {
     setVisibility(VisibilityEnum.HIDE);
@@ -266,6 +292,11 @@ function UuvAssistant(props: UuvAssistantProps) {
     setVisibility(VisibilityEnum.HIDE);
     setIsLoading(true);
     setSelectedAction(ActionEnum.FORM_COMPLETION_MOUSE);
+  }
+  function handleTableAndGridChoice() {
+    setVisibility(VisibilityEnum.HIDE);
+    setIsLoading(true);
+    setSelectedAction(ActionEnum.TABLE_AND_GRID_EXPECT);
   }
 
   function getItem(
@@ -361,6 +392,21 @@ function UuvAssistant(props: UuvAssistantProps) {
         })
       ],
       () => handleFormCompletionChoice()
+    ),
+    getItem(
+      "Array actions",
+      "array-actions",
+      false,
+      undefined,
+      <div className={"menu-custom-svg-container"}>
+        <img src={CssHelper.getBase64File(datatableIcon)} aria-label={"array selection"} className={"menu-custom-svg-from-black-to-white"}/>
+      </div>,
+      [
+        getItem("Table and Grid Expect", "TableAndGridExpect", false, () => {
+          handleTableAndGridChoice();
+        })
+      ],
+      () => handleTableAndGridChoice()
     )
   ];
 
