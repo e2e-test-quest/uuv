@@ -33,6 +33,7 @@ Feature: Keyboard Navigation
     Then the next keyboard element focused should be a link named "Weather App's Logo"
     And the next keyboard element focused should be a link named "Home"
     And the next keyboard element focused should be a text box named "Town name"
+    And the next keyboard element focused should be a combo box named "Town type"
     And the next keyboard element focused should be a spin button named "Latitude"
     And the next keyboard element focused should be a spin button named "Longitude"
     And the next keyboard element focused should be a text box named "Description"
@@ -53,6 +54,9 @@ Feature: Keyboard Navigation
 
     And the next keyboard element focused should be a text box named "Town name"
     And I type the sentence "Paris"
+
+    And the next keyboard element focused should be a combo box named "Town type"
+    And I select the value "Real"
 
     And the next keyboard element focused should be a spin button named "Latitude"
     And I enter the value "10"

@@ -35,6 +35,7 @@ Fonctionnalité: Navigation au clavier
     Et le prochain élément avec le focus clavier doit être un lien nommé "Weather App's Logo"
     Et le prochain élément avec le focus clavier doit être un lien nommé "Home"
     Et le prochain élément avec le focus clavier doit être une boîte à texte nommée "Town name"
+    Et le prochain élément avec le focus clavier doit être une liste déroulante nommée "Town type"
     Et le prochain élément avec le focus clavier doit être un bouton rotatif nommé "Latitude"
     Et le prochain élément avec le focus clavier doit être un bouton rotatif nommé "Longitude"
     Et le prochain élément avec le focus clavier doit être une boîte à texte nommée "Description"
@@ -55,6 +56,9 @@ Fonctionnalité: Navigation au clavier
 
      Et le prochain élément avec le focus clavier doit être une boîte à texte nommée "Town name"
      Et je saisie les mots "Paris"
+
+     Et le prochain élément avec le focus clavier doit être une liste déroulante nommée "Town type"
+     Et je sélectionne la valeur "Real"
 
      Et le prochain élément avec le focus clavier doit être un bouton rotatif nommé "Latitude"
      Et je saisie les mots "10"

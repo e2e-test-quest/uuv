@@ -53,6 +53,9 @@ Feature: Keyboard Navigation - Long
     Then I should see a text box named "Town name" keyboard focused
     And I go to next keyboard element
 
+    And I should see a combo box named "Town type" keyboard focused
+    And I go to next keyboard element
+
     And I should see a spin button named "Latitude" keyboard focused
     And I go to next keyboard element
 
@@ -88,6 +91,10 @@ Feature: Keyboard Navigation - Long
 
     And I should see a text box named "Town name" keyboard focused
     And I type the sentence "Paris"
+    And I go to next keyboard element
+
+    And I should see a combo box named "Town type"
+    And I select the value "Real"
     And I go to next keyboard element
 
     And I should see a spin button named "Latitude" keyboard focused

@@ -43,6 +43,12 @@
       "section": "contains"
     },
     {
+      "key": "key.then.element.withRoleAndNameAndValue",
+      "description": "Vérifie l'existence d'un élément de formulaire (input) ayant le rôle $roleId, le [nom accessible](https://russmaxdesign.github.io/html-elements-names/) et la valeur spécifiée",
+      "wording": "je dois voir $indefiniteArticle $roleName $namedAdjective {string} avec la valeur {string}",
+      "section": "contains"
+    },
+    {
       "key": "key.then.element.withRoleAndNameAndContentDisabled",
       "description": "Vérifie l'existence d'un élément Html ayant le rôle $roleId, le [nom accessible](https://russmaxdesign.github.io/html-elements-names/), le contenu spécifiés et avec l'attribut disabled à false",
       "wording": "je dois voir $indefiniteArticle $roleName $namedAdjective {string} et contenant {string} désactivé",

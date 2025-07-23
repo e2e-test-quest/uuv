@@ -86,3 +86,17 @@ Feature: Ko
   Scenario: Title should failed when bad level
     When I visit path "https://e2e-test-quest.github.io/simple-webapp/grid.html"
     Then I should see a title named "HTML Grid Example" with level 2
+
+  @ko
+  Scenario: Select a value in combo box then check - Bad value
+    Given I visit path "https://e2e-test-quest.github.io/weather-app/?isStarted=true"
+    And I click on button named "Add new town"
+    When I select the value "Unreal" in the combo box named "Town type"
+    Then I should see a combo box named "Town type" with value "Unreal1"
+
+  @ko
+  Scenario: Set a input text value then check - Bad value
+    Given I visit path "https://e2e-test-quest.github.io/weather-app/?isStarted=true"
+    And I click on button named "Add new town"
+    When I enter the value "Azerty" in the text box named "Town name"
+    Then I should see a text box named "Town name" with value "Qwerty"

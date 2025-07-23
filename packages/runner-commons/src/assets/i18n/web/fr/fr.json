@@ -31,13 +31,18 @@
   },
   {
     "key": "key.when.type.withContext",
-    "description": "Saisit de la phrase passée en paramètre (utile par exemple pour remplir un champ de formulaire).<br/>Assurez vous d'avoir effectué une sélection d'élément avant avec les phrases <strong>Je vais à l'intérieur...</strong>.",
+    "description": "Saisit de la phrase passée en paramètre (utile par exemple pour remplir un champ de formulaire).<br/>Assurez vous d'avoir effectué une sélection d'élément avant avec les phrases <strong>je vais à l'intérieur...</strong>.",
     "wording": "je saisie le(s) mot(s) {string}"
   },
   {
     "key": "key.when.enter.withContext",
-    "description": "Saisit de la phrase passée en paramètre (utile par exemple pour remplir un champ de formulaire).<br/>Assurez vous d'avoir effectué une sélection d'élément avant avec les phrases <strong>Je vais à l'intérieur...</strong>.",
+    "description": "Saisit de la phrase passée en paramètre (utile par exemple pour remplir un champ de formulaire).<br/>Assurez vous d'avoir effectué une sélection d'élément avant avec les phrases <strong>je vais à l'intérieur...</strong>.",
     "wording": "j'entre la valeur {string}"
+  },
+  {
+    "key": "key.when.select.withContext",
+    "description": "Sélectionne l'option passée en paramètre (utile par exemple pour remplir un champ le liste déroulante).<br/>Assurez vous d'avoir effectué une sélection d'élément avant avec les phrases <strong>je vais à l'intérieur de la liste déroulante nommée 'maListeDeroulante'</strong>.",
+    "wording": "je sélectionne la valeur {string}"
   },
   {
     "key": "key.when.keyboard.press",
@@ -290,5 +295,15 @@
     "key": "key.then.a11y.rgaa.defaultWithResultContaining",
     "description": "Vérifie sur la page courante a les [résultats](https://accessibilite.numerique.gouv.fr/methode/criteres-et-tests) suivants avec le référentiel RGAA",
     "wording": "je dois avoir les résultats partiels suivants selon le référentiel rgaa"
+  },
+  {
+    "key": "key.then.combobox.withNameValue",
+    "description": "Check that the current page have the following partial [result](https://accessibilite.numerique.gouv.fr/methode/criteres-et-tests/) based on RGAA standard",
+    "wording": "je dois voir une liste déroulante nommée {string} avec la valeur {string}"
+  },
+  {
+    "key": "key.then.combobox.selectValue",
+    "description": "Check that the current page have the following partial [result](https://accessibilite.numerique.gouv.fr/methode/criteres-et-tests/) based on RGAA standard",
+    "wording": "je sélectionne la valeur {string} dans la liste déroulante nommée {string}"
   }
 ]

@@ -82,6 +82,19 @@ When(`${key.when.enter}`, function(textToType: string, name: string) {
     cy.uuvFindByRole("$roleId", { name: name }).uuvFoundedElement().type(textToType);
 });
 
+/**
+ * key.then.element.withRoleAndNameAndValue.description
+ * */
+Then(
+    `${key.then.element.withRoleAndNameAndValue}`,
+    function(name: string, expectedValue: string) {
+        cy.uuvFindByRole("$roleId", { name: name })
+            .uuvFoundedElement()
+            .should("exist")
+            .should("have.value", expectedValue);
+    }
+);
+
 // End of Type Section
 // Begin of Content Section
 

@@ -43,6 +43,12 @@
       "section": "contains"
     },
     {
+      "key": "key.then.element.withRoleAndNameAndValue",
+      "description": "Checks that an Form element(input) exists with the specified [accessible role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles#aria_role_types), [name](https://russmaxdesign.github.io/html-elements-names/) and specified value",
+      "wording": "I should see $indefiniteArticle $roleName named {string} with value {string}",
+      "section": "contains"
+    },
+    {
       "key": "key.then.element.withRoleAndNameAndContentDisabled",
       "description": "Checks that an Html element exists with the specified [accessible role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles#aria_role_types), [name](https://russmaxdesign.github.io/html-elements-names/) and content, and with the disabled attribute set to true",
       "wording": "I should see $indefiniteArticle $roleName named {string} and containing {string} disabled",

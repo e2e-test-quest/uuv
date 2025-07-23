@@ -10,8 +10,8 @@ describe("Runner Playwright JunitReport", () => {
     });
 
     test("Should have good results", () => {
-        expect(report.testsuites.tests).toEqual("154");
-        expect(report.testsuites.failures).toEqual("10");
+        expect(report.testsuites.tests).toEqual("162");
+        expect(report.testsuites.failures).toEqual("12");
         expect(report.testsuites.errors).toEqual("0");
         expect(report.testsuites.skipped).toEqual("0");
     });
@@ -45,5 +45,19 @@ describe("Runner Playwright JunitReport", () => {
         expect(testCase?.failure._).toContain("Locator: getByRole('row').nth(2).getByRole('cell').nth(1)");
         expect(testCase?.failure._).toContain("Expected string: \"Etienne Daaho\"");
         expect(testCase?.failure._).toContain("Received string: \"Francisco Chang\"");
+    });
+
+    test("Should fail for test : Select a value in combo box then check - Bad value", () => {
+        const testCase = JunitReportHelper.getTestCase(report, "ko.feature.spec.js", "Ko › Select a value in combo box then check - Bad value");
+        expect(testCase?.failure._).toContain("Error: Timed out 6000ms waiting for expect(locator).toHaveCount(expected)");
+        expect(testCase?.failure._).toContain("Locator: getByRole('combobox', { name: 'Town type', exact: true }).getByRole('option', { name: 'Unreal1', exact: true, selected: true })");
+    });
+
+    test("Should fail for test : Set a input text value then check - Bad value", () => {
+        const testCase = JunitReportHelper.getTestCase(report, "ko.feature.spec.js", "Ko › Set a input text value then check - Bad value");
+        expect(testCase?.failure._).toContain("Error: Timed out 6000ms waiting for expect(locator).toHaveValue(expected)");
+        expect(testCase?.failure._).toContain("Locator: getByRole('textbox', { name: 'Town name', exact: true })");
+        expect(testCase?.failure._).toContain("Expected string: \"Qwerty\"");
+        expect(testCase?.failure._).toContain("Received string: \"Azerty\"");
     });
 });

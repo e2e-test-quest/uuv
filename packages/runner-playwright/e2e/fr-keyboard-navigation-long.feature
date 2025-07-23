@@ -54,6 +54,9 @@ Fonctionnalité: Navigation au clavier - Longue
     Alors je dois voir une boîte à texte nommée "Town name" avoir le focus clavier
      Et je vais au prochain élément au clavier
 
+     Et je dois voir une liste déroulante nommée "Town type" avoir le focus clavier
+     Et je vais au prochain élément au clavier
+
      Et je dois voir un bouton rotatif nommé "Latitude" avoir le focus clavier
      Et je vais au prochain élément au clavier
 
@@ -90,6 +93,11 @@ Fonctionnalité: Navigation au clavier - Longue
      Et je dois voir une boîte à texte nommée "Town name" avoir le focus clavier
      Et je saisie les mots "Paris"
      Et je vais au prochain élément au clavier
+
+     Et je dois voir une liste déroulante nommée "Town type" avoir le focus clavier
+     Et je saisie les mots "Real"
+     Et je vais au prochain élément au clavier
+
 
      Et je dois voir un bouton rotatif nommé "Latitude" avoir le focus clavier
      Et je saisie les mots "10"

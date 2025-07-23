@@ -148,6 +148,47 @@ When(`${key.when.enter.withContext}`, async function(textToType: string) {
 });
 
 /**
+ * key.when.select.withContext.description
+ * */
+When(`${key.when.select.withContext}`, async function(valueToSet: string) {
+    const keyBoardFocusTargetObj = keyBoardFocusTarget(this);
+    if ((await keyBoardFocusTargetObj.count()) === 1) {
+        await keyBoardFocusTargetObj.selectOption({ label: valueToSet });
+    } else {
+        await getPageOrElement(this).then(async (element: Locator) => {
+            // console.debug(element);
+            await element.focus({ timeout: 10000 });
+            await element.selectOption({ label: valueToSet });
+        });
+    }
+});
+
+/**
+ * key.then.combobox.withNameValue.description
+ * */
+When(`${key.then.combobox.withNameValue}`, async function(name: string, expectedValue: string) {
+    await getPageOrElement(this).then(async (element) => {
+        const byRole = await element.getByRole("combobox", { name: name, exact: true });
+        await expect(byRole).toHaveCount(1, { timeout: await getTimeout(this) });
+        await expect(byRole.getByRole("option", { name: expectedValue, selected: true, exact: true }))
+            .toHaveCount(1, { timeout: await getTimeout(this) });
+        await deleteCookieByName(this, COOKIE_NAME.SELECTED_ELEMENT);
+    });
+});
+
+/**
+ * key.then.combobox.selectValue.description
+ * */
+When(`${key.then.combobox.selectValue}`, async function(valueToSet: string, name: string) {
+    await getPageOrElement(this).then(async (element) => {
+        const byRole = await element.getByRole("combobox", { name: name, exact: true });
+        await expect(byRole).toHaveCount(1, { timeout: await getTimeout(this) });
+        await byRole.selectOption({ label: valueToSet });
+        await deleteCookieByName(this, COOKIE_NAME.SELECTED_ELEMENT);
+    });
+});
+
+/**
  * key.when.keyboard.multiplePress.description
  * */
 When(`${key.when.keyboard.multiplePress}`, async function(nbTimes: number, key: string) {

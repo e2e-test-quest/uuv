@@ -113,11 +113,12 @@ export const FR_ROLES: AccessibleRole[] = [
     },
     {
         id: "combobox",
-        name: "boîte à choix",
+        name: "liste déroulante",
         definiteArticle: FR_DEFINITE_ARTICLE.LA,
         indefiniteArticle: FR_INDEFINITE_ARTICLE.UNE,
         shouldGenerateKeyboardSentence: true,
-        shouldGenerateClickSentence: true
+        shouldGenerateClickSentence: true,
+        shouldGenerateTypeSentence: false
     },
     {
         id: "command",
@@ -594,7 +595,7 @@ export const FR_ROLES: AccessibleRole[] = [
     role.definiteArticle,
     role.indefiniteArticle,
     role.shouldGenerateClickSentence,
-    role.shouldGenerateContainsSentence,
+    role.shouldGenerateTypeSentence,
     role.shouldGenerateContainsSentence,
     role.shouldGenerateKeyboardSentence,
     role.shouldGenerateCheckedSentence

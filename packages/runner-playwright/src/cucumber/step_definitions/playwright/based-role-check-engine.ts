@@ -97,6 +97,18 @@ When(`${key.when.enter}`, async function(textToType: string, name: string) {
     });
 });
 
+/**
+ * key.then.element.withRoleAndNameAndValue
+ * */
+When(`${key.then.element.withRoleAndNameAndValue}`, async function(name: string, expectedValue: string) {
+    await getPageOrElement(this).then(async (element) => {
+        const byRole = await element.getByRole("$roleId", { name: name, exact: true });
+        await expect(byRole).toHaveCount(1, { timeout: await getTimeout(this) });
+        await expect(byRole).toHaveValue(expectedValue, { timeout: await getTimeout(this) });
+        await deleteCookieByName(this, COOKIE_NAME.SELECTED_ELEMENT);
+    });
+});
+
 // End of Type Section
 // Begin of Content Section
 

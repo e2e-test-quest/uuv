@@ -40,6 +40,11 @@
   "wording": "I enter the value {string}"
  },
  {
+  "key": "key.when.select.withContext",
+  "description": "Select the combo box option passed as a parameter (useful for example to fill in a combobox form field).<br/>Make sure you've selected a combo box element beforehand with the <strong>within a combo box named 'yourComboboxNamee'</strong> phrases.",
+  "wording": "I select the value {string}"
+ },
+ {
   "key": "key.when.keyboard.press",
   "description": "Press specified key: <table><thead><tr><th>Key</th><th>Description</th></tr></thead><tbody><tr><td>{tab}</td><td>Tabulation</td></tr><tr><td>{reverseTab}</td><td>Reverse tabulation</td></tr><tr><td>{down}</td><td>Arrow Down</td></tr><tr><td>{right}</td><td>Arrow Right</td></tr><tr><td>{left}</td><td>Arrow Left</td></tr><tr><td>{up}</td><td>Arrow Up</td></tr></tbody></table><br/>Make sure you've selected an element beforehand with the <strong>within...</strong> phrases.",
   "wording": "I press {string}"
@@ -290,5 +295,15 @@
   "key": "key.then.a11y.rgaa.defaultWithResultContaining",
   "description": "Check that the current page have the following partial [result](https://accessibilite.numerique.gouv.fr/methode/criteres-et-tests/) based on RGAA standard",
   "wording": "I should have the following partial result based on the rgaa reference"
+ },
+ {
+  "key": "key.then.combobox.withNameValue",
+  "description": "Check that the current page have the following partial [result](https://accessibilite.numerique.gouv.fr/methode/criteres-et-tests/) based on RGAA standard",
+  "wording": "I should see a combo box named {string} with value {string}"
+ },
+ {
+   "key": "key.then.combobox.selectValue",
+   "description": "Check that the current page have the following partial [result](https://accessibilite.numerique.gouv.fr/methode/criteres-et-tests/) based on RGAA standard",
+   "wording": "I select the value {string} in the combo box named {string}"
  }
 ]

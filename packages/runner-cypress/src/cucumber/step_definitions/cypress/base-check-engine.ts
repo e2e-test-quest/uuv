@@ -76,6 +76,40 @@ When(`${key.when.enter.withContext}`, function(textToType: string) {
 });
 
 /**
+ * key.when.select.withContext.description
+ * */
+When(`${key.when.select.withContext}`, function(valueToSet: string) {
+    cy.uuvCheckContextWithinFocusedElement(true).then((context) => {
+        if (context.withinFocusedElement) {
+            context.withinFocusedElement!.select(valueToSet);
+        } else if (haveKeyBoardFocused()) {
+            cy.focused().select(valueToSet);
+        }
+    });
+});
+
+/**
+ * key.then.combobox.withNameValue.description
+ * */
+When(`${key.then.combobox.withNameValue}`, function(name: string, expectedValue: string) {
+    cy.uuvFindByRole("combobox", { name: name })
+        .uuvFoundedElement()
+        .uuvFindByRole("option", { name: expectedValue, selected: true })
+        .uuvFoundedElement()
+        .should("exist");
+});
+
+
+/**
+ * key.then.combobox.selectValue.description
+ * */
+When(`${key.then.combobox.selectValue}`, function(valueToSet: string, name: string) {
+    cy.uuvFindByRole("combobox", { name: name })
+        .uuvFoundedElement()
+        .select(valueToSet);
+});
+
+/**
  * key.when.keyboard.multiplePress.description
  * */
 When(`${key.when.keyboard.multiplePress}`, function(nbTimes: number, key: string) {

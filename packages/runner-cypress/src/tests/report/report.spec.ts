@@ -12,8 +12,8 @@ describe("Runner Cypress JunitReport", () => {
     });
 
     test("Should have good results", () => {
-        expect(report.testsuites.tests).toEqual("158");
-        expect(report.testsuites.failures).toEqual("11");
+        expect(report.testsuites.tests).toEqual("166");
+        expect(report.testsuites.failures).toEqual("13");
         expect(report.testsuites.errors).toBeUndefined();
         expect(report.testsuites.skipped).toBeUndefined();
     });
@@ -41,6 +41,16 @@ describe("Runner Cypress JunitReport", () => {
     test("Should fail for test : Ko table", () => {
         const testCase = JunitReportHelper.getTestCase(report, "Ko", "Ko Table content should failed when wrong content");
         expect(testCase?.failure._).toContain("Expected the table content [[\"Company\",\"Contact\",\"Country\"],[\"Alfreds Futterkiste\",\"Maria Anders\",\"Germany\"],[\"Centro comercial Moctezuma\",\"Francisco Chang\",\"Mexico\"],[\"Ernst Handel\",\"Roland Mendel\",\"Austria\"],[\"Island Trading\",\"Helen Bennett\",\"UK\"],[\"Laughing Bacchus Winecellars\",\"Yoshi Tannamuri\",\"Canada\"],[\"Magazzini Alimentari Riuniti\",\"Giovanni Rovelli\",\"Italy\"]] to equals [[\"Company\",\"Contact\",\"Country\"],[\"Alfreds Futterkiste\",\"Maria Anders\",\"Germany\"],[\"Centro comercial Moctezuma\",\"Etienne Daaho\",\"Mexico\"],[\"Ernst Handel\",\"Roland Mendel\",\"Austria\"],[\"Island Trading\",\"Helen Bennett\",\"UK\"],[\"Laughing Bacchus Winecellars\",\"Yoshi Tannamuri\",\"Canada\"],[\"Magazzini Alimentari Riuniti\",\"Giovanni Rovelli\",\"Italy\"]]: expected [ Array(7) ] to deeply equal [ Array(7) ]");
+    });
+
+    test("Should fail for test : Select a value in combo box then check - Bad value", () => {
+        const testCase = JunitReportHelper.getTestCase(report, "Ko", "Ko Select a value in combo box then check - Bad value");
+        expect(testCase?.failure._).toContain("Timed out retrying after 6000ms: Unable to find an accessible element with the role \"option\" and name \"Unreal1\"");
+    });
+
+    test("Should fail for test : Set a input text value then check - Bad value", () => {
+        const testCase = JunitReportHelper.getTestCase(report, "Ko", "Ko Set a input text value then check - Bad value");
+        expect(testCase?.failure._).toContain("expected '<input#new-town-name.form-control.ng-untouched.ng-dirty.ng-valid>' to have value 'Qwerty', but the value was 'Azerty'");
     });
 });
 

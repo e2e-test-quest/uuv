@@ -66,7 +66,7 @@ export const EN_ROLES: AccessibleRole[] = [
     { id: "cell", name: "cell" },
     { id: "checkbox", name: "checkbox", shouldGenerateKeyboardSentence: true, shouldGenerateCheckedSentence: true, shouldGenerateClickSentence: true  },
     { id: "columnheader", name: "column header" },
-    { id: "combobox", name: "combo box", shouldGenerateKeyboardSentence: true, shouldGenerateClickSentence: true },
+    { id: "combobox", name: "combo box", shouldGenerateTypeSentence: false, shouldGenerateKeyboardSentence: true, shouldGenerateClickSentence: true },
     { id: "command", name: "command" },
     { id: "comment", name: "comment" },
     { id: "complementary", name: "complementary" },
