@@ -37,7 +37,7 @@ export abstract class Translator {
                     /* eslint-disable  @typescript-eslint/no-explicit-any */
                     (htmlElem as any).value :
                     htmlElem.getAttribute("value") ?? htmlElem.firstChild?.textContent?.trim();
-                if (content) {
+              if (content) {
                     response = this.getSentenceFromAccessibleRoleAndNameAndContent(
                         accessibleRole,
                         accessibleName,
@@ -125,8 +125,6 @@ export abstract class Translator {
         return this.jsonEnriched.enriched
             .filter((value: EnrichedSentence) => value.key === computedKey)
             .map((enriched: EnrichedSentence) => {
-                const table = getByRole(document.body, "table", { name: accessibleName });
-                console.log(table);
                 const sentenceAvailable = enriched.wording;
                 const role = EN_ROLES.filter((role: EnrichedSentenceRole) => role.id === accessibleRole)[0];
                 return sentenceAvailable
