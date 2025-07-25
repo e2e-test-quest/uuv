@@ -240,7 +240,7 @@ function UuvAssistant(props: UuvAssistantProps) {
     }
   };
 
-  const switchRefineHighlight = () => {
+  const switchIntelligentHighlight = () => {
     clearAllAdditionalLayer();
     setIntelligentHighlight(!intelligentHighlight);
   };
@@ -579,8 +579,8 @@ function UuvAssistant(props: UuvAssistantProps) {
                               title={`${intelligentHighlight ? "disable" : "active"} intelligent highlight`}
                               checkedChildren={<CheckOutlined />}
                               unCheckedChildren={<CloseOutlined />}
-                              defaultChecked
-                              onClick={switchRefineHighlight}
+                              checked={intelligentHighlight}
+                              onClick={switchIntelligentHighlight}
                             />
                           </Form.Item>
                         }

@@ -12,37 +12,36 @@
  */
 
 
-import { FocusableElement } from 'tabbable';
-import { TranslateSentences } from '../translator/model';
-import { ActionEnum, UUV_DISABLED_CLASS } from '../Commons';
-import { Translator } from '../translator/abstract-translator';
-import { ClickTranslator } from '../translator/click-translator';
-import { ExpectTranslator } from '../translator/expect-translator';
-import { WithinTranslator } from '../translator/within-translator';
-import { TypeTranslator } from '../translator/type-translator';
-import { InformativeNodesHelper } from './InformativeNodesHelper';
-import { HighLightHelper } from './highlight/HighlightHelper';
+import { FocusableElement } from "tabbable";
+import { TranslateSentences } from "../translator/model";
+import { ActionEnum, UUV_DISABLED_CLASS } from "../Commons";
+import { Translator } from "../translator/abstract-translator";
+import { ClickTranslator } from "../translator/click-translator";
+import { ExpectTranslator } from "../translator/expect-translator";
+import { WithinTranslator } from "../translator/within-translator";
+import { TypeTranslator } from "../translator/type-translator";
+import { HighLightHelper } from "./highlight/HighlightHelper";
 
 export class SelectionHelper {
   private onReset!: () => void;
   private highLightHelper: HighLightHelper;
-  private refineHighlight: boolean;
+  private intelligentHighlight: boolean;
   constructor(
     onSelect: (el: HTMLElement) => void,
     onReset: () => void,
-    refineHighlight: boolean
+    intelligentHighlight: boolean
   ) {
     this.highLightHelper = new HighLightHelper(onSelect);
     this.onReset = onReset;
-    this.refineHighlight = refineHighlight;
+    this.intelligentHighlight = intelligentHighlight;
   }
 
   private readonly onKeyDown = (e: KeyboardEvent) => {
-    if (e.key === 'Escape') {
+    if (e.key === "Escape") {
       this.onReset();
       this.highLightHelper.cancel();
       this.revertDisabledField();
-      document.removeEventListener('keydown', this.onKeyDown);
+      document.removeEventListener("keydown", this.onKeyDown);
     }
   };
 
@@ -50,9 +49,9 @@ export class SelectionHelper {
     if (enableDisabledField) {
       this.enableDisabledField();
     }
-    document.addEventListener('keydown', this.onKeyDown);
+    document.addEventListener("keydown", this.onKeyDown);
 
-    if (this.refineHighlight) {
+    if (this.intelligentHighlight) {
       this.highLightHelper.enableRefinedHighlight()
     } else {
       this.highLightHelper.enableBasicHighlight();
@@ -87,18 +86,18 @@ export class SelectionHelper {
   }
 
   private enableDisabledField() {
-    const disabledElement = document.querySelectorAll(':disabled');
+    const disabledElement = document.querySelectorAll(":disabled");
     disabledElement.forEach((elem) => {
       elem.className = `${elem.className} ${UUV_DISABLED_CLASS}`;
-      elem.removeAttribute('disabled');
+      elem.removeAttribute("disabled");
     });
   }
 
   private revertDisabledField() {
     const disabledElement = document.querySelectorAll(`.${UUV_DISABLED_CLASS}`);
     disabledElement.forEach((elem) => {
-      elem.className = elem.className.replaceAll(UUV_DISABLED_CLASS, '');
-      elem.setAttribute('disabled', 'true');
+      elem.className = elem.className.replaceAll(UUV_DISABLED_CLASS, "");
+      elem.setAttribute("disabled", "true");
     });
   }
 
