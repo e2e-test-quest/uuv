@@ -99,5 +99,9 @@
     "@types/node-ipc": "^9.2.3",
     "@uuv/runner-commons": "2.58.0",
     "node-ipc": "^12.0.0"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/uuv"
   }
 }

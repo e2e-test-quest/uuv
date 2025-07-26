@@ -111,5 +111,9 @@
     "dist/uuv-assistant-resources.bundle.js",
     "dist/launcher/**/*",
     "postinstall.js"
-  ]
+  ],
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/uuv"
+  }
 }

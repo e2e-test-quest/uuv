@@ -81,5 +81,9 @@
     "lodash": "^4.17.21",
     "minimist": "1.2.8",
     "node-ipc": "^12.0.0"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/uuv"
   }
 }

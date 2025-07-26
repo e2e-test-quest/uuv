@@ -44,5 +44,9 @@
     "electron-installer-zip": "0.1.2",
     "electron-packager": "17.1.2",
     "eslint": "8.57.1"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/uuv"
   }
 }
