@@ -68,7 +68,7 @@ export const UuvSidebar: React.FC<UuvSidebarProps> = ({
             <Button
               type={visibility === VisibilityEnum.SETTINGS ? "primary" : "link"}
               onClick={switchShowSettings}
-              icon={<SettingOutlined />}
+              icon={<SettingOutlined className="primary"/>}
               shape="circle"
               className="primary"
               aria-pressed={visibility === VisibilityEnum.SETTINGS}

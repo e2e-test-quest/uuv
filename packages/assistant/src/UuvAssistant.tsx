@@ -4,6 +4,7 @@ import mouseIcon from "./assets/mouse.json";
 import keyboardIcon from "./assets/keyboard.json";
 import formIcon from "./assets/form.json";
 import datatableIcon from "./assets/datatable.json";
+import modalIcon from "./assets/modal.json";
 import { ConfigProvider, MenuProps, message, theme } from "antd";
 import { StyleProvider } from "@ant-design/cssinjs";
 import { CssHelper } from "./helper/CssHelper";
@@ -30,6 +31,7 @@ import { UuvResultView } from "./components/UuvResultView";
 import { UuvSettings } from "./components/UuvSettings";
 import { UuvSidebar } from "./components/UuvSidebar";
 import { UuvAssistantProps } from "./types/UuvTypes";
+import { CloseOutlined, GroupOutlined } from "@ant-design/icons";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -338,97 +340,96 @@ function UuvAssistant(props: UuvAssistantProps) {
     }
   };
 
+  const mouseActions = getItem(
+    "Mouse actions",
+    "mouse-actions",
+    false,
+    undefined,
+    <div className={"menu-custom-svg-container"}>
+      <img
+        src={CssHelper.getBase64File(mouseIcon)}
+        alt={"mouse selection"}
+        className={"menu-custom-svg-from-black-to-white"}
+      />
+    </div>,
+    [
+      getItem(ActionEnum.EXPECT.toString(), ActionEnum.EXPECT, false, () => {
+        handleMouseNavigationChoice(ActionEnum.EXPECT);
+      }),
+      getItem(ActionEnum.CLICK.toString(), ActionEnum.CLICK, false, () => {
+        handleMouseNavigationChoice(ActionEnum.CLICK);
+      }),
+      getItem(ActionEnum.WITHIN.toString(), ActionEnum.WITHIN, false, () => {
+        handleMouseNavigationChoice(ActionEnum.WITHIN);
+      }),
+      getItem(ActionEnum.TYPE.toString(), ActionEnum.TYPE, false, () => {
+        handleMouseNavigationChoice(ActionEnum.TYPE);
+      }),
+    ],
+    () => handleMouseNavigationChoice(ActionEnum.EXPECT),
+  );
+  const keyboardActions = getItem(
+    "Keyboard actions",
+    "keyboard-actions",
+    false,
+    undefined,
+    <div className={"menu-custom-svg-container"}>
+      <img
+        src={CssHelper.getBase64File(keyboardIcon)}
+        alt={"keyboard selection"}
+        className={"menu-custom-svg-from-black-to-white"}
+      />
+    </div>,
+    [
+      getItem("Keyboard navigation", "KeybNav", false, () => {
+        handleKeyboardNavigationChoice();
+      }),
+    ],
+    () => handleKeyboardNavigationChoice(),
+  );
+
+  const componentActions = getItem(
+    "Components",
+    "components",
+    false,
+    undefined,
+    <div className={"menu-custom-svg-container"}>
+      <GroupOutlined />
+    </div>,
+    [
+      getItem(
+        <div className={"menu-custom-svg-container submenu"}>
+          <img
+            src={CssHelper.getBase64File(formIcon)}
+            alt={"array selection"}
+            className={"menu-custom-svg-from-black-to-white submenu"}
+          />
+          <span>Form completion (mouse)</span>
+        </div>,
+        "FormCompletionMouse",
+        false,
+        () => {
+          handleFormCompletionChoice();
+        },
+      ),
+      getItem(
+        <div className={"menu-custom-svg-container submenu"}>
+          <img
+            src={CssHelper.getBase64File(datatableIcon)}
+            className={"menu-custom-svg-from-black-to-white submenu"}
+            alt={"array selection"}
+          />
+          <span>Table and Grid Expect</span>
+        </div>, "TableAndGridExpected", false, () => {
+        handleTableAndGridChoice();
+      })
+    ]
+  );
+
   const actionMenuItems: MenuItem[] = [
-    getItem(
-      "Mouse actions",
-      "mouse-actions",
-      false,
-      undefined,
-      <div className={"menu-custom-svg-container"}>
-        <img
-          src={CssHelper.getBase64File(mouseIcon)}
-          aria-label={"mouse selection"}
-          className={"menu-custom-svg-from-black-to-white"}
-        />
-      </div>,
-      [
-        getItem(ActionEnum.EXPECT.toString(), ActionEnum.EXPECT, false, () => {
-          handleMouseNavigationChoice(ActionEnum.EXPECT);
-        }),
-        getItem(ActionEnum.CLICK.toString(), ActionEnum.CLICK, false, () => {
-          handleMouseNavigationChoice(ActionEnum.CLICK);
-        }),
-        getItem(ActionEnum.WITHIN.toString(), ActionEnum.WITHIN, false, () => {
-          handleMouseNavigationChoice(ActionEnum.WITHIN);
-        }),
-        getItem(ActionEnum.TYPE.toString(), ActionEnum.TYPE, false, () => {
-          handleMouseNavigationChoice(ActionEnum.TYPE);
-        }),
-      ],
-      () => handleMouseNavigationChoice(ActionEnum.EXPECT),
-    ),
-    getItem(
-      "Keyboard actions",
-      "keyboard-actions",
-      false,
-      undefined,
-      <div className={"menu-custom-svg-container"}>
-        <img
-          src={CssHelper.getBase64File(keyboardIcon)}
-          aria-label={"keyboard selection"}
-          className={"menu-custom-svg-from-black-to-white"}
-        />
-      </div>,
-      [
-        getItem("Keyboard navigation", "KeybNav", false, () => {
-          handleKeyboardNavigationChoice();
-        }),
-      ],
-      () => handleKeyboardNavigationChoice(),
-    ),
-    getItem(
-      "Form actions",
-      "form-actions",
-      false,
-      undefined,
-      <div className={"menu-custom-svg-container"}>
-        <img
-          src={CssHelper.getBase64File(formIcon)}
-          aria-label={"form selection"}
-          className={"menu-custom-svg-from-black-to-white"}
-        />
-      </div>,
-      [
-        getItem(
-          "Form completion with mouse",
-          "FormCompletionMouse",
-          false,
-          () => {
-            handleFormCompletionChoice();
-          },
-        ),
-      ],
-      () => handleFormCompletionChoice(),
-    ),
-    getItem(
-      "Array actions",
-      "array-actions",
-      false,
-      undefined,
-      <div className={"menu-custom-svg-container"}>
-        <img
-          src={CssHelper.getBase64File(datatableIcon)}
-          aria-label={"array selection"}
-          className={"menu-custom-svg-from-black-to-white"}
-        />
-      </div>,
-      [
-        getItem("Table and Grid Expect", "TableAndGridExpected", false, () => {
-          handleTableAndGridChoice();
-        }),
-      ],
-      () => handleTableAndGridChoice(),
-    ),
+    mouseActions,
+    keyboardActions,
+    componentActions
   ];
 
   function endLoading() {

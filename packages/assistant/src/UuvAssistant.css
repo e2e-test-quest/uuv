@@ -129,19 +129,21 @@
 }
 
 #uuvAssistantMenu .menu-custom-svg-from-black-to-white {
-    width: 30px;
+    width: 1.75rem;
     -webkit-filter: invert(100%);
     filter: invert(100%);
-    margin: 0 auto;
+    margin: 0 auto 0 0.75rem;
 }
 
 #uuvAssistantMenu .ant-menu-submenu-title {
     padding: 0;
+    align-items: center;
+    align-content: center;
+    display: flex;
 }
 
-#uuvAssistantMenu .menu-custom-svg-container {
-    width: 100%;
-    padding: 3px;
+#uuvAssistantMenu .menu-custom-svg-container span {
+    margin-left: 1rem;
 }
 
 #uuvAssistantMenu .ant-menu-submenu.ant-menu-submenu-vertical {
