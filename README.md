@@ -95,14 +95,14 @@ To answer the above issues and many others, our solution is to set up a coherent
 
 This project is licensed under the terms of the [MIT license](https://github.com/e2e-test-quest/uuv/blob/main/LICENSE).
 
-## Sponsorship
+## Sponsorship & Funding
 We thank the following parties for sponsoring this project:
 
 <table>
   <tr>
     <td align="center" width="200px">
       <a href="https://www.jetbrains.com/">
-        <img src="https://resources.jetbrains.com/storage/products/company/brand/logos/jetbrains.png" alt="JetBrains logo.">
+        <img src="https://resources.jetbrains.com/storage/products/company/brand/logos/jetbrains.png" alt="JetBrains">
       </a>
       <br>
       <strong>JetBrains</strong>
@@ -118,9 +118,22 @@ We thank the following parties for sponsoring this project:
   </tr>
 </table>
 
-Interested in supporting UUV ? We welcome sponsorships of all sizes! Your support helps us maintain and improve this open-source project. Please get in touch with us via GitHub or Discord to discuss sponsorship opportunities.
+### Support UUV through Open Collective
+
+If you want to help UUV grow, you can fund the project directly via [Open Collective](https://opencollective.com/uuv).  
+Every contribution helps us dedicate more time and energy to improving this open-source tool.
+
+<a href="https://opencollective.com/uuv/contribute" target="_blank">
+  <img src="https://opencollective.com/uuv/contribute/button@2x.png?color=blue" width=300 />
+</a>
+
+
+Interested in becoming a sponsor?  
+We welcome sponsorships of all sizes!  
+Contact us via [GitHub](https://github.com/e2e-test-quest/uuv/discussions) or through [Open Collective](https://opencollective.com/uuv) to discuss opportunities.
 
 ## Authors
 
 - [@luifr10](https://github.com/luifr10)
 - [@stanlee974](https://github.com/stanlee974)
+

@@ -75,6 +75,20 @@ or [@uuv/assistant](https://www.npmjs.com/package/@uuv/assistant).
 
 This project is licensed under the terms of the [MIT license](https://github.com/e2e-test-quest/uuv/blob/main/LICENSE).
 
+## Support UUV through Open Collective
+
+If you want to help UUV grow, you can fund the project directly via [Open Collective](https://opencollective.com/uuv).  
+Every contribution helps us dedicate more time and energy to improving this open-source tool.
+
+<a href="https://opencollective.com/uuv/contribute" target="_blank">
+  <img src="https://opencollective.com/uuv/contribute/button@2x.png?color=blue" width=300 />
+</a>
+
+
+Interested in becoming a sponsor?  
+We welcome sponsorships of all sizes!  
+Contact us via [GitHub](https://github.com/e2e-test-quest/uuv/discussions) or through [Open Collective](https://opencollective.com/uuv) to discuss opportunities.
+
 ## Authors
 
 - [@luifr10](https://github.com/luifr10)

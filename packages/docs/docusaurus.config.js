@@ -110,7 +110,19 @@ const config = {
                 href: "https://github.com/stanlee974"
               }
             ]
-          }
+          },
+          {
+            title: "Funding",
+            items: [
+              {
+                html:`
+                <a id="contribution" href="https://opencollective.com/uuv/contribute" target="_blank">
+                  <img src="https://opencollective.com/uuv/contribute/button@2x.png?color=blue" width=300 />
+                </a>
+                `
+              }
+            ]
+          },
         ]
       },
       prism: {

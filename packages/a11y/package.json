@@ -73,5 +73,9 @@
       "types": "./dist/index.d.ts"
     },
     "./bundle": "./bundle/uuv-a11y.bundle.js"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/uuv"
   }
 }
