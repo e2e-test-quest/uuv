@@ -25,6 +25,7 @@ export enum ActionEnum {
   KEYBOARD_GLOBAL_NAVIGATION = "Keyboard Navigation",
   FORM_COMPLETION_MOUSE = "Form Mouse Completion",
   TABLE_AND_GRID_EXPECT = "Table and Grid Expect",
+  DIALOG_EXPECT = "Dialog Expect",
   FORM_COMPLETION_KEYBOARD = "Form Keyboard Completion",
   RECORD = "Record"
 }
@@ -39,6 +40,7 @@ export enum AdditionalLayerEnum {
   CURRENT_NAVIGATION = "keyboard-layer-current-navigation",
   EXPECTED_NAVIGATION = "keyboard-layer-expected-navigation",
   FORM_COMPLETION = "form-layer-completion",
+  DIALOG_COMPLETION = "dialog-layer-completion",
   ARRAY_COMPLETION = "array-layer-completion",
 }
 

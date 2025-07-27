@@ -10,9 +10,6 @@ import { StyleProvider } from "@ant-design/cssinjs";
 import { CssHelper } from "./helper/CssHelper";
 import { FocusableElement } from "tabbable";
 import { Extension, gutter } from "@uiw/react-codemirror";
-import * as KeyboardNavigationHelper from "./helper/KeyboardNavigationHelper";
-import * as FormCompletionHelper from "./helper/FormCompletionHelper";
-import * as TableAndGridHelper from "./helper/TableAndGridHelper";
 import {
   buildResultingScript,
   buildUuvGutter,
@@ -27,11 +24,15 @@ import {
 import * as LayerHelper from "./helper/LayerHelper";
 import { SelectionHelper } from "./helper/SelectionHelper";
 import { TranslateSentences } from "./translator/model";
-import { UuvResultView } from "./components/UuvResultView";
-import { UuvSettings } from "./components/UuvSettings";
-import { UuvSidebar } from "./components/UuvSidebar";
+import { UuvResultView } from "./component/UuvResultView";
+import { UuvSettings } from "./component/UuvSettings";
+import { UuvSidebar } from "./component/UuvSidebar";
 import { UuvAssistantProps } from "./types/UuvTypes";
-import { CloseOutlined, GroupOutlined } from "@ant-design/icons";
+import { GroupOutlined } from "@ant-design/icons";
+import * as KeyboardNavigationHelper from "./helper/KeyboardNavigationHelper";
+import { DialogService } from "./service/DialogService";
+import { TableAndGridService } from "./service/TableAndGridService";
+import { FormCompletionService } from "./service/FormCompletionService";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -60,6 +61,10 @@ function UuvAssistant(props: UuvAssistantProps) {
     reset,
     intelligentHighlight,
   );
+
+  const dialogService = new DialogService();
+  const tableAndGridService = new TableAndGridService();
+  const formCompletionService = new FormCompletionService();
 
   // Fonction pour nettoyer toutes les couches additionnelles
   function clearAllAdditionalLayer() {
@@ -119,7 +124,7 @@ function UuvAssistant(props: UuvAssistantProps) {
         );
         break;
       case ActionEnum.FORM_COMPLETION_MOUSE:
-        FormCompletionHelper.show(
+        formCompletionService.show(
           props.assistantAdditionalLayersRoot,
           AdditionalLayerEnum.FORM_COMPLETION,
           [].slice.call(document.forms),
@@ -128,14 +133,29 @@ function UuvAssistant(props: UuvAssistantProps) {
         );
         break;
       case ActionEnum.TABLE_AND_GRID_EXPECT:
-        TableAndGridHelper.show(
+        tableAndGridService.show(
           props.assistantAdditionalLayersRoot,
           AdditionalLayerEnum.ARRAY_COMPLETION,
           [].slice.call(
-            document.querySelectorAll("table, [role=grid], [role=treegrid]"),
+            document.querySelectorAll(
+              "table, [role=table], [role=grid], [role=treegrid]",
+            ),
           ),
           buildTableAndGridExpectResultSentence,
           reset,
+        );
+        break;
+      case ActionEnum.DIALOG_EXPECT:
+        dialogService.show(
+          props.assistantAdditionalLayersRoot,
+          AdditionalLayerEnum.DIALOG_COMPLETION,
+          [].slice.call(document.querySelectorAll("dialog, [role=dialog]")),
+          buildDialogExpectResultSentence,
+            () => {
+              reset();
+              Array.from(document.getElementsByClassName(dialogService.TRACKED_CLASS))
+                .forEach(el => el.remove());
+              },
         );
         break;
       case ActionEnum.NONE:
@@ -240,10 +260,10 @@ function UuvAssistant(props: UuvAssistantProps) {
   };
 
   async function buildFormCompletionResultSentence(
-    selectedForm: HTMLFormElement,
+    selectedForm: HTMLElement,
   ) {
     const sentences =
-      await FormCompletionHelper.buildResultSentence(selectedForm);
+      await formCompletionService.buildResultSentence(selectedForm);
     setGeneratedScript(
       buildResultingScript(
         "Your amazing feature name",
@@ -262,7 +282,7 @@ function UuvAssistant(props: UuvAssistantProps) {
     selectedArray: HTMLTableElement | HTMLElement,
   ) {
     const sentences =
-      await TableAndGridHelper.buildResultSentence(selectedArray);
+      await tableAndGridService.buildResultSentence(selectedArray);
     setGeneratedScript(
       buildResultingScript(
         "Your amazing feature name",
@@ -273,6 +293,26 @@ function UuvAssistant(props: UuvAssistantProps) {
     clearAllAdditionalLayer();
     setVisibility(VisibilityEnum.WITH_RESULT);
     setDisplayedResult(ActionEnum.TABLE_AND_GRID_EXPECT);
+    setSelectedAction(ActionEnum.NONE);
+    endLoading();
+  }
+
+  async function buildDialogExpectResultSentence(
+    selectedArray: HTMLTableElement | HTMLElement,
+  ) {
+      Array.from(document.getElementsByClassName(dialogService.TRACKED_CLASS))
+          .forEach(el => el.remove());
+    const sentences = await dialogService.buildResultSentence(selectedArray);
+    setGeneratedScript(
+      buildResultingScript(
+        "Your amazing feature name",
+        `Action - ${selectedAction}`,
+        sentences,
+      ),
+    );
+    clearAllAdditionalLayer();
+    setVisibility(VisibilityEnum.WITH_RESULT);
+    setDisplayedResult(ActionEnum.DIALOG_EXPECT);
     setSelectedAction(ActionEnum.NONE);
     endLoading();
   }
@@ -299,6 +339,12 @@ function UuvAssistant(props: UuvAssistantProps) {
     setVisibility(VisibilityEnum.HIDE);
     setIsLoading(true);
     setSelectedAction(ActionEnum.TABLE_AND_GRID_EXPECT);
+  }
+
+  function handleDialog() {
+    setVisibility(VisibilityEnum.HIDE);
+    setIsLoading(true);
+    setSelectedAction(ActionEnum.DIALOG_EXPECT);
   }
 
   function getItem(
@@ -420,16 +466,35 @@ function UuvAssistant(props: UuvAssistantProps) {
             alt={"array selection"}
           />
           <span>Table and Grid Expect</span>
-        </div>, "TableAndGridExpected", false, () => {
-        handleTableAndGridChoice();
-      })
-    ]
+        </div>,
+        "TableAndGridExpected",
+        false,
+        () => {
+          handleTableAndGridChoice();
+        },
+      ),
+      getItem(
+        <div className={"menu-custom-svg-container submenu"}>
+          <img
+            src={CssHelper.getBase64File(modalIcon)}
+            className={"menu-custom-svg-from-black-to-white submenu"}
+            alt={"modal selection"}
+          />
+          <span>Dialog Expect</span>
+        </div>,
+        "DialogExpected",
+        false,
+        () => {
+          handleDialog();
+        },
+      ),
+    ],
   );
 
   const actionMenuItems: MenuItem[] = [
     mouseActions,
     keyboardActions,
-    componentActions
+    componentActions,
   ];
 
   function endLoading() {
