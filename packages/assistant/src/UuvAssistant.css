@@ -19,11 +19,11 @@
 #uuvAssistantMenu {
     position: fixed;
     top: 0;
-    z-index: 10000;
+    z-index: 2147483537;
 }
 
 #uuvAssistantMenu > * {
-    z-index: 10001;
+    z-index: 2147483547;
 }
 
 #uuvAssistantResultZone {
@@ -152,4 +152,8 @@
 
 #uuvAssistantMenu .settings {
     background-color: var(--ua-bg-color);
+}
+
+dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
 }
