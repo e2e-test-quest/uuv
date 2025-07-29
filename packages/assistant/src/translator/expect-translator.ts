@@ -11,110 +11,108 @@
  * understanding English or French.
  */
 
+
 import { UUV_DISABLED_CLASS } from "../Commons";
 import { Translator } from "./abstract-translator";
-import { EnrichedSentence, EnrichedSentenceRole, StepCaseEnum, TranslateSentences } from "./model";
-import { EN_ROLES } from "@uuv/runner-commons/wording/web/en";
+import { EnrichedSentence, StepCaseEnum, TranslateSentences } from "./model";
+import * as TextualTranslator from "./textual-translator";
+import { InformativeNodesHelper } from "../helper/InformativeNodesHelper";
 
 const stepCase = StepCaseEnum.THEN;
 
 export class ExpectTranslator extends Translator {
-    override getSentenceFromAccessibleRoleAndName(accessibleRole: string, accessibleName: string): TranslateSentences {
+    private buildResponse(sentences: string[]): TranslateSentences {
         const response = this.initResponse();
-        const computedKey = "key.then.element.withRoleAndName";
-        const sentence = this.computeSentenceFromKeyRoleAndName(computedKey, accessibleRole, accessibleName);
-        response.sentences = [stepCase + sentence];
+        response.sentences = sentences.map(s => stepCase + s);
         return response;
     }
 
-    override getSentenceFromAccessibleRoleAndNameAndContent(
-        accessibleRole: string,
-        accessibleName: string,
-        content: string
-    ): TranslateSentences {
-        const response = this.initResponse();
+    override getSentenceFromAccessibleRoleAndName(role: string, name: string): TranslateSentences {
+        const key = "key.then.element.withRoleAndName";
+        const sentence = this.computeSentenceFromKeyRoleAndName(key, role, name);
+        return this.buildResponse([sentence]);
+    }
+
+    override getSentenceFromAccessibleRoleAndNameAndContent(role: string, name: string, content: string): TranslateSentences {
         const isDisabled = this.selectedHtmlElem.classList.contains(UUV_DISABLED_CLASS);
-        const computedKey = isDisabled ?
-            "key.then.element.withRoleAndNameAndContentDisabled" :
-            "key.then.element.withRoleAndNameAndContent";
-        const sentence = this.computeSentenceFromKeyRoleNameAndContent(computedKey, accessibleRole, accessibleName, content);
-        response.sentences = [stepCase + sentence];
-        return response;
+        const key = isDisabled ? "key.then.element.withRoleAndNameAndContentDisabled" : "key.then.element.withRoleAndNameAndContent";
+        const sentence = this.computeSentenceFromKeyRoleNameAndContent(key, role, name, content);
+        return this.buildResponse([sentence]);
     }
 
     override getSentenceFromDomSelector(htmlElem: HTMLElement | SVGElement): TranslateSentences {
-        const response = this.initResponse();
-        const computedKey = "key.then.element.withSelector";
-        const sentence = this.computeSentenceFromKeyAndSelector(computedKey, Translator.getSelector(htmlElem));
-        response.sentences = [stepCase + sentence];
-        return response;
+        const key = "key.then.element.withSelector";
+        const sentence = this.computeSentenceFromKeyAndSelector(key, Translator.getSelector(htmlElem));
+        return this.buildResponse([sentence]);
     }
 
-  public computeTableSentenceFromKeyNameAndContent(sentenceKey: string, accessibleName: string, headers: HTMLElement, rows: any[]): string {
-      if (!sentenceKey) {return ""}
-    const formattedRows: string[] = [];
-    const baseSentence = this.jsonBase
-      .filter((value: EnrichedSentence) => value.key === sentenceKey)[0];
-    const sentenceAvailable = `Then ${baseSentence.wording}`;
-    const headerCells = Array.from(headers.children) as HTMLElement[];
-    const headerValues = headerCells.map(cell => cell.textContent?.trim() ?? "");
-    formattedRows.push("| " + headerValues.join(" | ") + " |");
-    formattedRows.push( "| " + headerValues.map(() => "---").join(" | ") + " |");
-    rows.map(row => {
-      const cells = Array.from(row.children) as HTMLElement[];
-      const values = cells.map(cell => cell.textContent?.trim() ?? "");
+    public computeTableSentenceFromKeyNameAndContent(sentenceKey: string, accessibleName: string, headers: HTMLElement, rows: HTMLElement[]): string {
+        if (!sentenceKey) {
+            return "";
+        }
 
-      formattedRows.push("| " + values.join(" | ") + " |");
-    });
-  return sentenceAvailable
-          .replace("{string}", `"${accessibleName}"`)
-          .concat("\n")
-          .concat(...this.formatMarkdownTable(formattedRows).join("\n"));
-  }
+        const baseSentence = this.jsonBase.find((v: EnrichedSentence) => v.key === sentenceKey);
+        const sentenceAvailable = `Then ${baseSentence?.wording ?? ""}`.replace("{string}", `"${accessibleName}"`);
 
-  private formatMarkdownTable(lines: string[]): string[] {
-    const headerLine = lines.find(line => !/^ *\|? *-+/.test(line))!;
-    const separatorLine = lines.find(line => /^ *\|? *-+/.test(line))!;
-    const dataLines = lines.filter(
-      line => line !== headerLine && line !== separatorLine && line.trim()
-    );
+        const headerValues = Array.from(headers.children).map(c => c.textContent?.trim() ?? "");
+        const tableLines: string[] = ["| " + headerValues.join(" | ") + " |", "| " + headerValues.map(() => "---").join(" | ") + " |"];
 
-    const parseLine = (line: string) =>
-      line
-        .trim()
-        .replace(/^\|/, "")
-        .replace(/\|$/, "")
-        .split("|")
-        .map(cell => cell.trim());
+        rows.forEach(row => {
+            const values = Array.from(row.children).map(c => c.textContent?.trim() ?? "");
+            tableLines.push("| " + values.join(" | ") + " |");
+        });
 
-    const header = parseLine(headerLine);
-    const rows = dataLines.map(parseLine);
+        return sentenceAvailable + "\n" + this.formatMarkdownTable(tableLines).join("\n");
+    }
 
-    const colCount = Math.max(header.length, ...rows.map(r => r.length));
-    const colWidths = Array(colCount).fill(0);
+    public async computeDialogSentenceFromKeyNameAndContent(sentenceKey: string, accessibleName: string, row: HTMLElement): Promise<string[]> {
+        const sentences: string[] = [`Then ${this.computeSentenceFromKeyRoleAndName(sentenceKey, "dialog", accessibleName)}`];
 
-    [header, ...rows].forEach(row => {
-      row.forEach((cell, i) => {
-        colWidths[i] = Math.max(colWidths[i], cell.length);
-      });
-    });
+        const getSentencesForNode = async (node: HTMLElement): Promise<string[]> => {
+            if (TextualTranslator.isTextualNode(node)) {
+                const res = await TextualTranslator.computeSentence(node);
+                return res?.sentences ?? [];
+            }
+            const res = await this.translate(node);
+            return res?.sentences ?? [];
+        };
 
-    const formatRow = (row: string[]) =>
-      "      | " +
-      row
-        .map((cell, i) => cell.padEnd(colWidths[i]))
-        .join(" | ") +
-      " |";
+        const handleElement = async (element: HTMLElement) => {
+            if (element.children.length === 1) {
+                const informativeChildren = await new InformativeNodesHelper().getAvailableChildren(element);
+                for (const child of informativeChildren) {
+                    sentences.push(...(await getSentencesForNode(child)));
+                }
+            } else {
+                sentences.push(...(await getSentencesForNode(element)));
+            }
+        };
 
-    const formatSeparator = () =>
-      "      | " +
-      colWidths.map(w => "-".repeat(w)).join(" | ") +
-      " |";
+        await Promise.all(Array.from(row.children).map(el => handleElement(el as HTMLElement)));
+        return sentences;
+    }
 
-    return [
-      formatRow(header),
-      formatSeparator(),
-      ...rows.map(formatRow)
-    ];
-  }
+    private formatMarkdownTable(lines: string[]): string[] {
+        const headerLine = lines.find(line => !/^ *\|? *-+/.test(line))!;
+        const separatorLine = lines.find(line => /^ *\|? *-+/.test(line))!;
+        const dataLines = lines.filter(line => line !== headerLine && line !== separatorLine && line.trim());
+
+        const parse = (line: string) =>
+            line
+                .replace(/^\||\|$/g, "")
+                .split("|")
+                .map(cell => cell.trim());
+
+        const header = parse(headerLine);
+        const rows = dataLines.map(parse);
+        const colCount = Math.max(header.length, ...rows.map(r => r.length));
+        const colWidths = Array(colCount).fill(0);
+
+        [header, ...rows].forEach(r => r.forEach((cell, i) => (colWidths[i] = Math.max(colWidths[i], cell.length))));
+
+        const formatRow = (row: string[]) => "| " + row.map((cell, i) => cell.padEnd(colWidths[i])).join(" | ") + " |";
+
+        const separator = "| " + colWidths.map(w => "-".repeat(w)).join(" | ") + " |";
+        return [formatRow(header), separator, ...rows.map(formatRow)];
+    }
 }
