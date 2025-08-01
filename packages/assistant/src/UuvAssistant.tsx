@@ -76,7 +76,8 @@ import {
 import * as LayerHelper from "./helper/LayerHelper";
 import { SelectionHelper } from "./helper/SelectionHelper";
 import { TranslateSentences } from "./translator/model";
-import {Translator} from "./translator/abstract-translator";
+import { Translator } from "./translator/abstract-translator";
+import { InformativeNodesHelper } from "./helper/InformativeNodesHelper";
 
 const { Sider } = Layout;
 const { Text, Title } = Typography;
@@ -103,7 +104,7 @@ function UuvAssistant(props: UuvAssistantProps) {
   const [displayedKeyboardNavigation, setDisplayedKeyboardNavigation] = useState<KeyboardNavigationModeEnum>(KeyboardNavigationModeEnum.NONE);
   const [intelligentHighlight, setIntelligentHighlight] = useState<boolean>(true);
   const [selectedElement, setSelectedElement] = useState<HTMLElement | undefined>(undefined);
-  const [aiResult, setAiResult] = useState<any | 'pending' | undefined>(undefined);
+  const [aiResult, setAiResult] = useState<any | "pending" | undefined>(undefined);
 
   const selectionHelper = new SelectionHelper(onElementSelection, reset, intelligentHighlight);
 
@@ -249,26 +250,26 @@ function UuvAssistant(props: UuvAssistantProps) {
   };
 
   const callAIForImage = async (imgElement: HTMLImageElement) => {
-    setAiResult('pending');
+    setAiResult("pending");
     try {
       const response = await fetch(imgElement.src);
-      const image_blob = await response.blob();
-      const html_content = document.body.outerHTML;
-      const css_selector = Translator.getSelector(imgElement);
+      const imageBlob = await response.blob();
+      const htmlContent = new InformativeNodesHelper().extractContextForElement(imgElement).htmlContext;
+      const cssSelector = Translator.getSelector(imgElement);
 
       const formData = new FormData();
-      formData.append('html_content', html_content);
-      formData.append('target_img', image_blob, 'random_img.jpg');
-      formData.append('css_selector', css_selector);
+      formData.append("html_content", htmlContent);
+      formData.append("target_img", imageBlob, "random_img.jpg");
+      formData.append("css_selector", cssSelector);
 
-      const uploadResponse = await fetch('http://localhost:5000/api/v1/image/classify', {
-        method: 'POST',
+      const uploadResponse = await fetch("http://localhost:5000/api/v1/image/classify", {
+        method: "POST",
         body: formData
       });
       setAiResult(await uploadResponse.json());
     } catch (error) {
       setAiResult(undefined);
-      console.error('Erreur:', error);
+      console.error("Erreur:", error);
     }
   };
 
@@ -528,7 +529,7 @@ function UuvAssistant(props: UuvAssistantProps) {
                       onClick={copyResult}
                     />
                   </Tooltip>
-                  { selectedElement?.tagName === "IMG" &&
+                  { selectedElement instanceof HTMLImageElement &&
                     <Tooltip
                         placement="bottom"
                         title="AI analysis"
@@ -542,7 +543,12 @@ function UuvAssistant(props: UuvAssistantProps) {
                           icon={<BulbOutlined />}
                           className="primary"
                           disabled={generatedScript.length === 0}
-                          onClick={() => callAIForImage(selectedElement as HTMLImageElement)}
+                          onClick={async () => {
+                              if (selectedElement instanceof HTMLImageElement) {
+                                await callAIForImage(selectedElement);
+                              }
+                            }
+                          }
                       />
                     </Tooltip>
                   }
@@ -578,7 +584,7 @@ function UuvAssistant(props: UuvAssistantProps) {
               />
               { aiResult != undefined &&
                 <div id="aiResult">
-                  { aiResult === 'pending' ?
+                  { aiResult === "pending" ?
                     <Skeleton active /> :
                     <Descriptions id="aiResultDescription" title="AI image analysis">
                       <Descriptions.Item label="Is decorative">{String(aiResult?.is_decorative)}</Descriptions.Item>
