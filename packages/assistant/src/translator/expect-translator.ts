@@ -46,13 +46,17 @@ export class ExpectTranslator extends Translator {
         return this.buildResponse([sentence]);
     }
 
-    public computeTableSentenceFromKeyNameAndContent(sentenceKey: string, accessibleName: string, headers: HTMLElement, rows: HTMLElement[]): string {
+    public computeTableSentenceFromKeyNameAndContent(sentenceKey: string, indefiniteArticle: string, roleName: string, accessibleName: string, headers: HTMLElement, rows: HTMLElement[]): string {
         if (!sentenceKey) {
             return "";
         }
 
-        const baseSentence = this.jsonBase.find((v: EnrichedSentence) => v.key === sentenceKey);
-        const sentenceAvailable = `Then ${baseSentence?.wording ?? ""}`.replace("{string}", `"${accessibleName}"`);
+        const baseSentence = this.jsonEnriched.enriched.find((v: EnrichedSentence) => v.key === sentenceKey);
+        const sentenceAvailable = `Then ${baseSentence?.wording ?? ""}`
+            .replace("$indefiniteArticle", `${indefiniteArticle}`)
+            .replace("$roleName", `${roleName}`)
+            .replace("{string}", `"${accessibleName}"`)
+            .replace("{string}", "");
 
         const headerValues = Array.from(headers.children).map(c => c.textContent?.trim() ?? "");
         const tableLines: string[] = ["| " + headerValues.join(" | ") + " |", "| " + headerValues.map(() => "---").join(" | ") + " |"];
@@ -81,7 +85,7 @@ export class ExpectTranslator extends Translator {
             if (element.children.length === 1) {
                 const informativeChildren = await new InformativeNodesHelper().getAvailableChildren(element);
                 for (const child of informativeChildren) {
-                    sentences.push(...(await getSentencesForNode(child)));
+                    sentences.push(...(await getSentencesForNode(child as HTMLElement)));
                 }
             } else {
                 sentences.push(...(await getSentencesForNode(element)));

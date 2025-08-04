@@ -71,7 +71,7 @@ export class DialogService extends AbstractComponentService {
     }
 
     async buildResultSentence(selectedArray: HTMLElement): Promise<string[]> {
-        const name = new InformativeNodesHelper().getDialogName(selectedArray);
+        const name = new InformativeNodesHelper().getDialogName(selectedArray) ?? "";
         const sentenceKey = "key.when.withinElement.roleAndName";
         return this.expectTranslator.computeDialogSentenceFromKeyNameAndContent(sentenceKey, name, selectedArray);
     }

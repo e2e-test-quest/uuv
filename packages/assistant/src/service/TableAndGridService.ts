@@ -11,7 +11,6 @@
  * understanding English or French.
  */
 
-import { AdditionalLayerEnum } from "../Commons";
 import { computeAccessibleName, getRole } from "dom-accessibility-api";
 import { AbstractComponentService } from "./AbstractComponentService";
 
@@ -26,8 +25,10 @@ export class TableAndGridService extends AbstractComponentService {
     let body: Element;
     let data: any[];
     let headers;
+    const indefiniteArticle = "a";
+    let roleName;
     let values;
-    let sentenceKey: string | null;
+    const sentenceKey = "key.then.element.withRoleAndNameAndContent";
     const role: string = getRole(selectedArray) ?? "";
     switch (role) {
       case "table": {
@@ -38,7 +39,7 @@ export class TableAndGridService extends AbstractComponentService {
           .filter(child => getRole(child) === "row");
         headers = rows[0];
         values = rows.slice(1);
-        sentenceKey = "key.then.table.withNameAndContent";
+        roleName = "table";
         break;
       }
       case "grid": {
@@ -50,7 +51,7 @@ export class TableAndGridService extends AbstractComponentService {
         headers = Array.from(head.children)
           .filter(child => getRole(child) === "row")[0];
         values = [].slice.call(Array.from(body.children).filter(child => getRole(child) === "row"));
-        sentenceKey = "key.then.grid.withNameAndContent";
+          roleName = "grid";
         break;
       }
       case "treegrid": {
@@ -58,25 +59,22 @@ export class TableAndGridService extends AbstractComponentService {
           Array.from(selectedArray.children)
             .find(child => getRole(child) === "rowgroup");
         if (treegridRowgroup) {
-          sentenceKey = "key.then.treegrid.withNameAndContent";
           data = Array.from(treegridRowgroup.children)
             .filter(child => getRole(child) === "row");
           headers = data[0];
+          roleName = "treegrid";
           values = Array.from(data).slice(1);
-        } else {
-          sentenceKey = null;
         }
         break;
       }
-      default:
-        sentenceKey = null;
     }
-
     const result = this.expectTranslator.computeTableSentenceFromKeyNameAndContent(
       sentenceKey,
+      indefiniteArticle,
+      roleName,
       tableName,
       headers,
-      values,
+      values
     );
     sentences.push(result);
     return sentences;
