@@ -394,7 +394,7 @@ function UuvAssistant(props: UuvAssistantProps) {
     <div className={"menu-custom-svg-container"}>
       <img
         src={CssHelper.getBase64File(mouseIcon)}
-        alt={"mouse selection"}
+        alt={""}
         className={"menu-custom-svg-from-black-to-white"}
       />
     </div>,
@@ -411,9 +411,9 @@ function UuvAssistant(props: UuvAssistantProps) {
       getItem(ActionEnum.TYPE.toString(), ActionEnum.TYPE, false, () => {
         handleMouseNavigationChoice(ActionEnum.TYPE);
       }),
-    ],
-    () => handleMouseNavigationChoice(ActionEnum.EXPECT),
+    ]
   );
+
   const keyboardActions = getItem(
     "Keyboard actions",
     "keyboard-actions",
@@ -422,7 +422,7 @@ function UuvAssistant(props: UuvAssistantProps) {
     <div className={"menu-custom-svg-container"}>
       <img
         src={CssHelper.getBase64File(keyboardIcon)}
-        alt={"keyboard selection"}
+        alt={""}
         className={"menu-custom-svg-from-black-to-white"}
       />
     </div>,
@@ -430,24 +430,25 @@ function UuvAssistant(props: UuvAssistantProps) {
       getItem("Keyboard navigation", "KeybNav", false, () => {
         handleKeyboardNavigationChoice();
       }),
-    ],
-    () => handleKeyboardNavigationChoice(),
+    ]
   );
 
+  
+
   const componentActions = getItem(
-    "Components",
-    "components",
+    "Components actions",
+    "components-actions",
     false,
     undefined,
     <div id={"component-menu"} className={"menu-custom-svg-container"}>
-      <GroupOutlined className={"menu-native-svg-from-black-to-white"} />
+      <GroupOutlined aria-label={""} className={"menu-native-svg-from-black-to-white"} />
     </div>,
     [
       getItem(
         <div className={"menu-custom-svg-container submenu"}>
           <img
             src={CssHelper.getBase64File(formIcon)}
-            alt={"array selection"}
+            alt={""}
             className={"menu-custom-svg-from-black-to-white submenu"}
           />
           <span>Form completion (mouse)</span>
@@ -463,7 +464,7 @@ function UuvAssistant(props: UuvAssistantProps) {
           <img
             src={CssHelper.getBase64File(datatableIcon)}
             className={"menu-custom-svg-from-black-to-white submenu"}
-            alt={"array selection"}
+            alt={""}
           />
           <span>Table and Grid Expect</span>
         </div>,
@@ -478,7 +479,7 @@ function UuvAssistant(props: UuvAssistantProps) {
           <img
             src={CssHelper.getBase64File(modalIcon)}
             className={"menu-custom-svg-from-black-to-white submenu"}
-            alt={"modal selection"}
+            alt={""}
           />
           <span>Dialog Expect (Experimental)</span>
         </div>,

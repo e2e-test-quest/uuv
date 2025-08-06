@@ -16,7 +16,7 @@ export default defineConfig({
   workers: 1,
   reporter: [["html", { outputFolder: "uuv/reports/html/playwright" }]],
   use: {
-    baseURL: "http://127.0.0.1:3200",
+    baseURL: "http://localhost:5173",
     trace: "on-first-retry",
   },
 
@@ -58,7 +58,7 @@ export default defineConfig({
   ],
   webServer: {
     command: "npm run react:start",
-    url: "http://127.0.0.1:3200",
+    url: "http://localhost:5173",
     reuseExistingServer: !process.env.CI
   }
 });

@@ -152,9 +152,9 @@
     align-content: center;
 }
 
-#uuv-action-menu-components-popup .ant-menu-item {
-    padding: 1rem 0;
-    height: calc(40px + 2rem);
+#uuv-action-menu-components-actions-popup .ant-menu-item {
+    padding: 0.5rem 0;
+    height: calc(40px + 1rem);
 }
 
 #uuvAssistantMenu .ant-menu-submenu.ant-menu-submenu-vertical {
