@@ -15,14 +15,14 @@ import { FieldType } from "../types/UuvTypes";
 
 const { Title } = Typography;
 
-interface UuvSettingsProps {
+interface UuvAssistantSettingsProps {
   intelligentHighlight: boolean;
   switchIntelligentHighlight: () => void;
   onClose: () => void;
   getAsideParentInHierarchy: (triggerNode: HTMLElement) => HTMLElement;
 }
 
-export const UuvSettings: React.FC<UuvSettingsProps> = ({
+export const UuvAssistantSettings: React.FC<UuvAssistantSettingsProps> = ({
   intelligentHighlight,
   switchIntelligentHighlight,
   onClose,

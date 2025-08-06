@@ -1,11 +1,11 @@
 import React from "react";
 import { Flex } from "antd";
-import { UuvHeader } from "./UuvHeader";
-import { UuvToolbar } from "./UuvToolbar";
-import { UuvCodeEditor } from "./UuvCodeEditor";
+import { UuvAssistantResultHeader } from "./UuvAssistantResultHeader";
+import { UuvAssistantResultToolbar } from "./UuvAssistantResultToolbar";
+import { UuvAssistantResultCodeEditor } from "./UuvAssistantResultCodeEditor";
 import { Extension } from "@uiw/react-codemirror";
 
-interface UuvResultViewProps {
+interface UuvAssistantResultProps {
   displayedResult: string;
   generatedScript: string;
   uuvGutter: Extension;
@@ -14,7 +14,7 @@ interface UuvResultViewProps {
   getAsideParentInHierarchy: (triggerNode: HTMLElement) => HTMLElement;
 }
 
-export const UuvResultView: React.FC<UuvResultViewProps> = ({
+export const UuvAssistantResult: React.FC<UuvAssistantResultProps> = ({
   displayedResult,
   generatedScript,
   uuvGutter,
@@ -23,16 +23,16 @@ export const UuvResultView: React.FC<UuvResultViewProps> = ({
   getAsideParentInHierarchy,
 }) => (
   <Flex id="uuvAssistantResultZone" vertical={true}>
-    <UuvHeader
+    <UuvAssistantResultHeader
       displayedResult={displayedResult}
       onClose={onClose}
       getAsideParentInHierarchy={getAsideParentInHierarchy}
     />
-    <UuvToolbar
+    <UuvAssistantResultToolbar
       generatedScript={generatedScript}
       copyResult={copyResult}
       getAsideParentInHierarchy={getAsideParentInHierarchy}
     />
-    <UuvCodeEditor generatedScript={generatedScript} uuvGutter={uuvGutter} />
+    <UuvAssistantResultCodeEditor generatedScript={generatedScript} uuvGutter={uuvGutter} />
   </Flex>
 );

@@ -2,13 +2,13 @@ import React from "react";
 import { Button, Flex, Tooltip, Typography } from "antd";
 import { CloseOutlined } from "@ant-design/icons";
 
-interface UuvHeaderProps {
+interface UuvAssistantSidebarProps {
   displayedResult: string;
   onClose: () => void;
   getAsideParentInHierarchy: (triggerNode: HTMLElement) => HTMLElement;
 }
 
-export const UuvHeader: React.FC<UuvHeaderProps> = ({
+export const UuvAssistantResultHeader: React.FC<UuvAssistantSidebarProps> = ({
   displayedResult,
   onClose,
   getAsideParentInHierarchy,

@@ -1,13 +1,13 @@
 import React from "react";
 import { Avatar, Flex, Tooltip, Typography } from "antd";
-import { CssHelper } from "../helper/CssHelper";
+import { CssHelper } from "../../helper/CssHelper";
 
-interface AvatarProps {
+interface UuvAssistantSidebarAvatarProps {
   uuvLogoJson: any;
   getAsideParentInHierarchy: (triggerNode: HTMLElement) => HTMLElement;
 }
 
-export const UuvAvatar: React.FC<AvatarProps> = ({
+export const UuvAssistantSidebarAvatar: React.FC<UuvAssistantSidebarAvatarProps> = ({
   uuvLogoJson,
   getAsideParentInHierarchy,
 }) => (

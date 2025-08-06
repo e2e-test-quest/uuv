@@ -4,12 +4,12 @@ import { StreamLanguage } from "@codemirror/language";
 import { gherkin } from "@codemirror/legacy-modes/mode/gherkin";
 import { githubDark } from "@uiw/codemirror-theme-github";
 
-interface UuvCodeEditorProps {
+interface UuvAssistantResultCodeEditorProps {
   generatedScript: string;
   uuvGutter: Extension;
 }
 
-export const UuvCodeEditor: React.FC<UuvCodeEditorProps> = ({
+export const UuvAssistantResultCodeEditor: React.FC<UuvAssistantResultCodeEditorProps> = ({
   generatedScript,
   uuvGutter,
 }) => (

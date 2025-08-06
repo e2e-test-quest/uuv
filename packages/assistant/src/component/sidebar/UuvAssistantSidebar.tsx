@@ -5,14 +5,14 @@ import {
   DoubleRightOutlined,
   SettingOutlined,
 } from "@ant-design/icons";
-import { VisibilityEnum } from "../Commons";
-import { UuvAvatar } from "./UuvAvatar";
-import { UuvActionMenu } from "./UuvActionMenu";
+import { VisibilityEnum } from "../../Commons";
+import { UuvAssistantSidebarAvatar } from "./UuvAssistantSidebarAvatar";
+import { UuvAssistantSidebarMenu } from "./UuvAssistantSidebarMenu";
 
 const { Sider } = Layout;
 type MenuItem = Required<MenuProps>["items"][number];
 
-interface UuvSidebarProps {
+interface UuvAssistantSidebarProps {
   visibility: VisibilityEnum;
   isLoading: boolean;
   uuvLogoJson: any;
@@ -23,7 +23,7 @@ interface UuvSidebarProps {
   getAsideParentInHierarchy: (triggerNode: HTMLElement) => HTMLElement;
 }
 
-export const UuvSidebar: React.FC<UuvSidebarProps> = ({
+export const UuvAssistantSidebar: React.FC<UuvAssistantSidebarProps> = ({
   visibility,
   isLoading,
   uuvLogoJson,
@@ -46,14 +46,14 @@ export const UuvSidebar: React.FC<UuvSidebarProps> = ({
     }}
   >
     <Flex align="center" vertical={true}>
-      <UuvAvatar
+      <UuvAssistantSidebarAvatar
         uuvLogoJson={uuvLogoJson}
         getAsideParentInHierarchy={getAsideParentInHierarchy}
       />
       <Divider />
       {!isLoading ? (
         <React.Fragment>
-          <UuvActionMenu
+          <UuvAssistantSidebarMenu
             actionMenuItems={actionMenuItems}
             getAsideParentInHierarchy={getAsideParentInHierarchy}
           />

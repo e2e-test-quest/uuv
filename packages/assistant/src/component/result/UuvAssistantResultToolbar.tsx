@@ -2,13 +2,13 @@ import React from "react";
 import { Button, Flex, Tooltip } from "antd";
 import { CopyOutlined } from "@ant-design/icons";
 
-interface UuvToolbarProps {
+interface UuvAssistantResultToolbarProps {
   generatedScript: string;
   copyResult: () => void;
   getAsideParentInHierarchy: (triggerNode: HTMLElement) => HTMLElement;
 }
 
-export const UuvToolbar: React.FC<UuvToolbarProps> = ({
+export const UuvAssistantResultToolbar: React.FC<UuvAssistantResultToolbarProps> = ({
   generatedScript,
   copyResult,
   getAsideParentInHierarchy,

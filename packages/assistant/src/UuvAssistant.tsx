@@ -24,9 +24,9 @@ import {
 import * as LayerHelper from "./helper/LayerHelper";
 import { SelectionHelper } from "./helper/SelectionHelper";
 import { TranslateSentences } from "./translator/model";
-import { UuvResultView } from "./component/UuvResultView";
-import { UuvSettings } from "./component/UuvSettings";
-import { UuvSidebar } from "./component/UuvSidebar";
+import { UuvAssistantResult } from "./component/result/UuvAssistantResult";
+import { UuvAssistantSettings } from "./component/UuvAssistantSettings";
+import { UuvAssistantSidebar } from "./component/sidebar/UuvAssistantSidebar";
 import { UuvAssistantProps } from "./types/UuvTypes";
 import { GroupOutlined } from "@ant-design/icons";
 import * as KeyboardNavigationHelper from "./helper/KeyboardNavigationHelper";
@@ -439,8 +439,8 @@ function UuvAssistant(props: UuvAssistantProps) {
     "components",
     false,
     undefined,
-    <div className={"menu-custom-svg-container"}>
-      <GroupOutlined />
+    <div id={"component-menu"} className={"menu-custom-svg-container"}>
+      <GroupOutlined className={"menu-native-svg-from-black-to-white"} />
     </div>,
     [
       getItem(
@@ -480,7 +480,7 @@ function UuvAssistant(props: UuvAssistantProps) {
             className={"menu-custom-svg-from-black-to-white submenu"}
             alt={"modal selection"}
           />
-          <span>Dialog Expect</span>
+          <span>Dialog Expect (Experimental)</span>
         </div>,
         "DialogExpected",
         false,
@@ -521,7 +521,7 @@ function UuvAssistant(props: UuvAssistantProps) {
           }}
         >
           {visibility === VisibilityEnum.WITH_RESULT && (
-            <UuvResultView
+            <UuvAssistantResult
               displayedResult={displayedResult.toString()}
               generatedScript={generatedScript}
               uuvGutter={uuvGutter}
@@ -532,7 +532,7 @@ function UuvAssistant(props: UuvAssistantProps) {
           )}
 
           {visibility === VisibilityEnum.SETTINGS && (
-            <UuvSettings
+            <UuvAssistantSettings
               intelligentHighlight={intelligentHighlight}
               switchIntelligentHighlight={switchIntelligentHighlight}
               onClose={handleCloseView}
@@ -541,7 +541,7 @@ function UuvAssistant(props: UuvAssistantProps) {
           )}
 
           {visibility !== VisibilityEnum.HIDE && (
-            <UuvSidebar
+            <UuvAssistantSidebar
               visibility={visibility}
               isLoading={isLoading}
               uuvLogoJson={uuvLogoJson}
