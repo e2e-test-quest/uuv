@@ -4,7 +4,7 @@ import { UuvAssistantResultHeader } from "./UuvAssistantResultHeader";
 import { UuvAssistantResultToolbar } from "./UuvAssistantResultToolbar";
 import { UuvAssistantResultCodeEditor } from "./UuvAssistantResultCodeEditor";
 import { Extension } from "@uiw/react-codemirror";
-import {UuvAssistantResultAIAnalysis} from "./UuvAssistantResultAIAnalysis";
+import { UuvAssistantResultAIAnalysis } from "./UuvAssistantResultAIAnalysis";
 
 interface UuvAssistantResultProps {
   displayedResult: string;
