@@ -54,12 +54,83 @@ export class InformativeNodesHelper {
         "tr",
     ];
 
+    // fIXME SSE transformer en role
+    private readonly INTERESTING_TAGS = ["P", "H1", "H2", "H3", "H4", "H5", "H6", "BUTTON", "A", "LABEL"];
+
     private readonly candidatesWithNativeAccessibleData: NodeListOf<Element>;
     private readonly candidatesWithCustomAccessibleData: Element[];
 
     constructor() {
         this.candidatesWithNativeAccessibleData = document.querySelectorAll(this.TAGS_WITH_NATIVE_ACCESSIBILITY_DATA.join(","));
         this.candidatesWithCustomAccessibleData = this.findInformativeElements(document);
+    }
+
+    extractContextForElement(element: Element): { htmlContext: string; siblingText: string } {
+        const siblingText = Array.from(element.parentElement?.childNodes || [])
+            .filter((n) => {
+                const isTextNode = n.nodeType === 3;
+                return isTextNode && n.textContent?.trim();
+            })
+            .map((n) => n.textContent?.trim())
+            .join(" ");
+
+        let fragment = this.getSiblingsFragment(element, 1);
+
+        const prev = element.parentElement?.previousElementSibling;
+        if (prev && this.INTERESTING_TAGS.includes(prev.tagName)) {
+            fragment = prev.outerHTML + "\n" + fragment;
+        }
+
+        return {
+            htmlContext: fragment,
+            siblingText
+        };
+    }
+
+    getSiblingsFragment(element: Element, maxSiblings = 1): string {
+        const parent = element.parentElement;
+        if (!parent) {
+            return element.outerHTML;
+        }
+
+        const children = Array.from(parent.children);
+        const index = children.indexOf(element);
+
+        const beforeEls = children.slice(Math.max(0, index - maxSiblings), index);
+        const afterEls = children.slice(index + 1, index + 1 + maxSiblings);
+
+        function processElement(informativeNodesHelper: InformativeNodesHelper, el: Element): string {
+            if (informativeNodesHelper.INTERESTING_TAGS.includes(el.tagName)) {
+                return el.outerHTML;
+            }
+            if (informativeNodesHelper.isStructuralOnly(el)) {
+                return informativeNodesHelper.extractInterestingChildren(el).join("\n");
+            }
+            return "";
+        }
+
+        const before = beforeEls.map(value => processElement(this, value)).filter(Boolean);
+        const after = afterEls.map(value => processElement(this, value)).filter(Boolean);
+
+        return [...before, element.outerHTML, ...after].join("\n");
+    }
+
+    private extractInterestingChildren(el: Element): string[] {
+        const collected: string[] = [];
+        for (const child of Array.from(el.children)) {
+            if (this.INTERESTING_TAGS.includes(child.tagName)) {
+                collected.push(child.outerHTML);
+            } else if (this.isStructuralOnly(child)) {
+                collected.push(...this.extractInterestingChildren(child));
+            }
+        }
+        return collected;
+    }
+
+    private isStructuralOnly(el: Element): boolean {
+        const tag = el.tagName;
+        const isStructuralTag = ["DIV", "SPAN", "SECTION", "MAIN", "BODY"].includes(tag);
+        return isStructuralTag && !this.hasInformativeAttributes(el);
     }
 
     private findInformativeElements(root: ParentNode): Element[] {

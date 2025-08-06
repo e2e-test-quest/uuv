@@ -33,7 +33,8 @@ import * as KeyboardNavigationHelper from "./helper/KeyboardNavigationHelper";
 import { DialogService } from "./service/DialogService";
 import { TableAndGridService } from "./service/TableAndGridService";
 import { FormCompletionService } from "./service/FormCompletionService";
-import {Translator} from "./translator/abstract-translator";
+import { Translator } from "./translator/abstract-translator";
+import { InformativeNodesHelper } from "./helper/InformativeNodesHelper";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -265,14 +266,14 @@ function UuvAssistant(props: UuvAssistantProps) {
     setAiResult("pending");
     try {
       const response = await fetch(imgElement.src);
-      const image_blob = await response.blob();
-      const html_content = document.body.outerHTML;
-      const css_selector = Translator.getSelector(imgElement);
+      const imageBlob = await response.blob();
+      const htmlContent = new InformativeNodesHelper().extractContextForElement(imgElement).htmlContext;
+      const cssSelector = Translator.getSelector(imgElement);
 
       const formData = new FormData();
-      formData.append("html_content", html_content);
-      formData.append("target_img", image_blob, "random_img.jpg");
-      formData.append("css_selector", css_selector);
+      formData.append("html_content", htmlContent);
+      formData.append("target_img", imageBlob, "random_img.jpg");
+      formData.append("css_selector", cssSelector);
 
       const uploadResponse = await fetch("http://localhost:5000/api/v1/image/classify", {
         method: "POST",
@@ -464,7 +465,6 @@ function UuvAssistant(props: UuvAssistantProps) {
     ]
   );
 
-  
 
   const componentActions = getItem(
     "Components actions",
