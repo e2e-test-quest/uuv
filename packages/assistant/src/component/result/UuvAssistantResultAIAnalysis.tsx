@@ -1,5 +1,5 @@
 import React from "react";
-import {Descriptions, Skeleton} from "antd";
+import { Descriptions, Skeleton } from "antd";
 
 interface UuvAssistantResultAIAnalysisProps {
   aiResult: any | "pending" | undefined;

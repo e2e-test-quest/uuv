@@ -35,7 +35,7 @@ export const UuvAssistantResultToolbar: React.FC<UuvAssistantResultToolbarProps>
           onClick={copyResult}
         />
       </Tooltip>
-      { selectedElement?.tagName === "IMG" &&
+      { selectedElement instanceof HTMLImageElement &&
           <Tooltip
               placement="bottom"
               title="AI analysis"
