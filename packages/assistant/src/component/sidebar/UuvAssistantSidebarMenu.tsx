@@ -14,7 +14,7 @@ export const UuvAssistantSidebarMenu: React.FC<UuvAssistantSidebarMenuProps> = (
 }) => (
   <Menu
     mode="inline"
-    id={'uuv-action-menu'}
+    id={"uuv-action-menu"}
     items={actionMenuItems}
     getPopupContainer={(triggerNode) => getAsideParentInHierarchy(triggerNode)}
   />
