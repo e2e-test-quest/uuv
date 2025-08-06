@@ -33,6 +33,7 @@ import * as KeyboardNavigationHelper from "./helper/KeyboardNavigationHelper";
 import { DialogService } from "./service/DialogService";
 import { TableAndGridService } from "./service/TableAndGridService";
 import { FormCompletionService } from "./service/FormCompletionService";
+import {Translator} from "./translator/abstract-translator";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -55,6 +56,8 @@ function UuvAssistant(props: UuvAssistantProps) {
     useState<KeyboardNavigationModeEnum>(KeyboardNavigationModeEnum.NONE);
   const [intelligentHighlight, setIntelligentHighlight] =
     useState<boolean>(true);
+  const [selectedElement, setSelectedElement] = useState<HTMLElement | undefined>(undefined);
+  const [aiResult, setAiResult] = useState<any | "pending" | undefined>(undefined);
 
   const selectionHelper = new SelectionHelper(
     onElementSelection,
@@ -103,6 +106,7 @@ function UuvAssistant(props: UuvAssistantProps) {
       case ActionEnum.WITHIN:
       case ActionEnum.EXPECT:
       case ActionEnum.CLICK:
+        setSelectedElement(undefined);
         selectionHelper.startSelect(true);
         break;
       case ActionEnum.TYPE:
@@ -231,12 +235,15 @@ function UuvAssistant(props: UuvAssistantProps) {
         ),
       );
       setDisplayedResult(selectedAction);
+      setSelectedElement(el);
+      setAiResult(undefined);
       setSelectedAction(ActionEnum.NONE);
       endLoading();
     });
   }
 
   function reset() {
+    setSelectedElement(undefined);
     setDisplayedResult(selectedAction);
     setSelectedAction(ActionEnum.NONE);
     setDisabledElement("");
@@ -251,6 +258,30 @@ function UuvAssistant(props: UuvAssistantProps) {
       message.success({
         content: "Result copied to the clipboard",
       });
+    }
+  };
+
+  const callAIForImage = async (imgElement: HTMLImageElement) => {
+    setAiResult("pending");
+    try {
+      const response = await fetch(imgElement.src);
+      const image_blob = await response.blob();
+      const html_content = document.body.outerHTML;
+      const css_selector = Translator.getSelector(imgElement);
+
+      const formData = new FormData();
+      formData.append("html_content", html_content);
+      formData.append("target_img", image_blob, "random_img.jpg");
+      formData.append("css_selector", css_selector);
+
+      const uploadResponse = await fetch("http://localhost:5000/api/v1/image/classify", {
+        method: "POST",
+        body: formData
+      });
+      setAiResult(await uploadResponse.json());
+    } catch (error) {
+      setAiResult(undefined);
+      console.error("Erreur:", error);
     }
   };
 
@@ -528,6 +559,9 @@ function UuvAssistant(props: UuvAssistantProps) {
               uuvGutter={uuvGutter}
               copyResult={copyResult}
               onClose={handleCloseView}
+              onAiClick={() => callAIForImage(selectedElement as HTMLImageElement)}
+              selectedElement={selectedElement}
+              aiResult={aiResult}
               getAsideParentInHierarchy={getAsideParentInHierarchy}
             />
           )}
