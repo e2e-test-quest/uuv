@@ -42,6 +42,26 @@
     border-bottom: solid 1px var(--ua-color-primary);
 }
 
+#aiResult {
+    border-top: solid 1px var(--ua-color-primary);
+    padding: 10px;
+}
+
+:where(.css-dev-only-do-not-override-1pl593n).ant-descriptions .ant-descriptions-row >th, :where(.css-dev-only-do-not-override-1pl593n).ant-descriptions .ant-descriptions-row >td {
+    padding-bottom: 6px;
+    padding-inline-end: 6px;
+}
+
+#aiResultDescription .ant-descriptions-item-content, #aiResultDescription .ant-descriptions-item-label {
+    font-size: 14px;
+    padding-bottom: 4px;
+}
+
+#aiResultDescription {
+    padding-bottom: 16px;
+}
+
+
 #uuvAssistantResultZone header h2 {
     font-size: 25px;
     margin: 0;
