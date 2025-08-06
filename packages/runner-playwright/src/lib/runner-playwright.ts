@@ -40,6 +40,9 @@ export class UUVCliPlaywrightRunner implements UUVCliRunner {
             console.log("preprocessor executed\n");
         } catch (e) {
             console.warn(chalk.redBright("An error occured during preprocessor, please be sure to use existing step definitions"));
+            if (options.command === "e2e") {
+                process.exit(1);
+            }
         }
         this.setEnvironmentVariables(options);
     }
