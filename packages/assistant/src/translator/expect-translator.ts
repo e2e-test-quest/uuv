@@ -17,6 +17,8 @@ import { Translator } from "./abstract-translator";
 import { EnrichedSentence, StepCaseEnum, TranslateSentences } from "./model";
 import * as TextualTranslator from "./textual-translator";
 import { InformativeNodesHelper } from "../helper/InformativeNodesHelper";
+import { computeAccessibleName } from "dom-accessibility-api";
+import { within } from "@testing-library/dom";
 
 const stepCase = StepCaseEnum.THEN;
 
@@ -46,7 +48,7 @@ export class ExpectTranslator extends Translator {
         return this.buildResponse([sentence]);
     }
 
-    public computeTableSentenceFromKeyNameAndContent(sentenceKey: string, indefiniteArticle: string, roleName: string, accessibleName: string, headers: HTMLElement, rows: HTMLElement[]): string {
+    public computeTableSentenceFromKeyNameAndContent(sentenceKey: string, indefiniteArticle: string, roleName: string, accessibleName: string, headers: HTMLElement, rows: HTMLElement[], cellRoleName: string): string {
         if (!sentenceKey) {
             return "";
         }
@@ -58,11 +60,19 @@ export class ExpectTranslator extends Translator {
             .replace("{string}", `"${accessibleName}"`)
             .replace("{string}", "");
 
-        const headerValues = Array.from(headers.children).map(c => c.textContent?.trim() ?? "");
+        const headerValues = within(headers).getAllByRole("columnheader").map(c => computeAccessibleName(c));
         const tableLines: string[] = ["| " + headerValues.join(" | ") + " |", "| " + headerValues.map(() => "---").join(" | ") + " |"];
 
         rows.forEach(row => {
-            const values = Array.from(row.children).map(c => c.textContent?.trim() ?? "");
+            const values = within(row).getAllByRole(cellRoleName).map(c => {
+                if(c.classList.contains("ag-floating-filter")) {
+                    return within(c).getAllByRole("button").reduce(
+                        (accumulator, button) => accumulator + (accumulator.length > 0 ? " " : "") + computeAccessibleName(button),
+                        ""
+                    );
+                }
+                return computeAccessibleName(c);
+            });
             tableLines.push("| " + values.join(" | ") + " |");
         });
 

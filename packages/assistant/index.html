@@ -24,8 +24,7 @@
           padding: 4px;
       }
 
-      >
-      [role="grid"] {
+      #grid > [role="grid"], #treeGrid > [role="grid"] {
           display: table;
           border-collapse: collapse;
           width: 100%;
@@ -33,42 +32,72 @@
           font-family: sans-serif;
       }
 
-      [role="rowgroup"] {
+      #grid [role="rowgroup"], #treeGrid [role="rowgroup"] {
           display: table-row-group;
       }
 
-      [role="row"] {
+      #grid [role="row"], #treeGrid [role="row"] {
           display: table-row;
       }
 
-      [role="columnheader"],
-      [role="gridcell"] {
+      #grid [role="columnheader"], #grid [role="gridcell"], #treeGrid [role="columnheader"], #treeGrid [role="gridcell"] {
           display: table-cell;
           border: 1px solid #ccc;
           padding: 0.5rem 1rem;
           text-align: left;
       }
 
-      [role="columnheader"] {
+      #grid [role="columnheader"], #treeGrid [role="columnheader"] {
           background-color: #f3f3f3;
           font-weight: bold;
       }
 
-      [role="gridcell"] {
+      #grid [role="gridcell"], #treeGrid [role="gridcell"] {
           background-color: #fff;
       }
 
-      [role="row"]:nth-child(even) [role="gridcell"] {
+      #grid [role="row"]:nth-child(even) [role="gridcell"], #treeGrid [role="row"]:nth-child(even) [role="gridcell"] {
           background-color: #fafafa;
       }
 
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/ag-grid-community/dist/ag-grid-community.min.js"></script>
   <script type="module" src="/src/index.tsx"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // const event = new CustomEvent('UUVAssistantReadyToLoad', {detail: {translator: () => {return 'toto'}}});
-      const event = new Event('UUVAssistantReadyToLoad');
-      document.dispatchEvent(event);
+        // const event = new CustomEvent('UUVAssistantReadyToLoad', {detail: {translator: () => {return 'toto'}}});
+        const event = new Event('UUVAssistantReadyToLoad');
+        document.dispatchEvent(event);
+
+        // Init ag grid
+        let gridApi;
+        const gridOptions = {
+            defaultColDef: {
+                flex: 1,
+                floatingFilter: true,
+                filter: true
+            },
+
+            // Data to be displayed
+            rowData: [
+                { make: "Tesla", model: "Model Y", price: 64950, electric: true },
+                { make: "Ford", model: "F-Series", price: 33850, electric: false },
+                { make: "Toyota", model: "Corolla", price: 29600, electric: false },
+                { make: "Mercedes", model: "EQA", price: 48890, electric: true },
+                { make: "Fiat", model: "500", price: 15774, electric: false },
+                { make: "Nissan", model: "Juke", price: 20675, electric: false },
+            ],
+            // Columns to be displayed (Should match rowData properties)
+            columnDefs: [
+                { field: "make",  },
+                { field: "model" },
+                { field: "price" },
+                { field: "electric" },
+            ],
+        };
+        // Create Grid: Create new grid within the #myGrid div, using the Grid Options object
+        gridApi = agGrid.createGrid(document.querySelector("#agGrid"), gridOptions);
+        gridApi.setGridAriaProperty('label', 'AG Grid Example');
     });
   </script>
   <title>Uuv Wizard</title>
@@ -215,7 +244,7 @@
       </tbody>
     </table>
     <h2 id="grid-section">Grid Example</h2>
-    <div role="grid" aria-labelledby="grid-section">
+    <div id="grid" role="grid" aria-labelledby="grid-section">
       <div role="rowgroup">
         <div role="row">
           <div role="columnheader">Company</div>
@@ -237,7 +266,14 @@
       </div>
     </div>
     <h2 id="treegrid-section">Tree Grid Example</h2>
-    <div role="treegrid" aria-labelledby="treegrid-section">
+    <div id="treeGrid" role="treegrid" aria-labelledby="treegrid-section">
+       <div role="rowgroup">
+         <div role="row">
+           <div role="columnheader">Company</div>
+           <div role="columnheader">Contact</div>
+           <div role="columnheader">Country</div>
+         </div>
+      </div>
       <div role="rowgroup">
         <div role="row" aria-level="1" aria-expanded="true">
           <div role="gridcell">Alfreds Futterkiste</div>
@@ -266,6 +302,8 @@
         </div>
       </div>
     </div>
+    <h2 id="aggrid-section">AG Grid Example</h2>
+    <div id="agGrid" style="height: 300px"></div>
   </details>
     <dialog aria-labelledby="dialog1Title">
      <h2 id="dialog1Title">Confirmation</h2>

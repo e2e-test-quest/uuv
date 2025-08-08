@@ -12,7 +12,7 @@ describe("Runner Cypress JunitReport", () => {
     });
 
     test("Should have good results", () => {
-        expect(report.testsuites.tests).toEqual("166");
+        expect(report.testsuites.tests).toEqual("168");
         expect(report.testsuites.failures).toEqual("13");
         expect(report.testsuites.errors).toBeUndefined();
         expect(report.testsuites.skipped).toBeUndefined();

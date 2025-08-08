@@ -54,6 +54,7 @@
     "cypress": "14.4.0",
     "cypress-axe": "1.6.0",
     "cypress-real-events": "^1.10.0",
+    "dom-accessibility-api": "^0.7.0",
     "is-admin": "4.0.0",
     "junit-report-merger": "^7.0.0",
     "lodash": "^4.17.21",
