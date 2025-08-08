@@ -33,3 +33,16 @@ Feature: Table and grid
       | Island Trading                | Helen Bennett    | UK      |
       | Laughing Bacchus Winecellars  | Yoshi Tannamuri  | Canada  |
       | Magazzini Alimentari Riuniti  | Giovanni Rovelli | Italy   |
+
+  Scenario: key.then.aggrid.withNameAndContent
+    When I visit path "https://e2e-test-quest.github.io/simple-webapp/aggrid.html"
+    Then I should see a grid named "AG Grid Example" and containing
+      | Make             | Model            | Price            | Electric         |
+      | ---------------- | ---------------- | ---------------- | ---------------- |
+      | Open Filter Menu | Open Filter Menu | Open Filter Menu | Open Filter Menu |
+      | Tesla            | Model Y          | 64950            | checked          |
+      | Ford             | F-Series         | 33850            | unchecked        |
+      | Toyota           | Corolla          | 29600            | unchecked        |
+      | Mercedes         | EQA              | 48890            | checked          |
+      | Fiat             | 500              | 15774            | unchecked        |
+      | Nissan           | Juke             | 20675            | unchecked        |

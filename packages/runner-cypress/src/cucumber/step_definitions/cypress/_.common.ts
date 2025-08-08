@@ -17,6 +17,8 @@ import Chainable = Cypress.Chainable;
 import { KEY_PRESS } from "@uuv/runner-commons";
 import { A11yReferenceEnum } from "@uuv/a11y";
 import { DataTable } from "@badeball/cypress-cucumber-preprocessor";
+import { computeAccessibleName } from "dom-accessibility-api";
+import { within } from "@testing-library/dom";
 
 const contextAlias = "context";
 const foundedChildElementAlias = "foundedChildElement";
@@ -77,7 +79,15 @@ export function expectTableToHaveContent(expectedElementsOfList: string[][], cel
     cy.findAllByRole("row").each(($row, index) => {
         const cellRole = index === 0 ? "columnheader" : cellAccessibleRole;
         cy.findAllByRole(cellRole, { container: $row }).then(($cells) => {
-            const ligne = Array.from($cells, cell => cell.textContent?.trim() ?? "");
+            const ligne = Array.from($cells, cell => {
+                if (cell.classList.contains("ag-floating-filter")) {
+                    return within(cell).getAllByRole("button").reduce(
+                        (accumulator, button) => accumulator + (accumulator.length > 0 ? " " : "") + computeAccessibleName(button),
+                        ""
+                    );
+                }
+                return computeAccessibleName(cell);
+            });
             actualTableContent.push(ligne);
         });
     }).then(() => {
