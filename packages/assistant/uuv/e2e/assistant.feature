@@ -134,4 +134,17 @@ Feature: UUV Assistant vital features
   And I click
   And I reset context
   Then I should see a title named "Result of Table and Grid Expect"
-  And I should see a text box named "Generated UUV Script" and containing "Feature: Your amazing feature name Scenario: Action - Table and Grid Expect Given I visit path \"http://localhost:5173/\" Then I should see a treegrid named \"Tree Grid Example\" and containing | Alfreds Futterkiste        | Maria Anders    | Germany   || -------------------------- | --------------- | --------- || → Subdivision A            | Hans Müller     | Berlin    || → Subdivision B            | Anna Schmidt    | Hamburg   || Centro comercial Moctezuma | Francisco Chang | Mexico    || → Team Alpha               | Luis González   | Monterrey |"
+  And I should see a text box named "Generated UUV Script" and containing "Feature: Your amazing feature name Scenario: Action - Table and Grid Expect Given I visit path \"http://localhost:5173/\" Then I should see a treegrid named \"Tree Grid Example\" and containing | Company                    | Contact         | Country   || -------------------------- | --------------- | --------- || Alfreds Futterkiste        | Maria Anders    | Germany   || → Subdivision A            | Hans Müller     | Berlin    || → Subdivision B            | Anna Schmidt    | Hamburg   || Centro comercial Moctezuma | Francisco Chang | Mexico    || → Team Alpha               | Luis González   | Monterrey |"
+
+ Scenario: Table and grid Expect should return result for selected aggrid
+  Given I visit path "/"
+  And within the element with selector "summary"
+  And I click
+  And I reset context
+  When I click on menuitem named "Components actions"
+  And I click on menuitem named "Table and Grid Expect"
+  And within the element with selector "#element-border-4"
+  And I click
+  And I reset context
+  Then I should see a title named "Result of Table and Grid Expect"
+  And I should see a text box named "Generated UUV Script" and containing "Feature: Your amazing feature name Scenario: Action - Table and Grid Expect Given I visit path \"http://localhost:5173/\" Then I should see a grid named \"AG Grid Example\" and containing | Make             | Model            | Price            | Electric         || ---------------- | ---------------- | ---------------- | ---------------- || Open Filter Menu | Open Filter Menu | Open Filter Menu | Open Filter Menu || Tesla            | Model Y          | 64950            | checked          || Ford             | F-Series         | 33850            | unchecked        || Toyota           | Corolla          | 29600            | unchecked        || Mercedes         | EQA              | 48890            | checked          || Fiat             | 500              | 15774            | unchecked        || Nissan           | Juke             | 20675            | unchecked        |"

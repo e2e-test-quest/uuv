@@ -66,7 +66,7 @@ describe("translator - Expected", () => {
     test("translator - computeTableSentenceFromKeyNameAndContent", () => {
         const thead = table.querySelector("thead tr") as HTMLElement;
         const tbody = Array.from(table.querySelectorAll("tbody tr")) as HTMLElement[];
-        const sentence = translator.computeTableSentenceFromKeyNameAndContent("key.then.element.withRoleAndNameAndContent", "a",  "table", "myTable", thead, tbody);
+        const sentence = translator.computeTableSentenceFromKeyNameAndContent("key.then.element.withRoleAndNameAndContent", "a",  "table", "myTable", thead, tbody, "cell");
         expect(sentence).toEqual(`Then I should see a table named "myTable" and containing 
 | Header 1     | Header 2     | Header 3     |
 | ------------ | ------------ | ------------ |
