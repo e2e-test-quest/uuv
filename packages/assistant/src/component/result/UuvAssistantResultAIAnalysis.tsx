@@ -7,16 +7,22 @@ interface UuvAssistantResultAIAnalysisProps {
 
 export const UuvAssistantResultAIAnalysis: React.FC<UuvAssistantResultAIAnalysisProps> = ({
     aiResult,
-}) => (
-    <div id="aiResult">
-        { aiResult === "pending" ?
-            <Skeleton active /> :
+}) => {
+    const renderContent = (content: React.ReactNode) => {
+        return aiResult === "pending" ? (
+            <Skeleton className='uuv-assistant-result-item' title={false} active paragraph={{ rows: 1 }} />
+        ) : content;
+    };
+
+    return (
+        <div id="aiResult">
             <Descriptions id="aiResultDescription" title="AI image analysis">
-                <Descriptions.Item label="Is decorative">{String(aiResult?.is_decorative)}</Descriptions.Item>
-                <Descriptions.Item label="Confidence">{aiResult?.confidence}</Descriptions.Item>
-                <br/>
-                <Descriptions.Item  label="Details">{aiResult?.analysis_details}</Descriptions.Item>
+                <Descriptions.Item label="Is decorative">{renderContent(String(aiResult?.is_decorative))}</Descriptions.Item>
+                <Descriptions.Item label="Confidence">{renderContent(aiResult?.confidence)}</Descriptions.Item>
+                <Descriptions.Item label="Duration">{renderContent(aiResult?.duration + 's')}</Descriptions.Item>
+                <Descriptions.Item label="Image description" span={3}>{renderContent(aiResult?.image_description)}</Descriptions.Item>
+                <Descriptions.Item label="Analyse details" span={3}>{renderContent(aiResult?.analysis_details)}</Descriptions.Item>
             </Descriptions>
-        }
-    </div>
-);
+        </div>
+    );
+};
