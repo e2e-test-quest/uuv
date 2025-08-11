@@ -1,3 +1,10 @@
+## [2.65.1](https://github.com/e2e-test-quest/uuv/compare/assistant-v2.65.0...assistant-v2.65.1) (2025-08-11)
+
+
+### Bug Fixes
+
+* manage aggrid case for runner and assistant, [#1070](https://github.com/e2e-test-quest/uuv/issues/1070) ([dd00aa3](https://github.com/e2e-test-quest/uuv/commit/dd00aa323e153729c3297c26d39378f8eb72c446))
+
 # [2.65.0](https://github.com/e2e-test-quest/uuv/compare/assistant-v2.64.0...assistant-v2.65.0) (2025-08-07)
 
 
