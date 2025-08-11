@@ -1,3 +1,10 @@
+## [1.91.1](https://github.com/e2e-test-quest/uuv/compare/docs-v1.91.0...docs-v1.91.1) (2025-08-11)
+
+
+### Bug Fixes
+
+* manage aggrid case for runner and assistant, [#1070](https://github.com/e2e-test-quest/uuv/issues/1070) ([dd00aa3](https://github.com/e2e-test-quest/uuv/commit/dd00aa323e153729c3297c26d39378f8eb72c446))
+
 # [1.91.0](https://github.com/e2e-test-quest/uuv/compare/docs-v1.90.0...docs-v1.91.0) (2025-08-07)
 
 
