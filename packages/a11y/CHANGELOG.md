@@ -1,3 +1,10 @@
+# [1.0.0-beta.76](https://github.com/e2e-test-quest/uuv/compare/a11y-v1.0.0-beta.75...a11y-v1.0.0-beta.76) (2025-08-11)
+
+
+### Bug Fixes
+
+* manage aggrid case for runner and assistant, [#1070](https://github.com/e2e-test-quest/uuv/issues/1070) ([dd00aa3](https://github.com/e2e-test-quest/uuv/commit/dd00aa323e153729c3297c26d39378f8eb72c446))
+
 # [1.0.0-beta.75](https://github.com/e2e-test-quest/uuv/compare/a11y-v1.0.0-beta.74...a11y-v1.0.0-beta.75) (2025-07-27)
 
 
