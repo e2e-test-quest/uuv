@@ -1,3 +1,10 @@
+## [1.17.2](https://github.com/e2e-test-quest/uuv/compare/intellij-plugin-v1.17.1...intellij-plugin-v1.17.2) (2025-08-13)
+
+
+### Bug Fixes
+
+* **assistant:** remove @testing-library/dom dependency and adapt selector ([14684af](https://github.com/e2e-test-quest/uuv/commit/14684afd4ddce4a7041bc09543a6a6df6d1e3a1c))
+
 ## [1.17.1](https://github.com/e2e-test-quest/uuv/compare/intellij-plugin-v1.17.0...intellij-plugin-v1.17.1) (2025-08-11)
 
 
