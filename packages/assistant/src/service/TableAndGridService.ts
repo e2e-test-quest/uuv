@@ -13,7 +13,6 @@
 
 import { computeAccessibleName, getRole } from "dom-accessibility-api";
 import { AbstractComponentService } from "./AbstractComponentService";
-import { within } from "@testing-library/dom";
 
 export class TableAndGridService extends AbstractComponentService {
 
@@ -69,7 +68,7 @@ export class TableAndGridService extends AbstractComponentService {
   }
 
   private extractHeaderAndDataRows(selectedArray: HTMLTableElement | HTMLElement) {
-    const rows = within(selectedArray).getAllByRole('row');
+    const rows = Array.from(selectedArray.querySelectorAll('[role=row], tr'));
     if (rows.length > 0) {
       return {
         headers: rows[0],

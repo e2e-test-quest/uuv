@@ -18,7 +18,6 @@ import { EnrichedSentence, StepCaseEnum, TranslateSentences } from "./model";
 import * as TextualTranslator from "./textual-translator";
 import { InformativeNodesHelper } from "../helper/InformativeNodesHelper";
 import { computeAccessibleName } from "dom-accessibility-api";
-import { within } from "@testing-library/dom";
 
 const stepCase = StepCaseEnum.THEN;
 
@@ -60,13 +59,13 @@ export class ExpectTranslator extends Translator {
             .replace("{string}", `"${accessibleName}"`)
             .replace("{string}", "");
 
-        const headerValues = within(headers).getAllByRole("columnheader").map(c => computeAccessibleName(c));
+        const headerValues = Array.from(headers.querySelectorAll('[role=columnheader], th')).map(c => computeAccessibleName(c));
         const tableLines: string[] = ["| " + headerValues.join(" | ") + " |", "| " + headerValues.map(() => "---").join(" | ") + " |"];
 
         rows.forEach(row => {
-            const values = within(row).getAllByRole(cellRoleName).map(c => {
+            const values = Array.from(row.querySelectorAll(`[role=${cellRoleName}], td, [role=columnheader], th`)).map(c => {
                 if(c.classList.contains("ag-floating-filter")) {
-                    return within(c).getAllByRole("button").reduce(
+                    return Array.from(c.querySelectorAll('[role=button], button')).reduce(
                         (accumulator, button) => accumulator + (accumulator.length > 0 ? " " : "") + computeAccessibleName(button),
                         ""
                     );
