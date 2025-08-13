@@ -57,7 +57,6 @@
     "@ant-design/icons": "^5.0.1",
     "@codemirror/legacy-modes": "^6.4.0",
     "@codemirror/view": "^6.26.3",
-    "@testing-library/dom": "^10.4.1",
     "@uiw/codemirror-theme-github": "^4.22.1",
     "@uiw/react-codemirror": "^4.22.1",
     "@uuv/runner-commons": "2.59.1",
@@ -80,6 +79,7 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "6.6.3",
     "@testing-library/react": "16.2.0",
     "@testing-library/user-event": "14.6.1",
