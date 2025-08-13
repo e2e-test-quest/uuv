@@ -1,6 +1,6 @@
 {
   "name": "@uuv/runner-commons",
-  "version": "2.59.1",
+  "version": "2.59.2",
   "type": "commonjs",
   "author": "Louis Fredice NJAKO MOLOM (https://github.com/luifr10) & Stanley SERVICAL (https://github.com/stanlee974)",
   "description": "A common lib for uuv",
