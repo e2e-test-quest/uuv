@@ -21,7 +21,7 @@ export class UuvAssistant {
     public async start(translatorFn?: (el: HTMLElement) => string) {
         const argv = minimist(process.argv.slice(2));
         const browser = await chromium.launch({ headless: false });
-        const browserContext = await browser.newContext({ viewport: null });
+        const browserContext = await browser.newContext({ viewport: null, ignoreHTTPSErrors: true });
         const page = await browserContext.newPage();
 
         if (!argv["targetUrl"]) {
