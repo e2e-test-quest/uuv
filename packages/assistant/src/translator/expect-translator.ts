@@ -65,7 +65,7 @@ export class ExpectTranslator extends Translator {
         rows.forEach(row => {
             const values = Array.from(row.querySelectorAll(`[role=${cellRoleName}], td, [role=columnheader], th`)).map(c => {
                 if(c.classList.contains("ag-floating-filter")) {
-                    return Array.from(c.querySelectorAll('[role=button], button')).reduce(
+                    return Array.from(c.querySelectorAll('[role=button]:not(.ag-hidden [role=button]), button:not(.ag-hidden button)')).reduce(
                         (accumulator, button) => accumulator + (accumulator.length > 0 ? " " : "") + computeAccessibleName(button),
                         ""
                     );
