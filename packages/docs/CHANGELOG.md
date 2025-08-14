@@ -1,3 +1,11 @@
+## [1.91.3](https://github.com/e2e-test-quest/uuv/compare/docs-v1.91.2...docs-v1.91.3) (2025-08-14)
+
+
+### Bug Fixes
+
+* **assistant:** allow open insecure app ([852c44d](https://github.com/e2e-test-quest/uuv/commit/852c44de1a3f14377bbf536a5ba0a7d22ed7d88b))
+* **assistant:** exclude disabled filter button when generating ag grid scenario ([0c39678](https://github.com/e2e-test-quest/uuv/commit/0c39678509a9c3fa4a092abed27d8af34dc4d592))
+
 ## [1.91.2](https://github.com/e2e-test-quest/uuv/compare/docs-v1.91.1...docs-v1.91.2) (2025-08-13)
 
 
