@@ -1,6 +1,8 @@
 import React from "react";
 import { Button, Flex, Tooltip } from "antd";
-import { BulbOutlined, CopyOutlined } from "@ant-design/icons";
+import { CopyOutlined } from "@ant-design/icons";
+import {CssHelper} from "../../helper/CssHelper";
+import aiIcon from "../../assets/ai.json";
 
 interface UuvAssistantResultToolbarProps {
   generatedScript: string;
@@ -46,10 +48,13 @@ export const UuvAssistantResultToolbar: React.FC<UuvAssistantResultToolbarProps>
             <Button
                 type="link"
                 shape="circle"
-                icon={<BulbOutlined />}
                 className="primary"
                 onClick={onAiClick}
-            />
+            ><img
+                src={CssHelper.getBase64File(aiIcon)}
+                alt={""}
+                id={"aiIcon"}
+            /></Button>
           </Tooltip>
       }
     </Flex>
