@@ -51,7 +51,7 @@
     "@nxrocks/nx-flutter": "10.0.1",
     "@theunderscorer/nx-semantic-release": "2.4.0",
     "@types/jest": "29.5.14",
-    "@types/node": "20.12.12",
+    "@types/node": "20.19.11",
     "@typescript-eslint/eslint-plugin": "8.33.0",
     "@typescript-eslint/parser": "8.33.0",
     "eslint": "9.27.0",
