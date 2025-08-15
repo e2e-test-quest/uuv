@@ -45,3 +45,13 @@ export enum AdditionalLayerEnum {
 }
 
 export const UUV_DISABLED_CLASS = "uuv-is-disabled";
+
+export const PENDING_VALUE = "pending";
+
+export type UuvAssistantResultAIAnalysisType = {
+  is_decorative: boolean | typeof PENDING_VALUE;
+  confidence: number | typeof PENDING_VALUE;
+  image_description: string | typeof PENDING_VALUE;
+  analysis_details: string | typeof PENDING_VALUE;
+  duration?: number;
+}

@@ -48,19 +48,22 @@
 }
 
 :where(.css-dev-only-do-not-override-1pl593n).ant-descriptions .ant-descriptions-row >th, :where(.css-dev-only-do-not-override-1pl593n).ant-descriptions .ant-descriptions-row >td {
-    padding-bottom: 6px;
+    padding-bottom: 12px;
     padding-inline-end: 6px;
 }
 
 #aiResultDescription .ant-descriptions-item-content, #aiResultDescription .ant-descriptions-item-label {
     font-size: 14px;
-    padding-bottom: 4px;
+    align-self: start;
 }
 
 #aiResultDescription {
     padding-bottom: 16px;
 }
 
+#aiResultDescription .ant-descriptions-item .ant-skeleton-content .ant-skeleton-paragraph {
+    margin: 0;
+}
 
 #uuvAssistantResultZone header h2 {
     font-size: 25px;
@@ -124,6 +127,15 @@
 
 .keyboardicon.active {
     color: var(--ua-color-secondary) !important
+}
+
+#aiIcon {
+    width: 22px;
+    filter: invert(18%) sepia(89%) saturate(2613%) hue-rotate(216deg) brightness(93%) contrast(101%);
+}
+
+#aiIcon:hover {
+    filter: invert(100%) opacity(85%);
 }
 
 .ant-layout-sider-children {
