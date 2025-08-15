@@ -65,7 +65,7 @@ export class InformativeNodesHelper {
         this.candidatesWithCustomAccessibleData = this.findInformativeElements(document);
     }
 
-    extractContextForElement(element: Element): { htmlContext: string; siblingText: string } {
+    extractContextForElement(element: Element): { parentElement: HTMLElement | null; htmlContext: string; siblingText: string } {
         const siblingText = Array.from(element.parentElement?.childNodes || [])
             .filter((n) => {
                 const isTextNode = n.nodeType === 3;
@@ -82,8 +82,9 @@ export class InformativeNodesHelper {
         }
 
         return {
+            parentElement: element.parentElement,
             htmlContext: fragment,
-            siblingText
+            siblingText,
         };
     }
 
