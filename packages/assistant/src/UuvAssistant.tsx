@@ -1,40 +1,39 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import uuvLogoJson from "./assets/uuvLogo.json";
 import mouseIcon from "./assets/mouse.json";
 import keyboardIcon from "./assets/keyboard.json";
 import formIcon from "./assets/form.json";
 import datatableIcon from "./assets/datatable.json";
 import modalIcon from "./assets/modal.json";
-import { ConfigProvider, MenuProps, message, theme } from "antd";
-import { StyleProvider } from "@ant-design/cssinjs";
-import { CssHelper } from "./helper/CssHelper";
-import { FocusableElement } from "tabbable";
-import { Extension, gutter } from "@uiw/react-codemirror";
-import {
-  buildResultingScript,
-  buildUuvGutter,
-} from "./helper/ResultScriptHelper";
+import {ConfigProvider, MenuProps, message, theme} from "antd";
+import {StyleProvider} from "@ant-design/cssinjs";
+import {CssHelper} from "./helper/CssHelper";
+import {FocusableElement} from "tabbable";
+import {Extension, gutter} from "@uiw/react-codemirror";
+import {buildResultingScript, buildUuvGutter,} from "./helper/ResultScriptHelper";
 import {
   ActionEnum,
   AdditionalLayerEnum,
   KeyboardNavigationModeEnum,
+  PENDING_VALUE,
   ResultSentence,
+  UuvAssistantResultAIAnalysisType,
   VisibilityEnum,
 } from "./Commons";
 import * as LayerHelper from "./helper/LayerHelper";
-import { SelectionHelper } from "./helper/SelectionHelper";
-import { TranslateSentences } from "./translator/model";
-import { UuvAssistantResult } from "./component/result/UuvAssistantResult";
-import { UuvAssistantSettings } from "./component/UuvAssistantSettings";
-import { UuvAssistantSidebar } from "./component/sidebar/UuvAssistantSidebar";
-import { UuvAssistantProps } from "./types/UuvTypes";
-import { GroupOutlined } from "@ant-design/icons";
+import {SelectionHelper} from "./helper/SelectionHelper";
+import {TranslateSentences} from "./translator/model";
+import {UuvAssistantResult} from "./component/result/UuvAssistantResult";
+import {UuvAssistantSettings} from "./component/UuvAssistantSettings";
+import {UuvAssistantSidebar} from "./component/sidebar/UuvAssistantSidebar";
+import {UuvAssistantProps} from "./types/UuvTypes";
+import {GroupOutlined} from "@ant-design/icons";
 import * as KeyboardNavigationHelper from "./helper/KeyboardNavigationHelper";
-import { DialogService } from "./service/DialogService";
-import { TableAndGridService } from "./service/TableAndGridService";
-import { FormCompletionService } from "./service/FormCompletionService";
-import { Translator } from "./translator/abstract-translator";
-import { InformativeNodesHelper } from "./helper/InformativeNodesHelper";
+import {DialogService} from "./service/DialogService";
+import {TableAndGridService} from "./service/TableAndGridService";
+import {FormCompletionService} from "./service/FormCompletionService";
+import {Translator} from "./translator/abstract-translator";
+import {InformativeNodesHelper} from "./helper/InformativeNodesHelper";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -58,7 +57,7 @@ function UuvAssistant(props: UuvAssistantProps) {
   const [intelligentHighlight, setIntelligentHighlight] =
     useState<boolean>(true);
   const [selectedElement, setSelectedElement] = useState<HTMLElement | undefined>(undefined);
-  const [aiResult, setAiResult] = useState<any | "pending" | undefined>(undefined);
+  const [aiResult, setAiResult] = useState<UuvAssistantResultAIAnalysisType | undefined>(undefined);
 
   const selectionHelper = new SelectionHelper(
     onElementSelection,
@@ -263,15 +262,25 @@ function UuvAssistant(props: UuvAssistantProps) {
   };
 
   const callAIForImage = async (imgElement: HTMLImageElement) => {
-    setAiResult("pending");
     try {
+      let currentValue: UuvAssistantResultAIAnalysisType | undefined = {
+        is_decorative: PENDING_VALUE,
+        confidence: PENDING_VALUE,
+        image_description: PENDING_VALUE,
+        analysis_details: PENDING_VALUE
+      };
+      setAiResult(currentValue);
+
+      const start = Date.now();
       const response = await fetch(imgElement.src);
       const imageBlob = await response.blob();
-      const htmlContent = new InformativeNodesHelper().extractContextForElement(imgElement).htmlContext;
-      const cssSelector = Translator.getSelector(imgElement);
+      const { htmlContext, parentElement } = new InformativeNodesHelper().extractContextForElement(imgElement);
+      const cssSelector = parentElement ?
+          Translator.getSelector(imgElement).replace(Translator.getSelector(parentElement) + " > ", "") :
+          Translator.getSelector(imgElement);
 
       const formData = new FormData();
-      formData.append("html_content", htmlContent);
+      formData.append("html_content", htmlContext);
       formData.append("target_img", imageBlob, "random_img.jpg");
       formData.append("css_selector", cssSelector);
 
@@ -279,10 +288,45 @@ function UuvAssistant(props: UuvAssistantProps) {
         method: "POST",
         body: formData
       });
-      setAiResult(await uploadResponse.json());
+
+      const reader = uploadResponse.body?.getReader();
+      const decoder = new TextDecoder();
+
+      let buffer = '';
+
+      if (reader) {
+        while (true) {
+          const {done, value} = await reader.read();
+
+          if (done) break;
+
+          buffer += decoder.decode(value, {stream: true});
+
+          const lines = buffer.split('\n');
+          buffer = lines.pop() || '';
+
+          for (const line of lines) {
+            if (line.trim()) {
+              try {
+                currentValue = JSON.parse(line);
+              } catch (e) {
+                console.error('Erreur parsing JSON:', e);
+                currentValue = undefined;
+              }
+            }
+          }
+
+          setAiResult(currentValue);
+        }
+
+        setAiResult({
+          ...currentValue as any,
+          duration: (Date.now() - start) / 1000
+        });
+      }
     } catch (error) {
-      setAiResult(undefined);
       console.error("Erreur:", error);
+      setAiResult(undefined);
     }
   };
 
