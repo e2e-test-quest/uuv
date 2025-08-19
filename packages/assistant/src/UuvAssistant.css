@@ -65,6 +65,28 @@
     margin: 0;
 }
 
+#aiResultImageDescription {
+    padding: 10px;
+    color: var(--ua-color-primary);
+}
+
+#aiResultImageDescription .ant-radio-group {
+    display: flex;
+    flex-direction: column;
+    margin: 1rem 0 0.5rem 0;
+}
+
+#aiResultImageDescription ul.ant-skeleton-paragraph {
+    margin-block-start: 0.125rem;
+    margin-block-end: 0.125rem;
+}
+
+#aiResultImageDescription .ant-radio-label {
+    width: 100%;
+    margin-block-start: 0.5rem;
+    margin-block-end: 0.5rem;
+}
+
 #uuvAssistantResultZone header h2 {
     font-size: 25px;
     margin: 0;
@@ -129,13 +151,13 @@
     color: var(--ua-color-secondary) !important
 }
 
-#aiIcon {
+.aiIcon {
     width: 22px;
-    filter: invert(18%) sepia(89%) saturate(2613%) hue-rotate(216deg) brightness(93%) contrast(101%);
+    filter: invert(100%) opacity(85%);
 }
 
-#aiIcon:hover {
-    filter: invert(100%) opacity(85%);
+.aiIcon:hover {
+    filter: invert(18%) sepia(89%) saturate(2613%) hue-rotate(216deg) brightness(93%) contrast(101%);
 }
 
 .ant-layout-sider-children {
