@@ -3,11 +3,13 @@ import { Button, Flex, Tooltip } from "antd";
 import { CopyOutlined } from "@ant-design/icons";
 import {CssHelper} from "../../helper/CssHelper";
 import aiIcon from "../../assets/ai.json";
+import chatbotAiIcon from "../../assets/chatbot-ai.json";
 
 interface UuvAssistantResultToolbarProps {
   generatedScript: string;
   copyResult: () => void;
-  onAiClick: () => void;
+  onAiUnifiedClick: () => void;
+  onAiStepByStepClick: () => void;
   selectedElement: HTMLElement | undefined;
   getAsideParentInHierarchy: (triggerNode: HTMLElement) => HTMLElement;
 }
@@ -15,7 +17,8 @@ interface UuvAssistantResultToolbarProps {
 export const UuvAssistantResultToolbar: React.FC<UuvAssistantResultToolbarProps> = ({
   generatedScript,
   copyResult,
-  onAiClick,
+  onAiUnifiedClick,
+  onAiStepByStepClick,
   selectedElement,
   getAsideParentInHierarchy,
 }) => (
@@ -40,7 +43,7 @@ export const UuvAssistantResultToolbar: React.FC<UuvAssistantResultToolbarProps>
       { selectedElement instanceof HTMLImageElement &&
           <Tooltip
               placement="bottom"
-              title="AI analysis"
+              title="Unified AI analysis"
               getPopupContainer={(triggerNode) =>
                   getAsideParentInHierarchy(triggerNode)
               }
@@ -49,11 +52,31 @@ export const UuvAssistantResultToolbar: React.FC<UuvAssistantResultToolbarProps>
                 type="link"
                 shape="circle"
                 className="primary"
-                onClick={onAiClick}
+                onClick={onAiUnifiedClick}
             ><img
                 src={CssHelper.getBase64File(aiIcon)}
                 alt={""}
-                id={"aiIcon"}
+                className={"aiIcon"}
+            /></Button>
+          </Tooltip>
+      }
+      { selectedElement instanceof HTMLImageElement &&
+          <Tooltip
+              placement="bottom"
+              title="Step by step AI analysis"
+              getPopupContainer={(triggerNode) =>
+                  getAsideParentInHierarchy(triggerNode)
+              }
+          >
+            <Button
+                type="link"
+                shape="circle"
+                className="primary"
+                onClick={onAiStepByStepClick}
+            ><img
+                src={CssHelper.getBase64File(chatbotAiIcon)}
+                alt={""}
+                className={"aiIcon"}
             /></Button>
           </Tooltip>
       }
