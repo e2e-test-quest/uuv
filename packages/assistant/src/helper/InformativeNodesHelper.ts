@@ -55,7 +55,7 @@ export class InformativeNodesHelper {
     ];
 
     // fIXME SSE transformer en role
-    private readonly INTERESTING_TAGS = ["P", "H1", "H2", "H3", "H4", "H5", "H6", "BUTTON", "A", "LABEL"];
+    private readonly INTERESTING_TAGS = ["P", "H1", "H2", "H3", "H4", "H5", "H6", "BUTTON", "A", "LABEL", "STRONG", "DIV", "SPANz"];
 
     private readonly candidatesWithNativeAccessibleData: NodeListOf<Element>;
     private readonly candidatesWithCustomAccessibleData: Element[];
@@ -63,6 +63,89 @@ export class InformativeNodesHelper {
     constructor() {
         this.candidatesWithNativeAccessibleData = document.querySelectorAll(this.TAGS_WITH_NATIVE_ACCESSIBILITY_DATA.join(","));
         this.candidatesWithCustomAccessibleData = this.findInformativeElements(document);
+    }
+
+    /**
+     * Trouve l'élément parent le plus pertinent pour l'analyse d'accessibilité
+     * @param {HTMLElement} element - L'élément de départ
+     * @returns {HTMLElement|null} - L'élément parent pertinent ou null si non trouvé
+     */
+    findRelevantAccessibilityParent(element): HTMLElement | null {
+        if (!element || !(element instanceof HTMLElement)) {
+            return null;
+        }
+
+        // Éléments considérés comme pertinents pour l'accessibilité (par ordre de priorité)
+        const relevantElements = [
+            // Éléments sectionnels et structurels
+            'section', 'article', 'aside', 'nav', 'main', 'header', 'footer',
+            // Éléments de contenu
+            'p', 'div', 'span',
+            // Éléments de liste
+            'ul', 'ol', 'li', 'dl', 'dt', 'dd',
+            // Éléments de formulaire
+            'form', 'fieldset', 'legend',
+            // Éléments de tableau
+            'table', 'thead', 'tbody', 'tfoot', 'tr', 'td', 'th',
+            // Autres éléments structurels
+            'blockquote', 'figure', 'figcaption', 'details', 'summary'
+        ];
+
+        // Éléments avec des rôles ARIA pertinents
+        const relevantAriaRoles = [
+            'banner', 'navigation', 'main', 'complementary', 'contentinfo',
+            'region', 'article', 'section', 'group', 'list', 'listitem',
+            'table', 'row', 'cell', 'columnheader', 'rowheader',
+            'form', 'search', 'dialog', 'alertdialog', 'alert'
+        ];
+
+        let currentElement = element.parentElement;
+        let bestMatch: HTMLElement | null = null;
+        let bestPriority = Infinity;
+
+        while (currentElement) {
+            const tagName = currentElement.tagName.toLowerCase();
+            const role = currentElement.getAttribute('role');
+
+            // Vérifier si l'élément a un rôle ARIA pertinent
+            if (role && relevantAriaRoles.includes(role)) {
+                const priority = relevantAriaRoles.indexOf(role);
+                if (priority < bestPriority) {
+                    bestMatch = currentElement;
+                    bestPriority = priority;
+                }
+            }
+
+            // Vérifier si l'élément est dans notre liste d'éléments pertinents
+            const elementIndex = relevantElements.indexOf(tagName);
+            if (elementIndex !== -1 && elementIndex < bestPriority) {
+                bestMatch = currentElement;
+                bestPriority = elementIndex;
+            }
+
+            // Vérifier les attributs d'accessibilité importants
+            if (currentElement.hasAttribute('aria-label') ||
+                currentElement.hasAttribute('aria-labelledby') ||
+                currentElement.hasAttribute('aria-describedby')) {
+
+                // Donner une priorité plus élevée aux éléments avec des labels d'accessibilité
+                const accessibilityPriority = bestPriority - 0.5;
+                if (accessibilityPriority < bestPriority) {
+                    bestMatch = currentElement;
+                    bestPriority = accessibilityPriority;
+                }
+            }
+
+            // Arrêter la recherche si on trouve un élément très pertinent
+            if (['section', 'article', 'main', 'nav', 'form'].includes(tagName) ||
+                (role && ['main', 'navigation', 'banner', 'contentinfo'].includes(role))) {
+                break;
+            }
+
+            currentElement = currentElement.parentElement;
+        }
+
+        return bestMatch;
     }
 
     extractContextForElement(element: Element): { parentElement: HTMLElement | null; htmlContext: string; siblingText: string } {
@@ -83,7 +166,7 @@ export class InformativeNodesHelper {
 
         return {
             parentElement: element.parentElement,
-            htmlContext: fragment,
+            htmlContext: element.parentElement!.outerHTML,
             siblingText,
         };
     }

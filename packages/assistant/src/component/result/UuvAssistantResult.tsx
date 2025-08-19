@@ -12,7 +12,8 @@ interface UuvAssistantResultProps {
   uuvGutter: Extension;
   copyResult: () => void;
   onClose: () => void;
-  onAiClick: () => void;
+  onAiUnifiedClick: () => void;
+  onAiStepByStepClick: () => void;
   selectedElement: HTMLElement | undefined;
   aiResult: any | "pending" | undefined;
   getAsideParentInHierarchy: (triggerNode: HTMLElement) => HTMLElement;
@@ -24,7 +25,8 @@ export const UuvAssistantResult: React.FC<UuvAssistantResultProps> = ({
   uuvGutter,
   copyResult,
   onClose,
-  onAiClick,
+  onAiUnifiedClick,
+  onAiStepByStepClick,
   selectedElement,
   aiResult,
   getAsideParentInHierarchy,
@@ -38,7 +40,8 @@ export const UuvAssistantResult: React.FC<UuvAssistantResultProps> = ({
     <UuvAssistantResultToolbar
       generatedScript={generatedScript}
       copyResult={copyResult}
-      onAiClick={onAiClick}
+      onAiUnifiedClick={onAiUnifiedClick}
+      onAiStepByStepClick={onAiStepByStepClick}
       selectedElement={selectedElement}
       getAsideParentInHierarchy={getAsideParentInHierarchy}
     />
