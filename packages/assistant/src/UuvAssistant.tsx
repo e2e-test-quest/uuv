@@ -14,6 +14,7 @@ import {buildResultingScript, buildUuvGutter,} from "./helper/ResultScriptHelper
 import {
   ActionEnum,
   AdditionalLayerEnum,
+  AIAnalysisModeEnum,
   KeyboardNavigationModeEnum,
   PENDING_VALUE,
   ResultSentence,
@@ -261,9 +262,10 @@ function UuvAssistant(props: UuvAssistantProps) {
     }
   };
 
-  const callAIForImage = async (imgElement: HTMLImageElement) => {
+  const callUnifiedAIForImage = async (imgElement: HTMLImageElement) => {
     try {
       let currentValue: UuvAssistantResultAIAnalysisType | undefined = {
+        mode: AIAnalysisModeEnum.UNIFIED,
         is_decorative: PENDING_VALUE,
         confidence: PENDING_VALUE,
         image_description: PENDING_VALUE,
@@ -274,7 +276,10 @@ function UuvAssistant(props: UuvAssistantProps) {
       const start = Date.now();
       const response = await fetch(imgElement.src);
       const imageBlob = await response.blob();
-      const { htmlContext, parentElement } = new InformativeNodesHelper().extractContextForElement(imgElement);
+      console.log(new InformativeNodesHelper().findRelevantAccessibilityParent(imgElement));
+      // const { htmlContext, parentElement } = new InformativeNodesHelper().extractContextForElement(imgElement);
+      const parentElement = new InformativeNodesHelper().findRelevantAccessibilityParent(imgElement);
+      const htmlContext = parentElement!.outerHTML;
       const cssSelector = parentElement ?
           Translator.getSelector(imgElement).replace(Translator.getSelector(parentElement) + " > ", "") :
           Translator.getSelector(imgElement);
@@ -284,7 +289,7 @@ function UuvAssistant(props: UuvAssistantProps) {
       formData.append("target_img", imageBlob, "random_img.jpg");
       formData.append("css_selector", cssSelector);
 
-      const uploadResponse = await fetch("http://localhost:5000/api/v1/image/classify", {
+      const uploadResponse = await fetch("http://localhost:5000/api/v1/image/classify-unified", {
         method: "POST",
         body: formData
       });
@@ -324,6 +329,68 @@ function UuvAssistant(props: UuvAssistantProps) {
           duration: (Date.now() - start) / 1000
         });
       }
+    } catch (error) {
+      console.error("Erreur:", error);
+      setAiResult(undefined);
+    }
+  };
+
+  const callStepByStepAIForImage = async (imgElement: HTMLImageElement) => {
+    try {
+      let currentValue: UuvAssistantResultAIAnalysisType | undefined = {
+        mode: AIAnalysisModeEnum.STEP_BY_STEP,
+        available_image_descriptions: PENDING_VALUE,
+        is_decorative: PENDING_VALUE,
+        confidence: PENDING_VALUE,
+        image_description: PENDING_VALUE,
+        analysis_details: PENDING_VALUE
+      };
+      setAiResult(currentValue);
+
+      const imgResponse = await fetch(imgElement.src);
+      const imageBlob = await imgResponse.blob();
+      const formData = new FormData();
+      formData.append("target_img", imageBlob, "random_img.jpg");
+
+      const multipleDescriptionResponse = await fetch("http://localhost:5000/api/v1/image/multiple-describe", {
+        method: "POST",
+        body: formData
+      });
+
+      const multipleDescriptionValue = await multipleDescriptionResponse.json();
+
+      setAiResult({
+        ...currentValue as any,
+        available_image_descriptions: multipleDescriptionValue,
+        onDescriptionSelected: async (selectedImageDescription: string) => {
+          setAiResult({
+            ...currentValue as any,
+            image_description: selectedImageDescription
+          });
+          const start = Date.now();
+          const parentElement = new InformativeNodesHelper().findRelevantAccessibilityParent(imgElement);
+          const htmlContext = parentElement!.outerHTML;
+          const cssSelector = parentElement ?
+              Translator.getSelector(imgElement).replace(Translator.getSelector(parentElement) + " > ", "") :
+              Translator.getSelector(imgElement);
+
+          const formData = new FormData();
+          formData.append("html_content", htmlContext);
+          formData.append("image_description", selectedImageDescription);
+          formData.append("css_selector", cssSelector);
+
+          const imageAnalysisResponse = await fetch("http://localhost:5000/api/v1/image/classify", {
+            method: "POST",
+            body: formData
+          });
+          const imageAnalysisValue = await imageAnalysisResponse.json();
+          setAiResult({
+            ...currentValue as any,
+            ...imageAnalysisValue as any,
+            duration: (Date.now() - start) / 1000
+          });
+        }
+      });
     } catch (error) {
       console.error("Erreur:", error);
       setAiResult(undefined);
@@ -603,7 +670,8 @@ function UuvAssistant(props: UuvAssistantProps) {
               uuvGutter={uuvGutter}
               copyResult={copyResult}
               onClose={handleCloseView}
-              onAiClick={() => callAIForImage(selectedElement as HTMLImageElement)}
+              onAiStepByStepClick={() => callStepByStepAIForImage(selectedElement as HTMLImageElement)}
+              onAiUnifiedClick={() => callUnifiedAIForImage(selectedElement as HTMLImageElement)}
               selectedElement={selectedElement}
               aiResult={aiResult}
               getAsideParentInHierarchy={getAsideParentInHierarchy}
