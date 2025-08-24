@@ -19,7 +19,7 @@ export default defineConfig({
         "src/cucumber/step_definitions/playwright/**/*.{ts,js}"
       ],
       "tests/.features-gen",
-      "e2e"
+      "."
   ),
   testMatch: ["**/*.spec.ts", "**/*.{ts,js}"],
   /* Run tests in files in parallel */

@@ -8,7 +8,7 @@ export function buildConfig(
         "../node_modules/@uuv/playwright/dist/cucumber/step_definitions/playwright/**/*.js"
     ],
     output = ".uuv-features-gen",
-    featuresRoot: "uuv/e2e") {
+    featuresRoot = ".") {
     return defineBddConfig({
         features: features,
         steps: steps,
