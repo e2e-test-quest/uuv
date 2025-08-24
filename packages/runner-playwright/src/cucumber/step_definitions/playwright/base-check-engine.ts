@@ -15,7 +15,7 @@ import { DEFAULT_TIMEOUT, fs, KEY_PRESS } from "@uuv/runner-commons";
 import { key } from "@uuv/runner-commons/wording/web";
 import { checkA11y, injectAxe } from "axe-playwright";
 import { devices, expect } from "@playwright/test";
-import { Locator, Page } from "playwright";
+import { Locator } from "playwright";
 import { DataTable } from "@cucumber/cucumber";
 import {
     addCookie,
@@ -373,8 +373,8 @@ Then(`${key.then.element.not.withTestId}`, async function(testId: string) {
 Then(
  `${key.then.a11y.axecore.default}`,
  async function() {
-   await injectAxe(this.page as Page);
-   await checkA11y(this.page as Page);
+   await injectAxe(this.page as any);
+   await checkA11y(this.page as any);
  });
 
 /**
@@ -383,10 +383,10 @@ Then(
 Then(
  `${key.then.a11y.axecore.withFixtureOption}`,
  async function(option: any) {
-   await injectAxe(this.page as Page);
+   await injectAxe(this.page as any);
    const optionFile = await fs.readFileSync(path.join(getConfigDir(), `playwright/fixtures/${option}`));
    const optionJson = JSON.parse(optionFile.toString());
-   await checkA11y(this.page as Page, undefined, {
+   await checkA11y(this.page as any, undefined, {
      axeOptions: optionJson as RunOptions
    });
  });
@@ -402,11 +402,11 @@ function getConfigDir(): string {
 Then(
  `${key.then.a11y.axecore.withFixtureContextAndFixtureOption}`,
  async function(context: any, option: any) {
-   await injectAxe(this.page as Page);
+   await injectAxe(this.page as any);
    const contextFile = await fs.readFileSync(path.join(getConfigDir(), `playwright/fixtures/${context}`));
    const optionFile = await fs.readFileSync(path.join(getConfigDir(), `playwright/fixtures/${option}`));
    const optionJson = JSON.parse(optionFile.toString());
-   await checkA11y(this.page as Page, JSON.parse(contextFile.toString()) as ContextObject, {
+   await checkA11y(this.page as any, JSON.parse(contextFile.toString()) as ContextObject, {
      axeOptions: optionJson as RunOptions
    });
  });
@@ -417,8 +417,8 @@ Then(
 Then(
  `${key.then.a11y.axecore.onlyCritical}`,
  async function() {
-   await injectAxe(this.page as Page);
-   await checkA11y(this.page as Page, undefined, {
+   await injectAxe(this.page as any);
+   await checkA11y(this.page as any, undefined, {
      includedImpacts: ["critical"]
    });
  });
@@ -429,8 +429,8 @@ Then(
 Then(
  `${key.then.a11y.axecore.withImpacts}`,
  async function(impacts: any) {
-   await injectAxe(this.page as Page);
-   await checkA11y(this.page as Page, undefined, {
+   await injectAxe(this.page as any);
+   await checkA11y(this.page as any, undefined, {
      includedImpacts: [impacts]
    });
  });
@@ -441,8 +441,8 @@ Then(
 Then(
  `${key.then.a11y.axecore.withTags}`,
  async function(tags: any) {
-   await injectAxe(this.page as Page);
-   await checkA11y(this.page as Page, undefined, {
+   await injectAxe(this.page as any);
+   await checkA11y(this.page as any, undefined, {
      axeOptions: {
        runOnly: {
          type: "tag",

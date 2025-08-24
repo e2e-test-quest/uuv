@@ -12,7 +12,7 @@ permissions:
   checks: write
 
 env:
-  NODE_VERSION: 20.16.0
+  NODE_VERSION: 22.17.0
   NPM_PACKAGE_SCOPE: uuv
   UUV_BASE_URL: https://e2e-test-quest.github.io
 
