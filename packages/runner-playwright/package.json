@@ -45,7 +45,7 @@
   "dependencies": {
     "@cucumber/cucumber": "11.0.1",
     "@cucumber/tag-expressions": "6.2.0",
-    "@playwright/test": "1.52.0",
+    "@playwright/test": "^1.55.0",
     "@uuv/a11y": "1.0.0-beta.77",
     "@uuv/runner-commons": "2.59.2",
     "axe-core": "4.10.3",
@@ -56,7 +56,7 @@
     "lodash": "^4.17.21",
     "multiple-cucumber-html-reporter": "3.9.0",
     "nanoid": "3.3.11",
-    "playwright-bdd": "8.3.0",
+    "playwright-bdd": "8.4.0",
     "ts-node": "10.9.2",
     "typescript": "5.8.3"
   },
