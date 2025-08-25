@@ -61,8 +61,8 @@
   "devDependencies": {
     "@docusaurus/module-type-aliases": "3.8.0",
     "@tsconfig/docusaurus": "2.0.3",
-    "@uuv/a11y": "1.0.0-beta.77",
-    "@uuv/runner-commons": "2.59.2",
+    "@uuv/a11y": "1.0.0-beta.78",
+    "@uuv/runner-commons": "2.60.0",
     "handlebars": "^4.7.8",
     "remark-directive": "^3.0.0",
     "remark-parse": "^11.0.0",
