@@ -1,3 +1,11 @@
+# [1.82.0](https://github.com/e2e-test-quest/uuv/compare/assistant-electron-v1.81.3...assistant-electron-v1.82.0) (2025-08-25)
+
+
+### Features
+
+* **assistant:** update dependency antd to v5.27.1 ([d0dc967](https://github.com/e2e-test-quest/uuv/commit/d0dc967bc686e5710b35adefc8b040a404581f95))
+* **runner-playwright:** migrate to playwright-bdd 8.4.0 ([0c9e0f0](https://github.com/e2e-test-quest/uuv/commit/0c9e0f095194af15cb21a822500e6db0410189d7))
+
 ## [1.81.3](https://github.com/e2e-test-quest/uuv/compare/assistant-electron-v1.81.2...assistant-electron-v1.81.3) (2025-08-14)
 
 
