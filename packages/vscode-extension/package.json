@@ -1,7 +1,7 @@
 {
   "name": "uuv-vscode-extension",
   "displayName": "UUV E2E Tests",
-  "version": "1.28.2",
+  "version": "1.29.0",
   "description": "VS Code extension for UUV end-to-end tests",
   "license": "MIT",
   "icon": "uuv.png",
@@ -97,7 +97,7 @@
     "@cucumber/gherkin": "^32.0.0",
     "@cucumber/messages": "^27.0.0",
     "@types/node-ipc": "^9.2.3",
-    "@uuv/runner-commons": "2.59.2",
+    "@uuv/runner-commons": "2.60.0",
     "node-ipc": "^12.0.0"
   },
   "funding": {
