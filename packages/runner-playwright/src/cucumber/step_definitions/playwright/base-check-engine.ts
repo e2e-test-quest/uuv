@@ -638,9 +638,11 @@ Then(
     async function(expectedListName: string, pExpectedElementsOfList: DataTable) {
         const expectedElementsOfList = removeHeaderSeparatorLine(pExpectedElementsOfList);
         await findWithRoleAndName(this, "grid", expectedListName);
+        await addCookie(this, COOKIE_NAME.SELECTED_ELEMENT, new SelectedElementCookie(FILTER_TYPE.SELECTOR, `role=grid[name="${expectedListName}"]`));
         await getPageOrElement(this).then(async (element) => {
             await expectTableToHaveContent(element, expectedElementsOfList, "gridcell");
         });
+        await deleteCookieByName(this, COOKIE_NAME.SELECTED_ELEMENT);
     }
 );
 
@@ -652,9 +654,11 @@ Then(
     async function(expectedListName: string, pExpectedElementsOfList: DataTable) {
         const expectedElementsOfList = removeHeaderSeparatorLine(pExpectedElementsOfList);
         await findWithRoleAndName(this, "treegrid", expectedListName);
+        await addCookie(this, COOKIE_NAME.SELECTED_ELEMENT, new SelectedElementCookie(FILTER_TYPE.SELECTOR, `role=treegrid[name="${expectedListName}"]`));
         await getPageOrElement(this).then(async (element) => {
             await expectTableToHaveContent(element, expectedElementsOfList, "gridcell");
         });
+        await deleteCookieByName(this, COOKIE_NAME.SELECTED_ELEMENT);
     }
 );
 
@@ -666,9 +670,11 @@ Then(
     async function(expectedListName: string, pExpectedElementsOfList: DataTable) {
         const expectedElementsOfList = removeHeaderSeparatorLine(pExpectedElementsOfList);
         await findWithRoleAndName(this, "table", expectedListName);
+        await addCookie(this, COOKIE_NAME.SELECTED_ELEMENT, new SelectedElementCookie(FILTER_TYPE.SELECTOR, `role=table[name="${expectedListName}"]`));
         await getPageOrElement(this).then(async (element) => {
             await expectTableToHaveContent(element, expectedElementsOfList, "cell");
         });
+        await deleteCookieByName(this, COOKIE_NAME.SELECTED_ELEMENT);
     }
 );
 
