@@ -45,7 +45,7 @@ describe("Runner Playwright JunitReport", () => {
     test("Should fail for test : Ko table", () => {
         const testCase = JunitReportHelper.getTestCase(report, "e2e/ko.feature.spec.js", "Ko › Table content should failed when wrong content");
         expect(testCase?.failure._).toContain("Error: cell at index [2, 1] should be Etienne Daaho");
-        expect(testCase?.failure._).toContain("Locator: getByRole('row').nth(2).getByRole('cell').nth(1)");
+        expect(testCase?.failure._).toContain("locator('role=table[name=\"HTML Table Example\"]').getByRole('row').nth(2).getByRole('cell').nth(1)");
         expect(testCase?.failure._).toContain("Expected string: \"Etienne Daaho\"");
         expect(testCase?.failure._).toContain("Received string: \"Francisco Chang\"");
     });
