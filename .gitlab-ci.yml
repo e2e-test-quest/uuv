@@ -24,7 +24,7 @@ stages:
   policy: pull
 
 install:
-  image: node:20.13.1-slim
+  image: node:22.18.0-slim
   stage: install
   script:
     - npm ci
@@ -35,7 +35,7 @@ install:
     - master
 
 lint:
-  image: node:20.13.1-slim
+  image: node:22.18.0-slim
   stage: lint
   script:
     - npm run nx run-many -- --all --target=lint
@@ -48,7 +48,7 @@ lint:
     - master
 
 build-runner-commons:
-  image: node:20.13.1-slim
+  image: node:22.18.0-slim
   stage: build
   script:
     - npm run nx build runner-commons
@@ -63,7 +63,7 @@ build-runner-commons:
     - master
 
 build-runner-cypress:
-  image: node:20.13.1-slim
+  image: node:22.18.0-slim
   stage: build
   script:
     - npm run nx generate:step-definitions runner-cypress
@@ -85,7 +85,7 @@ build-runner-cypress:
     - master
 
 build-assistant:
-  image: node:20.13.1-slim
+  image: node:22.18.0-slim
   stage: build
   script:
     - npm run nx react:build assistant
@@ -104,7 +104,7 @@ build-assistant:
     - master
 
 build-docs:
-  image: node:20.13.1-slim
+  image: node:22.18.0-slim
   stage: build
   script:
     - npm run nx build docs
@@ -135,7 +135,7 @@ test-cypress:
     - master
 
 .publish:
-  image: node:20.13.1-slim
+  image: node:22.18.0-slim
   stage: publish
   cache:
     - <<: *node_modules-cache
