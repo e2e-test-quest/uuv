@@ -701,8 +701,8 @@ async function expectTableToHaveContent(element: Locator, expectedElementsOfList
         let cellNumber = 0;
         return await Promise.all(cellsElement.map((cell: Locator) => {
             const expectedValue = expectedElementsOfList[rowNumber][cellNumber];
-            expect(cell, { message: `${cellAccessibleRole} at index [${rowNumber}, ${cellNumber}] should be ${expectedValue}` }).toHaveAccessibleName(expectedValue);
             cellNumber++;
+            return expect(cell, { message: `${cellAccessibleRole} at index [${rowNumber + 1}, ${cellNumber}] should be ${expectedValue}` }).toHaveAccessibleName(expectedValue);
         }));
     }));
 }
