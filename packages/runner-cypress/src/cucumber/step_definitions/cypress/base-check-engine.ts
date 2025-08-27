@@ -29,6 +29,7 @@ import {
 } from "./core-engine";
 import { A11yReferenceEnum } from "@uuv/a11y";
 import { expectTableToHaveContent, pressKey, removeHeaderSeparatorLine } from "./_.common";
+import { getRole } from "dom-accessibility-api";
 
 /**
  * key.when.visit.description
@@ -73,6 +74,35 @@ When(`${key.when.type.withContext}`, function(textToType: string) {
  * */
 When(`${key.when.enter.withContext}`, function(textToType: string) {
     type(textToType);
+});
+
+/**
+ * key.when.type.withContextInGridCell.description
+ * */
+When(`${key.when.type.withContextInGridCell}`, function(textToType: string, lineNumber: number, columnName: string) {
+    cy.uuvCheckContextWithinFocusedElement().then(context => {
+        context.withinFocusedElement!.then(focusedElement => {
+            // Confirm the element is a grid or treegrid
+            expect(getRole(focusedElement.get(0)), "Focus element doesn't have grid/treegrid role").to.be.oneOf(["grid", "treegrid"]);
+
+            cy.wrap(focusedElement).findByRole("columnheader", { name: columnName })
+                .uuvFoundedElement()
+                .then(colmunHeaderElement => {
+
+                // Retrieve column index
+                const columnIndex = Number(colmunHeaderElement.get(0).getAttribute("aria-colindex")) - 1;
+                cy.wrap(focusedElement).findAllByRole("row").then((rows) => {
+                    cy.wrap(rows[lineNumber]).findAllByRole("gridcell").then((cells) => {
+                        // Double click on the cell
+                        cy.wrap(cells[columnIndex]).dblclick();
+
+                        // Type text in the cell
+                        cy.findByLabelText("Input Editor").type(textToType);
+                    });
+                });
+            });
+        });
+    });
 });
 
 /**

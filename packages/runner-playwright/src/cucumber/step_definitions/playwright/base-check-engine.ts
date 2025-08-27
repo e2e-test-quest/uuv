@@ -148,6 +148,29 @@ When(`${key.when.enter.withContext}`, async function(textToType: string) {
 });
 
 /**
+ * key.when.type.withContextInGridCell.description
+ * */
+When(`${key.when.type.withContextInGridCell}`, async function(textToType: string, lineNumber: number, columnName: string) {
+    await getPageOrElement(this).then(async (element: Locator) => {
+        // Confirm the element is a grid or treegrid
+        const elementRole = await element.getAttribute("role");
+        expect(["grid", "treegrid"], { message: "Focus element doesn't have grid/treegrid role" }).toContain(elementRole!);
+
+        // Retrieve column index
+        const columnElement = await element.getByRole("columnheader", { name: columnName, exact: true });
+        const colIndex = Number(await columnElement.getAttribute("aria-colindex")) - 1;
+
+        // Double click on the cell
+        const rows = await element.getByRole("row", { exact: true }).all();
+        const cellElement = (await rows[lineNumber].getByRole("gridcell", { exact: true }).all())[colIndex];
+        await cellElement.dblclick();
+
+        // Type text in the cell
+        await this.page.locator("[aria-label=\"Input Editor\"]").type(textToType);
+    });
+});
+
+/**
  * key.when.select.withContext.description
  * */
 When(`${key.when.select.withContext}`, async function(valueToSet: string) {

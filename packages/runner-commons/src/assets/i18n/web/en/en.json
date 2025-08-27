@@ -34,6 +34,11 @@
   "description": "Writes the sentence passed as a parameter (useful for example to fill in a form field).<br/>Make sure you've selected an element beforehand with the <strong>within...</strong> phrases.",
   "wording": "I type the sentence {string}"
  },
+  {
+    "key": "key.when.type.withContextInGridCell",
+    "description": "Writes the sentence passed as a parameter in the ag-Grid cell at the specified row and column name (useful for example to fill in a form field in ag-Grid).<br/>Make sure you've selected an ag-Grid element beforehand with the <strong>within...</strong> phrases.",
+    "wording": "I type the sentence {string} in aggrid cell at the row {int} and column named {string}"
+  },
  {
   "key": "key.when.enter.withContext",
   "description": "Writes the sentence passed as a parameter (useful for example to fill in a form field).<br/>Make sure you've selected an element beforehand with the <strong>within...</strong> phrases.",
