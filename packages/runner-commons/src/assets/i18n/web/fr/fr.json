@@ -31,12 +31,12 @@
   },
   {
     "key": "key.when.type.withContext",
-    "description": "Saisit de la phrase passée en paramètre (utile par exemple pour remplir un champ de formulaire).<br/>Assurez vous d'avoir effectué une sélection d'élément avant avec les phrases <strong>je vais à l'intérieur...</strong>.",
+    "description": "Saisie de la phrase passée en paramètre (utile par exemple pour remplir un champ de formulaire).<br/>Assurez vous d'avoir effectué une sélection d'élément avant avec les phrases <strong>je vais à l'intérieur...</strong>.",
     "wording": "je saisie le(s) mot(s) {string}"
   },
   {
     "key": "key.when.type.withContextInGridCell",
-    "description": "Saisit de la phrase passée en paramètre dans une cellule d'une grille ag-Grid (utile par exemple pour remplir une cellule dans une grille).<br/>Assurez vous d'avoir effectué une sélection d'élément avant avec les phrases <strong>je vais à l'intérieur...</strong>.",
+    "description": "Saisie de la phrase passée en paramètre dans une cellule d'une grille ag-Grid (utile par exemple pour remplir une cellule dans une grille).<br/>Assurez vous d'avoir effectué une sélection d'élément avant avec les phrases <strong>je vais à l'intérieur...</strong>.",
     "wording": "je saisie le(s) mot(s) {string} dans la cellule aggrid à la ligne {int} et la colonne nommée {string}"
   },
   {
