@@ -1,3 +1,10 @@
+# [1.19.0](https://github.com/e2e-test-quest/uuv/compare/intellij-plugin-v1.18.0...intellij-plugin-v1.19.0) (2025-08-29)
+
+
+### Features
+
+* update react monorepo to v19 ([4e10a59](https://github.com/e2e-test-quest/uuv/commit/4e10a59abf9a343b311ef4a2b3223dcf1555638f))
+
 # [1.18.0](https://github.com/e2e-test-quest/uuv/compare/intellij-plugin-v1.17.2...intellij-plugin-v1.18.0) (2025-08-25)
 
 
