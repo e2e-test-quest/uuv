@@ -1,43 +1,34 @@
 {
-  "compilerOptions": {
-    "target": "ES2022",
-    "lib": ["ES2022", "DOM", "dom.iterable"],
-    "module": "CommonJS",
-    "moduleResolution": "Node",
-    "resolveJsonModule": true,
-    "allowJs": true,
-    "checkJs": true,
-    "declaration": true,
-    "declarationMap": false,
-    "baseUrl": ".",
-    "rootDir": ".",
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "noImplicitAny": false,
-    "skipLibCheck": true,
-    "paths": {
-      "@uuv/a11y": ["packages/a11y/src/index.ts"],
-      "@uuv/runner-commons": ["packages/runner-commons/src/index.ts"],
-      "@uuv/runner-commons/runner/event": [
-        "packages/runner-commons/src/runner/event/index.ts"
-      ],
-      "@uuv/runner-commons/runner/utils": [
-        "packages/runner-commons/src/runner/utils.ts"
-      ],
-      "@uuv/runner-commons/test": [
-        "packages/runner-commons/src/tests/index.ts"
-      ],
-      "@uuv/runner-commons/wording/mobile": [
-        "packages/runner-commons/src/assets/i18n/mobile/index.ts"
-      ],
-      "@uuv/runner-commons/wording/web": [
-        "packages/runner-commons/src/assets/i18n/web/index.ts"
-      ],
-      "@uuv/runner-cypress": ["packages/runner-cypress/src/index.ts"],
-      "@uuv/runner-playwright": ["packages/runner-playwright/src/index.ts"]
-    }
-  },
-  "exclude": ["node_modules", "tmp", "**/dist/**.*"]
+    "compilerOptions": {
+        "target": "ES2022",
+        "lib": ["ES2022", "DOM", "dom.iterable"],
+        "module": "CommonJS",
+        "moduleResolution": "Node",
+        "resolveJsonModule": true,
+        "allowJs": true,
+        "checkJs": true,
+        "declaration": true,
+        "declarationMap": false,
+        "baseUrl": ".",
+        "rootDir": ".",
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "strict": true,
+        "noImplicitAny": false,
+        "skipLibCheck": true,
+        "paths": {
+            "@uuv/a11y": ["packages/a11y/src/index.ts"],
+            "@uuv/runner-commons": ["packages/runner-commons/src/index.ts"],
+            "@uuv/runner-commons/runner/event": ["packages/runner-commons/src/runner/event/index.ts"],
+            "@uuv/runner-commons/runner/utils": ["packages/runner-commons/src/runner/utils.ts"],
+            "@uuv/runner-commons/test": ["packages/runner-commons/src/tests/index.ts"],
+            "@uuv/runner-commons/wording/mobile": ["packages/runner-commons/src/assets/i18n/mobile/index.ts"],
+            "@uuv/runner-commons/wording/web": ["packages/runner-commons/src/assets/i18n/web/index.ts"],
+            "@uuv/runner-cypress": ["packages/runner-cypress/src/index.ts"],
+            "@uuv/runner-playwright": ["packages/runner-playwright/src/index.ts"],
+            "@uuv/assistant": ["packages/assistant/src/index.ts"]
+        }
+    },
+    "exclude": ["node_modules", "tmp", "**/dist/**.*"]
 }

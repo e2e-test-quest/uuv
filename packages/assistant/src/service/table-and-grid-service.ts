@@ -12,7 +12,7 @@
  */
 
 import { computeAccessibleName, getRole } from "dom-accessibility-api";
-import { AbstractComponentService } from "./AbstractComponentService";
+import { AbstractComponentService } from "./abstract-component-service";
 
 export class TableAndGridService extends AbstractComponentService {
 

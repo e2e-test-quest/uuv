@@ -12,8 +12,8 @@
  */
 
 import { AdditionalLayerEnum } from "../Commons";
-import { InformativeNodesHelper } from "../helper/InformativeNodesHelper";
-import { AbstractComponentService } from "./AbstractComponentService";
+import { InformativeNodesHelper } from "../helper/informative-nodes-helper";
+import { AbstractComponentService } from "./abstract-component-service";
 
 export class DialogService extends AbstractComponentService {
     TRACKED_CLASS = "uuv-dialog-clone";

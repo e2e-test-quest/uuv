@@ -7,10 +7,11 @@ import datatableIcon from "./assets/datatable.json";
 import modalIcon from "./assets/modal.json";
 import {ConfigProvider, MenuProps, message, theme} from "antd";
 import {StyleProvider} from "@ant-design/cssinjs";
-import {CssHelper} from "./helper/CssHelper";
+import {CssHelper} from "./helper/css-helper";
 import {FocusableElement} from "tabbable";
 import {Extension, gutter} from "@uiw/react-codemirror";
-import {buildResultingScript, buildUuvGutter,} from "./helper/ResultScriptHelper";
+import {buildResultingScript} from "./helper/result-script-helper";
+import {buildUuvGutter} from "./helper/result-display-helper";
 import {
   ActionEnum,
   AdditionalLayerEnum,
@@ -21,20 +22,20 @@ import {
   UuvAssistantResultAIAnalysisType,
   VisibilityEnum,
 } from "./Commons";
-import * as LayerHelper from "./helper/LayerHelper";
-import {SelectionHelper} from "./helper/SelectionHelper";
+import * as LayerHelper from "./helper/layer-helper";
+import {SelectionHelper} from "./helper/selection-helper";
 import {TranslateSentences} from "./translator/model";
 import {UuvAssistantResult} from "./component/result/UuvAssistantResult";
 import {UuvAssistantSettings} from "./component/UuvAssistantSettings";
 import {UuvAssistantSidebar} from "./component/sidebar/UuvAssistantSidebar";
 import {UuvAssistantProps} from "./types/UuvTypes";
 import {GroupOutlined} from "@ant-design/icons";
-import * as KeyboardNavigationHelper from "./helper/KeyboardNavigationHelper";
-import {DialogService} from "./service/DialogService";
-import {TableAndGridService} from "./service/TableAndGridService";
-import {FormCompletionService} from "./service/FormCompletionService";
+import * as KeyboardNavigationHelper from "./helper/keyboard-navigation-helper";
+import {DialogService} from "./service/dialog-service";
+import {TableAndGridService} from "./service/table-and-grid-service";
+import {FormCompletionService} from "./service/form-completion-service";
 import {Translator} from "./translator/abstract-translator";
-import {InformativeNodesHelper} from "./helper/InformativeNodesHelper";
+import {InformativeNodesHelper} from "./helper/informative-nodes-helper";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -194,11 +195,7 @@ function UuvAssistant(props: UuvAssistantProps) {
         keyboardNavigationElement,
       ).then((resultSentences) => {
         setGeneratedScript(
-          buildResultingScript(
-            "Your amazing feature name",
-            "Keyboard Navigation",
-            resultSentences.map((sentence) => sentence.result),
-          ),
+          buildResultingScript("Your amazing feature name", "Keyboard Navigation", resultSentences.map((sentence) => sentence.result), window.location.href),
         );
         endLoading();
       });
@@ -229,11 +226,7 @@ function UuvAssistant(props: UuvAssistantProps) {
         } as ResultSentence;
       });
       setGeneratedScript(
-        buildResultingScript(
-          "Your amazing feature name",
-          `Action - ${selectedAction}`,
-          data.map((sentence) => sentence.result),
-        ),
+        buildResultingScript("Your amazing feature name", `Action - ${selectedAction}`, data.map((sentence) => sentence.result), window.location.href),
       );
       setDisplayedResult(selectedAction);
       setSelectedElement(el);
@@ -408,11 +401,7 @@ function UuvAssistant(props: UuvAssistantProps) {
     const sentences =
       await formCompletionService.buildResultSentence(selectedForm);
     setGeneratedScript(
-      buildResultingScript(
-        "Your amazing feature name",
-        `Action - ${selectedAction}`,
-        sentences,
-      ),
+      buildResultingScript("Your amazing feature name", `Action - ${selectedAction}`, sentences, window.location.href),
     );
     clearAllAdditionalLayer();
     setVisibility(VisibilityEnum.WITH_RESULT);
@@ -427,11 +416,7 @@ function UuvAssistant(props: UuvAssistantProps) {
     const sentences =
       await tableAndGridService.buildResultSentence(selectedArray);
     setGeneratedScript(
-      buildResultingScript(
-        "Your amazing feature name",
-        `Action - ${selectedAction}`,
-        sentences,
-      ),
+      buildResultingScript("Your amazing feature name", `Action - ${selectedAction}`, sentences, window.location.href),
     );
     clearAllAdditionalLayer();
     setVisibility(VisibilityEnum.WITH_RESULT);
@@ -447,11 +432,7 @@ function UuvAssistant(props: UuvAssistantProps) {
           .forEach(el => el.remove());
     const sentences = await dialogService.buildResultSentence(selectedArray);
     setGeneratedScript(
-      buildResultingScript(
-        "Your amazing feature name",
-        `Action - ${selectedAction}`,
-        sentences,
-      ),
+      buildResultingScript("Your amazing feature name", `Action - ${selectedAction}`, sentences, window.location.href),
     );
     clearAllAdditionalLayer();
     setVisibility(VisibilityEnum.WITH_RESULT);
