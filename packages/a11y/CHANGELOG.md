@@ -1,3 +1,10 @@
+# [1.0.0-beta.79](https://github.com/e2e-test-quest/uuv/compare/a11y-v1.0.0-beta.78...a11y-v1.0.0-beta.79) (2025-08-29)
+
+
+### Features
+
+* update react monorepo to v19 ([4e10a59](https://github.com/e2e-test-quest/uuv/commit/4e10a59abf9a343b311ef4a2b3223dcf1555638f))
+
 # [1.0.0-beta.78](https://github.com/e2e-test-quest/uuv/compare/a11y-v1.0.0-beta.77...a11y-v1.0.0-beta.78) (2025-08-25)
 
 
