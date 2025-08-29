@@ -1,3 +1,17 @@
+# [1.83.0](https://github.com/e2e-test-quest/uuv/compare/assistant-electron-v1.82.0...assistant-electron-v1.83.0) (2025-08-29)
+
+
+### Bug Fixes
+
+* **runner-playwright:** consider cell expectation result for global table and grid sentence result ([56470d1](https://github.com/e2e-test-quest/uuv/commit/56470d1d6e38387331d00adacbd3f2336cae65cb))
+* **runner-playwright:** limit the scope of verification of the table content ([aac3b50](https://github.com/e2e-test-quest/uuv/commit/aac3b508ee3235a75c4ac3838165985ead802183))
+
+
+### Features
+
+* add sentence to edit AG Grid cell, [#1078](https://github.com/e2e-test-quest/uuv/issues/1078) ([d343b01](https://github.com/e2e-test-quest/uuv/commit/d343b01ca599a7a02889d77bd869d2bf396f321b))
+* update react monorepo to v19 ([4e10a59](https://github.com/e2e-test-quest/uuv/commit/4e10a59abf9a343b311ef4a2b3223dcf1555638f))
+
 # [1.82.0](https://github.com/e2e-test-quest/uuv/compare/assistant-electron-v1.81.3...assistant-electron-v1.82.0) (2025-08-25)
 
 
