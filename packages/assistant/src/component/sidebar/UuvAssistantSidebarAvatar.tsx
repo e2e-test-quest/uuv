@@ -1,6 +1,6 @@
 import React from "react";
 import { Avatar, Flex, Tooltip, Typography } from "antd";
-import { CssHelper } from "../../helper/CssHelper";
+import { CssHelper } from "../../helper/css-helper";
 
 interface UuvAssistantSidebarAvatarProps {
   uuvLogoJson: any;

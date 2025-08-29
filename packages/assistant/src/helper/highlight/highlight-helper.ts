@@ -1,13 +1,13 @@
 import Inspector from "./inspector-dom";
-import { InformativeNodesHelper } from "../InformativeNodesHelper";
+import { InformativeNodesHelper } from "../informative-nodes-helper";
 
 export const HIGHLIGHT_ORANGE_PROPS = {
   width: 4,
   borderColor: "orange"
 };
 
-export class HighLightHelper {
-  private inspector!: Inspector;
+export class HighlightHelper {
+  private inspector!: any;
   constructor(private onSelect: (el: HTMLElement) => void) {}
 
   private createInspector(

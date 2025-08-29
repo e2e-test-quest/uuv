@@ -16,7 +16,7 @@ import { UUV_DISABLED_CLASS } from "../Commons";
 import { Translator } from "./abstract-translator";
 import { EnrichedSentence, StepCaseEnum, TranslateSentences } from "./model";
 import * as TextualTranslator from "./textual-translator";
-import { InformativeNodesHelper } from "../helper/InformativeNodesHelper";
+import { InformativeNodesHelper } from "../helper/informative-nodes-helper";
 import { computeAccessibleName } from "dom-accessibility-api";
 
 const stepCase = StepCaseEnum.THEN;

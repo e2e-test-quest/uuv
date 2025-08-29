@@ -20,18 +20,18 @@ import { ClickTranslator } from "../translator/click-translator";
 import { ExpectTranslator } from "../translator/expect-translator";
 import { WithinTranslator } from "../translator/within-translator";
 import { TypeTranslator } from "../translator/type-translator";
-import { HighLightHelper } from "./highlight/HighlightHelper";
+import { HighlightHelper } from "./highlight/highlight-helper";
 
 export class SelectionHelper {
   private onReset!: () => void;
-  private highLightHelper: HighLightHelper;
+  private highLightHelper: HighlightHelper;
   private intelligentHighlight: boolean;
   constructor(
     onSelect: (el: HTMLElement) => void,
     onReset: () => void,
     intelligentHighlight: boolean
   ) {
-    this.highLightHelper = new HighLightHelper(onSelect);
+    this.highLightHelper = new HighlightHelper(onSelect);
     this.onReset = onReset;
     this.intelligentHighlight = intelligentHighlight;
   }

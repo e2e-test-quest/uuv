@@ -1,6 +1,6 @@
 import { FocusableElement } from "tabbable";
 import { AdditionalLayerEnum, UUV_ASSISTANT_BAR_WIDTH } from "../Commons";
-import { HIGHLIGHT_ORANGE_PROPS } from "./highlight/HighlightHelper";
+import { HIGHLIGHT_ORANGE_PROPS } from "./highlight/highlight-helper";
 
 const SVG_NAMESPACE = "http://www.w3.org/2000/svg";
 

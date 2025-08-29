@@ -13,11 +13,11 @@
 
 import { FocusableElement, tabbable } from "tabbable";
 import { AdditionalLayerEnum, ResultSentence } from "../Commons";
-import * as LayerHelper from "./LayerHelper";
+import * as LayerHelper from "./layer-helper";
 import { StepCaseEnum } from "../translator/model";
 import { KeyboardNavigationTranslator } from "../translator/keyboard-navigation-translator";
 import { Translator } from "../translator/abstract-translator";
-import { HIGHLIGHT_ORANGE_PROPS } from "./highlight/HighlightHelper";
+import { HIGHLIGHT_ORANGE_PROPS } from "./highlight/highlight-helper";
 
 const translator: Translator = new KeyboardNavigationTranslator();
 
