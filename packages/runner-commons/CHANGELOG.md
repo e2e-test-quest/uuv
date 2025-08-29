@@ -1,3 +1,11 @@
+# [2.61.0](https://github.com/e2e-test-quest/uuv/compare/runner-commons-v2.60.0...runner-commons-v2.61.0) (2025-08-29)
+
+
+### Features
+
+* add sentence to edit AG Grid cell, [#1078](https://github.com/e2e-test-quest/uuv/issues/1078) ([d343b01](https://github.com/e2e-test-quest/uuv/commit/d343b01ca599a7a02889d77bd869d2bf396f321b))
+* update react monorepo to v19 ([4e10a59](https://github.com/e2e-test-quest/uuv/commit/4e10a59abf9a343b311ef4a2b3223dcf1555638f))
+
 # [2.60.0](https://github.com/e2e-test-quest/uuv/compare/runner-commons-v2.59.2...runner-commons-v2.60.0) (2025-08-25)
 
 
