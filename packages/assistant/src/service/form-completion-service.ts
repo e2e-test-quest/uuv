@@ -12,12 +12,11 @@
  */
 
 import { FocusableElement } from "tabbable";
-import { AdditionalLayerEnum } from "../Commons";
 import { Translator } from "../translator/abstract-translator";
 import { TypeTranslator } from "../translator/type-translator";
 import { ClickTranslator } from "../translator/click-translator";
 import { getRole } from "dom-accessibility-api";
-import { AbstractComponentService } from "./AbstractComponentService";
+import { AbstractComponentService } from "./abstract-component-service";
 
 export class FormCompletionService extends AbstractComponentService {
 

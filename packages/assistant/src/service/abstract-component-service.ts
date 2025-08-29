@@ -11,8 +11,8 @@
  * understanding English or French.
  */
 
-import * as LayerHelper from "../helper/LayerHelper";
-import { HIGHLIGHT_ORANGE_PROPS } from "../helper/highlight/HighlightHelper";
+import * as LayerHelper from "../helper/layer-helper";
+import { HIGHLIGHT_ORANGE_PROPS } from "../helper/highlight/highlight-helper";
 import { AdditionalLayerEnum } from "../Commons";
 import { ExpectTranslator } from "../translator/expect-translator";
 
@@ -89,7 +89,7 @@ export abstract class AbstractComponentService {
     this.addListener(dom, htmlElements, onSelect, onReset);
   }
 
-  abstract async buildResultSentence(
+  abstract buildResultSentence(
     selectedArray: HTMLElement,
   ): Promise<string[]>;
 }
