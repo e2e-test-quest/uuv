@@ -63,6 +63,18 @@
     {
       "matchFileNames": ["packages/runner-playwright/package.json"],
       "semanticCommitScope": "runner-playwright"
+    },
+    {
+      "description": "Ignore native architecture specific binaries",
+      "matchPackageNames": [
+        "**/*-x64*",
+        "**/*-arm64*",
+        "**/*-arm*",
+        "**/*-ia32*",
+        "**/*-x86*",
+        "**/*-aarch64*"
+      ],
+      "enabled": false
     }
   ]
 }
