@@ -36,7 +36,7 @@ export class UUVCliPlaywrightRunner implements UUVCliRunner {
     async prepare(options: Partial<UUVCliOptions>) {
         try {
             console.log("running preprocessor...");
-            this.executeSystemCommand(`npx bddgen -c ${this.projectDir}/playwright.config.ts`);
+            this.executeSystemCommand(`${getUserAgent()} bddgen -c ${this.projectDir}/playwright.config.ts`);
             console.log("preprocessor executed\n");
         } catch (e) {
             console.warn(chalk.redBright("An error occured during preprocessor, please be sure to use existing step definitions"));
@@ -117,7 +117,7 @@ export class UUVCliPlaywrightRunner implements UUVCliRunner {
     private buildCommand(options: Partial<UUVCliOptions>, configFile: string, reporter: string): string {
         return _.trimEnd(
             [
-                "npx",
+                getUserAgent(),
                 "playwright",
                 "test",
                 `--project="${options.browser}"`,
@@ -156,11 +156,15 @@ function executeSystemCommandHelper(command: string) {
 export function executePreprocessor(projectDir: string): boolean {
     console.log("running preprocessor...");
     try {
-        executeSystemCommandHelper(`npx bddgen -c ${projectDir}/playwright.config.ts`);
+        executeSystemCommandHelper(`${getUserAgent()} bddgen -c ${projectDir}/playwright.config.ts`);
         console.log("preprocessor executed\n");
         return true;
     } catch (e) {
         console.warn(chalk.redBright("An error occured during preprocessor, please be sure to use existing step definitions"));
         return false;
     }
+}
+
+function getUserAgent(): string {
+    return process.env["npm_config_user_agent"]?.startsWith("yarn") ? "yarn" : "npx";
 }
