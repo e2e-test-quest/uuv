@@ -1,3 +1,10 @@
+## [1.93.1](https://github.com/e2e-test-quest/uuv/compare/docs-v1.93.0...docs-v1.93.1) (2025-09-02)
+
+
+### Bug Fixes
+
+* consider the user agent, [#1091](https://github.com/e2e-test-quest/uuv/issues/1091) ([a4bc533](https://github.com/e2e-test-quest/uuv/commit/a4bc5334d7a89c8c9bc906111f269cfb9718445d))
+
 # [1.93.0](https://github.com/e2e-test-quest/uuv/compare/docs-v1.92.0...docs-v1.93.0) (2025-08-29)
 
 
