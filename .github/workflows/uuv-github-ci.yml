@@ -404,6 +404,59 @@ jobs:
           path: tests/integration/runner-playwright/uuv/reports/e2e/junit-report.xml
           reporter: jest-junit
 
+  integration-tests-playwright-yarn:
+    runs-on: ubuntu-22.04
+    container:
+      image: e2etesting/uuv
+    needs: [ lint, unit-tests, build, build-electron ]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Cache node modules
+        uses: actions/cache@v4
+        with:
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('./package-lock.json') }}
+          path: |
+            node_modules
+            packages/assistant/node_modules
+            packages/docs/node_modules
+            packages/a11y/node_modules
+            packages/runner-commons/node_modules
+            packages/runner-cypress/node_modules
+            packages/runner-playwright/node_modules
+            packages/vscode-extension/node_modules
+            packages/a11y-dashboard/node_modules
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+          path: packages
+      - name: Use Node.js ${{ inputs.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version:
+            ${{env.NODE_VERSION}}
+      - run: npm ci
+      - name: Package runner-playwright
+        run: mkdir -p ./dist/packages && npx nx package a11y && npx nx package runner-commons && npx nx package runner-playwright
+      - name: Running playwright integration tests with yarn
+        env:
+          UUV_BASE_URL: ${{env.UUV_BASE_URL}}
+        run: cd ./tests/integration && chmod 755 ./integration-tests-yarn-runner-playwright.sh && ./integration-tests-yarn-runner-playwright.sh
+      - name: Upload uuv test artifact
+        uses: actions/upload-artifact@v4
+        if: success() || failure()
+        with:
+          name: integration-tests-playwright-yarn-artifacts
+          path: |
+            tests/integration/runner-playwright/uuv/reports
+      - name: Test Report
+        uses: MichaelVoelkel/test-reporter@main
+        if: success() || failure()
+        with:
+          name: Report - Integration Tests - Playwright (Yarn)
+          path: tests/integration/runner-playwright/uuv/reports/e2e/junit-report.xml
+          reporter: jest-junit
+
   lint:
     runs-on: ubuntu-22.04
     needs: install
@@ -422,7 +475,7 @@ jobs:
 
   release:
     if: github.ref == 'refs/heads/main'
-    needs: [ integration-tests-cypress, integration-tests-playwright, unit-tests-a11y, unit-tests-playwright, unit-tests-cypress, integration-tests-assistant, unit-tests-runner-flutter, build-docker, build-gradle ]
+    needs: [ integration-tests-cypress, integration-tests-playwright, integration-tests-playwright-yarn, unit-tests-a11y, unit-tests-playwright, unit-tests-cypress, integration-tests-assistant, unit-tests-runner-flutter, build-docker, build-gradle ]
     runs-on: ubuntu-22.04
     environment: release
     steps:
@@ -555,7 +608,7 @@ jobs:
 
   publish-docs:
     if: github.ref == 'refs/heads/main'
-    needs: [ integration-tests-cypress, integration-tests-playwright, unit-tests-a11y, unit-tests-playwright, unit-tests-cypress, integration-tests-assistant, unit-tests-runner-flutter ]
+    needs: [ integration-tests-cypress, integration-tests-playwright, integration-tests-playwright-yarn, unit-tests-a11y, unit-tests-playwright, unit-tests-cypress, integration-tests-assistant, unit-tests-runner-flutter ]
     permissions:
       pages: write
       id-token: write
