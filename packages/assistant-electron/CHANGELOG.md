@@ -1,3 +1,10 @@
+## [1.83.1](https://github.com/e2e-test-quest/uuv/compare/assistant-electron-v1.83.0...assistant-electron-v1.83.1) (2025-09-02)
+
+
+### Bug Fixes
+
+* consider the user agent, [#1091](https://github.com/e2e-test-quest/uuv/issues/1091) ([a4bc533](https://github.com/e2e-test-quest/uuv/commit/a4bc5334d7a89c8c9bc906111f269cfb9718445d))
+
 # [1.83.0](https://github.com/e2e-test-quest/uuv/compare/assistant-electron-v1.82.0...assistant-electron-v1.83.0) (2025-08-29)
 
 
