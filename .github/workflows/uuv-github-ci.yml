@@ -55,7 +55,7 @@ jobs:
         with:
           node-version: ${{env.NODE_VERSION}}
           target: "build"
-          exclude: "assistant-electron,docker-images,runner-flutter,intellij-plugin"
+          exclude: "assistant-electron,docker-images,runner-flutter,intellij-plugin,a11y-dashboard"
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
@@ -174,7 +174,7 @@ jobs:
         with:
           node-version: ${{ inputs.node-version }}
       - name: Build images
-        run: npx nx run-many --target=docker:build
+        run: npx nx run-many --target=docker:build --exclude=a11y-dashboard
 
   unit-tests:
     runs-on: ubuntu-22.04

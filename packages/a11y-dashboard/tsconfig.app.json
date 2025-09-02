@@ -1,7 +1,11 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "composite": true
+    "composite": true,
+    "declaration": true,
+    "emitDeclarationOnly": false,
+    "outDir": "dist", 
+    "rootDir": "src"
   },
-  "exclude": []
+  "include": ["src/**/*.ts", "src/**/*.vue"]
 }
