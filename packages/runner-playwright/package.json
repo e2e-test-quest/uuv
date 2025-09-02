@@ -1,6 +1,6 @@
 {
   "name": "@uuv/playwright",
-  "version": "3.48.0",
+  "version": "3.48.1",
   "type": "commonjs",
   "author": "Louis Fredice NJAKO MOLOM (https://github.com/luifr10) & Stanley SERVICAL (https://github.com/stanlee974)",
   "description": "A solution to facilitate the writing and execution of E2E tests understandable by any human being using cucumber(BDD) and playwright",
