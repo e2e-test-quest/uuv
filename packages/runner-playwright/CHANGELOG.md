@@ -1,3 +1,10 @@
+## [3.48.1](https://github.com/e2e-test-quest/uuv/compare/runner-playwright-v3.48.0...runner-playwright-v3.48.1) (2025-09-02)
+
+
+### Bug Fixes
+
+* consider the user agent, [#1091](https://github.com/e2e-test-quest/uuv/issues/1091) ([72dbb6f](https://github.com/e2e-test-quest/uuv/commit/72dbb6f8dcb49c56712ad33baad0e1f134c69567))
+
 # [3.48.0](https://github.com/e2e-test-quest/uuv/compare/runner-playwright-v3.47.0...runner-playwright-v3.48.0) (2025-08-29)
 
 
