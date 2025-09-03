@@ -89,7 +89,9 @@
       "@nx/nx-linux-x64-gnu": "17.3.2",
       "@nx/nx-linux-x64-musl": "17.3.2",
       "@nx/nx-win32-arm64-msvc": "17.3.2",
-      "@nx/nx-win32-x64-msvc": "17.3.2"
+      "@nx/nx-win32-x64-msvc": "17.3.2",
+      "@rollup/rollup-linux-x64-gnu": "4.48.0",
+      "@rollup/rollup-linux-x64-musl": "4.48.0"
   },
   "overrides": {
     "lodash": "~4.17.21"
