@@ -58,7 +58,7 @@
     "is-admin": "4.0.0",
     "junit-report-merger": "^7.0.0",
     "lodash": "^4.17.21",
-    "multiple-cucumber-html-reporter": "3.9.0",
+    "multiple-cucumber-html-reporter": "3.9.3",
     "path-browserify": "^1.0.1",
     "ts-node": "10.9.2",
     "typescript": "5.8.3",
