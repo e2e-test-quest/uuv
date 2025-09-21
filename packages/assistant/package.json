@@ -60,7 +60,7 @@
     "@uiw/codemirror-theme-github": "^4.22.1",
     "@uiw/react-codemirror": "^4.22.1",
     "@uuv/runner-commons": "2.61.0",
-    "antd": "5.27.1",
+    "antd": "5.27.4",
     "eslint-config-react-app": "7.0.1",
     "figlet": "1.8.1",
     "playwright-chromium": "1.52.0",
