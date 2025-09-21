@@ -1,3 +1,19 @@
+# [1.20.0](https://github.com/e2e-test-quest/uuv/compare/intellij-plugin-v1.19.0...intellij-plugin-v1.20.0) (2025-09-21)
+
+
+### Bug Fixes
+
+* **assistant:** update dependency antd to v5.27.4 ([f0601cb](https://github.com/e2e-test-quest/uuv/commit/f0601cb3b7db519ce26bf12a7fee78885086a2f0))
+* **deps:** update dependency @mdx-js/react to v3.1.1 ([7931ada](https://github.com/e2e-test-quest/uuv/commit/7931ada1c1e9f46fefbffbad354b41a683a13105))
+* **deps:** update docusaurus monorepo to v3.8.1 ([e2444da](https://github.com/e2e-test-quest/uuv/commit/e2444da952ce605cf5e2c40f6c077e8dbf09968c))
+
+
+### Features
+
+* **runner-cypress:** update dependency @badeball/cypress-cucumber-preprocessor to v22.2.0 ([3f9ca1a](https://github.com/e2e-test-quest/uuv/commit/3f9ca1a40ed29fa193c4a9ea0f5c598877b0d19f))
+* **runner-cypress:** update dependency @testing-library/cypress to v10.1.0 ([5481262](https://github.com/e2e-test-quest/uuv/commit/5481262ba4c8e07f825126ddcf4449dcc1c59146))
+* **runner-playwright:** update dependency axe-playwright to v2.2.2 ([19ddd70](https://github.com/e2e-test-quest/uuv/commit/19ddd70762121ce635f1a7eba3a937b9bc726e0b))
+
 # [1.19.0](https://github.com/e2e-test-quest/uuv/compare/intellij-plugin-v1.18.0...intellij-plugin-v1.19.0) (2025-08-29)
 
 
