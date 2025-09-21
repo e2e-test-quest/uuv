@@ -86,7 +86,7 @@
     "@types/jest": "29.5.14",
     "@types/jquery": "3.5.32",
     "@types/node": "22.18.0",
-    "@types/react": "18.3.23",
+    "@types/react": "18.3.24",
     "@types/react-dom": "18.3.7",
     "@types/styled-components": "5.1.34",
     "@types/testing-library__jest-dom": "5.14.9",
