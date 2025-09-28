@@ -8,6 +8,9 @@ export default {
   moduleFileExtensions: ['ts', 'js', 'html'],
   modulePathIgnorePatterns: ["uuv/.uuv-features-gen"],
   coverageDirectory: '../../coverage/packages/assistant',
+  moduleNameMapper: {
+    "@uuv/dictionary": "<rootDir>/../dictionary/src/index.ts"
+  },
   reporters: [
     "default",
     [

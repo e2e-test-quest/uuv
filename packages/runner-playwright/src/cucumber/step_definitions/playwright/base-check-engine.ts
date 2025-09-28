@@ -12,7 +12,7 @@
  */
 
 import { DEFAULT_TIMEOUT, fs, KEY_PRESS } from "@uuv/runner-commons";
-import { key } from "@uuv/runner-commons/wording/web";
+import { key } from "@uuv/dictionary";
 import { checkA11y, injectAxe } from "axe-playwright";
 import { devices, expect } from "@playwright/test";
 import { Locator } from "playwright";

@@ -10,9 +10,9 @@
  * Software description: Make test writing fast, understandable by any human
  * understanding English or French.
  */
-import { LANG } from "./lang-enum";
 import { Common, fs, GenerateFileProcessing } from "./common";
 import * as path from "path";
+import { Dictionary, getDefinedDictionary, LANG } from "@uuv/dictionary";
 
 export class BaseStepDefinition extends GenerateFileProcessing {
     override runGenerate() {
@@ -28,16 +28,16 @@ export class BaseStepDefinition extends GenerateFileProcessing {
         generatedFile: string,
         lang: string
     ): void {
-        const wordingFile = path.join(this.wordingFilePath, lang, `${lang}.json`);
         const data = fs.readFileSync(
             this.stepDefinitionFile,
             { encoding: "utf8" }
         );
-        const updatedData = this.computeWordingFile(data, wordingFile);
+        const dictionary = getDefinedDictionary(lang);
+        const updatedData = this.computeWordingFile(data, dictionary);
         Common.writeWordingFile(generatedFile, updatedData);
     }
 
-    override computeWordingFile(data: string, wordingFile: string): string {
+    override computeWordingFile(data: string, dictionary: Dictionary): string {
         data =
             "/*******************************\n" +
             "NE PAS MODIFIER, FICHIER GENERE\n" +
@@ -50,18 +50,15 @@ export class BaseStepDefinition extends GenerateFileProcessing {
             .replace("../../../cypress/commands", "../../../../cypress/commands")
             .replace("../../../playwright/chromium", "../../../../playwright/chromium")
             .replace("../i18n/template.json", "../../i18n/template.json")
-            .replace("import {key} from \"@uuv/runner-commons/wording/web\";", "")
-            .replace("import { key } from \"@uuv/runner-commons/wording/web\";", "")
+            .replace("import {key} from \"@uuv/dictionary\";", "")
+            .replace("import { key } from \"@uuv/dictionary\";", "")
             .replace("./core-engine", "../core-engine")
             .replace("../../preprocessor/run/world", "../../../preprocessor/run/world")
             .replace("./a11y-engine", "../a11y-engine")
             .replace("./_.common", "/../_.common");
-        const wordings = fs.readFileSync(wordingFile);
-        const wordingsJson = JSON.parse(wordings.toString());
-        wordingsJson.forEach((conf) => {
-            data = data.replace("${" + conf.key + "}", conf.wording);
-            data = data.replace(conf.key + ".description", conf.description);
-            // console.debug(conf, data)
+        dictionary.getBaseSentences().forEach((sentence) => {
+            data = data.replace("${" + sentence.key + "}", sentence.wording);
+            data = data.replace(sentence.key + ".description", sentence.description);
         });
         return data;
     }

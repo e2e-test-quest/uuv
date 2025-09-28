@@ -43,7 +43,7 @@
     "package": "npm pack --pack-destination=\"../../dist/packages\"",
     "lint": "eslint -c .eslintrc.js",
     "test": "npm run unit-tests && npm run e2e-test:run",
-    "unit-tests": "jest --coverage",
+    "unit-tests": "jest --coverage --config=./jest.config.ts",
     "e2e-test:run": "npm run uuv e2e --",
     "e2e-test:open": "npm run uuv open --",
     "uuv": "node ../../node_modules/@uuv/playwright/bin/uuv"
@@ -59,7 +59,7 @@
     "@codemirror/view": "^6.26.3",
     "@uiw/codemirror-theme-github": "^4.22.1",
     "@uiw/react-codemirror": "^4.22.1",
-    "@uuv/runner-commons": "2.66.0",
+    "@uuv/dictionary": "0.0.1",
     "antd": "5.27.4",
     "eslint-config-react-app": "7.0.1",
     "figlet": "1.8.1",
@@ -104,6 +104,7 @@
     "ts-jest": "29.4.4",
     "ts-loader": "^9.4.2",
     "ts-node": "10.9.2",
+    "tsconfig-paths": "4.2.0",
     "typescript": "5.8.3",
     "vite": "6.3.6"
   },
@@ -112,6 +113,20 @@
     "dist/launcher/**/*",
     "postinstall.js"
   ],
+  "main": "./dist/src/index.js",
+  "types": "./dist/src/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/src/index.js",
+      "types": "./dist/src/index.d.ts",
+      "import": "./dist/src/index.js"
+    },
+    "./launcher": {
+      "require": "./dist/launcher/index.js",
+      "types": "./dist/launcher/index.d.ts",
+      "import": "./dist/launcher/index.js"
+    }
+  },
   "funding": {
     "type": "opencollective",
     "url": "https://opencollective.com/uuv"

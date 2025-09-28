@@ -7,9 +7,9 @@ export default defineConfig({
     root: __dirname,
     resolve: {
         alias: {
-            '@uuv/runner-commons/wording/web/en': path.resolve(
+            '@uuv/dictionary': path.resolve(
                 __dirname,
-                '../runner-commons/src/assets/i18n/web/en/index.ts'
+                '../dictionary/src/index.ts'
             ),
         },
     },

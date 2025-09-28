@@ -1,8 +1,8 @@
 import fs from "fs";
 import { Common, STEP_DEFINITION_FILE_NAME, TEST_RUNNER_ENUM } from "../step-definition-generator/common";
 import { BaseStepDefinition } from "../step-definition-generator/generate-base-step-definitions";
-import json from "../assets/i18n/web/en/en.json";
 import * as path from "path";
+import { getDefinedDictionary } from "@uuv/dictionary";
 
 describe("tester la classe BaseStepDefinition", () => {
   const dirPath = "tests";
@@ -13,8 +13,8 @@ describe("tester la classe BaseStepDefinition", () => {
       import { command } from "../../../cypress/commands";
       import { chrome } from "../../../playwright/chromium";
       import { Method } from "cypress/types/net-stubbing";
-      import { key } from "@uuv/runner-commons/wording/web";
-      import {key} from "@uuv/runner-commons/wording/web";
+      import { key } from "@uuv/dictionary";
+      import {key} from "@uuv/dictionary";
       import { data } from "_.common";
       import { data2 } from "../_constant";
       import {
@@ -54,13 +54,12 @@ describe("tester la classe BaseStepDefinition", () => {
     expect(spyGenerate).toHaveBeenCalled();
   });
   test("computeWordingFile - les attributs sont bien alimentés", () => {
-    const spyReadFile = jest.spyOn(fs, "readFileSync").mockImplementation(() => JSON.stringify(json));
-    const result = stepDef.computeWordingFile(data, filePath);
+    const dictionary = getDefinedDictionary("en");
+    const result = stepDef.computeWordingFile(data, dictionary);
 
-    expect(spyReadFile).toHaveBeenCalled();
     expect(result).toContain("NE PAS MODIFIER, FICHIER GENERE");
-    expect(result).not.toContain("import {key} from \"@uuv/runner-commons/wording/web\"");
-    expect(result).not.toContain("import { key } from \"@uuv/runner-commons/wording/web\"");
+    expect(result).not.toContain("import {key} from \"@uuv/dictionary\"");
+    expect(result).not.toContain("import { key } from \"@uuv/dictionary\"");
     expect(result).toContain("../../_constant");
     expect(result).toContain("../_context");
     expect(result).toContain("../../../../cypress/commands");

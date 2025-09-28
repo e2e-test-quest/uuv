@@ -23,6 +23,8 @@ runs:
           packages/assistant/node_modules
           packages/docs/node_modules
           packages/a11y/node_modules
+          packages/dictionary/node_modules
+          packages/mcp-server/node_modules
           packages/runner-commons/node_modules
           packages/runner-cypress/node_modules
           packages/runner-playwright/node_modules

@@ -26,7 +26,7 @@ import {
     notFoundWithRoleAndName,
     withinRoleAndName
 } from "./core-engine";
-import { key } from "@uuv/runner-commons/wording/web";
+import { key } from "@uuv/dictionary";
 import { pressKey } from "./_.common";
 
 // Begin of General Section

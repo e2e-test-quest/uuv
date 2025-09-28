@@ -17,7 +17,7 @@ import { AbstractComponentService } from "./abstract-component-service";
 
 export class DialogService extends AbstractComponentService {
     TRACKED_CLASS = "uuv-dialog-clone";
-    show(dom: ShadowRoot, layer: AdditionalLayerEnum, elements: HTMLElement[], onSelect: (el: HTMLElement) => void, onReset: () => void) {
+    override show(dom: ShadowRoot, layer: AdditionalLayerEnum, elements: HTMLElement[], onSelect: (el: HTMLElement) => void, onReset: () => void) {
         const clones: HTMLElement[] = [];
         let currentTop = 0;
         elements.forEach((dialog, index) => {

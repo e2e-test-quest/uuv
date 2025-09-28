@@ -1,7 +1,7 @@
 import { Extension, gutter, GutterMarker } from "@uiw/react-codemirror";
 
 const uuvA11yWarningMarker = new class extends GutterMarker {
-    toDOM() {
+    override toDOM() {
         const marker = document.createElement("div");
         marker.innerHTML = "<div class='uuv-gutter-warning'>⚠️</div>";
         marker.setAttribute("title", "Accessibility role and name must be defined");

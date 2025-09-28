@@ -52,20 +52,20 @@ export class ExpectTranslator extends Translator {
             return "";
         }
 
-        const baseSentence = this.jsonEnriched.enriched.find((v: EnrichedSentence) => v.key === sentenceKey);
+        const baseSentence = this.dictionary.getRoleBasedSentencesTemplate().find((v: EnrichedSentence) => v.key === sentenceKey);
         const sentenceAvailable = `Then ${baseSentence?.wording ?? ""}`
             .replace("$indefiniteArticle", `${indefiniteArticle}`)
             .replace("$roleName", `${roleName}`)
             .replace("{string}", `"${accessibleName}"`)
             .replace("{string}", "");
 
-        const headerValues = Array.from(headers.querySelectorAll('[role=columnheader], th')).map(c => computeAccessibleName(c));
+        const headerValues = Array.from(headers.querySelectorAll("[role=columnheader], th")).map(c => computeAccessibleName(c));
         const tableLines: string[] = ["| " + headerValues.join(" | ") + " |", "| " + headerValues.map(() => "---").join(" | ") + " |"];
 
         rows.forEach(row => {
             const values = Array.from(row.querySelectorAll(`[role=${cellRoleName}], td, [role=columnheader], th`)).map(c => {
-                if(c.classList.contains("ag-floating-filter")) {
-                    return Array.from(c.querySelectorAll('[role=button]:not(.ag-hidden [role=button]), button:not(.ag-hidden button)')).reduce(
+                if (c.classList.contains("ag-floating-filter")) {
+                    return Array.from(c.querySelectorAll("[role=button]:not(.ag-hidden [role=button]), button:not(.ag-hidden button)")).reduce(
                         (accumulator, button) => accumulator + (accumulator.length > 0 ? " " : "") + computeAccessibleName(button),
                         ""
                     );
@@ -123,9 +123,10 @@ export class ExpectTranslator extends Translator {
 
         [header, ...rows].forEach(r => r.forEach((cell, i) => (colWidths[i] = Math.max(colWidths[i], cell.length))));
 
-        const formatRow = (row: string[]) => "| " + row.map((cell, i) => cell.padEnd(colWidths[i])).join(" | ") + " |";
+        const FORMAT_PREFFIX = "      ";
+        const formatRow = (row: string[]) => FORMAT_PREFFIX + "| " + row.map((cell, i) => cell.padEnd(colWidths[i])).join(" | ") + " |";
 
-        const separator = "| " + colWidths.map(w => "-".repeat(w)).join(" | ") + " |";
+        const separator = FORMAT_PREFFIX + "| " + colWidths.map(w => "-".repeat(w)).join(" | ") + " |";
         return [formatRow(header), separator, ...rows.map(formatRow)];
     }
 }

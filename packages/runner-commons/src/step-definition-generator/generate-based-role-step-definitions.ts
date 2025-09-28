@@ -11,10 +11,9 @@
  * understanding English or French.
  */
 
-import { Common, fs, GenerateFileProcessing, getDefinedRoles } from "./common";
-import { LANG } from "./lang-enum";
+import { Common, fs, GenerateFileProcessing } from "./common";
 import * as path from "path";
-import { AccessibleRole } from "./accessible-role";
+import { Dictionary, getDefinedDictionary, LANG } from "@uuv/dictionary";
 
 export class BasedRoleStepDefinition extends GenerateFileProcessing {
     override runGenerate() {
@@ -32,21 +31,18 @@ export class BasedRoleStepDefinition extends GenerateFileProcessing {
         generatedFile: string,
         lang: string
     ): void {
-        const wordingFile = path.join(this.wordingFilePath, lang, `${lang}-enriched-wordings.json`);
         const data = fs.readFileSync(
             this.stepDefinitionFile,
             { encoding: "utf8" }
         );
-        const definedRoles = getDefinedRoles(lang);
-        this.computeWordingFile(data, wordingFile, definedRoles, generatedFile);
+        const dictionary = getDefinedDictionary(lang);
+        this.computeWordingFile(data, dictionary, generatedFile);
     }
 
-    override computeWordingFile(data: string, wordingFile: string, definedRoles: AccessibleRole[], generatedFile: string): void {
+    override computeWordingFile(data: string, dictionary: Dictionary, generatedFile: string): void {
         const dataOrigin: string = data;
         let dataUpdated: string = dataOrigin;
-        const wordings = fs.readFileSync(wordingFile);
-        const wordingsJson = JSON.parse(wordings.toString());
-        definedRoles.forEach((role) => {
+        dictionary.getDefinedRoles().forEach((role) => {
             // console.debug("role", role)
             dataUpdated =
                 "/*******************************\n" +
@@ -56,23 +52,23 @@ export class BasedRoleStepDefinition extends GenerateFileProcessing {
             dataUpdated = dataUpdated
                 .replace("../../cypress/commands", "../../../../../../cypress/commands")
                 .replace("../i18n/template.json", "../../../../i18n/template.json")
-                .replace("import { key } from \"@uuv/runner-commons/wording/web\";", "")
-                .replace("import {key} from \"@uuv/runner-commons/wording/web\";", "")
+                .replace("import { key } from \"@uuv/dictionary\";", "")
+                .replace("import {key} from \"@uuv/dictionary\";", "")
                 .replace("./core-engine", "../../../core-engine")
                 .replace("../../preprocessor/run/world", "../../../../../preprocessor/run/world")
                 .replace("./_.common", "../../../_.common");
-            wordingsJson.enriched.forEach((conf) => {
+            dictionary.getRoleBasedSentencesTemplate().forEach((sentence) => {
                 // console.debug(">> conf", conf)
                 // console.debug("${" + conf.key + "}");
                 dataUpdated = dataUpdated
-                    .replaceAll("${" + conf.key + "}", conf.wording)
+                    .replaceAll("${" + sentence.key + "}", sentence.wording)
                     .replaceAll("$roleId", role.id)
                     .replaceAll("$roleName", role.name)
                     .replaceAll("$definiteArticle", role.getDefiniteArticle())
                     .replaceAll("$indefiniteArticle", role.getIndefiniteArticle())
                     .replaceAll("$namedAdjective", role.namedAdjective())
                     .replaceAll("$ofDefiniteArticle", role.getOfDefiniteArticle())
-                    .replaceAll(conf.key + ".description", conf.description);
+                    .replaceAll(sentence.key + ".description", sentence.description);
             });
 
             // Exclude Role based Content sentence if specified

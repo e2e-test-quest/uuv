@@ -1,17 +1,17 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import uuvLogoJson from "./assets/uuvLogo.json";
 import mouseIcon from "./assets/mouse.json";
 import keyboardIcon from "./assets/keyboard.json";
 import formIcon from "./assets/form.json";
 import datatableIcon from "./assets/datatable.json";
 import modalIcon from "./assets/modal.json";
-import {ConfigProvider, MenuProps, message, theme} from "antd";
-import {StyleProvider} from "@ant-design/cssinjs";
-import {CssHelper} from "./helper/css-helper";
-import {FocusableElement} from "tabbable";
-import {Extension, gutter} from "@uiw/react-codemirror";
-import {buildResultingScript} from "./helper/result-script-helper";
-import {buildUuvGutter} from "./helper/result-display-helper";
+import { ConfigProvider, MenuProps, message, theme } from "antd";
+import { StyleProvider } from "@ant-design/cssinjs";
+import { CssHelper } from "./helper/css-helper";
+import { FocusableElement } from "tabbable";
+import { Extension, gutter } from "@uiw/react-codemirror";
+import { buildResultingScript } from "./helper/result-script-helper";
+import { buildUuvGutter } from "./helper/result-display-helper";
 import {
   ActionEnum,
   AdditionalLayerEnum,
@@ -23,19 +23,19 @@ import {
   VisibilityEnum,
 } from "./Commons";
 import * as LayerHelper from "./helper/layer-helper";
-import {SelectionHelper} from "./helper/selection-helper";
-import {TranslateSentences} from "./translator/model";
-import {UuvAssistantResult} from "./component/result/UuvAssistantResult";
-import {UuvAssistantSettings} from "./component/UuvAssistantSettings";
-import {UuvAssistantSidebar} from "./component/sidebar/UuvAssistantSidebar";
-import {UuvAssistantProps} from "./types/UuvTypes";
-import {GroupOutlined} from "@ant-design/icons";
+import { SelectionHelper } from "./helper/selection-helper";
+import { TranslateSentences } from "./translator/model";
+import { UuvAssistantResult } from "./component/result/UuvAssistantResult";
+import { UuvAssistantSettings } from "./component/UuvAssistantSettings";
+import { UuvAssistantSidebar } from "./component/sidebar/UuvAssistantSidebar";
+import { UuvAssistantProps } from "./types/UuvTypes";
+import { GroupOutlined } from "@ant-design/icons";
 import * as KeyboardNavigationHelper from "./helper/keyboard-navigation-helper";
-import {DialogService} from "./service/dialog-service";
-import {TableAndGridService} from "./service/table-and-grid-service";
-import {FormCompletionService} from "./service/form-completion-service";
-import {Translator} from "./translator/abstract-translator";
-import {InformativeNodesHelper} from "./helper/informative-nodes-helper";
+import { DialogService } from "./service/dialog-service";
+import { TableAndGridService } from "./service/table-and-grid-service";
+import { FormCompletionService } from "./service/form-completion-service";
+import { Translator } from "./translator/abstract-translator";
+import { InformativeNodesHelper } from "./helper/informative-nodes-helper";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -290,25 +290,27 @@ function UuvAssistant(props: UuvAssistantProps) {
       const reader = uploadResponse.body?.getReader();
       const decoder = new TextDecoder();
 
-      let buffer = '';
+      let buffer = "";
 
       if (reader) {
         while (true) {
-          const {done, value} = await reader.read();
+          const { done, value } = await reader.read();
 
-          if (done) break;
+          if (done) {
+break;
+}
 
-          buffer += decoder.decode(value, {stream: true});
+          buffer += decoder.decode(value, { stream: true });
 
-          const lines = buffer.split('\n');
-          buffer = lines.pop() || '';
+          const lines = buffer.split("\n");
+          buffer = lines.pop() || "";
 
           for (const line of lines) {
             if (line.trim()) {
               try {
                 currentValue = JSON.parse(line);
               } catch (e) {
-                console.error('Erreur parsing JSON:', e);
+                console.error("Erreur parsing JSON:", e);
                 currentValue = undefined;
               }
             }
@@ -330,7 +332,7 @@ function UuvAssistant(props: UuvAssistantProps) {
 
   const callStepByStepAIForImage = async (imgElement: HTMLImageElement) => {
     try {
-      let currentValue: UuvAssistantResultAIAnalysisType | undefined = {
+      const currentValue: UuvAssistantResultAIAnalysisType | undefined = {
         mode: AIAnalysisModeEnum.STEP_BY_STEP,
         available_image_descriptions: PENDING_VALUE,
         is_decorative: PENDING_VALUE,

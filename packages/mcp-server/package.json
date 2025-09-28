@@ -1,0 +1,69 @@
+{
+  "name": "@uuv/mcp-server",
+  "version": "0.0.1",
+  "description": "A Model Context Protocol (MCP) server for UUV - a solution to facilitate the writing and execution of E2E tests understandable by any human being(English or French) using cucumber(BDD) and cypress or playwright.",
+  "author": "Louis Fredice NJAKO MOLOM (https://github.com/luifr10) & Stanley SERVICAL (https://github.com/stanlee974)",
+  "license": "MIT",
+  "repository": {
+      "type": "git",
+      "url": "https://github.com/e2e-test-quest/uuv.git",
+      "directory": "packages/mcp-server"
+  },
+  "keywords": [
+    "uuv",
+    "mcp",
+    "model-context-protocol",
+    "e2e",
+    "end2end",
+    "end 2 end",
+    "test",
+    "testing",
+    "accessibility",
+    "accessibilite",
+    "a11y",
+    "cypress",
+    "playwright",
+    "testing-library",
+    "cucumber",
+    "gherkin",
+    "bdd",
+    "tdd",
+    "acceptance"
+  ],
+  "type": "commonjs",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+      "dist/**/*",
+      "README.md",
+      "LICENSE"
+  ],
+  "scripts": {
+      "start": "ts-node src/lib/mcp-server.ts",
+      "lint": "npx eslint . --ext .js,.ts,.feature --fix",
+      "tests": "jest --coverage --config=./jest.config.ts"
+  },
+  "bin": {
+    "mcp-server": "./dist/index.js"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.17.5",
+    "jsdom": "26.1.0",
+    "tsconfig-paths": "4.2.0",
+    "tslib": "2.3.0",
+    "@uuv/dictionary": "0.0.1",
+    "@uuv/assistant": "2.72.0",
+    "zod": "3.25.76"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/uuv"
+  }
+}
