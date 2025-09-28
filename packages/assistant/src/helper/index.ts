@@ -1,1 +1,1 @@
-export * from './result-script-helper';
+export * from "./result-script-helper";

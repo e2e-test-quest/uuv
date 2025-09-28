@@ -1,0 +1,124 @@
+{
+    "name": "dictionary",
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "sourceRoot": "packages/dictionary/src",
+    "projectType": "library",
+    "tags": [],
+    "targets": {
+        "build": {
+            "executor": "@nx/js:tsc",
+            "outputs": ["{options.outputPath}"],
+            "options": {
+              "rootDir": "packages/dictionary/src",
+              "outputPath": "packages/dictionary/dist/",
+              "main": "packages/dictionary/src/index.ts",
+              "tsConfig": "packages/dictionary/tsconfig.lib.json",
+              "assets": [
+                "packages/dictionary/*.md"
+              ]
+            }
+        },
+        "test": {
+            "executor": "@nx/jest:jest",
+            "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+            "options": {
+                "jestConfig": "packages/dictionary/jest.config.ts"
+            }
+        },
+        "lint": {
+          "executor": "@nx/eslint:lint",
+          "outputs": [
+            "{options.outputFile}"
+          ],
+          "options": {
+            "lintFilePatterns": [
+              "packages/dictionary/src/**/*.ts"
+            ]
+          }
+        },
+        "semantic-release": {
+          "executor": "@theunderscorer/nx-semantic-release:semantic-release",
+          "options": {
+            "commitMessage": "release(dictionary): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}",
+            "plugins": [
+              [
+                "@semantic-release/npm",
+                {
+                  "npmPublish": false,
+                  "tarballDir": "dist/packages",
+                  "pkgRoot": "packages/dictionary"
+                }
+              ],
+              [
+                "@semantic-release/github",
+                {
+                  "successComment": false,
+                  "failComment": false,
+                  "assets": [
+                    {
+                      "path": "dist/packages/uuv-dictionary-*.tgz",
+                      "label": "Npm Package"
+                    }
+                  ]
+                }
+              ],
+              [
+                "@google/semantic-release-replace-plugin",
+                {
+                  "replacements": [
+                    {
+                      "files": [
+                        "packages/runner-commons/package.json"
+                      ],
+                      "from": "\"@uuv/dictionary\": \".*\"",
+                      "to": "\"@uuv/dictionary\": \"${nextRelease.version}\"",
+                      "results": [
+                        {
+                          "file": "packages/runner-commons/package.json",
+                          "hasChanged": true,
+                          "numMatches": 1,
+                          "numReplacements": 1
+                        }
+                      ],
+                      "countMatches": true
+                    },
+                    {
+                      "files": [
+                        "packages/assistant/package.json"
+                      ],
+                      "from": "\"@uuv/dictionary\": \".*\"",
+                      "to": "\"@uuv/dictionary\": \"${nextRelease.version}\"",
+                      "results": [
+                        {
+                          "file": "packages/assistant/package.json",
+                          "hasChanged": true,
+                          "numMatches": 1,
+                          "numReplacements": 1
+                        }
+                      ],
+                      "countMatches": true
+                    },
+                    {
+                      "files": [
+                        "packages/mcp-server/package.json"
+                      ],
+                      "from": "\"@uuv/dictionary\": \".*\"",
+                      "to": "\"@uuv/dictionary\": \"${nextRelease.version}\"",
+                      "results": [
+                        {
+                          "file": "packages/mcp-server/package.json",
+                          "hasChanged": true,
+                          "numMatches": 1,
+                          "numReplacements": 1
+                        }
+                      ],
+                      "countMatches": true
+                    }
+                  ]
+                }
+              ]
+            ]
+          }
+        }
+    }
+}

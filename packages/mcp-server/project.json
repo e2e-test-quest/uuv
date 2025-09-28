@@ -1,0 +1,76 @@
+{
+    "name": "mcp-server",
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "sourceRoot": "packages/mcp-server/src",
+    "projectType": "library",
+    "tags": [],
+    "targets": {
+        "build": {
+            "executor": "@nx/js:tsc",
+            "outputs": ["{options.outputPath}"],
+            "options": {
+                "rootDir": "packages/mcp-server/src",
+                "outputPath": "packages/mcp-server/dist",
+                "main": "packages/mcp-server/src/index.ts",
+                "tsConfig": "packages/mcp-server/tsconfig.lib.json",
+                "assets": ["packages/mcp-server/*.md"]
+            },
+            "dependsOn": ["^build"]
+        },
+        "test": {
+            "executor": "@nx/jest:jest",
+            "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+            "options": {
+                "jestConfig": "packages/mcp-server/jest.config.ts"
+            }
+        },
+        "unit-tests": {
+            "executor": "@nx/jest:jest",
+            "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+            "options": {
+                "jestConfig": "packages/mcp-server/jest.config.ts"
+            },
+            "dependsOn": ["^build"]
+        },
+        "lint": {
+          "executor": "@nx/eslint:lint",
+          "outputs": [
+            "{options.outputFile}"
+          ],
+          "options": {
+            "lintFilePatterns": [
+              "packages/mcp-server/src/**/*.ts"
+            ]
+          }
+        },
+        "semantic-release": {
+          "executor": "@theunderscorer/nx-semantic-release:semantic-release",
+          "options": {
+            "commitMessage": "release(mcp-server): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}",
+            "plugins": [
+              [
+                "@semantic-release/npm",
+                {
+                  "npmPublish": false,
+                  "tarballDir": "dist/packages",
+                  "pkgRoot": "packages/mcp-server"
+                }
+              ],
+              [
+                "@semantic-release/github",
+                {
+                  "successComment": false,
+                  "failComment": false,
+                  "assets": [
+                    {
+                      "path": "dist/packages/uuv-mcp-server-*.tgz",
+                      "label": "Npm Package"
+                    }
+                  ]
+                }
+              ]
+            ]
+          }
+        }
+    }
+}

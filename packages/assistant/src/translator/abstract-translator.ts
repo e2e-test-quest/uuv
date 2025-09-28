@@ -12,12 +12,11 @@
  */
 
 import { computeAccessibleName, getRole } from "dom-accessibility-api";
-import { BaseSentence, EnrichedSentence, EnrichedSentenceRole, EnrichedSentenceWrapper, Suggestion, TranslateSentences } from "./model";
-import { EN_ROLES, enBasedRoleSentences, enSentences } from "@uuv/runner-commons/wording/web/en";
+import { BaseSentence, Suggestion, TranslateSentences } from "./model";
+import { EnDictionary } from "@uuv/dictionary";
 
 export abstract class Translator {
-    protected jsonBase: BaseSentence[] = enSentences;
-    protected jsonEnriched: EnrichedSentenceWrapper = enBasedRoleSentences;
+    protected dictionary = new EnDictionary();
     protected selectedHtmlElem!: HTMLElement | SVGElement;
 
     public async translate(htmlElem: HTMLElement | SVGElement): Promise<TranslateSentences> {
@@ -102,42 +101,31 @@ export abstract class Translator {
     }
 
     protected computeSentenceFromKeyRoleAndName(computedKey: string, accessibleRole: string, accessibleName: string) {
-        return this.jsonEnriched.enriched
-            .filter((value: EnrichedSentence) => value.key === computedKey)
-            .map((enriched: EnrichedSentence) => {
-                const sentenceAvailable = enriched.wording;
-                const role = EN_ROLES.filter((role: EnrichedSentenceRole) => role.id === accessibleRole)[0];
-                return sentenceAvailable
-                    .replaceAll("(n)", "")
-                    .replaceAll("$roleName", role?.name ?? accessibleRole)
-                    .replaceAll("$definiteArticle", role?.getDefiniteArticle())
-                    .replaceAll("$indefiniteArticle", role?.getIndefiniteArticle())
-                    .replaceAll("$namedAdjective", role?.namedAdjective())
-                    .replaceAll("$ofDefiniteArticle", role?.getOfDefiniteArticle())
-                    .replace("{string}", `"${accessibleName}"`);
+        return this.dictionary.getRoleBasedSentencesTemplate()
+            .filter(value => value.key === computedKey)
+            .map(sentence => {
+                return this.dictionary.computeSentence({
+                    sentence,
+                    accessibleRole,
+                    parameters: [ accessibleName ]
+                });
             })[0];
     }
 
     protected computeSentenceFromKeyRoleNameAndContent(computedKey: string, accessibleRole: string, accessibleName: string, content: string) {
-        return this.jsonEnriched.enriched
-            .filter((value: EnrichedSentence) => value.key === computedKey)
-            .map((enriched: EnrichedSentence) => {
-                const sentenceAvailable = enriched.wording;
-                const role = EN_ROLES.filter((role: EnrichedSentenceRole) => role.id === accessibleRole)[0];
-                return sentenceAvailable
-                    .replaceAll("(n)", "")
-                    .replaceAll("$roleName", role?.name ?? accessibleRole)
-                    .replaceAll("$definiteArticle", role?.getDefiniteArticle())
-                    .replaceAll("$indefiniteArticle", role?.getIndefiniteArticle())
-                    .replaceAll("$namedAdjective", role?.namedAdjective())
-                    .replaceAll("$ofDefiniteArticle", role?.getOfDefiniteArticle())
-                    .replace("{string}", `"${accessibleName}"`)
-                    .replace("{string}", `"${content}"`);
+        return this.dictionary.getRoleBasedSentencesTemplate()
+            .filter(value => value.key === computedKey)
+            .map(sentence => {
+                return this.dictionary.computeSentence({
+                    sentence,
+                    accessibleRole,
+                    parameters: [ accessibleName, content ]
+                });
             })[0];
     }
 
     protected computeSentenceFromKeyAndSelector(computedKey: string, selector: string) {
-        return this.jsonBase
+        return this.dictionary.getBaseSentences()
             .filter((el: BaseSentence) => el.key === computedKey)
             .map((el: BaseSentence) =>
                 el.wording.replace("{string}", `"${selector}"`)
@@ -148,6 +136,6 @@ export abstract class Translator {
     }
 
     public getSentenceFromKey(key: string) {
-        return this.jsonBase.filter((el: BaseSentence) => el.key === key)[0];
+        return this.dictionary.getBaseSentences().filter((el: BaseSentence) => el.key === key)[0];
     }
 }

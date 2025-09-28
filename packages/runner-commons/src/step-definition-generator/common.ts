@@ -13,10 +13,7 @@
 
 import fs from "fs";
 import * as path from "path";
-import { LANG } from "./lang-enum";
-import { EN_ROLES } from "../assets/i18n/web/en/en-roles";
-import { FR_ROLES } from "../assets/i18n/web/fr/fr-roles";
-import { AccessibleRole } from "./accessible-role";
+import { Dictionary } from "@uuv/dictionary";
 
 export { fs };
 
@@ -39,16 +36,7 @@ export abstract class GenerateFileProcessing {
 
     abstract generateWordingFiles(generatedFile: string, lang: string);
 
-    abstract computeWordingFile(data: string, wordingFile: string, roles?: AccessibleRole[], generatedFile?: string);
-}
-
-export function getDefinedRoles(lang: string): AccessibleRole[] {
-    switch (lang) {
-        case LANG.FR.toString():
-            return FR_ROLES;
-        default:
-            return EN_ROLES;
-    }
+    abstract computeWordingFile(data: string, dictionary: Dictionary, generatedFile?: string);
 }
 
 export enum TEST_RUNNER_ENUM {

@@ -1,9 +1,8 @@
 import fs from "fs";
 import { Common, STEP_DEFINITION_FILE_NAME, TEST_RUNNER_ENUM } from "../step-definition-generator/common";
-import json from "../assets/i18n/web/en/en-enriched-wordings.json";
 import { BasedRoleStepDefinition } from "../step-definition-generator/generate-based-role-step-definitions";
 import * as path from "path";
-import { EN_ROLES } from "../assets/i18n/web/en/en-roles";
+import { getDefinedDictionary } from "@uuv/dictionary";
 
 describe("tester la classe BasedRoleStepDefinition", () => {
   const dirPath = "tests";
@@ -12,8 +11,8 @@ describe("tester la classe BasedRoleStepDefinition", () => {
     import { fr } from "../i18n/template.json";
       import { Context } from "./_context";
       import { command } from "../../cypress/commands";
-      import { key } from "@uuv/runner-commons/wording/web";
-      import {key} from "@uuv/runner-commons/wording/web";
+      import { key } from "@uuv/dictionary";
+      import {key} from "@uuv/dictionary";
       import {
           withinRoleAndName
       } from "./core-engine";
@@ -53,15 +52,14 @@ describe("tester la classe BasedRoleStepDefinition", () => {
   });
 
   test("computeWordingFile - les attributs sont bien alimentés", () => {
-    const spyReadFile = jest.spyOn(fs, "readFileSync").mockImplementation(() => JSON.stringify(json));
     const spyWrite = jest.spyOn(Common, "writeWordingFile").mockImplementation();
 
-    stepDef.computeWordingFile(template, filePath, EN_ROLES, "mockFile");
-    expect(spyReadFile).toHaveBeenCalled();
+    const dictionary = getDefinedDictionary("en");
+    stepDef.computeWordingFile(template, dictionary, "mockFile");
     const result = spyWrite.mock.calls[0][1];
     expect(result).toContain("NE PAS MODIFIER, FICHIER GENERE");
-    expect(result).not.toContain("import {key} from \"@uuv/runner-commons/wording/web\"");
-    expect(result).not.toContain("import { key } from \"@uuv/runner-commons/wording/web\"");
+    expect(result).not.toContain("import {key} from \"@uuv/dictionary\"");
+    expect(result).not.toContain("import { key } from \"@uuv/dictionary\"");
     expect(result).toContain("../../../core-engine");
     expect(result).toContain("../../../../../../cypress/commands");
     expect(result).toContain("../../../../i18n/template.json");

@@ -13,7 +13,6 @@
 
 import { Translator } from "./abstract-translator";
 import { BaseSentence, StepCaseEnum, TranslateSentences } from "./model";
-import { EN_ROLES } from "@uuv/runner-commons/wording/web/en";
 
 const stepCase = StepCaseEnum.WHEN;
 
@@ -42,9 +41,9 @@ export class ClickTranslator extends Translator {
     }
 
     private buildSentencesWithRoleAndName(accessibleRole: string, accessibleName: string) {
-        const role = EN_ROLES.find(role => role.shouldGenerateClickSentence && role.id === accessibleRole);
+        const role = this.dictionary.getDefinedRoles().find(role => role.shouldGenerateClickSentence && role.id === accessibleRole);
         if (role) {
-            const wording = this.buildWording("key.when.click", accessibleRole, accessibleName, role);
+            const wording = this.buildWording("key.when.click", accessibleRole, accessibleName);
             return [stepCase + wording];
         } else {
             const clickSentence: BaseSentence = this.getSentenceFromKey("key.when.click.withRole");
@@ -53,19 +52,17 @@ export class ClickTranslator extends Translator {
     }
 
     /* eslint-disable  @typescript-eslint/no-explicit-any */
-    private buildWording(computedKey: string, accessibleRole: string, accessibleName: string, role: any) {
+    private buildWording(computedKey: string, accessibleRole: string, accessibleName: string) {
         const clickSentence = [
-            ...this.jsonEnriched.enriched,
-            ...this.jsonBase
+            ...this.dictionary.getRoleBasedSentencesTemplate(),
+            ...this.dictionary.getBaseSentences()
         ].find(
             (el) => (el.key === computedKey)
         );
-        return clickSentence?.wording
-            .replaceAll("$roleName", role?.name ?? accessibleRole)
-            .replaceAll("$definiteArticle", role?.getDefiniteArticle())
-            .replaceAll("$indefiniteArticle", role?.getIndefiniteArticle())
-            .replaceAll("$namedAdjective", role?.namedAdjective())
-            .replaceAll("$ofDefiniteArticle", role?.getOfDefiniteArticle())
-            .replace("{string}", `"${accessibleName}"`);
+        return this.dictionary.computeSentence({
+            sentence: clickSentence!,
+            accessibleRole,
+            parameters: [ accessibleName ]
+        });
     }
 }

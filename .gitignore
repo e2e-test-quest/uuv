@@ -84,3 +84,5 @@ packages/vscode-extension/packages/
 .nuxt
 .nitro
 .cache
+
+**/junit-report.xml

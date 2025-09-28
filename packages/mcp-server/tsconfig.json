@@ -1,0 +1,32 @@
+{
+    "extends": "../../tsconfig.base.json",
+    "compilerOptions": {
+        "baseUrl": ".",
+        "module": "commonjs",
+        "forceConsistentCasingInFileNames": true,
+        "strict": false,
+        "importHelpers": true,
+        "skipLibCheck": true,
+        "noEmitOnError": false,
+        "noImplicitAny": false,
+        "noImplicitOverride": false,
+        "noImplicitReturns": false,
+        "noFallthroughCasesInSwitch": true,
+        "noPropertyAccessFromIndexSignature": true,
+        "checkJs": false
+    },
+    "include": [],
+    "references": [
+        {
+            "path": "./tsconfig.lib.json"
+        },
+        {
+            "path": "./tsconfig.spec.json"
+        }
+    ],
+    "ts-node": {
+       "require": [
+         "tsconfig-paths/register"
+       ]
+    }
+}

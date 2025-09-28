@@ -7,6 +7,9 @@ export default {
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
   coverageDirectory: '../../coverage/packages/runner-commons',
+  moduleNameMapper: {
+    "@uuv/dictionary": "<rootDir>/../dictionary/src/index.ts"
+  },
   reporters: [
     "default",
     [

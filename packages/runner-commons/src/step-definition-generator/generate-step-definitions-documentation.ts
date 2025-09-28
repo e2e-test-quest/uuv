@@ -11,11 +11,10 @@
  * understanding English or French.
  */
 
-import { LANG } from "./lang-enum";
 import fs from "fs";
-import { Common, getDefinedRoles } from "./common";
+import { Common } from "./common";
 import * as path from "path";
-import { AccessibleRole } from "./accessible-role";
+import { AccessibleRole, BaseSentence, Dictionary, getDefinedDictionary, LANG } from "@uuv/dictionary";
 
 
 export class AutocompletionSuggestion {
@@ -33,12 +32,11 @@ export function runGenerateDoc(destDir: string) {
             useGrouping: false,
         });
         const generatedFile = `${GENERATED_DIR_DOC}/${indexOfFile}-${lang}-generated-wording-description.md`;
-        const wordingBaseFile = path.join(__dirname, `../assets/i18n/web/${lang}/${lang}.json`);
-        const wordingEnrichedFile = path.join(__dirname, `../assets/i18n/web/${lang}/${lang}-enriched-wordings.json`);
+        const dictionary = getDefinedDictionary(lang);
         const autocompletionSuggestionFile = path.join(GENERATED_DIR_DOC, `${lang}-autocompletion-suggestion.json`);
         cleanGeneratedFilesIfExists(generatedFile, lang, indexOfFile);
         Common.cleanGeneratedFilesIfExists(autocompletionSuggestionFile);
-        generateWordingFiles(wordingBaseFile, wordingEnrichedFile, generatedFile, lang, indexOfFile, autocompletionSuggestionFile);
+        generateWordingFiles(dictionary, generatedFile, lang, indexOfFile, autocompletionSuggestionFile);
         fs.copyFileSync(generatedFile, `${GENERATED_DIR_DOC_FR}/${indexOfFile}-${lang}-generated-wording-description.md`);
         fs.copyFileSync(autocompletionSuggestionFile, path.join(GENERATED_DIR_DOC_FR, `${lang}-autocompletion-suggestion.json`));
     });
@@ -58,32 +56,26 @@ export function runGenerateDoc(destDir: string) {
 
 
     function generateWordingFiles(
-        wordingBaseFile: string,
-        wordingEnrichedFile: string,
+        dictionary: Dictionary,
         generatedFile: string,
         lang: string,
         indexOfFile: string,
         autocompletionSuggestionFile: string
     ): void {
          const { wordingFileContent, autocompletionSuggestionContent } = computeWordingFile(
-             wordingBaseFile,
-             wordingEnrichedFile,
+             dictionary,
              lang
          );
         writeWordingFile(generatedFile, wordingFileContent, lang, indexOfFile);
         Common.writeWordingFile(autocompletionSuggestionFile, autocompletionSuggestionContent);
     }
 
-    function computeWordingFile(wordingBaseFile: string, wordingEnrichedFile: string, lang: string): {
+    function computeWordingFile(dictionary: Dictionary, lang: string): {
         wordingFileContent: string,
         autocompletionSuggestionContent: string
     } {
-        const wordingsBase = fs.readFileSync(wordingBaseFile, { encoding: "utf8" });
-        const wordingsEnriched = fs.readFileSync(wordingEnrichedFile,
-            { encoding: "utf8" });
-        const wordingEnrichedNormalized = normalizedMdxData(wordingsEnriched);
-        const wordingBaseNormalized = normalizedMdxData(wordingsBase);
-        const wordingsBaseJson = JSON.parse(wordingBaseNormalized);
+        const wordingEnrichedNormalized = normalizedForMdx(dictionary.getRoleBasedSentencesTemplate());
+        const wordingsBaseNormalized = normalizedForMdx(dictionary.getBaseSentences());
         const title = (function () {
             switch (lang) {
                 case LANG.FR.toString():
@@ -111,19 +103,19 @@ export function runGenerateDoc(destDir: string) {
             }
         })();
         const { step: given, autocompletionSuggestions: givenAutocompletionSuggestions } = computeStepDefinition(
-            wordingsBaseJson,
+            wordingsBaseNormalized,
             "key.given",
             stepTitle[0],
             undefined
         );
         const { step: when, autocompletionSuggestions: whenAutocompletionSuggestions } = computeStepDefinition(
-            wordingsBaseJson,
+            wordingsBaseNormalized,
             "key.when",
             stepTitle[1],
             undefined
         );
         const { step: then, autocompletionSuggestions: thenAutocompletionSuggestions } = computeStepDefinition(
-            wordingsBaseJson,
+            wordingsBaseNormalized,
             "key.then",
             stepTitle[2],
             undefined
@@ -131,23 +123,21 @@ export function runGenerateDoc(destDir: string) {
         rows.push(...given, ...when, ...then);
         autocompletionSuggestions.push(...givenAutocompletionSuggestions, ...whenAutocompletionSuggestions, ...thenAutocompletionSuggestions);
         rows.push("## Par rôle");
-        const dataOrigin: string = wordingEnrichedNormalized;
-        let dataUpdated: string = dataOrigin;
         // console.debug("roles", wordingsEnrichedJson.role)
-        const definedRoles = getDefinedRoles(lang);
+        const definedRoles = dictionary.getDefinedRoles();
         definedRoles.forEach((role) => {
             rows.push(`### ${role.id}`);
             // console.debug("dataUpdated", dataUpdated)
-            dataUpdated = dataOrigin
-                .replaceAll("$roleName", role.name)
-                .replaceAll("$roleId", role.id)
-                .replaceAll("$definiteArticle", role.getDefiniteArticle())
-                .replaceAll("$indefiniteArticle", role.getIndefiniteArticle())
-                .replaceAll("$namedAdjective", role.namedAdjective())
-                .replaceAll("$ofDefiniteArticle", role.getOfDefiniteArticle());
-            const wordingsEnrichedJson = JSON.parse(dataUpdated);
+            wordingEnrichedNormalized.forEach(sentence => {
+                sentence.wording = sentence.wording.replaceAll("$roleName", role.name)
+                                                    .replaceAll("$roleId", role.id)
+                                                    .replaceAll("$definiteArticle", role.getDefiniteArticle())
+                                                    .replaceAll("$indefiniteArticle", role.getIndefiniteArticle())
+                                                    .replaceAll("$namedAdjective", role.namedAdjective())
+                                                    .replaceAll("$ofDefiniteArticle", role.getOfDefiniteArticle());
+            });
             const { step: enrichedGiven, autocompletionSuggestions: enrichedGivenAutocompletionSuggestions } = computeStepDefinition(
-                wordingsEnrichedJson.enriched,
+                wordingEnrichedNormalized,
                 "key.given",
                 undefined,
                 "####",
@@ -158,7 +148,7 @@ export function runGenerateDoc(destDir: string) {
                 autocompletionSuggestions.push(...enrichedGivenAutocompletionSuggestions);
             }
             const { step: enrichedWhen, autocompletionSuggestions: enrichedWhenAutocompletionSuggestions } = computeStepDefinition(
-                wordingsEnrichedJson.enriched,
+                wordingEnrichedNormalized,
                 "key.when",
                 undefined,
                 "####",
@@ -169,7 +159,7 @@ export function runGenerateDoc(destDir: string) {
                 autocompletionSuggestions.push(...enrichedWhenAutocompletionSuggestions);
             }
             const { step: enrichedThen, autocompletionSuggestions: enrichedThenAutocompletionSuggestions } = computeStepDefinition(
-                wordingsEnrichedJson.enriched,
+                wordingEnrichedNormalized,
                 "key.then",
                 undefined,
                 "####",
@@ -266,16 +256,25 @@ export function runGenerateDoc(destDir: string) {
         );
     }
 
-    function normalizedMdxData(data) {
-        return data.replaceAll("{string}", "\\\\{string\\\\}")
-         .replaceAll("{}", "\\\\{\\\\}")
-         .replaceAll("{int}", "\\\\{int\\\\}")
-         .replaceAll("{key}", "\\\\{key\\\\}")
-         .replaceAll("{reverseTab}", "\\\\{reverseTab\\\\}")
-         .replaceAll("{tab}", "\\\\{tab\\\\}")
-         .replaceAll("{down}", "\\\\{down\\\\}")
-         .replaceAll("{right}", "\\\\{right\\\\}")
-         .replaceAll("{left}", "\\\\{left\\\\}")
-         .replaceAll("{up}", "\\\\{up\\\\}");
+    function normalizedForMdx(data: BaseSentence[]) {
+        data.forEach(sentence => {
+            sentence.wording = normalizeFieldForMdx(sentence.wording);
+            sentence.description =  normalizeFieldForMdx(sentence.description);
+        });
+        return data;
+    }
+
+    function normalizeFieldForMdx(field: string) {
+        return field
+            .replaceAll("{string}", "\\{string\\}")
+            .replaceAll("{}", "\\{\\}")
+            .replaceAll("{int}", "\\{int\\}")
+            .replaceAll("{key}", "\\{key\\}")
+            .replaceAll("{reverseTab}", "\\{reverseTab\\}")
+            .replaceAll("{tab}", "\\{tab\\}")
+            .replaceAll("{down}", "\\{down\\}")
+            .replaceAll("{right}", "\\{right\\}")
+            .replaceAll("{left}", "\\{left\\}")
+            .replaceAll("{up}", "\\{up\\}");
     }
 }

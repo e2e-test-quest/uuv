@@ -26,14 +26,6 @@ export type BaseSentence = {
     wording: string;
 }
 
-export type EnrichedSentenceWrapper = {
-    enriched: Array<EnrichedSentence>;
-}
-
-export type EnrichedSentenceRole = {
-    id: string;
-    name: string;
-}
 export type EnrichedSentence = {
     key: string;
     wording: string;

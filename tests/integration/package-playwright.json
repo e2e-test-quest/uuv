@@ -11,7 +11,10 @@
   "license": "ISC",
   "overrides": {
     "@uuv/playwright": {
-      "@uuv/a11y": "to-replace"
+      "@uuv/a11y": "to-replace-a11y"
+    },
+    "@uuv/commons": {
+      "@uuv/dictionary": "to-replace-dictionary"
     }
   }
 }

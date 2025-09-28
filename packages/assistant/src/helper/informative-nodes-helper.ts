@@ -70,7 +70,8 @@ export class InformativeNodesHelper {
      * @param {HTMLElement} element - L'élément de départ
      * @returns {HTMLElement|null} - L'élément parent pertinent ou null si non trouvé
      */
-    findRelevantAccessibilityParent(element): HTMLElement | null {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    findRelevantAccessibilityParent(element: any): HTMLElement | null {
         if (!element || !(element instanceof HTMLElement)) {
             return null;
         }
@@ -78,25 +79,25 @@ export class InformativeNodesHelper {
         // Éléments considérés comme pertinents pour l'accessibilité (par ordre de priorité)
         const relevantElements = [
             // Éléments sectionnels et structurels
-            'section', 'article', 'aside', 'nav', 'main', 'header', 'footer',
+            "section", "article", "aside", "nav", "main", "header", "footer",
             // Éléments de contenu
-            'p', 'div', 'span',
+            "p", "div", "span",
             // Éléments de liste
-            'ul', 'ol', 'li', 'dl', 'dt', 'dd',
+            "ul", "ol", "li", "dl", "dt", "dd",
             // Éléments de formulaire
-            'form', 'fieldset', 'legend',
+            "form", "fieldset", "legend",
             // Éléments de tableau
-            'table', 'thead', 'tbody', 'tfoot', 'tr', 'td', 'th',
+            "table", "thead", "tbody", "tfoot", "tr", "td", "th",
             // Autres éléments structurels
-            'blockquote', 'figure', 'figcaption', 'details', 'summary'
+            "blockquote", "figure", "figcaption", "details", "summary"
         ];
 
         // Éléments avec des rôles ARIA pertinents
         const relevantAriaRoles = [
-            'banner', 'navigation', 'main', 'complementary', 'contentinfo',
-            'region', 'article', 'section', 'group', 'list', 'listitem',
-            'table', 'row', 'cell', 'columnheader', 'rowheader',
-            'form', 'search', 'dialog', 'alertdialog', 'alert'
+            "banner", "navigation", "main", "complementary", "contentinfo",
+            "region", "article", "section", "group", "list", "listitem",
+            "table", "row", "cell", "columnheader", "rowheader",
+            "form", "search", "dialog", "alertdialog", "alert"
         ];
 
         let currentElement = element.parentElement;
@@ -105,7 +106,7 @@ export class InformativeNodesHelper {
 
         while (currentElement) {
             const tagName = currentElement.tagName.toLowerCase();
-            const role = currentElement.getAttribute('role');
+            const role = currentElement.getAttribute("role");
 
             // Vérifier si l'élément a un rôle ARIA pertinent
             if (role && relevantAriaRoles.includes(role)) {
@@ -124,9 +125,9 @@ export class InformativeNodesHelper {
             }
 
             // Vérifier les attributs d'accessibilité importants
-            if (currentElement.hasAttribute('aria-label') ||
-                currentElement.hasAttribute('aria-labelledby') ||
-                currentElement.hasAttribute('aria-describedby')) {
+            if (currentElement.hasAttribute("aria-label") ||
+                currentElement.hasAttribute("aria-labelledby") ||
+                currentElement.hasAttribute("aria-describedby")) {
 
                 // Donner une priorité plus élevée aux éléments avec des labels d'accessibilité
                 const accessibilityPriority = bestPriority - 0.5;
@@ -137,8 +138,8 @@ export class InformativeNodesHelper {
             }
 
             // Arrêter la recherche si on trouve un élément très pertinent
-            if (['section', 'article', 'main', 'nav', 'form'].includes(tagName) ||
-                (role && ['main', 'navigation', 'banner', 'contentinfo'].includes(role))) {
+            if (["section", "article", "main", "nav", "form"].includes(tagName) ||
+                (role && ["main", "navigation", "banner", "contentinfo"].includes(role))) {
                 break;
             }
 

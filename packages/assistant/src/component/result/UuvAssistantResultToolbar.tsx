@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Flex, Tooltip } from "antd";
 import { CopyOutlined } from "@ant-design/icons";
-import {CssHelper} from "../../helper/css-helper";
+import { CssHelper } from "../../helper/css-helper";
 import aiIcon from "../../assets/ai.json";
 import chatbotAiIcon from "../../assets/chatbot-ai.json";
 

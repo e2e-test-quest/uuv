@@ -37,7 +37,7 @@ export class KeyboardNavigationTranslator extends Translator {
         const response = this.initResponse();
         const computedKey = "key.then.element.withSelectorFocused";
         const sentence = this.computeSentenceFromKeyAndSelector(computedKey, Translator.getSelector(htmlElem));
-        const nextFocusedElementSentence = this.jsonBase.find((el: BaseSentence) => el.key === "key.when.keyboard.nextElement");
+        const nextFocusedElementSentence = this.dictionary.getBaseSentences().find((el: BaseSentence) => el.key === "key.when.keyboard.nextElement");
         response.sentences = [
             stepCase + nextFocusedElementSentence?.wording,
             StepCaseEnum.AND + sentence

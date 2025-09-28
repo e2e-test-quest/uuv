@@ -34,6 +34,8 @@ jobs:
             packages/assistant/node_modules
             packages/docs/node_modules
             packages/a11y/node_modules
+            packages/dictionary/node_modules
+            packages/mcp-server/node_modules
             packages/runner-commons/node_modules
             packages/runner-cypress/node_modules
             packages/runner-playwright/node_modules
@@ -62,6 +64,8 @@ jobs:
           name: build-artifacts
           include-hidden-files: true
           path: |
+            packages/mcp-server/dist
+            packages/dictionary/dist
             packages/runner-commons/dist
             packages/runner-cypress/dist
             packages/runner-cypress/src/cucumber/step_definitions/cypress/generated
@@ -97,6 +101,8 @@ jobs:
             packages/assistant/node_modules
             packages/docs/node_modules
             packages/a11y/node_modules
+            packages/dictionary/node_modules
+            packages/mcp-server/node_modules
             packages/runner-commons/node_modules
             packages/runner-cypress/node_modules
             packages/runner-playwright/node_modules
@@ -133,6 +139,8 @@ jobs:
             packages/assistant/node_modules
             packages/docs/node_modules
             packages/a11y/node_modules
+            packages/dictionary/node_modules
+            packages/mcp-server/node_modules
             packages/runner-commons/node_modules
             packages/runner-cypress/node_modules
             packages/runner-playwright/node_modules
@@ -159,6 +167,8 @@ jobs:
             packages/assistant/node_modules
             packages/docs/node_modules
             packages/a11y/node_modules
+            packages/dictionary/node_modules
+            packages/mcp-server/node_modules
             packages/runner-commons/node_modules
             packages/runner-cypress/node_modules
             packages/runner-playwright/node_modules
@@ -314,6 +324,8 @@ jobs:
             packages/assistant/node_modules
             packages/docs/node_modules
             packages/a11y/node_modules
+            packages/dictionary/node_modules
+            packages/mcp-server/node_modules
             packages/runner-commons/node_modules
             packages/runner-cypress/node_modules
             packages/runner-playwright/node_modules
@@ -331,7 +343,7 @@ jobs:
             ${{env.NODE_VERSION}}
       - run: npm ci
       - name: Package runner-cypress
-        run: mkdir -p ./dist/packages && npx nx package a11y && npx nx package runner-commons && npx nx package runner-cypress
+        run: mkdir -p ./dist/packages && npx nx package a11y && npx nx package dictionary && npx nx package runner-commons && npx nx package runner-cypress
       - name: Running cypress integration tests
         env:
           UUV_BASE_URL: ${{env.UUV_BASE_URL}}
@@ -367,6 +379,8 @@ jobs:
             packages/assistant/node_modules
             packages/docs/node_modules
             packages/a11y/node_modules
+            packages/dictionary/node_modules
+            packages/mcp-server/node_modules
             packages/runner-commons/node_modules
             packages/runner-cypress/node_modules
             packages/runner-playwright/node_modules
@@ -384,7 +398,7 @@ jobs:
             ${{env.NODE_VERSION}}
       - run: npm ci
       - name: Package runner-playwright
-        run: mkdir -p ./dist/packages && npx nx package a11y && npx nx package runner-commons && npx nx package runner-playwright
+        run: mkdir -p ./dist/packages && npx nx package a11y && npx nx package dictionary && npx nx package runner-commons && npx nx package runner-playwright
       - name: Running playwright integration tests
         env:
           UUV_BASE_URL: ${{env.UUV_BASE_URL}}
@@ -420,6 +434,8 @@ jobs:
             packages/assistant/node_modules
             packages/docs/node_modules
             packages/a11y/node_modules
+            packages/dictionary/node_modules
+            packages/mcp-server/node_modules
             packages/runner-commons/node_modules
             packages/runner-cypress/node_modules
             packages/runner-playwright/node_modules
@@ -437,7 +453,7 @@ jobs:
             ${{env.NODE_VERSION}}
       - run: npm ci
       - name: Package runner-playwright
-        run: mkdir -p ./dist/packages && npx nx package a11y && npx nx package runner-commons && npx nx package runner-playwright
+        run: mkdir -p ./dist/packages && npx nx package a11y && npx nx package dictionary && npx nx package runner-commons && npx nx package runner-playwright
       - name: Running playwright integration tests with yarn
         env:
           UUV_BASE_URL: ${{env.UUV_BASE_URL}}
@@ -559,6 +575,8 @@ jobs:
             packages/assistant/node_modules
             packages/docs/node_modules
             packages/a11y/node_modules
+            packages/dictionary/node_modules
+            packages/mcp-server/node_modules
             packages/runner-commons/node_modules
             packages/runner-cypress/node_modules
             packages/runner-playwright/node_modules

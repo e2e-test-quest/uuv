@@ -12,8 +12,7 @@
  */
 
 import { Translator } from "./abstract-translator";
-import { BaseSentence, EnrichedSentence, EnrichedSentenceRole, StepCaseEnum, TranslateSentences } from "./model";
-import { EN_ROLES } from "@uuv/runner-commons/wording/web/en";
+import { BaseSentence, EnrichedSentence, StepCaseEnum, TranslateSentences } from "./model";
 
 const stepCase = StepCaseEnum.WHEN;
 
@@ -58,48 +57,36 @@ export class TypeTranslator extends Translator {
     }
 
     override computeSentenceFromKeyRoleNameAndContent(computedKey: string, accessibleRole: string, accessibleName: string, content: string) {
-        return this.jsonEnriched.enriched
+        return this.dictionary.getRoleBasedSentencesTemplate()
             .filter((value: EnrichedSentence) => value.key === computedKey)
-            .map((enriched: EnrichedSentence) => {
-                const sentenceAvailable = enriched.wording;
-                const role = EN_ROLES.filter((role: EnrichedSentenceRole) => role.id === accessibleRole)[0];
-                return sentenceAvailable
-                    .replaceAll("(n)", "")
-                    .replaceAll("$roleName", role?.name ?? accessibleRole)
-                    .replaceAll("$definiteArticle", role?.getDefiniteArticle())
-                    .replaceAll("$indefiniteArticle", role?.getIndefiniteArticle())
-                    .replaceAll("$namedAdjective", role?.namedAdjective())
-                    .replaceAll("$ofDefiniteArticle", role?.getOfDefiniteArticle())
-                    .replace("{string}", `"${content}"`)
-                    .replace("{string}", `"${accessibleName}"`);
+            .map(sentence => {
+                return this.dictionary.computeSentence({
+                    sentence,
+                    accessibleRole,
+                    parameters: [ content, accessibleName ]
+                });
             })[0];
     }
     private buildSentencesWithRoleAndName(accessibleRole: string, accessibleName: string) {
-        const role = EN_ROLES.find(role => role.shouldGenerateTypeSentence && role.id === accessibleRole);
-        if (role) {
-            const sentenceKey = accessibleRole === "textbox" ? "key.when.type" : "key.when.enter";
-            const wording = this.buildWording(sentenceKey, accessibleRole, accessibleName, role);
-            return [stepCase + wording];
-        }
-        return [];
+        const sentenceKey = accessibleRole === "textbox" ? "key.when.type" : "key.when.enter";
+        const wording = this.buildWording(sentenceKey, accessibleRole, accessibleName);
+        return [stepCase + wording];
     }
 
     /* eslint-disable  @typescript-eslint/no-explicit-any */
-    private buildWording(computedKey: string, accessibleRole: string, accessibleName: string, role: any) {
-        const clickSentence = [
-            ...this.jsonEnriched.enriched,
-            ...this.jsonBase
+    private buildWording(computedKey: string, accessibleRole: string, accessibleName: string) {
+        const typeSentence = [
+            ...this.dictionary.getRoleBasedSentencesTemplate(),
+            ...this.dictionary.getBaseSentences()
         ].find(
             (el) => (el.key === computedKey)
         );
-        return clickSentence?.wording
-            .replace("{string}", this.getMockedDataForAccessibleRole(accessibleRole))
-            .replaceAll("$roleName", role?.name ?? accessibleRole)
-            .replaceAll("$definiteArticle", role?.getDefiniteArticle())
-            .replaceAll("$indefiniteArticle", role?.getIndefiniteArticle())
-            .replaceAll("$namedAdjective", role?.namedAdjective())
-            .replaceAll("$ofDefiniteArticle", role?.getOfDefiniteArticle())
-            .replace("{string}", `"${accessibleName}"`);
+        return this.dictionary.computeSentence({
+            mock: this.getMockedDataForAccessibleRole(accessibleRole),
+            sentence: typeSentence!,
+            accessibleRole,
+            parameters: [ accessibleName ]
+        });
     }
 
     private getMockedDataForAccessibleRole(accessibleRole: string): string {
@@ -108,18 +95,16 @@ export class TypeTranslator extends Translator {
             /* eslint-disable  @typescript-eslint/no-explicit-any */
             (this.selectedHtmlElem as any).value :
             this.selectedHtmlElem.getAttribute("value") ?? this.selectedHtmlElem.firstChild?.textContent?.trim();
-        if (content) {
-            content = "\"" + content + "\"";
-        } else {
+        if (!content) {
             content = undefined;
         }
         if (accessibleRole === "spinbutton") {
-            return content ?? "\"123\"";
+            return content ?? "123";
         }
         if (accessibleRole === "slider") {
-            return content ?? "\"3\"";
+            return content ?? "3";
         }
-        return content ?? "\"Lorem ipsum\"";
+        return content ?? "Lorem ipsum";
     }
 
     private getMockedDataForHtmlElement(htmlElem: HTMLElement | SVGElement, content?: string): string {

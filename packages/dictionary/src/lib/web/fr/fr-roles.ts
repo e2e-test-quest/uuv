@@ -1,4 +1,4 @@
-import { AccessibleRole } from "../../../../step-definition-generator/accessible-role";
+import { AccessibleRole } from "../../accessible-role";
 
 enum FR_DEFINITE_ARTICLE {
     L = "l'",

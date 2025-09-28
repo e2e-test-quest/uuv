@@ -11,6 +11,7 @@ var defaultProps = {
 };
 
 var Inspector = (props = {}) => {
+  // @ts-ignore
   const { root, excluded, outlineStyle } = {
     ...defaultProps,
     ...props,
@@ -65,6 +66,7 @@ var Inspector = (props = {}) => {
     removeTooltip();
   };
 
+  // @ts-ignore
   const shouldBeExcluded = (ev) => {
     if (
       excludedElements &&
@@ -107,6 +109,7 @@ var Inspector = (props = {}) => {
       return [];
     }
 
+    // @ts-ignore
     const excludedNested = excluded.flatMap((element) => {
       if (typeof element === "string" || element instanceof String) {
         return Array.from(rootEl.querySelectorAll(element));

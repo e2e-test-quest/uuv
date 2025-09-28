@@ -1,24 +1,9 @@
 {
+  "extends": "./tsconfig.json",
   "compilerOptions": {
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "allowJs": true,
+    "outDir": "../../dist/out-tsc",
     "module": "commonjs",
-    "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "strict": true,
-    "noImplicitOverride": true,
-    "noPropertyAccessFromIndexSignature": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "jsx": "react-jsx",
-    "paths": {
-      "@uuv/runner-commons/wording/web/*": ["../runner-commons/src/assets/i18n/web/*"]
-    }
+    "types": ["jest", "node"]
   },
   "include": [
     "tests"

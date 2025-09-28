@@ -11,7 +11,7 @@
  * understanding English or French.
  */
 
-import { key } from "@uuv/runner-commons/wording/web";
+import { key } from "@uuv/dictionary";
 import {
     click,
     COOKIE_NAME,

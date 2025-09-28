@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import {Button, Descriptions, Flex, Radio, RadioChangeEvent, Skeleton} from "antd";
-import { AIAnalysisModeEnum, PENDING_VALUE, UuvAssistantResultAIAnalysisType} from "../../Commons";
+import { Button, Descriptions, Flex, Radio, RadioChangeEvent, Skeleton } from "antd";
+import { AIAnalysisModeEnum, PENDING_VALUE, UuvAssistantResultAIAnalysisType } from "../../Commons";
 
 interface UuvAssistantResultAIAnalysisProps {
   aiResult: UuvAssistantResultAIAnalysisType;
@@ -17,17 +17,20 @@ export const UuvAssistantResultAIAnalysis: React.FC<UuvAssistantResultAIAnalysis
 }) => {
 
     const formatConfidence = (confidence?: number | typeof PENDING_VALUE) => {
-        if(!confidence || typeof confidence !== 'number') {
-            return 'N/A';
+        if (!confidence || typeof confidence !== "number") {
+            return "N/A";
         }
         return `${(confidence * 100).toFixed(2)}%`;
     };
 
+    // eslint-disable-next-line camelcase
     const formatClassification = (is_decorative?: boolean | typeof PENDING_VALUE) => {
-        if(is_decorative === undefined || is_decorative === null) {
-            return 'N/A';
+        // eslint-disable-next-line camelcase
+        if (is_decorative === undefined || is_decorative === null) {
+            return "N/A";
         }
-        return is_decorative ? 'Decorative' : 'Informative';
+        // eslint-disable-next-line camelcase
+        return is_decorative ? "Decorative" : "Informative";
     };
 
     return (
@@ -51,7 +54,7 @@ export const UuvAssistantResultAIAnalysis: React.FC<UuvAssistantResultAIAnalysis
                     <Descriptions.Item label="Duration">{
                         renderLoadingField(
                             aiResult?.duration,
-                            aiResult?.duration + 's',
+                            aiResult?.duration + "s",
                             1
                         )
                     }</Descriptions.Item>
@@ -101,15 +104,15 @@ export const UuvAssistantResultAIImageDescriptionSelector: React.FC<UuvAssistant
     };
 
     return (
-        <div id={'aiResultImageDescription'} >
+        <div id={"aiResultImageDescription"} >
             <span>Please, select the most relevant description :</span>
             <Radio.Group
                 value={selectedDescription}
                 onChange={onSelectedImageDescriptionChange}
                 options={[
                     {
-                        value: descriptions[0] ?? 'desc-0',
-                        className: descriptions[0] ?? 'desc-0',
+                        value: descriptions[0] ?? "desc-0",
+                        className: descriptions[0] ?? "desc-0",
                         label: renderLoadingField(
                             descriptions,
                             descriptions[0],
@@ -117,7 +120,7 @@ export const UuvAssistantResultAIImageDescriptionSelector: React.FC<UuvAssistant
                         )
                     },
                     {
-                        value: descriptions[1] ?? 'desc-1',
+                        value: descriptions[1] ?? "desc-1",
                         label: renderLoadingField(
                             descriptions,
                             descriptions[1],
@@ -125,7 +128,7 @@ export const UuvAssistantResultAIImageDescriptionSelector: React.FC<UuvAssistant
                         )
                     },
                     {
-                        value: descriptions[2] ?? 'desc-2',
+                        value: descriptions[2] ?? "desc-2",
                         label: renderLoadingField(
                             descriptions,
                             descriptions[2],

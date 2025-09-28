@@ -5,23 +5,28 @@
   "root": "packages/assistant",
   "projectType": "library",
   "targets": {
-    "build-tsc": {
+    "build-lib": {
       "executor": "@nx/js:tsc",
       "inputs": [
-        "{projectRoot}/launcher/*"
+        "{projectRoot}/launcher/*",
+        "{projectRoot}/src/*"
       ],
       "outputs": [
-        "{projectRoot}/dist"
+        "{options.outputPath}"
       ],
       "options": {
         "rootDir": "packages/assistant",
-        "outputPath": "packages/assistant/dist/",
-        "main": "packages/assistant/launcher/index.ts",
-        "tsConfig": "packages/assistant/tsconfig.launcher.json",
+        "outputPath": "packages/assistant/dist",
+        "main": "packages/assistant/src/index.ts",
+        "tsConfig": "packages/assistant/tsconfig.lib.json",
         "assets": [
           "packages/assistant/*.md"
         ]
-      }
+      },
+      "dependsOn": [
+        "^build",
+        "build-react"
+      ]
     },
     "build": {
       "executor": "nx:run-script",
@@ -36,7 +41,6 @@
         "script": "build-bundle"
       },
       "dependsOn": [
-        "^build",
         "build-conf"
       ]
     },
@@ -55,7 +59,7 @@
       },
       "dependsOn": [
         "build-react",
-        "build-tsc"
+        "build-lib"
       ]
     },
     "build-react": {
@@ -105,6 +109,29 @@
                 {
                   "path": "dist/packages/uuv-assistant-*.tgz",
                   "label": "Npm Package"
+                }
+              ]
+            }
+          ],
+          [
+            "@google/semantic-release-replace-plugin",
+            {
+              "replacements": [
+                {
+                  "files": [
+                    "packages/mcp-server/package.json"
+                  ],
+                  "from": "\"@uuv/assistant\": \".*\"",
+                  "to": "\"@uuv/assistant\": \"${nextRelease.version}\"",
+                  "results": [
+                    {
+                      "file": "packages/mcp-server/package.json",
+                      "hasChanged": true,
+                      "numMatches": 1,
+                      "numReplacements": 1
+                    }
+                  ],
+                  "countMatches": true
                 }
               ]
             }

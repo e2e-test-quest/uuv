@@ -25,13 +25,13 @@ function generateStepDefinitionForRunner(baseDir: string, runner: TEST_RUNNER_EN
  );
  runnerBaseStepDefinition.runGenerate();
 
- const cypressBasedRoleStepDefinition: BasedRoleStepDefinition = new BasedRoleStepDefinition(
+ const runnerBasedRoleStepDefinition: BasedRoleStepDefinition = new BasedRoleStepDefinition(
      baseDir,
      runner,
      STEP_DEFINITION_FILE_NAME.BY_ROLE,
      wordingFileRelativePath
  );
- cypressBasedRoleStepDefinition.runGenerate();
+ runnerBasedRoleStepDefinition.runGenerate();
 }
 
 

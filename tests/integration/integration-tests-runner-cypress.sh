@@ -10,6 +10,7 @@ RUNNER_DIR="../../../packages/runner-${RUNNER_NAME}"
 NPM_PACKAGE_COMMONS=$(ls ../../dist/packages/uuv-runner-commons-*)
 NPM_PACKAGE_A11Y=$(ls ../../dist/packages/uuv-a11y-*)
 NPM_PACKAGE_CYPRESS=$(ls ../../dist/packages/uuv-cypress-*)
+NPM_PACKAGE_DICTIONARY=$(ls ../../dist/packages/uuv-dictionary-*)
 
 log "I" "Cleaning existing directory"
 if [ -d "$WORKING_DIR" ]; then rm -Rf $WORKING_DIR; fi
@@ -29,7 +30,7 @@ A11Y_VERSION="../$NPM_PACKAGE_A11Y"
 sed -i "s|to-replace|${A11Y_VERSION}|" package.json
 
 log "I" "Installing npm dependencies"
-npm install -D "../$NPM_PACKAGE_COMMONS" "../$NPM_PACKAGE_CYPRESS" ts-loader
+npm install -D "../$NPM_PACKAGE_DICTIONARY" "../$NPM_PACKAGE_COMMONS" "../$NPM_PACKAGE_CYPRESS" ts-loader
 
 log "I" "Copying test files and dependencies"
 cp -R "${RUNNER_DIR}/e2e/" ./uuv
