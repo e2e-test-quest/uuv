@@ -1,3 +1,17 @@
+# [2.63.0](https://github.com/e2e-test-quest/uuv/compare/runner-commons-v2.62.0...runner-commons-v2.63.0) (2025-09-28)
+
+
+### Bug Fixes
+
+* **runner-playwright:** update dependency multiple-cucumber-html-reporter to v3.9.3 ([d84d345](https://github.com/e2e-test-quest/uuv/commit/d84d3457f5a98a9f7cb47edda56df63c85da5a4b))
+* **runner-playwright:** update dependency playwright-bdd to v8.4.1 ([66d6d6a](https://github.com/e2e-test-quest/uuv/commit/66d6d6ad1717872a6ca8ac017a7792a6f05eb012))
+
+
+### Features
+
+* **runner-cypress:** update dependency cypress to v14.5.4 ([ae2c1f1](https://github.com/e2e-test-quest/uuv/commit/ae2c1f197e622477041960831e31eeb6ca7405cc))
+* **runner-cypress:** update dependency cypress-axe to v1.7.0 ([7f4f028](https://github.com/e2e-test-quest/uuv/commit/7f4f02822c5c20fc9435022963c1fa563b9d83c4))
+
 # [2.62.0](https://github.com/e2e-test-quest/uuv/compare/runner-commons-v2.61.0...runner-commons-v2.62.0) (2025-09-21)
 
 
