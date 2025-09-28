@@ -1,0 +1,17 @@
+{
+    "name": "@uuv/mcp-server",
+    "version": "0.0.1",
+    "private": true,
+    "type": "commonjs",
+    "main": "./src/index.js",
+    "types": "./src/index.d.ts",
+    "scripts": {
+        "start": "ts-node -r tsconfig-paths/register src/lib/mcp-server.ts"
+    },
+    "dependencies": {
+        "@modelcontextprotocol/sdk": "^1.17.4",
+        "jsdom": "^26.1.0",
+        "tsconfig-paths": "^4.2.0",
+        "tslib": "^2.3.0"
+    }
+}

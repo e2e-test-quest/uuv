@@ -1,0 +1,9 @@
+Use the Playwright and UUV MCP tools:
+    1. Open a browser, then navigate to {{baseUrl}}
+    2. Evaluate exactly, ensuring that the extracted HTML is not truncated: document.querySelector('table').outerHTML
+    3. Write resulting HTML of the previous step into a file named extraction.html in the current project directory
+    4. With uuv_generate_Table, Generate UUV tests into ./uuv/e2e to verify the html table with absolute path /workspaces/opensource/weather-app/extraction.html
+    5. Write generated uuv test into a .feature file in local folder ./uuv/e2e (must use actual line breaks, not literal "\n" characters)
+
+IMPORTANT:
+    - When Playwright returns the result, ignore any console logs or debug lines.
