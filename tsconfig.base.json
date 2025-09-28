@@ -35,8 +35,12 @@
       "@uuv/runner-commons/wording/web": [
         "packages/runner-commons/src/assets/i18n/web/index.ts"
       ],
+      "@uuv/runner-commons/wording/web/en": [
+        "packages/runner-commons/src/assets/i18n/web/en/index.ts"
+      ],
       "@uuv/runner-cypress": ["packages/runner-cypress/src/index.ts"],
-      "@uuv/runner-playwright": ["packages/runner-playwright/src/index.ts"]
+      "@uuv/runner-playwright": ["packages/runner-playwright/src/index.ts"],
+      "@uuv/assistant": ["packages/assistant/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "**/dist/**.*"]

@@ -123,9 +123,10 @@ export class ExpectTranslator extends Translator {
 
         [header, ...rows].forEach(r => r.forEach((cell, i) => (colWidths[i] = Math.max(colWidths[i], cell.length))));
 
-        const formatRow = (row: string[]) => "| " + row.map((cell, i) => cell.padEnd(colWidths[i])).join(" | ") + " |";
+        const FORMAT_PREFFIX = "      ";
+        const formatRow = (row: string[]) => FORMAT_PREFFIX + "| " + row.map((cell, i) => cell.padEnd(colWidths[i])).join(" | ") + " |";
 
-        const separator = "| " + colWidths.map(w => "-".repeat(w)).join(" | ") + " |";
+        const separator = FORMAT_PREFFIX + "| " + colWidths.map(w => "-".repeat(w)).join(" | ") + " |";
         return [formatRow(header), separator, ...rows.map(formatRow)];
     }
 }
