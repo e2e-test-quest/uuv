@@ -40,7 +40,7 @@
     "@commitlint/config-nx-scopes": "^19.0.0",
     "@google/semantic-release-replace-plugin": "1.2.0",
     "@jnxplus/nx-gradle": "1.17.0",
-    "@nx-tools/nx-container": "6.1.0",
+    "@nx-tools/nx-container": "6.8.2",
     "@nx/eslint": "21.1.2",
     "@nx/eslint-plugin": "21.1.2",
     "@nx/jest": "21.1.2",
