@@ -3,6 +3,12 @@ const path = require("path");
 module.exports = {
     entry: "./packages/a11y/src/index.ts",
     devtool: "inline-source-map",
+    resolveLoader: {
+        modules: [
+            path.resolve(__dirname, 'node_modules'),
+            'node_modules',
+        ],
+    },
     module: {
         rules: [{
             loader: "babel-loader",
