@@ -102,7 +102,7 @@
   },
   "devDependencies": {
     "@types/minimist": "1.2.5",
-    "@types/node": "22.18.0",
+    "@types/node": "22.18.10",
     "chalk": "^4.1.2",
     "cross-env": "7.0.3",
     "eslint-plugin-cypress": "4.3.0",
