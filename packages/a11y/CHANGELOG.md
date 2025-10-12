@@ -1,3 +1,12 @@
+# [1.0.0-beta.82](https://github.com/e2e-test-quest/uuv/compare/a11y-v1.0.0-beta.81...a11y-v1.0.0-beta.82) (2025-10-12)
+
+
+### Features
+
+* **assistant:** update dependency playwright-chromium to v1.56.0 ([166e1b2](https://github.com/e2e-test-quest/uuv/commit/166e1b292c85858153ec5cb01c4120b1296c8269))
+* **runner-playwright:** update dependency @cucumber/cucumber to v11.3.0 ([b901557](https://github.com/e2e-test-quest/uuv/commit/b901557d9ef383200cb457aeaf6c80de17f4259f))
+* **runner-playwright:** update dependency axe-core to v4.11.0 ([4cc334d](https://github.com/e2e-test-quest/uuv/commit/4cc334dfcbe0a997970b972a923bf07241f70d01))
+
 # [1.0.0-beta.81](https://github.com/e2e-test-quest/uuv/compare/a11y-v1.0.0-beta.80...a11y-v1.0.0-beta.81) (2025-09-28)
 
 
