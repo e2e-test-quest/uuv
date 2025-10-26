@@ -104,7 +104,7 @@
     "ts-jest": "29.4.4",
     "ts-loader": "^9.4.2",
     "ts-node": "10.9.2",
-    "typescript": "5.8.3",
+    "typescript": "5.9.3",
     "vite": "6.3.6"
   },
   "files": [
