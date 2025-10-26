@@ -62,7 +62,7 @@
     "@uuv/runner-commons": "2.65.0",
     "antd": "5.27.4",
     "eslint-config-react-app": "7.0.1",
-    "figlet": "1.8.1",
+    "figlet": "1.9.3",
     "playwright-chromium": "1.56.1",
     "tabbable": "6.2.0"
   },
