@@ -51,7 +51,7 @@
     "axe-core": "4.11.0",
     "axe-playwright": "2.2.2",
     "chalk-table": "1.0.2",
-    "chokidar": "4.0.1",
+    "chokidar": "4.0.3",
     "cucumber-json-report-formatter": "0.1.4",
     "lodash": "^4.17.21",
     "multiple-cucumber-html-reporter": "3.9.3",
