@@ -45,7 +45,7 @@
   },
   "dependencies": {
     "@badeball/cypress-cucumber-preprocessor": "22.2.0",
-    "@cypress/webpack-preprocessor": "6.0.4",
+    "@cypress/webpack-preprocessor": "7.0.1",
     "@testing-library/cypress": "10.1.0",
     "@uuv/a11y": "1.0.0-beta.82",
     "@uuv/runner-commons": "2.64.0",
