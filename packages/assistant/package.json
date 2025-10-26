@@ -63,7 +63,7 @@
     "antd": "5.27.4",
     "eslint-config-react-app": "7.0.1",
     "figlet": "1.8.1",
-    "playwright-chromium": "1.56.0",
+    "playwright-chromium": "1.56.1",
     "tabbable": "6.2.0"
   },
   "browserslist": {
