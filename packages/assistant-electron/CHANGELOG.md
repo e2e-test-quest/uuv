@@ -1,3 +1,17 @@
+# [1.87.0](https://github.com/e2e-test-quest/uuv/compare/assistant-electron-v1.86.0...assistant-electron-v1.87.0) (2025-10-26)
+
+
+### Bug Fixes
+
+* **assistant:** update dependency playwright-chromium to v1.56.1 ([b3b9e81](https://github.com/e2e-test-quest/uuv/commit/b3b9e81abacd0650c05079b5f3b61ced2660aae9))
+
+
+### Features
+
+* **runner-cypress:** update dependency @cypress/webpack-preprocessor to v7 ([dfd0b8f](https://github.com/e2e-test-quest/uuv/commit/dfd0b8f204115ec0ce98b0741fb0de86bca8940d))
+* **runner-cypress:** update dependency cypress to v15 ([551e899](https://github.com/e2e-test-quest/uuv/commit/551e89971dd46896dcfbae329d460ec1497cf31b))
+* **runner-cypress:** update dependency junit-report-merger to v8 ([68e1b5d](https://github.com/e2e-test-quest/uuv/commit/68e1b5d733eb8505b520dab4faafa404dca2b194))
+
 # [1.86.0](https://github.com/e2e-test-quest/uuv/compare/assistant-electron-v1.85.0...assistant-electron-v1.86.0) (2025-10-12)
 
 
