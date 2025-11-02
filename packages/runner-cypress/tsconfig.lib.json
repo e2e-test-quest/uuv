@@ -3,7 +3,7 @@
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
     "declaration": true,
-    "types": ["node", "cypress", "cypress-real-events"]
+    "types": ["node", "cypress-real-events"]
   },
   "include": ["src/**/*.ts"],
   "exclude": [
