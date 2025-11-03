@@ -10,6 +10,14 @@ class UuvPlawrightReporter implements Reporter {
         UUVListenerHelper.build();
     }
 
+    onStdOut(chunk: string | Buffer, test: void | TestCase, result: void | TestResult): void {
+        console.info(chunk);
+    }
+
+    onStdErr(chunk: string | Buffer, test: void | TestCase, result: void | TestResult): void {
+        console.error(chalk.red(chunk));
+    }
+
     onBegin(config: FullConfig, suite: Suite) {
         const startTimestamp = this.helper.getTimestamp();
         // console.log(`Starting the run with ${suite.allTests().length} tests`);
