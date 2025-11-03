@@ -74,8 +74,8 @@ export async function setupNodeEvents (
     UUVEventEmitter.getInstance().emitProgressStart();
   });
 
-  on("after:run", async () => {
-    await afterRunHandler(config);
+  on("after:run", async (results: CypressCommandLine.CypressRunResult | CypressCommandLine.CypressFailedRunResult) => {
+    await afterRunHandler(config, results);
     UUVEventEmitter.getInstance().emitProgressFinish();
   });
 
