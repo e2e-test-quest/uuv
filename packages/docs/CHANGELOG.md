@@ -1,3 +1,12 @@
+# [1.98.0](https://github.com/e2e-test-quest/uuv/compare/docs-v1.97.0...docs-v1.98.0) (2025-11-03)
+
+
+### Features
+
+* **runner-cypress:** update dependency @badeball/cypress-cucumber-preprocessor to v23 ([bae330c](https://github.com/e2e-test-quest/uuv/commit/bae330c62a48cbdf253130e346865b0aaa0cc82d))
+* **runner-cypress:** update dependency @badeball/cypress-cucumber-preprocessor to v23 ([4e6df46](https://github.com/e2e-test-quest/uuv/commit/4e6df46a9585674478da2679549d8c29ea33c495))
+* **runner-playwright:** add stdout and stdErr in UuvPlawrightReporter, [#1145](https://github.com/e2e-test-quest/uuv/issues/1145) ([469317e](https://github.com/e2e-test-quest/uuv/commit/469317ef94ad3651ece55ef8b28ccbef77a6dc9c))
+
 # [1.97.0](https://github.com/e2e-test-quest/uuv/compare/docs-v1.96.0...docs-v1.97.0) (2025-10-26)
 
 
