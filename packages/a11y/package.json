@@ -1,6 +1,6 @@
 {
   "name": "@uuv/a11y",
-  "version": "1.0.0-beta.83",
+  "version": "1.0.0-beta.84",
   "type": "commonjs",
   "author": "Louis Fredice NJAKO MOLOM (https://github.com/luifr10) & Stanley SERVICAL (https://github.com/stanlee974)",
   "description": "A javascript lib for running a11y validation based on multiple reference(RGAA, etc)",

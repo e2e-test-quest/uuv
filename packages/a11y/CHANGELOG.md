@@ -1,3 +1,10 @@
+# [1.0.0-beta.84](https://github.com/e2e-test-quest/uuv/compare/a11y-v1.0.0-beta.83...a11y-v1.0.0-beta.84) (2025-11-03)
+
+
+### Features
+
+* **runner-cypress:** update dependency @badeball/cypress-cucumber-preprocessor to v23 ([4e6df46](https://github.com/e2e-test-quest/uuv/commit/4e6df46a9585674478da2679549d8c29ea33c495))
+
 # [1.0.0-beta.83](https://github.com/e2e-test-quest/uuv/compare/a11y-v1.0.0-beta.82...a11y-v1.0.0-beta.83) (2025-10-26)
 
 
