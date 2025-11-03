@@ -1,3 +1,11 @@
+# [1.88.0](https://github.com/e2e-test-quest/uuv/compare/assistant-electron-v1.87.0...assistant-electron-v1.88.0) (2025-11-03)
+
+
+### Features
+
+* **runner-cypress:** update dependency @badeball/cypress-cucumber-preprocessor to v23 ([4e6df46](https://github.com/e2e-test-quest/uuv/commit/4e6df46a9585674478da2679549d8c29ea33c495))
+* **runner-playwright:** add stdout and stdErr in UuvPlawrightReporter, [#1145](https://github.com/e2e-test-quest/uuv/issues/1145) ([469317e](https://github.com/e2e-test-quest/uuv/commit/469317ef94ad3651ece55ef8b28ccbef77a6dc9c))
+
 # [1.87.0](https://github.com/e2e-test-quest/uuv/compare/assistant-electron-v1.86.0...assistant-electron-v1.87.0) (2025-10-26)
 
 
