@@ -1,3 +1,10 @@
+# [1.24.0](https://github.com/e2e-test-quest/uuv/compare/intellij-plugin-v1.23.0...intellij-plugin-v1.24.0) (2025-11-03)
+
+
+### Features
+
+* **runner-cypress:** update dependency @badeball/cypress-cucumber-preprocessor to v23 ([4e6df46](https://github.com/e2e-test-quest/uuv/commit/4e6df46a9585674478da2679549d8c29ea33c495))
+
 # [1.23.0](https://github.com/e2e-test-quest/uuv/compare/intellij-plugin-v1.22.0...intellij-plugin-v1.23.0) (2025-10-26)
 
 
