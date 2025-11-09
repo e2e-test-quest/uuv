@@ -55,7 +55,7 @@
     "cucumber-json-report-formatter": "0.1.4",
     "lodash": "^4.17.21",
     "multiple-cucumber-html-reporter": "3.9.3",
-    "nanoid": "3.3.11",
+    "nanoid": "5.1.6",
     "playwright-bdd": "8.4.1",
     "ts-node": "10.9.2",
     "typescript": "5.8.3"
