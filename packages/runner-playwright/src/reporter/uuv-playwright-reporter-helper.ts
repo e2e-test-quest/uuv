@@ -25,8 +25,12 @@ class ReportOfFeature {
     passed = 0;
     skipped = 0;
     failed = 0;
+    retries = 0;
 
-    increment(status: TestStatus) {
+    increment(status: TestStatus, retry: number) {
+        if (retry > 0) {
+            this.retries++;
+        }
         if (status === "passed") {
             this.passed++;
         } else if (status === "skipped") {
@@ -327,7 +331,7 @@ class UuvPlaywrightReporterHelper {
     }
 
     private updateConsoleReport(featureFile: string, result: TestResult) {
-        this.consoleReportMap.get(featureFile)?.increment(result.status);
+        this.consoleReportMap.get(featureFile)?.increment(result.status, result.retry);
     }
 
     public createTestRunFinishedEnvelope (result: FullResult) {
@@ -587,7 +591,8 @@ class UuvPlaywrightReporterHelper {
                 { field: "file",     name: "File" },
                 { field: "passed",  name: chalk.green("Passed") },
                 { field: "skipped", name: chalk.yellow("Skipped") },
-                { field: "failed",  name: chalk.redBright("Failed") }
+                { field: "failed",  name: chalk.redBright("Failed") },
+                { field: "retries", name: chalk.yellow("retries") }
             ]
         };
         let index = 1;
@@ -596,6 +601,7 @@ class UuvPlaywrightReporterHelper {
                 id: index,
                 file: key,
                 passed: chalk.green(value.passed),
+                retries: chalk.yellow(value.retries),
                 skipped: chalk.yellow(value.skipped),
                 failed: value.failed ? chalk.redBright(value.failed) : chalk.red(value.failed)
             });
