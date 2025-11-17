@@ -41,7 +41,8 @@
   "scripts": {
       "start": "ts-node src/lib/mcp-server.ts",
       "lint": "npx eslint . --ext .js,.ts,.feature --fix",
-      "tests": "jest --coverage --config=./jest.config.ts"
+      "tests": "jest --coverage --config=./jest.config.ts",
+      "package": "npm pack --pack-destination=\"../../dist/packages\""
   },
   "bin": {
     "mcp-server": "./dist/index.js"
