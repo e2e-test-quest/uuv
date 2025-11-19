@@ -1,3 +1,11 @@
+# [2.67.0](https://github.com/e2e-test-quest/uuv/compare/runner-commons-v2.66.0...runner-commons-v2.67.0) (2025-11-19)
+
+
+### Features
+
+* introduce mcp server and dictionary packages, [#1153](https://github.com/e2e-test-quest/uuv/issues/1153) ([3d52b10](https://github.com/e2e-test-quest/uuv/commit/3d52b1083a49a48ab30f60362dfe993d2c05d80d))
+* release 0.0.1 of mcp-server and dictionary ([838be49](https://github.com/e2e-test-quest/uuv/commit/838be49f758896e8d10c847919de4d7de3f919f5))
+
 # [2.66.0](https://github.com/e2e-test-quest/uuv/compare/runner-commons-v2.65.0...runner-commons-v2.66.0) (2025-11-03)
 
 
