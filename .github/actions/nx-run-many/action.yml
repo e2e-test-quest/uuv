@@ -40,7 +40,5 @@ runs:
         node-version: ${{ inputs.node-version }}
     - run: npm ci
       shell: bash
-    - run: ls -R packages/assistant/node_modules/@typescript-eslint/eslint-plugin/dist/configs
-      shell: bash
     - run: npm run nx run-many -- --all --target=${{ inputs.target }} --parallel=${{ inputs.parallel }} --verbose --exclude=${{ inputs.exclude }}
       shell: bash
