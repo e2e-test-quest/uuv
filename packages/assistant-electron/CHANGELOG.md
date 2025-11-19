@@ -1,3 +1,17 @@
+# [1.89.0](https://github.com/e2e-test-quest/uuv/compare/assistant-electron-v1.88.0...assistant-electron-v1.89.0) (2025-11-19)
+
+
+### Features
+
+* add image description to displayed result ([81c7dcb](https://github.com/e2e-test-quest/uuv/commit/81c7dcb6c57ded8912f17343d4a1db41b8d84b66))
+* **assistant:** limit image's context for ai analysis ([d9bd593](https://github.com/e2e-test-quest/uuv/commit/d9bd593c8a7cfc746efa4fe28204e3c3b293fb76))
+* **assistant:** plug with uuv ai image classifier ([4dd4d81](https://github.com/e2e-test-quest/uuv/commit/4dd4d816cbed0e505e4f2b66c03895747cd7ebfb))
+* consume ai api as stream ([798b2ac](https://github.com/e2e-test-quest/uuv/commit/798b2ac9f87cef824130a0cd84d52999b0f4dfcb))
+* introduce mcp server and dictionary packages, [#1153](https://github.com/e2e-test-quest/uuv/issues/1153) ([3d52b10](https://github.com/e2e-test-quest/uuv/commit/3d52b1083a49a48ab30f60362dfe993d2c05d80d))
+* introduce step by step image ai analysis ([03fe720](https://github.com/e2e-test-quest/uuv/commit/03fe720867390357ebcef387d424746080f0639b))
+* release 0.0.1 of mcp-server and dictionary ([838be49](https://github.com/e2e-test-quest/uuv/commit/838be49f758896e8d10c847919de4d7de3f919f5))
+* **runner-playwright:** add retries to console report ([5dbbb47](https://github.com/e2e-test-quest/uuv/commit/5dbbb4730214a02b2a8721c978ec201248f16746))
+
 # [1.88.0](https://github.com/e2e-test-quest/uuv/compare/assistant-electron-v1.87.0...assistant-electron-v1.88.0) (2025-11-03)
 
 
