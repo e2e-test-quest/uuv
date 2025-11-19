@@ -1,13 +1,13 @@
 {
   "name": "@uuv/mcp-server",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A Model Context Protocol (MCP) server for UUV - a solution to facilitate the writing and execution of E2E tests understandable by any human being(English or French) using cucumber(BDD) and cypress or playwright.",
   "author": "Louis Fredice NJAKO MOLOM (https://github.com/luifr10) & Stanley SERVICAL (https://github.com/stanlee974)",
   "license": "MIT",
   "repository": {
-      "type": "git",
-      "url": "https://github.com/e2e-test-quest/uuv.git",
-      "directory": "packages/mcp-server"
+    "type": "git",
+    "url": "https://github.com/e2e-test-quest/uuv.git",
+    "directory": "packages/mcp-server"
   },
   "keywords": [
     "uuv",
@@ -34,15 +34,15 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
-      "dist/**/*",
-      "README.md",
-      "LICENSE"
+    "dist/**/*",
+    "README.md",
+    "LICENSE"
   ],
   "scripts": {
-      "start": "ts-node src/lib/mcp-server.ts",
-      "lint": "npx eslint . --ext .js,.ts,.feature --fix",
-      "tests": "jest --coverage --config=./jest.config.ts",
-      "package": "npm pack --pack-destination=\"../../dist/packages\""
+    "start": "ts-node src/lib/mcp-server.ts",
+    "lint": "npx eslint . --ext .js,.ts,.feature --fix",
+    "tests": "jest --coverage --config=./jest.config.ts",
+    "package": "npm pack --pack-destination=\"../../dist/packages\""
   },
   "bin": {
     "mcp-server": "./dist/index.js"
@@ -59,8 +59,8 @@
     "jsdom": "26.1.0",
     "tsconfig-paths": "4.2.0",
     "tslib": "2.3.0",
-    "@uuv/dictionary": "0.0.1",
-    "@uuv/assistant": "2.72.0",
+    "@uuv/dictionary": "0.1.0",
+    "@uuv/assistant": "2.73.0",
     "zod": "3.25.76"
   },
   "funding": {
