@@ -1,29 +1,29 @@
 {
     "name": "@uuv/dictionary",
-    "version": "0.0.1",
+    "version": "0.1.0",
     "author": "Louis Fredice NJAKO MOLOM (https://github.com/luifr10) & Stanley SERVICAL (https://github.com/stanlee974)",
     "description": "UUV built-in set of cucumber sentences to write e2e tests",
     "type": "commonjs",
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
     "keywords": [
-      "uuv",
-      "e2e",
-      "end2end",
-      "end 2 end",
-      "test",
-      "testing",
-      "accessibility",
-      "accessibilite",
-      "a11y",
-      "cypress",
-      "playwright",
-      "testing-library",
-      "cucumber",
-      "gherkin",
-      "bdd",
-      "tdd",
-      "acceptance"
+        "uuv",
+        "e2e",
+        "end2end",
+        "end 2 end",
+        "test",
+        "testing",
+        "accessibility",
+        "accessibilite",
+        "a11y",
+        "cypress",
+        "playwright",
+        "testing-library",
+        "cucumber",
+        "gherkin",
+        "bdd",
+        "tdd",
+        "acceptance"
     ],
     "scripts": {
         "package": "npm pack --pack-destination=\"../../dist/packages\"",
@@ -35,13 +35,13 @@
     },
     "exports": {
         ".": {
-          "import": "./dist/index.js",
-          "require": "./dist/index.js",
-          "types": "./dist/index.d.ts"
+            "import": "./dist/index.js",
+            "require": "./dist/index.js",
+            "types": "./dist/index.d.ts"
         }
     },
     "funding": {
-       "type": "opencollective",
-       "url": "https://opencollective.com/uuv"
+        "type": "opencollective",
+        "url": "https://opencollective.com/uuv"
     }
 }
