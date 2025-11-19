@@ -1,3 +1,12 @@
+# [3.54.0](https://github.com/e2e-test-quest/uuv/compare/runner-playwright-v3.53.0...runner-playwright-v3.54.0) (2025-11-19)
+
+
+### Features
+
+* introduce mcp server and dictionary packages, [#1153](https://github.com/e2e-test-quest/uuv/issues/1153) ([3d52b10](https://github.com/e2e-test-quest/uuv/commit/3d52b1083a49a48ab30f60362dfe993d2c05d80d))
+* release 0.0.1 of mcp-server and dictionary ([838be49](https://github.com/e2e-test-quest/uuv/commit/838be49f758896e8d10c847919de4d7de3f919f5))
+* **runner-playwright:** add retries to console report ([5dbbb47](https://github.com/e2e-test-quest/uuv/commit/5dbbb4730214a02b2a8721c978ec201248f16746))
+
 # [3.53.0](https://github.com/e2e-test-quest/uuv/compare/runner-playwright-v3.52.0...runner-playwright-v3.53.0) (2025-11-03)
 
 
