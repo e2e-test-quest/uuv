@@ -1,3 +1,10 @@
+## [1.99.1](https://github.com/e2e-test-quest/uuv/compare/docs-v1.99.0...docs-v1.99.1) (2025-11-20)
+
+
+### Bug Fixes
+
+* **assistant:** include helper and service in npm package ([cb3f874](https://github.com/e2e-test-quest/uuv/commit/cb3f874d232a92db15964654064a79943b8a5901))
+
 # [1.99.0](https://github.com/e2e-test-quest/uuv/compare/docs-v1.98.0...docs-v1.99.0) (2025-11-19)
 
 
