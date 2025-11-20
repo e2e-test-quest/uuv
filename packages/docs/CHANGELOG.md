@@ -1,3 +1,10 @@
+## [1.99.2](https://github.com/e2e-test-quest/uuv/compare/docs-v1.99.1...docs-v1.99.2) (2025-11-20)
+
+
+### Bug Fixes
+
+* **assistant:** set dom-accessibility-api dependency as runtime dependency ([8f6588e](https://github.com/e2e-test-quest/uuv/commit/8f6588e71bdb5fccee1e4fe8047038853e76e13a))
+
 ## [1.99.1](https://github.com/e2e-test-quest/uuv/compare/docs-v1.99.0...docs-v1.99.1) (2025-11-20)
 
 
