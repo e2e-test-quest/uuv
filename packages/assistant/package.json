@@ -113,6 +113,7 @@
   "files": [
     "dist/uuv-assistant-resources.bundle.js",
     "dist/launcher/**/*",
+    "dist/src/**/*",
     "postinstall.js"
   ],
   "main": "./dist/src/index.js",
