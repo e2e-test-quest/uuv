@@ -1,3 +1,10 @@
+# [1.0.0-beta.86](https://github.com/e2e-test-quest/uuv/compare/a11y-v1.0.0-beta.85...a11y-v1.0.0-beta.86) (2025-11-20)
+
+
+### Bug Fixes
+
+* **assistant:** set dom-accessibility-api dependency as runtime dependency ([8f6588e](https://github.com/e2e-test-quest/uuv/commit/8f6588e71bdb5fccee1e4fe8047038853e76e13a))
+
 # [1.0.0-beta.85](https://github.com/e2e-test-quest/uuv/compare/a11y-v1.0.0-beta.84...a11y-v1.0.0-beta.85) (2025-11-19)
 
 
