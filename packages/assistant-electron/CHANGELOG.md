@@ -1,3 +1,10 @@
+## [1.89.2](https://github.com/e2e-test-quest/uuv/compare/assistant-electron-v1.89.1...assistant-electron-v1.89.2) (2025-11-20)
+
+
+### Bug Fixes
+
+* **assistant:** set dom-accessibility-api dependency as runtime dependency ([8f6588e](https://github.com/e2e-test-quest/uuv/commit/8f6588e71bdb5fccee1e4fe8047038853e76e13a))
+
 ## [1.89.1](https://github.com/e2e-test-quest/uuv/compare/assistant-electron-v1.89.0...assistant-electron-v1.89.1) (2025-11-20)
 
 
