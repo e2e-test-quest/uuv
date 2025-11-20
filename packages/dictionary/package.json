@@ -1,6 +1,6 @@
 {
     "name": "@uuv/dictionary",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "author": "Louis Fredice NJAKO MOLOM (https://github.com/luifr10) & Stanley SERVICAL (https://github.com/stanlee974)",
     "description": "UUV built-in set of cucumber sentences to write e2e tests",
     "type": "commonjs",
