@@ -1,3 +1,10 @@
+## [3.54.1](https://github.com/e2e-test-quest/uuv/compare/runner-playwright-v3.54.0...runner-playwright-v3.54.1) (2025-11-20)
+
+
+### Bug Fixes
+
+* **assistant:** set dom-accessibility-api dependency as runtime dependency ([8f6588e](https://github.com/e2e-test-quest/uuv/commit/8f6588e71bdb5fccee1e4fe8047038853e76e13a))
+
 # [3.54.0](https://github.com/e2e-test-quest/uuv/compare/runner-playwright-v3.53.0...runner-playwright-v3.54.0) (2025-11-19)
 
 
