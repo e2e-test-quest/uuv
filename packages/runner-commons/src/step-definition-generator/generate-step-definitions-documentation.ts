@@ -15,7 +15,7 @@ import fs from "fs";
 import { Common } from "./common";
 import * as path from "path";
 import { AccessibleRole, BaseSentence, Dictionary, getDefinedDictionary, LANG } from "@uuv/dictionary";
-
+import _ from "lodash";
 
 export class AutocompletionSuggestion {
     suggestion !: string;
@@ -74,7 +74,7 @@ export function runGenerateDoc(destDir: string) {
         wordingFileContent: string,
         autocompletionSuggestionContent: string
     } {
-        const wordingEnrichedNormalized = normalizedForMdx(dictionary.getRoleBasedSentencesTemplate());
+        const wordingEnrichedNormalizedOrigin = normalizedForMdx(dictionary.getRoleBasedSentencesTemplate());
         const wordingsBaseNormalized = normalizedForMdx(dictionary.getBaseSentences());
         const title = (function () {
             switch (lang) {
@@ -127,7 +127,7 @@ export function runGenerateDoc(destDir: string) {
         const definedRoles = dictionary.getDefinedRoles();
         definedRoles.forEach((role) => {
             rows.push(`### ${role.id}`);
-            // console.debug("dataUpdated", dataUpdated)
+            const wordingEnrichedNormalized = _.cloneDeep(wordingEnrichedNormalizedOrigin);
             wordingEnrichedNormalized.forEach(sentence => {
                 sentence.wording = sentence.wording.replaceAll("$roleName", role.name)
                                                     .replaceAll("$roleId", role.id)
