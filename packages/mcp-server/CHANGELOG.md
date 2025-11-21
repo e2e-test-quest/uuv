@@ -1,3 +1,10 @@
+## [0.1.3](https://github.com/e2e-test-quest/uuv/compare/mcp-server-v0.1.2...mcp-server-v0.1.3) (2025-11-21)
+
+
+### Bug Fixes
+
+* **mcp-server:** add requirements and claude code config ([a942847](https://github.com/e2e-test-quest/uuv/commit/a942847afe5c0af96adffdd7ec1d56852c53a119))
+
 ## [0.1.2](https://github.com/e2e-test-quest/uuv/compare/mcp-server-v0.1.1...mcp-server-v0.1.2) (2025-11-20)
 
 

@@ -1,6 +1,6 @@
 {
   "name": "@uuv/mcp-server",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "A Model Context Protocol (MCP) server for UUV - a solution to facilitate the writing and execution of E2E tests understandable by any human being(English or French) using cucumber(BDD) and cypress or playwright.",
   "author": "Louis Fredice NJAKO MOLOM (https://github.com/luifr10) & Stanley SERVICAL (https://github.com/stanlee974)",
   "license": "MIT",
