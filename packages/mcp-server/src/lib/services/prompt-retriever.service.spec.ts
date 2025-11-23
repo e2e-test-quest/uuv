@@ -14,7 +14,7 @@ describe("PromptRetrieverService", () => {
     describe("retrievePrompt", () => {
         it("should generate table prompt correctly", () => {
             const mockArgs = {
-                promptName: "generate_table",
+                promptName: "generate_test_expect_table",
                 baseUrl: "http://example.com",
             };
 
@@ -23,13 +23,13 @@ describe("PromptRetrieverService", () => {
 
             const result = PromptRetrieverService.retrievePrompt(mockArgs);
 
-            expect(fs.readFileSync).toHaveBeenCalledWith(path.join(__dirname, "prompts", "generate_table.mustache"), "utf8");
+            expect(fs.readFileSync).toHaveBeenCalledWith(path.join(__dirname, "prompts", "generate_test_expect_table.mustache"), "utf8");
             expect(result).toBe("Template for http://example.com");
         });
 
         it("should generate role and name prompt correctly", () => {
             const mockArgs = {
-                promptName: "generate_role_and_name",
+                promptName: "generate_test_expect_element",
                 baseUrl: "http://example.com",
                 accessibleName: "Hello world",
                 accessibleRole: "button",
@@ -40,7 +40,7 @@ describe("PromptRetrieverService", () => {
 
             const result = PromptRetrieverService.retrievePrompt(mockArgs);
 
-            expect(fs.readFileSync).toHaveBeenCalledWith(path.join(__dirname, "prompts", "generate_role_and_name.mustache"), "utf8");
+            expect(fs.readFileSync).toHaveBeenCalledWith(path.join(__dirname, "prompts", "generate_test_expect_element.mustache"), "utf8");
             expect(result).toBe(`Template for ${mockArgs.baseUrl} with ${mockArgs.accessibleRole} and '${mockArgs.accessibleName}'`);
         });
 
@@ -57,9 +57,9 @@ describe("PromptRetrieverService", () => {
                     [
                         {
                             code: "invalid_union_discriminator",
-                            options: ["generate_table", "generate_role_and_name"],
+                            options: ["generate_test_expect_table", "generate_test_expect_element"],
                             path: ["promptName"],
-                            message: "Invalid discriminator value. Expected 'generate_table' | 'generate_role_and_name'",
+                            message: "Invalid discriminator value. Expected 'generate_test_expect_table' | 'generate_test_expect_element'",
                         },
                     ],
                     null,
@@ -73,7 +73,7 @@ describe("PromptRetrieverService", () => {
 
             // Valid table prompt
             const validTableArgs = {
-                promptName: "generate_table",
+                promptName: "generate_test_expect_table",
                 baseUrl: "http://example.com",
             };
 
@@ -81,7 +81,7 @@ describe("PromptRetrieverService", () => {
 
             // Valid role and name prompt
             const validRoleArgs = {
-                promptName: "generate_role_and_name",
+                promptName: "generate_test_expect_element",
                 baseUrl: "http://example.com",
                 accessibleName: "button",
                 accessibleRole: "toto",
