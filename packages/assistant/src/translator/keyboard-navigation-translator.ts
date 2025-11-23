@@ -33,10 +33,10 @@ export class KeyboardNavigationTranslator extends Translator {
         return this.getSentenceFromAccessibleRoleAndName(accessibleRole, accessibleName);
     }
 
-    override getSentenceFromDomSelector(htmlElem: HTMLElement | SVGElement): TranslateSentences {
+    override getSentenceFromDomSelector(domSelector: string, htmlElem?: HTMLElement | SVGElement): TranslateSentences {
         const response = this.initResponse();
         const computedKey = "key.then.element.withSelectorFocused";
-        const sentence = this.computeSentenceFromKeyAndSelector(computedKey, Translator.getSelector(htmlElem));
+        const sentence = this.computeSentenceFromKeyAndSelector(computedKey, domSelector);
         const nextFocusedElementSentence = this.dictionary.getBaseSentences().find((el: BaseSentence) => el.key === "key.when.keyboard.nextElement");
         response.sentences = [
             stepCase + nextFocusedElementSentence?.wording,

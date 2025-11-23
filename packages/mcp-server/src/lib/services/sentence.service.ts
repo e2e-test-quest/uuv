@@ -1,4 +1,4 @@
-import { Dictionary, RoleBasedSentence } from "@uuv/dictionary";
+import { BaseSentence, Dictionary, RoleBasedSentence } from "@uuv/dictionary";
 
 export type SentenceSearchQuery = {
     category?: string;
@@ -16,8 +16,12 @@ export class SentenceService {
         return this.dictionary.getRoleBasedSentences().filter(r => !role || r.role === role);
     }
 
-    public searchSentences(query: SentenceSearchQuery) {
-        let sentences = [...this.getBaseSentences()];
+    public searchSentences(query: SentenceSearchQuery): BaseSentence[] {
+        let sentences: BaseSentence[] = [];
+
+        if (!query.role && !query.category) {
+            sentences = [...this.getBaseSentences()];
+        }
 
         sentences.push(...this.getSentencesByRole(query.role));
 

@@ -40,6 +40,7 @@
   ],
   "scripts": {
     "start": "ts-node src/lib/mcp-server.ts",
+    "inspector": "npx @modelcontextprotocol/inspector --config test-mcp.json --server default-server",
     "lint": "npx eslint . --ext .js,.ts,.feature --fix",
     "tests": "jest --coverage --config=./jest.config.ts",
     "package": "npm pack --pack-destination=\"../../dist/packages\""
@@ -56,15 +57,21 @@
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.17.5",
+    "@types/mustache": "^4.2.6",
+    "@uuv/assistant": "2.73.2",
+    "@uuv/dictionary": "0.1.1",
     "jsdom": "26.1.0",
+    "mustache": "^4.2.0",
     "tsconfig-paths": "4.2.0",
     "tslib": "2.3.0",
-    "@uuv/dictionary": "0.1.1",
-    "@uuv/assistant": "2.73.2",
     "zod": "3.25.76"
   },
   "funding": {
     "type": "opencollective",
     "url": "https://opencollective.com/uuv"
+  },
+  "devDependencies": {
+    "@modelcontextprotocol/inspector": "^0.17.2",
+    "ts-node": "^10.9.2"
   }
 }
