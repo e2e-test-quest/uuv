@@ -156,7 +156,7 @@ describe("UUV Cli Cypress", () => {
         }
       }
     );
-    expect(mockExit).lastCalledWith(0);
+    expect(mockExit).toHaveBeenCalledWith(0);
   });
 
   test("should execute e2e run cypress when uuv e2e is called with targetUrl", async () => {
@@ -198,7 +198,7 @@ describe("UUV Cli Cypress", () => {
         }
       }
     );
-    expect(mockExit).lastCalledWith(0);
+    expect(mockExit).toHaveBeenCalledWith(0);
   });
 
   test("should execute e2e run cypress when uuv e2e is called with generateHtmlReport option", async () => {
@@ -237,7 +237,7 @@ describe("UUV Cli Cypress", () => {
         }
       }
     );
-    expect(mockExit).lastCalledWith(0);
+    expect(mockExit).toHaveBeenCalledWith(0);
   });
 
   test("should execute e2e run cypress when uuv e2e is called with generateJunitReport option", async () => {
@@ -280,7 +280,7 @@ describe("UUV Cli Cypress", () => {
         }
       }
     );
-    expect(mockExit).lastCalledWith(0);
+    expect(mockExit).toHaveBeenCalledWith(0);
   });
 
   test("should execute e2e run cypress when uuv e2e is called with generateA11yReport option", async () => {
@@ -319,7 +319,7 @@ describe("UUV Cli Cypress", () => {
         }
       }
     );
-    expect(mockExit).lastCalledWith(0);
+    expect(mockExit).toHaveBeenCalledWith(0);
   });
 
   test("should execute e2e run cypress when uuv e2e is called with browser option", async () => {
@@ -359,7 +359,7 @@ describe("UUV Cli Cypress", () => {
         }
       }
     );
-    expect(mockExit).lastCalledWith(0);
+    expect(mockExit).toHaveBeenCalledWith(0);
   });
 
   test("should execute e2e run cypress when uuv e2e is called with targetTestFile option", async () => {
@@ -400,7 +400,7 @@ describe("UUV Cli Cypress", () => {
         }
       }
     );
-    expect(mockExit).lastCalledWith(0);
+    expect(mockExit).toHaveBeenCalledWith(0);
   });
 
   test("should execute e2e run cypress when uuv e2e is called with extraArgs option", async () => {
@@ -443,7 +443,7 @@ describe("UUV Cli Cypress", () => {
         }
       }
     );
-    expect(mockExit).lastCalledWith(0);
+    expect(mockExit).toHaveBeenCalledWith(0);
   });
 
   function setProcessArguments(mockedArgv: string[]) {

@@ -31,10 +31,10 @@ export class ClickTranslator extends Translator {
         return this.getSentenceFromAccessibleRoleAndName(accessibleRole, accessibleName);
     }
 
-    override getSentenceFromDomSelector(htmlElem: HTMLElement | SVGElement): TranslateSentences {
+    override getSentenceFromDomSelector(domSelector: string, htmlElem?: HTMLElement | SVGElement): TranslateSentences {
         const response = this.initResponse();
         const computedKey = "key.when.withinElement.selector";
-        const sentence = this.computeSentenceFromKeyAndSelector(computedKey, Translator.getSelector(htmlElem));
+        const sentence = this.computeSentenceFromKeyAndSelector(computedKey, domSelector);
         const clickSentence: BaseSentence = this.getSentenceFromKey("key.when.click.withContext");
         response.sentences = [stepCase + sentence, StepCaseEnum.THEN + clickSentence.wording];
         return response;

@@ -9,6 +9,12 @@ export class ExpectService {
         return buildResultingScript("Your amazing feature name", "Action - An action", result.sentences, baseUrl);
     }
 
+    public static generateExpectForDomSelector(baseUrl: string, domSelector: string): string {
+        const translator = new ExpectTranslator();
+        const result = translator.getSentenceFromDomSelector(domSelector);
+        return buildResultingScript("Your amazing feature name", "Action - An action", result.sentences, baseUrl);
+    }
+
     public static async generateExpectForTable(baseUrl: string, innerHtmlFilePath: string): Promise<string> {
         const tableAndGridService = new TableAndGridService();
         const dom = new JSDOM(fs.readFileSync(innerHtmlFilePath, "utf8"));

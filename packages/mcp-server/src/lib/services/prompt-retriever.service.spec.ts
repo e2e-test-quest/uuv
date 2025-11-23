@@ -44,6 +44,18 @@ describe("PromptRetrieverService", () => {
             expect(result).toBe(`Template for ${mockArgs.baseUrl} with ${mockArgs.accessibleRole} and '${mockArgs.accessibleName}'`);
         });
 
+        it("should throw error for invalid argument for generate_test_expect_element", () => {
+            const mockArgs = {
+                promptName: "generate_test_expect_element",
+                baseUrl: "http://example.com",
+                accessibleName: "Hello world",
+            };
+
+            expect(() => {
+                PromptRetrieverService.retrievePrompt(mockArgs);
+            }).toThrow("You must provide either 'domSelector' or the pair 'accessibleName' and 'accessibleRole'.");
+        });
+
         it("should throw error for invalid prompt name", () => {
             const mockArgs = {
                 promptName: "invalid_prompt",

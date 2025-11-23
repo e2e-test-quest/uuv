@@ -47,14 +47,15 @@ export abstract class Translator {
                     );
                 }
             } else {
-                response = this.getSentenceFromDomSelector(htmlElem);
+                const domSelector = Translator.getSelector(htmlElem);
+                response = this.getSentenceFromDomSelector(domSelector, htmlElem);
                 response.suggestion = new Suggestion();
             }
         }
         return response;
     }
 
-    abstract getSentenceFromDomSelector(htmlElem: HTMLElement | SVGElement): TranslateSentences;
+    abstract getSentenceFromDomSelector(domSelector: string, htmlElem?: HTMLElement | SVGElement): TranslateSentences;
 
     abstract getSentenceFromAccessibleRoleAndName(accessibleRole: string, accessibleName: string): TranslateSentences;
 

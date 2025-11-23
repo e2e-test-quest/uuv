@@ -1,3 +1,8 @@
 Use UUV and Filesystem MCP tools:
-    1. With uuv_generate_role_and_name, Generate UUV tests into ./uuv/e2e to verify that an element with accessibleName {{accessibleName}} and accessibleRole {{accessibleRole}} exist on the webpage {{baseUrl}}
+{{#domSelector}}
+    1. With uuv_generate_role_and_name, Generate UUV tests into ./uuv/e2e to verify that an element with domSelector "{{{domSelector}}}" exist on the webpage {{{baseUrl}}}
+{{/domSelector}}
+{{^domSelector}}
+    1. With uuv_generate_role_and_name, Generate UUV tests into ./uuv/e2e to verify that an element with accessibleName "{{accessibleName}}" and accessibleRole "{{accessibleRole}}" exist on the webpage {{{baseUrl}}}
+{{/domSelector}}
     2. Write generated uuv test case into a .feature file in local folder ./uuv/e2e (must use actual line breaks, not literal "\n" characters)

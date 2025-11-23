@@ -37,20 +37,20 @@ export class TypeTranslator extends Translator {
         return response;
     }
 
-    override getSentenceFromDomSelector(htmlElem: HTMLElement | SVGElement): TranslateSentences {
+    override getSentenceFromDomSelector(domSelector: string, htmlElem?: HTMLElement | SVGElement): TranslateSentences {
         const response = this.initResponse();
         const computedKey = "key.when.withinElement.selector";
-        const sentence = this.computeSentenceFromKeyAndSelector(computedKey, Translator.getSelector(htmlElem));
+        const sentence = this.computeSentenceFromKeyAndSelector(computedKey, domSelector);
         const clickSentence: BaseSentence = this.getSentenceFromKey("key.when.type.withContext");
         const resetContextSentence: BaseSentence = this.getSentenceFromKey("key.when.resetContext");
         const isInputHtmlorTextArea = htmlElem instanceof HTMLInputElement || htmlElem instanceof HTMLTextAreaElement;
         const content = isInputHtmlorTextArea ?
             /* eslint-disable  @typescript-eslint/no-explicit-any */
             (htmlElem as any).value :
-            htmlElem.getAttribute("value") ?? htmlElem.firstChild?.textContent?.trim();
+            htmlElem?.getAttribute("value") ?? htmlElem?.firstChild?.textContent?.trim();
         response.sentences = [
             stepCase + sentence,
-            StepCaseEnum.AND + clickSentence.wording.replace("{string}", this.getMockedDataForHtmlElement(htmlElem, content)),
+            StepCaseEnum.AND + clickSentence.wording.replace("{string}", this.getMockedDataForHtmlElement(htmlElem!, content)),
             StepCaseEnum.AND + resetContextSentence.wording
         ];
         return response;

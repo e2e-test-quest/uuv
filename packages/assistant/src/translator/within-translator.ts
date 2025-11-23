@@ -37,10 +37,10 @@ export class WithinTranslator extends Translator {
         return response;
     }
 
-    override getSentenceFromDomSelector(htmlElem: HTMLElement | SVGElement): TranslateSentences {
+    override getSentenceFromDomSelector(domSelector: string, htmlElem?: HTMLElement | SVGElement): TranslateSentences {
         const response = this.initResponse();
         const computedKey = "key.when.withinElement.selector";
-        const sentence = this.computeSentenceFromKeyAndSelector(computedKey, Translator.getSelector(htmlElem));
+        const sentence = this.computeSentenceFromKeyAndSelector(computedKey, domSelector);
         response.sentences = [stepCase + sentence];
         return response;
     }

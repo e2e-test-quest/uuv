@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "default-server": {
+      "command": "ts-node",
+      "args": ["src/lib/mcp-server.ts"]
+    }
+  }
+}

@@ -1,6 +1,7 @@
 import * as path from "node:path";
 import fs from "node:fs";
 import { z } from "zod";
+import { render } from "mustache";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type PromptExtraArgs = Record<string, any>;
@@ -21,24 +22,9 @@ export class PromptRetrieverService {
         return fs.readFileSync(templatePath, "utf8");
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    private static renderPrompt(template: string, variables: Record<string, any>): string {
-        let result = template;
-        for (const [key, value] of Object.entries(variables)) {
-            if (Array.isArray(value)) {
-                // Handle array values for Mustache-style list rendering
-                const listItems = value.map(item => `{{#${key}}}${item}{{/${key}}}`).join("\n");
-                result = result.replaceAll(`{{#${key}}}`, listItems);
-            } else {
-                result = result.replaceAll(`{{${key}}}`, value);
-            }
-        }
-        return result;
-    }
-
     private static generatePrompt(args: PromptArgs): string {
         const template = this.loadPromptTemplate(args.promptName);
-        return this.renderPrompt(template, args);
+        return render(template, args);
     }
 
     private static validatePromptGenerationRequest(args: PromptArgs) {
@@ -50,10 +36,23 @@ export class PromptRetrieverService {
             z.object({
                 promptName: z.literal(UUV_PROMPT.GENERATE_TEST_EXPECT_ELEMENT),
                 baseUrl: z.string().describe("The base URL of the page where the element is located."),
-                accessibleName: z.string().describe("Accessible name of the element"),
-                accessibleRole: z.string().describe("Accessible role of the element"),
+                accessibleName: z.string().optional().describe("Accessible name of the element"),
+                accessibleRole: z.string().optional().describe("Accessible role of the element"),
+                domSelector: z.string().optional().describe("Dom selector of the element"),
             }),
-        ]);
+        ]).superRefine((data, ctx) => {
+            if (data.promptName === UUV_PROMPT.GENERATE_TEST_EXPECT_ELEMENT) {
+                const hasAccessibleSelector = data.accessibleRole && data.accessibleName;
+                const hasDomSelector = data.domSelector;
+
+                if (!hasAccessibleSelector && !hasDomSelector) {
+                    ctx.addIssue({
+                        code: z.ZodIssueCode.custom,
+                        message: "You must provide either (accessibleRole AND accessibleName) or domSelector",
+                    });
+                }
+            }
+        });
 
         return promptSchemas.parse(args);
     }
