@@ -8,7 +8,7 @@ describe("ExpectService", () => {
             const accessibleName = "Hello world";
             const accessibleRole = "button";
 
-            const result = ExpectService.generateForAccessibleNameAndRole(baseUrl, accessibleName, accessibleRole);
+            const result = ExpectService.generateExpectForAccessibleNameAndRole(baseUrl, accessibleName, accessibleRole);
 
             expect(result).toEqual(
                 "Feature: Your amazing feature name\n" +
@@ -24,7 +24,7 @@ describe("ExpectService", () => {
             const baseUrl = "http://example.com";
             const innerHtmlFilePath = path.join(__dirname, "../tests/mock-table.html");
 
-            const result = await ExpectService.generateForTable(baseUrl, innerHtmlFilePath);
+            const result = await ExpectService.generateExpectForTable(baseUrl, innerHtmlFilePath);
 
             expect(result).toEqual(
                 "Feature: Your amazing feature name\n" +

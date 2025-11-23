@@ -2,7 +2,7 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
 import { SentenceService } from "./services/sentence.service";
-import { PromptRetrieverService } from "./services/prompt-retriever.service";
+import { PromptRetrieverService, UUV_PROMPT } from "./services/prompt-retriever.service";
 import { ExpectService } from "./services/expect.service";
 import { getDefinedDictionary } from "@uuv/dictionary";
 
@@ -18,7 +18,10 @@ server.registerTool(
         title: "Retrieve uuv prompt",
         description: "Retrieve a uuv prompt template for a coding agent based on a prompt name and arguments.",
         inputSchema: {
-            promptName: z.enum(["generate_table", "generate_role_and_name"]),
+            promptName: z.enum([
+                UUV_PROMPT.GENERATE_TEST_EXPECT_TABLE,
+                UUV_PROMPT.GENERATE_TEST_EXPECT_ELEMENT
+            ]),
             baseUrl: z.string().describe("The base URL of the page"),
             // generate_role_and_name Fields
             accessibleName: z.string().optional().describe("Accessible name (required for generate_role_and_name)"),
@@ -68,7 +71,7 @@ server.registerTool(
 );
 
 server.registerTool(
-    "generate_role_and_name",
+    "generate_test_expect_element",
     {
         title: "Generate with role and name",
         description:
@@ -88,7 +91,7 @@ server.registerTool(
             content: [
                 {
                     type: "text",
-                    text: ExpectService.generateForAccessibleNameAndRole(baseUrl, accessibleName, accessibleRole),
+                    text: ExpectService.generateExpectForAccessibleNameAndRole(baseUrl, accessibleName, accessibleRole),
                 },
             ],
         };
@@ -96,7 +99,7 @@ server.registerTool(
 );
 
 server.registerTool(
-    "generate_table",
+    "generate_test_expect_table",
     {
         title: "Generate test for html table or grid or treeGrid",
         description:
@@ -112,7 +115,7 @@ server.registerTool(
             content: [
                 {
                     type: "text",
-                    text: await ExpectService.generateForTable(baseUrl, innerHtmlFilePath),
+                    text: await ExpectService.generateExpectForTable(baseUrl, innerHtmlFilePath),
                 },
             ],
         };

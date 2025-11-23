@@ -6,8 +6,14 @@ import { z } from "zod";
 type PromptExtraArgs = Record<string, any>;
 
 export type PromptArgs = {
-    promptName: string;
+    promptName: UUV_PROMPT;
 } | PromptExtraArgs;
+
+export enum UUV_PROMPT {
+    GENERATE_TEST_EXPECT_TABLE = "generate_test_expect_table",
+    GENERATE_TEST_EXPECT_ELEMENT = "generate_test_expect_element",
+}
+
 
 export class PromptRetrieverService {
     private static loadPromptTemplate(promptName: string): string {
@@ -38,11 +44,11 @@ export class PromptRetrieverService {
     private static validatePromptGenerationRequest(args: PromptArgs) {
         const promptSchemas = z.discriminatedUnion("promptName", [
             z.object({
-                promptName: z.literal("generate_table"),
+                promptName: z.literal(UUV_PROMPT.GENERATE_TEST_EXPECT_TABLE),
                 baseUrl: z.string().describe("The base URL of the page where the table/grid/treegrid is located."),
             }),
             z.object({
-                promptName: z.literal("generate_role_and_name"),
+                promptName: z.literal(UUV_PROMPT.GENERATE_TEST_EXPECT_ELEMENT),
                 baseUrl: z.string().describe("The base URL of the page where the element is located."),
                 accessibleName: z.string().describe("Accessible name of the element"),
                 accessibleRole: z.string().describe("Accessible role of the element"),
@@ -56,11 +62,11 @@ export class PromptRetrieverService {
         const validatedPrompt = PromptRetrieverService.validatePromptGenerationRequest(args);
         let prompt: string;
         switch (validatedPrompt.promptName) {
-            case "generate_table":
+            case UUV_PROMPT.GENERATE_TEST_EXPECT_TABLE:
                 prompt = PromptRetrieverService.generatePrompt(args);
                 break;
 
-            case "generate_role_and_name":
+            case UUV_PROMPT.GENERATE_TEST_EXPECT_ELEMENT:
                 prompt = PromptRetrieverService.generatePrompt(args);
                 break;
 
