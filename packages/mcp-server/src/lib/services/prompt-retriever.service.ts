@@ -13,6 +13,7 @@ export type PromptArgs = {
 export enum UUV_PROMPT {
     GENERATE_TEST_EXPECT_TABLE = "generate_test_expect_table",
     GENERATE_TEST_EXPECT_ELEMENT = "generate_test_expect_element",
+    GENERATE_TEST_CLICK_ELEMENT = "generate_test_click_element",
 }
 
 
@@ -34,14 +35,14 @@ export class PromptRetrieverService {
                 baseUrl: z.string().describe("The base URL of the page where the table/grid/treegrid is located."),
             }),
             z.object({
-                promptName: z.literal(UUV_PROMPT.GENERATE_TEST_EXPECT_ELEMENT),
+                promptName: z.enum([ UUV_PROMPT.GENERATE_TEST_EXPECT_ELEMENT, UUV_PROMPT.GENERATE_TEST_CLICK_ELEMENT]),
                 baseUrl: z.string().describe("The base URL of the page where the element is located."),
                 accessibleName: z.string().optional().describe("Accessible name of the element"),
                 accessibleRole: z.string().optional().describe("Accessible role of the element"),
                 domSelector: z.string().optional().describe("Dom selector of the element"),
             }),
         ]).superRefine((data, ctx) => {
-            if (data.promptName === UUV_PROMPT.GENERATE_TEST_EXPECT_ELEMENT) {
+            if (data.promptName === UUV_PROMPT.GENERATE_TEST_EXPECT_ELEMENT || data.promptName === UUV_PROMPT.GENERATE_TEST_CLICK_ELEMENT) {
                 const hasAccessibleSelector = data.accessibleRole && data.accessibleName;
                 const hasDomSelector = data.domSelector;
 
@@ -62,10 +63,8 @@ export class PromptRetrieverService {
         let prompt: string;
         switch (validatedPrompt.promptName) {
             case UUV_PROMPT.GENERATE_TEST_EXPECT_TABLE:
-                prompt = PromptRetrieverService.generatePrompt(args);
-                break;
-
             case UUV_PROMPT.GENERATE_TEST_EXPECT_ELEMENT:
+            case UUV_PROMPT.GENERATE_TEST_CLICK_ELEMENT:
                 prompt = PromptRetrieverService.generatePrompt(args);
                 break;
 

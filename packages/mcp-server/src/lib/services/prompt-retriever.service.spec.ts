@@ -19,7 +19,7 @@ describe("PromptRetrieverService", () => {
             };
 
             // Mock the file reading
-            (fs.readFileSync as jest.Mock).mockReturnValue("Template for {{baseUrl}}");
+            (fs.readFileSync as jest.Mock).mockReturnValue("Template for {{{baseUrl}}}");
 
             const result = PromptRetrieverService.retrievePrompt(mockArgs);
 
@@ -36,7 +36,7 @@ describe("PromptRetrieverService", () => {
             };
 
             // Mock the file reading
-            (fs.readFileSync as jest.Mock).mockReturnValue("Template for {{baseUrl}} with {{accessibleRole}} and '{{accessibleName}}'");
+            (fs.readFileSync as jest.Mock).mockReturnValue("Template for {{{baseUrl}}} with {{accessibleRole}} and '{{accessibleName}}'");
 
             const result = PromptRetrieverService.retrievePrompt(mockArgs);
 
@@ -53,7 +53,11 @@ describe("PromptRetrieverService", () => {
 
             expect(() => {
                 PromptRetrieverService.retrievePrompt(mockArgs);
-            }).toThrow("You must provide either 'domSelector' or the pair 'accessibleName' and 'accessibleRole'.");
+            }).toThrow(JSON.stringify([{
+                code: "custom",
+                message: "You must provide either (accessibleRole AND accessibleName) or domSelector",
+                path: []
+            }], null, 2));
         });
 
         it("should throw error for invalid prompt name", () => {
@@ -69,9 +73,9 @@ describe("PromptRetrieverService", () => {
                     [
                         {
                             code: "invalid_union_discriminator",
-                            options: ["generate_test_expect_table", "generate_test_expect_element"],
+                            options: ["generate_test_expect_table", "generate_test_expect_element", "generate_test_click_element"],
                             path: ["promptName"],
-                            message: "Invalid discriminator value. Expected 'generate_test_expect_table' | 'generate_test_expect_element'",
+                            message: "Invalid discriminator value. Expected 'generate_test_expect_table' | 'generate_test_expect_element' | 'generate_test_click_element'",
                         },
                     ],
                     null,
@@ -81,7 +85,7 @@ describe("PromptRetrieverService", () => {
         });
 
         it("should validate prompt generation requests correctly", () => {
-            (fs.readFileSync as jest.Mock).mockReturnValue("Template for {{baseUrl}} with {{accessibleName}} and {{accessibleRole}}");
+            (fs.readFileSync as jest.Mock).mockReturnValue("Template for {{{baseUrl}}} with {{accessibleName}} and {{accessibleRole}}");
 
             // Valid table prompt
             const validTableArgs = {
