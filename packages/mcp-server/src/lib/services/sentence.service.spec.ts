@@ -132,11 +132,6 @@ describe("SentenceService", () => {
 
             expect(result).toEqual([
                 {
-                    key: "key.then.element.withRoleAndName",
-                    section: "general",
-                    wording: "I should see an element with role {string} and name {string}",
-                },
-                {
                     key: "click-actions.role.button",
                     role: "button",
                     section: "general",

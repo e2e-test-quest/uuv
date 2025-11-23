@@ -1,0 +1,8 @@
+Use UUV and Filesystem MCP tools:
+{{#domSelector}}
+    1. With uuv_generate_test_click_element, Generate UUV tests into ./uuv/e2e to click on an element with domSelector "{{{domSelector}}}" exist on the webpage {{{baseUrl}}}
+{{/domSelector}}
+{{^domSelector}}
+    1. With uuv_generate_test_click_element, Generate UUV tests into ./uuv/e2e to click on an element with accessibleName "{{accessibleName}}" and accessibleRole "{{accessibleRole}}" exist on the webpage {{{baseUrl}}}
+{{/domSelector}}
+    2. Write generated uuv test case into a .feature file in local folder ./uuv/e2e (must use actual line breaks, not literal "\n" characters)
