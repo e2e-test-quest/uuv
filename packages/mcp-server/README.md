@@ -58,7 +58,7 @@ First, install the UUV MCP server with your client.
 }
 ```
 
-<summary>opencode</summary>
+<summary>Opencode</summary>
 
 Follow the MCP Servers [documentation](https://opencode.ai/docs/mcp-servers/). For example in `~/.config/opencode/opencode.json`:
 
@@ -99,6 +99,23 @@ Then use the Claude Code CLI to add the UUV MCP server:
 
 ```bash
 claude mcp add uuv npx @uuv/mcp-server@latest
+```
+
+</details>
+
+
+<summary>Gemini CLI</summary>
+
+To **add** the UUV Extension:
+
+```bash
+gemini extensions install https://github.com/e2e-test-quest/uuv --auto-update
+```
+
+To **remove** the UUV Extension:
+
+```bash
+gemini extensions uninstall uuv-e2e-accessibility-test
 ```
 
 </details>

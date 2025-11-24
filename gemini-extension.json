@@ -1,0 +1,20 @@
+{
+    "name": "uuv-e2e-accessibility-test",
+    "version": "1.0.0",
+    "description": "Integrates the Unified UUV Testing Framework into Gemini to provide BDD (Behavior-Driven Development) assistance for your projects based on accessibility datas.",
+    "displayName": "UUV Accessibility E2E Suite",
+    "mcpServers": {
+        "uuv-mcp-server" : {
+            "displayName": "UUV Accessibility MCP",
+            "description": "The Model Context Protocol (MCP) server exposing specialized UUV Tools (Gherkin file generation, etc.) to the Gemini Agent.",
+            "transport": "stdio",
+            "command": [
+                "npx",
+                "@uuv/mcp-server@latest"
+            ]
+        }
+    },
+    "dependencies": {
+        "npm": ["@uuv/mcp-server@latest"]
+    }
+}
