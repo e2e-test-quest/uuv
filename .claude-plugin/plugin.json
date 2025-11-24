@@ -1,0 +1,13 @@
+{
+    "name": "uuv-e2e-accessibility-test",
+    "description": "Integrates the Unified UUV Testing Framework into Claude code to provide BDD (Behavior-Driven Development) assistance for your projects based on accessibility datas.",
+    "version": "1.0.0",
+    "author": {
+        "name": "Louis Fredice NJAKO MOLOM (https://github.com/luifr10) & Stanley SERVICAL (https://github.com/stanlee974)"
+    },
+    "mcpServers": {
+        "uuv-mcp-server": {
+            "command": ["npx", "@uuv/mcp-server@latest"]
+        }
+    }
+}
