@@ -84,9 +84,21 @@ Follow the MCP Servers [documentation](https://opencode.ai/docs/mcp-servers/). F
 
 <summary>Claude Code</summary>
 
-Use the Claude Code CLI to add the UUV MCP server:
+Use the Claude Code CLI to add the Marketplace plugin for the UUV:
+```bash
+claude plugin marketplace add https://github.com/e2e-test-quest/uuv
+```
+
+Then use the Claude Code CLI to add specific UUV's plugin:
+
+```bash
+claude plugin install uuv-e2e-accessibility-test@uuv-e2e-accessibility-test-marketplace
+```
+
+Then use the Claude Code CLI to add the UUV MCP server:
 
 ```bash
 claude mcp add uuv npx @uuv/mcp-server@latest
 ```
+
 </details>
