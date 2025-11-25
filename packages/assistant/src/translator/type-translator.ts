@@ -17,9 +17,16 @@ import { BaseSentence, EnrichedSentence, StepCaseEnum, TranslateSentences } from
 const stepCase = StepCaseEnum.WHEN;
 
 export class TypeTranslator extends Translator {
+    private _useValueAsMockData = true;
+
+
+    set useValueAsMockData(value: boolean) {
+        this._useValueAsMockData = value;
+    }
+
     override getSentenceFromAccessibleRoleAndName(accessibleRole: string, accessibleName: string): TranslateSentences {
         const response = this.initResponse();
-        response.sentences = this.buildSentencesWithRoleAndName(accessibleRole, accessibleName);
+        response.sentences = this.buildSentencesWithRoleAndName(accessibleRole, accessibleName, this._useValueAsMockData);
         return response;
     }
 
@@ -67,14 +74,14 @@ export class TypeTranslator extends Translator {
                 });
             })[0];
     }
-    private buildSentencesWithRoleAndName(accessibleRole: string, accessibleName: string) {
+    private buildSentencesWithRoleAndName(accessibleRole: string, accessibleName: string, useValueAsMockData = true) {
         const sentenceKey = accessibleRole === "textbox" ? "key.when.type" : "key.when.enter";
-        const wording = this.buildWording(sentenceKey, accessibleRole, accessibleName);
+        const wording = this.buildWording(sentenceKey, accessibleRole, accessibleName, useValueAsMockData);
         return [stepCase + wording];
     }
 
     /* eslint-disable  @typescript-eslint/no-explicit-any */
-    private buildWording(computedKey: string, accessibleRole: string, accessibleName: string) {
+    private buildWording(computedKey: string, accessibleRole: string, accessibleName: string, useValueAsMockData = true) {
         const typeSentence = [
             ...this.dictionary.getRoleBasedSentencesTemplate(),
             ...this.dictionary.getBaseSentences()
@@ -82,21 +89,24 @@ export class TypeTranslator extends Translator {
             (el) => (el.key === computedKey)
         );
         return this.dictionary.computeSentence({
-            mock: this.getMockedDataForAccessibleRole(accessibleRole),
+            mock: this.getMockedDataForAccessibleRole(accessibleRole, useValueAsMockData),
             sentence: typeSentence!,
             accessibleRole,
             parameters: [ accessibleName ]
         });
     }
 
-    private getMockedDataForAccessibleRole(accessibleRole: string): string {
-        const isInputHtmlOrTextArea = this.selectedHtmlElem instanceof HTMLInputElement || this.selectedHtmlElem instanceof HTMLTextAreaElement;
-        let content = isInputHtmlOrTextArea ?
-            /* eslint-disable  @typescript-eslint/no-explicit-any */
-            (this.selectedHtmlElem as any).value :
-            this.selectedHtmlElem.getAttribute("value") ?? this.selectedHtmlElem.firstChild?.textContent?.trim();
-        if (!content) {
-            content = undefined;
+    private getMockedDataForAccessibleRole(accessibleRole: string, useValueAsMockData = true): string {
+        let content: string | undefined;
+        if (useValueAsMockData) {
+            const isInputHtmlOrTextArea = this.selectedHtmlElem instanceof HTMLInputElement || this.selectedHtmlElem instanceof HTMLTextAreaElement;
+            content = isInputHtmlOrTextArea ?
+                /* eslint-disable  @typescript-eslint/no-explicit-any */
+                (this.selectedHtmlElem as any).value :
+                this.selectedHtmlElem.getAttribute("value") ?? this.selectedHtmlElem.firstChild?.textContent?.trim();
+            if (!content) {
+                content = undefined;
+            }
         }
         if (accessibleRole === "spinbutton") {
             return content ?? "123";

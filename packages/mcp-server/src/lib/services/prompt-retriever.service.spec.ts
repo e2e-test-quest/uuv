@@ -73,9 +73,15 @@ describe("PromptRetrieverService", () => {
                     [
                         {
                             code: "invalid_union_discriminator",
-                            options: ["generate_test_expect_table", "generate_test_expect_element", "generate_test_click_element"],
+                            options: [
+                                "generate_test_expect_table",
+                                "generate_test_expect_element",
+                                "generate_test_click_element",
+                                "generate_test_within_element",
+                                "generate_test_type_element"
+                            ],
                             path: ["promptName"],
-                            message: "Invalid discriminator value. Expected 'generate_test_expect_table' | 'generate_test_expect_element' | 'generate_test_click_element'",
+                            message: "Invalid discriminator value. Expected 'generate_test_expect_table' | 'generate_test_expect_element' | 'generate_test_click_element' | 'generate_test_within_element' | 'generate_test_type_element'",
                         },
                     ],
                     null,
