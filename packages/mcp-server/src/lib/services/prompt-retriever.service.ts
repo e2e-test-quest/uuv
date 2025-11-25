@@ -14,6 +14,8 @@ export enum UUV_PROMPT {
     GENERATE_TEST_EXPECT_TABLE = "generate_test_expect_table",
     GENERATE_TEST_EXPECT_ELEMENT = "generate_test_expect_element",
     GENERATE_TEST_CLICK_ELEMENT = "generate_test_click_element",
+    GENERATE_TEST_WITHIN_ELEMENT = "generate_test_within_element",
+    GENERATE_TEST_TYPE_ELEMENT = "generate_test_type_element"
 }
 
 
@@ -35,7 +37,12 @@ export class PromptRetrieverService {
                 baseUrl: z.string().describe("The base URL of the page where the table/grid/treegrid is located."),
             }),
             z.object({
-                promptName: z.enum([ UUV_PROMPT.GENERATE_TEST_EXPECT_ELEMENT, UUV_PROMPT.GENERATE_TEST_CLICK_ELEMENT]),
+                promptName: z.enum([
+                    UUV_PROMPT.GENERATE_TEST_EXPECT_ELEMENT,
+                    UUV_PROMPT.GENERATE_TEST_CLICK_ELEMENT,
+                    UUV_PROMPT.GENERATE_TEST_WITHIN_ELEMENT,
+                    UUV_PROMPT.GENERATE_TEST_TYPE_ELEMENT
+                ]),
                 baseUrl: z.string().describe("The base URL of the page where the element is located."),
                 accessibleName: z.string().optional().describe("Accessible name of the element"),
                 accessibleRole: z.string().optional().describe("Accessible role of the element"),
@@ -65,6 +72,8 @@ export class PromptRetrieverService {
             case UUV_PROMPT.GENERATE_TEST_EXPECT_TABLE:
             case UUV_PROMPT.GENERATE_TEST_EXPECT_ELEMENT:
             case UUV_PROMPT.GENERATE_TEST_CLICK_ELEMENT:
+            case UUV_PROMPT.GENERATE_TEST_TYPE_ELEMENT:
+            case UUV_PROMPT.GENERATE_TEST_WITHIN_ELEMENT:
                 prompt = PromptRetrieverService.generatePrompt(args);
                 break;
 

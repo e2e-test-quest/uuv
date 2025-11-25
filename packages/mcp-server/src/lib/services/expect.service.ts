@@ -1,59 +1,47 @@
-import { buildResultingScript, TableAndGridService, ExpectTranslator, ClickTranslator } from "@uuv/assistant";
+import { buildResultingScript, TableAndGridService } from "@uuv/assistant";
 import { JSDOM } from "jsdom";
 import fs from "node:fs";
+import { ClickElementService } from "./element/click-element.service";
+import { TypeElementService } from "./element/type-element.service";
+import { AbstractElementService } from "./element/abstract-element.service";
+import { WithinElementService } from "./element/within-element.service";
+import { ExpectElementService } from "./element/expect-element.service";
 
-export interface ElementByRoleAndName {
+export type FindElementByRoleAndName = {
     baseUrl: string;
     accessibleName: string;
-    accessibleRole: string
-}
+    accessibleRole: string;
+};
 
-export interface ElementByDomSelector {
+export type FindElementByDomSelector = {
     baseUrl: string;
-    domSelector: string
+    domSelector: string;
+};
+
+export type FindElement = FindElementByRoleAndName & FindElementByDomSelector;
+
+export enum ElementServiceType {
+    EXPECT,
+    CLICK,
+    TYPE,
+    WITHIN,
 }
 
-export class ExpectService {
-    public static generateExpectForElement(input: ElementByRoleAndName | ElementByDomSelector): string {
-        if ( "accessibleName" in input && "accessibleRole" in input) {
-            return this.generateExpectForAccessibleNameAndRole(input);
-        } else if ( input satisfies ElementByDomSelector) {
-            return this.generateExpectForDomSelector(input);
-        }
-        return "";
+export function getElementService(serviceType: ElementServiceType): AbstractElementService {
+    switch (serviceType) {
+        case ElementServiceType.CLICK:
+            return new ClickElementService();
+        case ElementServiceType.TYPE:
+            return new TypeElementService();
+        case ElementServiceType.WITHIN:
+            return new WithinElementService();
+        case ElementServiceType.EXPECT:
+        default:
+            return new ExpectElementService();
     }
-    private static generateExpectForAccessibleNameAndRole(input: ElementByRoleAndName): string {
-        const translator = new ExpectTranslator();
-        const result = translator.getSentenceFromAccessibleRoleAndName(input.accessibleRole, input.accessibleName);
-        return buildResultingScript("Your amazing feature name", "Action - An action", result.sentences, input.baseUrl);
-    }
+}
 
-    private static generateExpectForDomSelector(input: ElementByDomSelector): string {
-        const translator = new ExpectTranslator();
-        const result = translator.getSentenceFromDomSelector(input.domSelector);
-        return buildResultingScript("Your amazing feature name", "Action - An action", result.sentences, input.baseUrl);
-    }
-
-    public static generateClickForElement(input: ElementByRoleAndName | ElementByDomSelector): string {
-        if ( "accessibleName" in input && "accessibleRole" in input) {
-            return this.generateClickForAccessibleNameAndRole(input);
-        } else if ( input satisfies ElementByDomSelector) {
-            return this.generateClickForDomSelector(input);
-        }
-        return "";
-    }
-    private static generateClickForAccessibleNameAndRole(input: ElementByRoleAndName): string {
-        const translator = new ClickTranslator();
-        const result = translator.getSentenceFromAccessibleRoleAndName(input.accessibleRole, input.accessibleName);
-        return buildResultingScript("Your amazing feature name", "Action - An action", result.sentences, input.baseUrl);
-    }
-
-    private static generateClickForDomSelector(input: ElementByDomSelector): string {
-        const translator = new ClickTranslator();
-        const result = translator.getSentenceFromDomSelector(input.domSelector);
-        return buildResultingScript("Your amazing feature name", "Action - An action", result.sentences, input.baseUrl);
-    }
-
+export class ExpectTableService {
     public static async generateExpectForTable(baseUrl: string, innerHtmlFilePath: string): Promise<string> {
         const tableAndGridService = new TableAndGridService();
         const dom = new JSDOM(fs.readFileSync(innerHtmlFilePath, "utf8"));

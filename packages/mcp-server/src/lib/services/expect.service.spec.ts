@@ -1,66 +1,13 @@
 import path from "path";
-import { ExpectService } from "./expect.service";
+import { ExpectTableService } from "./expect.service";
 
 describe("ExpectService", () => {
-    describe("generateExpectForElement", () => {
-        it("should generate script for accessible name and role", () => {
-            const baseUrl = "http://example.com";
-            const accessibleName = "Hello world";
-            const accessibleRole = "button";
-
-            const result = ExpectService.generateExpectForElement({ baseUrl, accessibleName, accessibleRole });
-
-            expect(result).toEqual(
-                "Feature: Your amazing feature name\n" +
-                    "  Scenario: Action - An action\n" +
-                    `    Given I visit path "${baseUrl}"\n` +
-                    `    Then I should see a ${accessibleRole} named "${accessibleName}"\n`
-            );
-        });
-
-        it("should generate script for accessible name and role", () => {
-            const baseUrl = "http://example.com";
-            const accessibleName = "Hello world";
-            const accessibleRole = "button";
-
-            const result = ExpectService.generateExpectForElement({
-                baseUrl,
-                accessibleName,
-                accessibleRole,
-            });
-
-            expect(result).toEqual(
-                "Feature: Your amazing feature name\n" +
-                "  Scenario: Action - An action\n" +
-                `    Given I visit path "${baseUrl}"\n` +
-                `    Then I should see a ${accessibleRole} named "${accessibleName}"\n`
-            );
-        });
-
-        it("should generate script for domSelector", () => {
-            const baseUrl = "http://example.com";
-            const domSelector = ".fakeClass";
-
-            const result = ExpectService.generateExpectForElement({
-                baseUrl,
-                domSelector,
-            });
-
-            expect(result).toEqual(
-                "Feature: Your amazing feature name\n" +
-                "  Scenario: Action - An action\n" +
-                `    Given I visit path "${baseUrl}"\n` +
-                `    Then I should see an element with selector "${domSelector}"\n`
-            );
-        });
-    });
-
     describe("generateForTable", () => {
         it("should generate script for table", async () => {
             const baseUrl = "http://example.com";
             const innerHtmlFilePath = path.join(__dirname, "../tests/mock-table.html");
 
-            const result = await ExpectService.generateExpectForTable(baseUrl, innerHtmlFilePath);
+            const result = await ExpectTableService.generateExpectForTable(baseUrl, innerHtmlFilePath);
 
             expect(result).toEqual(
                 "Feature: Your amazing feature name\n" +

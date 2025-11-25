@@ -2,8 +2,38 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 import { SentenceService } from "./services/sentence.service";
 import { PromptRetrieverService, UUV_PROMPT } from "./services/prompt-retriever.service";
-import { ExpectService } from "./services/expect.service";
 import { getDefinedDictionary } from "@uuv/dictionary";
+import {
+    ElementServiceType,
+    ExpectTableService,
+    FindElement,
+    FindElementByDomSelector,
+    FindElementByRoleAndName,
+    getElementService,
+} from "./services/expect.service";
+import { CallToolResult } from "@modelcontextprotocol/sdk/types";
+
+function handleElementTestGeneration(input: Partial<FindElement> & { serviceType: ElementServiceType }): CallToolResult {
+    let result: string;
+    const service = getElementService(input.serviceType);
+
+    if (input.accessibleName && input.accessibleRole) {
+        result = service.generateTestForElement(input as FindElementByRoleAndName);
+    } else if (input.domSelector) {
+        result = service.generateTestForElement(input as FindElementByDomSelector);
+    } else {
+        throw new Error("You must provide either (accessibleRole AND accessibleName) or domSelector");
+    }
+
+    return {
+        content: [
+            {
+                type: "text",
+                text: result,
+            },
+        ],
+    };
+}
 
 export function createUUVServer() {
     const server = new McpServer({
@@ -27,7 +57,7 @@ export function createUUVServer() {
                 promptName: z.enum([
                     UUV_PROMPT.GENERATE_TEST_EXPECT_TABLE,
                     UUV_PROMPT.GENERATE_TEST_EXPECT_ELEMENT,
-                    UUV_PROMPT.GENERATE_TEST_CLICK_ELEMENT
+                    UUV_PROMPT.GENERATE_TEST_CLICK_ELEMENT,
                 ]),
                 baseUrl: z.string().describe("The base URL of the page"),
                 // generate_test_* Fields
@@ -81,60 +111,59 @@ export function createUUVServer() {
     server.registerTool(
         "generate_test_expect_element",
         {
-            title: "Generate expect of html element with role and name",
+            title: "Generate test that expects of html element with role and name",
             description:
                 // eslint-disable-next-line max-len
                 "Generate a complete UUV test scenario (Gherkin format) to verify the presence of an element with specified accessible name and role or domSelector. Use this when the user asks to create/write/generate a UUV scenario or test for checking element visibility. DON'T USE IF ACCESSIBLE ROLE IS grid, treegrid, table, or form",
             inputSchema: FindElementInputSchema,
         },
-        async ({ baseUrl, accessibleName, accessibleRole, domSelector }) => {
-            let result: string;
+        ({ baseUrl, accessibleName, accessibleRole, domSelector }) => {
             if (accessibleRole === "table" || accessibleRole === "grid" || accessibleRole === "treegrid") {
                 throw new Error("For role 'table/grid/treegrid', you must use generate_test_expect_table tool.");
-            } else if (accessibleName && accessibleRole) {
-                result = ExpectService.generateExpectForElement({ baseUrl, accessibleName, accessibleRole });
-            } else if (domSelector) {
-                result = ExpectService.generateExpectForElement({ baseUrl, domSelector });
-            } else {
-                throw new Error("You must provide either (accessibleRole AND accessibleName) or domSelector");
             }
-            return {
-                content: [
-                    {
-                        type: "text",
-                        text: result
-                    },
-                ],
-            };
+            return handleElementTestGeneration({ serviceType: ElementServiceType.EXPECT, baseUrl, accessibleName, accessibleRole, domSelector });
         }
     );
 
     server.registerTool(
         "generate_test_click_element",
         {
-            title: "Generate click on html element with role and name",
+            title: "Generate test that clicks on html element with role and name",
             description:
-            // eslint-disable-next-line max-len
+                // eslint-disable-next-line max-len
                 "Generate a complete UUV test scenario (Gherkin format) to click on an element with specified accessible name and role or domSelector. Use this when the user asks to create/write/generate a UUV scenario or test for checking element visibility. DON'T USE IF ACCESSIBLE ROLE IS grid, treegrid, table, or form",
             inputSchema: FindElementInputSchema,
         },
         async ({ baseUrl, accessibleName, accessibleRole, domSelector }) => {
-            let result: string;
-            if (accessibleName && accessibleRole) {
-                result = ExpectService.generateClickForElement({ baseUrl, accessibleName, accessibleRole });
-            } else if (domSelector) {
-                result = ExpectService.generateClickForElement({ baseUrl, domSelector });
-            } else {
-                throw new Error("You must provide either (accessibleRole AND accessibleName) or domSelector");
-            }
-            return {
-                content: [
-                    {
-                        type: "text",
-                        text: result
-                    },
-                ],
-            };
+            return handleElementTestGeneration({ serviceType: ElementServiceType.CLICK, baseUrl, accessibleName, accessibleRole, domSelector });
+        }
+    );
+
+    server.registerTool(
+        "generate_test_within_element",
+        {
+            title: "Generate test that focus within an html element with role and name",
+            description:
+            // eslint-disable-next-line max-len
+                "Generate a complete UUV test scenario (Gherkin format) that focus within an html element with specified accessible name and role or domSelector. Use this when the user asks to create/write/generate a UUV scenario or test for checking element visibility. DON'T USE IF ACCESSIBLE ROLE IS grid, treegrid, table, or form",
+            inputSchema: FindElementInputSchema,
+        },
+        async ({ baseUrl, accessibleName, accessibleRole, domSelector }) => {
+            return handleElementTestGeneration({ serviceType: ElementServiceType.WITHIN, baseUrl, accessibleName, accessibleRole, domSelector });
+        }
+    );
+
+    server.registerTool(
+        "generate_test_type_element",
+        {
+            title: "Generate test that types a value into html element with role and name",
+            description:
+            // eslint-disable-next-line max-len
+                "Generate a complete UUV test scenario (Gherkin format) that types a value into an html element with specified accessible name and role or domSelector. Use this when the user asks to create/write/generate a UUV scenario or test for checking element visibility. DON'T USE IF ACCESSIBLE ROLE IS grid, treegrid, table, or form",
+            inputSchema: FindElementInputSchema,
+        },
+        async ({ baseUrl, accessibleName, accessibleRole, domSelector }) => {
+            return handleElementTestGeneration({ serviceType: ElementServiceType.TYPE, baseUrl, accessibleName, accessibleRole, domSelector });
         }
     );
 
@@ -155,7 +184,7 @@ export function createUUVServer() {
                 content: [
                     {
                         type: "text",
-                        text: await ExpectService.generateExpectForTable(baseUrl, innerHtmlFilePath),
+                        text: await ExpectTableService.generateExpectForTable(baseUrl, innerHtmlFilePath),
                     },
                 ],
             };

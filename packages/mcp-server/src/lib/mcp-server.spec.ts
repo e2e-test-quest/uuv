@@ -39,6 +39,8 @@ describe("UUV MCP Server", () => {
                 "available_sentences",
                 "generate_test_expect_element",
                 "generate_test_click_element",
+                "generate_test_within_element",
+                "generate_test_type_element",
                 "generate_test_expect_table"
             ]);
         });
@@ -348,6 +350,111 @@ describe("UUV MCP Server", () => {
                     "    Given I visit path \"https://example.com\"\n" +
                     "    When within the element with selector \"#fakeItem > #fakeContainer\"\n" +
                     "    Then I click\n"
+            });
+        });
+    });
+
+    describe(`${UUV_PROMPT.GENERATE_TEST_WITHIN_ELEMENT}`, () => {
+        it(`should throws error when ${UUV_PROMPT.GENERATE_TEST_WITHIN_ELEMENT} parameters are invalid`, async () => {
+            const result = await client.callTool({
+                name: UUV_PROMPT.GENERATE_TEST_WITHIN_ELEMENT,
+                arguments: {
+                    promptName: UUV_PROMPT.GENERATE_TEST_WITHIN_ELEMENT,
+                    baseUrl: "https://example.com",
+                },
+            });
+
+            expect(result.content[0]).toEqual({
+                text: "You must provide either (accessibleRole AND accessibleName) or domSelector",
+                type: "text"
+            });
+        });
+
+        it(`should ${UUV_PROMPT.GENERATE_TEST_WITHIN_ELEMENT} with accessible name and accessible role`, async () => {
+            const result = await client.callTool({
+                name: UUV_PROMPT.GENERATE_TEST_WITHIN_ELEMENT,
+                arguments: {
+                    baseUrl: "https://example.com",
+                    accessibleName: "Get started",
+                    accessibleRole: "button"
+                }
+            });
+
+            expect(result.content[0]).toEqual({
+                type: "text",
+                text: "Feature: Your amazing feature name\n" +
+                    "  Scenario: Action - An action\n" +
+                    "    Given I visit path \"https://example.com\"\n" +
+                    "    When within a button named \"Get started\"\n"
+            });
+        });
+
+        it(`should ${UUV_PROMPT.GENERATE_TEST_WITHIN_ELEMENT} with domSelector`, async () => {
+            const result = await client.callTool({
+                name: UUV_PROMPT.GENERATE_TEST_WITHIN_ELEMENT,
+                arguments: {
+                    baseUrl: "https://example.com",
+                    domSelector: "#fakeItem > #fakeContainer"
+                }
+            });
+
+            expect(result.content[0]).toEqual({
+                type: "text",
+                text: "Feature: Your amazing feature name\n" +
+                    "  Scenario: Action - An action\n" +
+                    "    Given I visit path \"https://example.com\"\n" +
+                    "    When within the element with selector \"#fakeItem > #fakeContainer\"\n"
+            });
+        });
+    });
+
+    describe(`${UUV_PROMPT.GENERATE_TEST_TYPE_ELEMENT}`, () => {
+        it(`should throws error when ${UUV_PROMPT.GENERATE_TEST_TYPE_ELEMENT} parameters are invalid`, async () => {
+            const result = await client.callTool({
+                name: UUV_PROMPT.GENERATE_TEST_TYPE_ELEMENT,
+                arguments: {
+                    promptName: UUV_PROMPT.GENERATE_TEST_TYPE_ELEMENT,
+                    baseUrl: "https://example.com",
+                },
+            });
+
+            expect(result.content[0]).toEqual({
+                text: "You must provide either (accessibleRole AND accessibleName) or domSelector",
+                type: "text"
+            });
+        });
+
+        it(`should ${UUV_PROMPT.GENERATE_TEST_TYPE_ELEMENT} with accessible name and accessible role`, async () => {
+            const result = await client.callTool({
+                name: UUV_PROMPT.GENERATE_TEST_TYPE_ELEMENT,
+                arguments: {
+                    baseUrl: "https://example.com",
+                    accessibleName: "Get started",
+                    accessibleRole: "textbox"
+                }
+            });
+
+            expect(result.content[0]).toEqual({
+                type: "text",
+                text: "Feature: Your amazing feature name\n" +
+                    "  Scenario: Action - An action\n" +
+                    "    Given I visit path \"https://example.com\"\n" +
+                    "    When I type the sentence \"Lorem ipsum\" in the text box named \"Get started\"\n"
+            });
+        });
+
+        it(`should ${UUV_PROMPT.GENERATE_TEST_TYPE_ELEMENT} with domSelector`, async () => {
+            const result = await client.callTool({
+                name: UUV_PROMPT.GENERATE_TEST_TYPE_ELEMENT,
+                arguments: {
+                    baseUrl: "https://example.com",
+                    domSelector: "#fakeItem > #fakeContainer"
+                }
+            });
+
+            expect(result.content[0]).toEqual({
+                type: "text",
+                text: "Not implemented yet"
             });
         });
     });
