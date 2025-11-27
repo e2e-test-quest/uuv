@@ -49,7 +49,7 @@
     "@nx/vite": "21.1.2",
     "@nx/webpack": "21.1.2",
     "@nxrocks/nx-flutter": "10.0.1",
-    "@theunderscorer/nx-semantic-release": "2.12.0",
+    "@theunderscorer/nx-semantic-release": "2.4.0",
     "@types/jest": "30.0.0",
     "@types/node": "22.18.10",
     "@typescript-eslint/eslint-plugin": "8.33.0",
