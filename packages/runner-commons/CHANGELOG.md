@@ -1,3 +1,18 @@
+# [2.68.0](https://github.com/e2e-test-quest/uuv/compare/runner-commons-v2.67.1...runner-commons-v2.68.0) (2025-11-30)
+
+
+### Bug Fixes
+
+* **docs:** clone dictionary during doc generation ([c357bb8](https://github.com/e2e-test-quest/uuv/commit/c357bb8cb18f8aca0ade49e512c806c768030054))
+* **runner-cypress:** update dependency @cypress/webpack-preprocessor to v7.0.2 ([1e2abab](https://github.com/e2e-test-quest/uuv/commit/1e2abab644d26e6b6fd65a00c8d6edd4cdbd2fb6))
+* **runner-playwright:** update dependency chokidar to v4.0.3 ([0e11d27](https://github.com/e2e-test-quest/uuv/commit/0e11d27808d47d77ae982b8874492c98c0afdb76))
+
+
+### Features
+
+* **mcp-server:** introduce unit-test for mcp-server and domSelector for generate_expect_elem, [#1164](https://github.com/e2e-test-quest/uuv/issues/1164) ([a1aabb3](https://github.com/e2e-test-quest/uuv/commit/a1aabb359ee780905cbbdf8d07248b59965208ca))
+* **runner-cypress:** update dependency cypress to v15.7.0 ([36f50df](https://github.com/e2e-test-quest/uuv/commit/36f50dfebe23be556ade0c3e7ed5a53d9214bd9a))
+
 ## [2.67.1](https://github.com/e2e-test-quest/uuv/compare/runner-commons-v2.67.0...runner-commons-v2.67.1) (2025-11-20)
 
 
