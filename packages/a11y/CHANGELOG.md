@@ -1,3 +1,17 @@
+# [1.0.0-beta.87](https://github.com/e2e-test-quest/uuv/compare/a11y-v1.0.0-beta.86...a11y-v1.0.0-beta.87) (2025-11-30)
+
+
+### Bug Fixes
+
+* **runner-cypress:** update dependency @cypress/webpack-preprocessor to v7.0.2 ([1e2abab](https://github.com/e2e-test-quest/uuv/commit/1e2abab644d26e6b6fd65a00c8d6edd4cdbd2fb6))
+* **runner-playwright:** update dependency chokidar to v4.0.3 ([0e11d27](https://github.com/e2e-test-quest/uuv/commit/0e11d27808d47d77ae982b8874492c98c0afdb76))
+
+
+### Features
+
+* **mcp-server:** introduce unit-test for mcp-server and domSelector for generate_expect_elem, [#1164](https://github.com/e2e-test-quest/uuv/issues/1164) ([a1aabb3](https://github.com/e2e-test-quest/uuv/commit/a1aabb359ee780905cbbdf8d07248b59965208ca))
+* **runner-cypress:** update dependency cypress to v15.7.0 ([36f50df](https://github.com/e2e-test-quest/uuv/commit/36f50dfebe23be556ade0c3e7ed5a53d9214bd9a))
+
 # [1.0.0-beta.86](https://github.com/e2e-test-quest/uuv/compare/a11y-v1.0.0-beta.85...a11y-v1.0.0-beta.86) (2025-11-20)
 
 
