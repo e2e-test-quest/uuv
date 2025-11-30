@@ -1,3 +1,11 @@
+# [0.3.0](https://github.com/e2e-test-quest/uuv/compare/mcp-server-v0.2.0...mcp-server-v0.3.0) (2025-11-30)
+
+
+### Features
+
+* **mcp-server:** add claude code plugin, [#1168](https://github.com/e2e-test-quest/uuv/issues/1168) ([8b00804](https://github.com/e2e-test-quest/uuv/commit/8b00804aaeea87b4385e16b5dbdfa01a10319db0))
+* **mcp-server:** add gemini extension, [#1166](https://github.com/e2e-test-quest/uuv/issues/1166) ([b1ee07b](https://github.com/e2e-test-quest/uuv/commit/b1ee07bcf6236fd9c5b0ee8cc30ae786b19fe1b1))
+
 # [0.2.0](https://github.com/e2e-test-quest/uuv/compare/mcp-server-v0.1.3...mcp-server-v0.2.0) (2025-11-30)
 
 
