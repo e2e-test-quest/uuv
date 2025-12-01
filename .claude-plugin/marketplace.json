@@ -10,12 +10,7 @@
     "plugins": [
         {
             "name": "uuv-e2e-accessibility-test",
-            "source": {
-                "source": "url",
-                "url": "https://github.com/e2e-test-quest/uuv.git"
-            },
-            "description": "Integrates the Unified UUV Testing Framework into Claude code to provide BDD (Behavior-Driven Development) assistance for your projects based on accessibility datas.",
-            "version": "1.0.0"
+            "source": "./plugin.json"
         }
     ]
 }

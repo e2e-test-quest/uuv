@@ -7,7 +7,12 @@
     },
     "mcpServers": {
         "uuv-mcp-server": {
-            "command": ["npx", "@uuv/mcp-server@latest"]
+            "type": "stdio",
+            "command": "npx",
+            "args": [
+                "-y",
+                "@uuv/mcp-server@latest"
+            ]
         }
     }
 }
