@@ -1,3 +1,15 @@
+# [0.4.0](https://github.com/e2e-test-quest/uuv/compare/mcp-server-v0.3.0...mcp-server-v0.4.0) (2025-12-01)
+
+
+### Bug Fixes
+
+* **mcp-server:** correct type prompt template ([114e817](https://github.com/e2e-test-quest/uuv/commit/114e81791991df8919150c26b566ceaedea0e013))
+
+
+### Features
+
+* **mcp-server:** add mcp prompts, [#1171](https://github.com/e2e-test-quest/uuv/issues/1171) ([4e7eb52](https://github.com/e2e-test-quest/uuv/commit/4e7eb521ae73cb5e3de095a8cb917f17ebb0c6bb))
+
 # [0.3.0](https://github.com/e2e-test-quest/uuv/compare/mcp-server-v0.2.0...mcp-server-v0.3.0) (2025-11-30)
 
 
