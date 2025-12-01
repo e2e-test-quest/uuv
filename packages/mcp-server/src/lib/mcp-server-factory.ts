@@ -1,7 +1,7 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 import { SentenceService } from "./services/sentence.service";
-import { PromptRetrieverService, UUV_PROMPT } from "./services/prompt-retriever.service";
+import { PromptRetrieverService, UUV_PROMPT, uuvPrompts } from "./services/prompt-retriever.service";
 import { getDefinedDictionary } from "@uuv/dictionary";
 import {
     ElementServiceType,
@@ -48,6 +48,94 @@ export function createUUVServer() {
         domSelector: z.string().optional().describe("Dom selector of the element"),
     };
 
+    server.registerPrompt(
+        UUV_PROMPT.GENERATE_TEST_EXPECT_TABLE,
+        {
+            title: uuvPrompts[UUV_PROMPT.GENERATE_TEST_EXPECT_TABLE].title,
+            description: uuvPrompts[UUV_PROMPT.GENERATE_TEST_EXPECT_TABLE].description,
+            argsSchema: {
+                baseUrl: z.string().describe("The base URL of the page where the table/grid/treegrid is located."),
+            },
+        },
+        ({ ...args }) => ({
+            messages: [
+                {
+                    role: "assistant",
+                    content: {
+                        type: "text",
+                        text: PromptRetrieverService.retrievePrompt({
+                            promptName: UUV_PROMPT.GENERATE_TEST_EXPECT_TABLE,
+                            ...args
+                        }),
+                    },
+                },
+            ],
+        })
+    );
+
+    [
+        UUV_PROMPT.GENERATE_TEST_EXPECT_ELEMENT,
+        UUV_PROMPT.GENERATE_TEST_CLICK_ELEMENT,
+        UUV_PROMPT.GENERATE_TEST_WITHIN_ELEMENT
+    ].forEach((promptName: UUV_PROMPT) => {
+        server.registerPrompt(
+            promptName,
+            {
+                title: uuvPrompts[promptName].title,
+                description: uuvPrompts[promptName].description,
+                argsSchema: {
+                    baseUrl: z.string().describe("The base URL of the page where the table/grid/treegrid is located."),
+                    accessibleName: z.string().optional().describe("Accessible name of the element"),
+                    accessibleRole: z.string().optional().describe("Accessible role of the element"),
+                    domSelector: z.string().optional().describe("Dom selector of the element")
+                }
+            },
+            ({ ...args }) => ({
+                messages: [
+                    {
+                        role: "assistant",
+                        content: {
+                            type: "text",
+                            text: PromptRetrieverService.retrievePrompt({
+                                promptName,
+                                ...args
+                            })
+                        }
+                    }
+                ]
+            })
+        );
+    });
+
+    server.registerPrompt(
+        UUV_PROMPT.GENERATE_TEST_TYPE_ELEMENT,
+        {
+            title: uuvPrompts[UUV_PROMPT.GENERATE_TEST_TYPE_ELEMENT].title,
+            description: uuvPrompts[UUV_PROMPT.GENERATE_TEST_TYPE_ELEMENT].description,
+            argsSchema: {
+                baseUrl: z.string().describe("The base URL of the page where the table/grid/treegrid is located."),
+                valueToType: z.string().describe("Value to type"),
+                accessibleName: z.string().optional().describe("Accessible name of the element"),
+                accessibleRole: z.string().optional().describe("Accessible role of the element"),
+                domSelector: z.string().optional().describe("Dom selector of the element")
+            }
+        },
+        ({ ...args }) => ({
+            messages: [
+                {
+                    role: "assistant",
+                    content: {
+                        type: "text",
+                        text: PromptRetrieverService.retrievePrompt({
+                            promptName: UUV_PROMPT.GENERATE_TEST_TYPE_ELEMENT,
+                            ...args
+                        })
+                    }
+                }
+            ]
+        })
+    );
+
     server.registerTool(
         "retrieve_prompt",
         {
@@ -58,12 +146,15 @@ export function createUUVServer() {
                     UUV_PROMPT.GENERATE_TEST_EXPECT_TABLE,
                     UUV_PROMPT.GENERATE_TEST_EXPECT_ELEMENT,
                     UUV_PROMPT.GENERATE_TEST_CLICK_ELEMENT,
+                    UUV_PROMPT.GENERATE_TEST_TYPE_ELEMENT,
+                    UUV_PROMPT.GENERATE_TEST_WITHIN_ELEMENT
                 ]),
                 baseUrl: z.string().describe("The base URL of the page"),
                 // generate_test_* Fields
-                accessibleName: z.string().optional().describe("Accessible name (required for generate_role_and_name)"),
-                accessibleRole: z.string().optional().describe("Accessible role (required for generate_role_and_name)"),
+                accessibleName: z.string().optional().describe("Accessible name"),
+                accessibleRole: z.string().optional().describe("Accessible role"),
                 domSelector: z.string().optional().describe("Dom selector of the element"),
+                valueToType: z.string().optional().describe("Value to type")
             },
         },
         async ({ ...args }) => {
@@ -111,7 +202,7 @@ export function createUUVServer() {
     server.registerTool(
         "generate_test_expect_element",
         {
-            title: "Generate test that expects of html element with role and name",
+            title: "Generate test that expects of html element with (role and name) or domSelector",
             description:
                 // eslint-disable-next-line max-len
                 "Generate a complete UUV test scenario (Gherkin format) to verify the presence of an element with specified accessible name and role or domSelector. Use this when the user asks to create/write/generate a UUV scenario or test for checking element visibility. DON'T USE IF ACCESSIBLE ROLE IS grid, treegrid, table, or form",
@@ -128,7 +219,7 @@ export function createUUVServer() {
     server.registerTool(
         "generate_test_click_element",
         {
-            title: "Generate test that clicks on html element with role and name",
+            title: "Generate test that clicks on html element with (role and name) or domSelector",
             description:
                 // eslint-disable-next-line max-len
                 "Generate a complete UUV test scenario (Gherkin format) to click on an element with specified accessible name and role or domSelector. Use this when the user asks to create/write/generate a UUV scenario or test for checking element visibility. DON'T USE IF ACCESSIBLE ROLE IS grid, treegrid, table, or form",
@@ -142,7 +233,7 @@ export function createUUVServer() {
     server.registerTool(
         "generate_test_within_element",
         {
-            title: "Generate test that focus within an html element with role and name",
+            title: "Generate test that focus within an html element with (role and name) or domSelector",
             description:
             // eslint-disable-next-line max-len
                 "Generate a complete UUV test scenario (Gherkin format) that focus within an html element with specified accessible name and role or domSelector. Use this when the user asks to create/write/generate a UUV scenario or test for checking element visibility. DON'T USE IF ACCESSIBLE ROLE IS grid, treegrid, table, or form",
@@ -156,7 +247,7 @@ export function createUUVServer() {
     server.registerTool(
         "generate_test_type_element",
         {
-            title: "Generate test that types a value into html element with role and name",
+            title: "Generate test that types a value into html element with (role and name) or domSelector",
             description:
             // eslint-disable-next-line max-len
                 "Generate a complete UUV test scenario (Gherkin format) that types a value into an html element with specified accessible name and role or domSelector. Use this when the user asks to create/write/generate a UUV scenario or test for checking element visibility. DON'T USE IF ACCESSIBLE ROLE IS grid, treegrid, table, or form",

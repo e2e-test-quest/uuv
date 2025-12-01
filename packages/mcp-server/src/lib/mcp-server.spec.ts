@@ -9,6 +9,68 @@ describe("UUV MCP Server", () => {
     let client: Client;
     let server: McpServer;
 
+    const expectedExpectElementRoleAndNamePrompt = {
+        type: "text",
+        text: "Use UUV and Filesystem MCP tools:\n" +
+            "    1. With uuv_generate_test_expect_element, Generate UUV tests into ./uuv/e2e to verify that an element with accessibleName \"Get started\" and accessibleRole \"button\" exist on the webpage https://example.com\n" +
+            "    2. Write generated uuv test case into a .feature file in local folder ./uuv/e2e (must use actual line breaks, not literal \"\\n\" characters)"
+    };
+
+    const expectedExpectElementDomSelectorPrompt = {
+        type: "text",
+        text: "Use UUV and Filesystem MCP tools:\n" +
+            "    1. With uuv_generate_test_expect_element, Generate UUV tests into ./uuv/e2e to verify that an element with domSelector \"#fakeItem > #fakeContainer\" exist on the webpage https://example.com\n" +
+            "    2. Write generated uuv test case into a .feature file in local folder ./uuv/e2e (must use actual line breaks, not literal \"\\n\" characters)"
+    };
+
+    const expectedTypeElementRoleAndNamePrompt = {
+        type: "text",
+        text: "Use UUV and Filesystem MCP tools:\n" +
+            "    1. With uuv_generate_test_type_element, Generate UUV tests into ./uuv/e2e to type sentence or value \"Lorem Ipsum\" into an element with accessibleName \"First Name\" and accessibleRole \"textbox\" exist on the webpage https://example.com\n" +
+            "    2. Write generated uuv test case into a .feature file in local folder ./uuv/e2e (must use actual line breaks, not literal \"\\n\" characters)"
+    };
+
+    const expectedClickElementRoleAndNamePrompt = {
+        type: "text",
+        text: "Use UUV and Filesystem MCP tools:\n" +
+            "    1. With uuv_generate_test_click_element, Generate UUV tests into ./uuv/e2e to click on an element with accessibleName \"First Name\" and accessibleRole \"textbox\" exist on the webpage https://example.com\n" +
+            "    2. Write generated uuv test case into a .feature file in local folder ./uuv/e2e (must use actual line breaks, not literal \"\\n\" characters)"
+    };
+
+    const expectedClickElementDomSelectorPrompt = {
+        type: "text",
+        text: "Use UUV and Filesystem MCP tools:\n" +
+            "    1. With uuv_generate_test_click_element, Generate UUV tests into ./uuv/e2e to click on an element with domSelector \"#fakeItem > #fakeContainer\" exist on the webpage https://example.com\n" +
+            "    2. Write generated uuv test case into a .feature file in local folder ./uuv/e2e (must use actual line breaks, not literal \"\\n\" characters)"
+    };
+
+    const expectedWithinElementRoleAndNamePrompt = {
+        type: "text",
+        text: "Use UUV and Filesystem MCP tools:\n" +
+            "    1. With uuv_generate_test_within_element, Generate UUV tests into ./uuv/e2e to focus on an element with accessibleName \"First Name\" and accessibleRole \"textbox\" exist on the webpage https://example.com\n" +
+            "    2. Write generated uuv test case into a .feature file in local folder ./uuv/e2e (must use actual line breaks, not literal \"\\n\" characters)"
+    };
+
+    const expectedWithinElementDomSelectorPrompt = {
+        type: "text",
+        text: "Use UUV and Filesystem MCP tools:\n" +
+            "    1. With uuv_generate_test_within_element, Generate UUV tests into ./uuv/e2e to focus on an element with domSelector \"#fakeItem > #fakeContainer\" exist on the webpage https://example.com\n" +
+            "    2. Write generated uuv test case into a .feature file in local folder ./uuv/e2e (must use actual line breaks, not literal \"\\n\" characters)"
+    };
+
+    const expectedExpectTAbleDomSelectorPrompt = {
+        type: "text",
+        text: "Use the Playwright and UUV MCP tools:\n" +
+            "    1. Open a browser, then navigate to https://example.com\n" +
+            "    2. Evaluate exactly, ensuring that the extracted HTML is not truncated: document.querySelector('table').outerHTML\n" +
+            "    3. Write resulting HTML of the previous step into a file named extraction.html in the current project directory\n" +
+            "    4. With uuv_generate_Table, Generate UUV tests into ./uuv/e2e to verify the html table with absolute path /workspaces/opensource/weather-app/extraction.html\n" +
+            "    5. Write generated uuv test into a .feature file in local folder ./uuv/e2e (must use actual line breaks, not literal \"\\n\" characters)\n" +
+            "\n" +
+            "IMPORTANT:\n" +
+            "    - When Playwright returns the result, ignore any console logs or debug lines."
+    };
+
     beforeEach(async () => {
         const [clientTransport, serverTransport] = InMemoryTransport.createLinkedPair();
 
@@ -31,6 +93,18 @@ describe("UUV MCP Server", () => {
     });
 
     describe("Tools list", () => {
+        it("should exposes existing prompt", async () => {
+            const prompts = await client.listPrompts();
+
+            expect(prompts.prompts.map(prompt => prompt.name)).toEqual([
+                "generate_test_expect_table",
+                "generate_test_expect_element",
+                "generate_test_click_element",
+                "generate_test_within_element",
+                "generate_test_type_element"
+            ]);
+        });
+
         it("should exposes existing tools", async () => {
             const tools = await client.listTools();
 
@@ -50,7 +124,7 @@ describe("UUV MCP Server", () => {
         });
     });
 
-    describe("retrieve_prompt", () => {
+    describe("prompt", () => {
         it("should throws error when retrieve prompt parameters are invalid", async () => {
             const result = await client.callTool({
                 name: "retrieve_prompt",
@@ -68,7 +142,7 @@ describe("UUV MCP Server", () => {
         });
 
         it(`should retrieve prompt ${UUV_PROMPT.GENERATE_TEST_EXPECT_ELEMENT} with accessible name and accessible role`, async () => {
-            const result = await client.callTool({
+            const toolResult = await client.callTool({
                 name: "retrieve_prompt",
                 arguments: {
                     promptName: UUV_PROMPT.GENERATE_TEST_EXPECT_ELEMENT,
@@ -78,11 +152,22 @@ describe("UUV MCP Server", () => {
                 }
             });
 
-            expect(result.content[0]).toEqual({
-                type: "text",
-                text: "Use UUV and Filesystem MCP tools:\n" +
-                    "    1. With uuv_generate_test_expect_element, Generate UUV tests into ./uuv/e2e to verify that an element with accessibleName \"Get started\" and accessibleRole \"button\" exist on the webpage https://example.com\n" +
-                    "    2. Write generated uuv test case into a .feature file in local folder ./uuv/e2e (must use actual line breaks, not literal \"\\n\" characters)"
+            expect(toolResult.content[0]).toEqual(expectedExpectElementRoleAndNamePrompt);
+        });
+
+        it(`should get prompt ${UUV_PROMPT.GENERATE_TEST_EXPECT_ELEMENT} with accessible name and accessible role`, async () => {
+            const promptResult = await client.getPrompt({
+                name: UUV_PROMPT.GENERATE_TEST_EXPECT_ELEMENT,
+                arguments: {
+                    baseUrl: "https://example.com",
+                    accessibleName: "Get started",
+                    accessibleRole: "button"
+                }
+            });
+
+            expect(promptResult.messages[0]).toEqual({
+                role: "assistant",
+                content: expectedExpectElementRoleAndNamePrompt
             });
         });
 
@@ -96,11 +181,53 @@ describe("UUV MCP Server", () => {
                 }
             });
 
-            expect(result.content[0]).toEqual({
-                type: "text",
-                text: "Use UUV and Filesystem MCP tools:\n" +
-                    "    1. With uuv_generate_test_expect_element, Generate UUV tests into ./uuv/e2e to verify that an element with domSelector \"#fakeItem > #fakeContainer\" exist on the webpage https://example.com\n" +
-                    "    2. Write generated uuv test case into a .feature file in local folder ./uuv/e2e (must use actual line breaks, not literal \"\\n\" characters)"
+            expect(result.content[0]).toEqual(expectedExpectElementDomSelectorPrompt);
+        });
+
+        it(`should get prompt ${UUV_PROMPT.GENERATE_TEST_EXPECT_ELEMENT} with domSelector`, async () => {
+            const promptResult = await client.getPrompt({
+                name: UUV_PROMPT.GENERATE_TEST_EXPECT_ELEMENT,
+                arguments: {
+                    baseUrl: "https://example.com",
+                    domSelector: "#fakeItem > #fakeContainer"
+                }
+            });
+
+            expect(promptResult.messages[0]).toEqual({
+                role: "assistant",
+                content: expectedExpectElementDomSelectorPrompt
+            });
+        });
+
+        it(`should retrieve prompt ${UUV_PROMPT.GENERATE_TEST_TYPE_ELEMENT} with accessible name and accessible role`, async () => {
+            const result = await client.callTool({
+                name: "retrieve_prompt",
+                arguments: {
+                    promptName: UUV_PROMPT.GENERATE_TEST_TYPE_ELEMENT,
+                    baseUrl: "https://example.com",
+                    valueToType: "Lorem Ipsum",
+                    accessibleName: "First Name",
+                    accessibleRole: "textbox"
+                }
+            });
+
+            expect(result.content[0]).toEqual(expectedTypeElementRoleAndNamePrompt);
+        });
+
+        it(`should get prompt ${UUV_PROMPT.GENERATE_TEST_TYPE_ELEMENT} with accessible name and accessible role`, async () => {
+            const promptResult = await client.getPrompt({
+                name: UUV_PROMPT.GENERATE_TEST_TYPE_ELEMENT,
+                arguments: {
+                    baseUrl: "https://example.com",
+                    valueToType: "Lorem Ipsum",
+                    accessibleName: "First Name",
+                    accessibleRole: "textbox"
+                }
+            });
+
+            expect(promptResult.messages[0]).toEqual({
+                role: "assistant",
+                content: expectedTypeElementRoleAndNamePrompt
             });
         });
 
@@ -110,16 +237,27 @@ describe("UUV MCP Server", () => {
                 arguments: {
                     promptName: UUV_PROMPT.GENERATE_TEST_CLICK_ELEMENT,
                     baseUrl: "https://example.com",
-                    accessibleName: "Get started",
-                    accessibleRole: "button"
+                    accessibleName: "First Name",
+                    accessibleRole: "textbox"
                 }
             });
 
-            expect(result.content[0]).toEqual({
-                type: "text",
-                text: "Use UUV and Filesystem MCP tools:\n" +
-                    "    1. With uuv_generate_test_click_element, Generate UUV tests into ./uuv/e2e to click on an element with accessibleName \"Get started\" and accessibleRole \"button\" exist on the webpage https://example.com\n" +
-                    "    2. Write generated uuv test case into a .feature file in local folder ./uuv/e2e (must use actual line breaks, not literal \"\\n\" characters)"
+            expect(result.content[0]).toEqual(expectedClickElementRoleAndNamePrompt);
+        });
+
+        it(`should get prompt ${UUV_PROMPT.GENERATE_TEST_CLICK_ELEMENT} with accessible name and accessible role`, async () => {
+            const promptResult = await client.getPrompt({
+                name: UUV_PROMPT.GENERATE_TEST_CLICK_ELEMENT,
+                arguments: {
+                    baseUrl: "https://example.com",
+                    accessibleName: "First Name",
+                    accessibleRole: "textbox"
+                }
+            });
+
+            expect(promptResult.messages[0]).toEqual({
+                role: "assistant",
+                content: expectedClickElementRoleAndNamePrompt
             });
         });
 
@@ -133,11 +271,64 @@ describe("UUV MCP Server", () => {
                 }
             });
 
-            expect(result.content[0]).toEqual({
-                type: "text",
-                text: "Use UUV and Filesystem MCP tools:\n" +
-                    "    1. With uuv_generate_test_click_element, Generate UUV tests into ./uuv/e2e to click on an element with domSelector \"#fakeItem > #fakeContainer\" exist on the webpage https://example.com\n" +
-                    "    2. Write generated uuv test case into a .feature file in local folder ./uuv/e2e (must use actual line breaks, not literal \"\\n\" characters)"
+            expect(result.content[0]).toEqual(expectedClickElementDomSelectorPrompt);
+        });
+
+        it(`should retrieve prompt ${UUV_PROMPT.GENERATE_TEST_WITHIN_ELEMENT} with accessible name and accessible role`, async () => {
+            const result = await client.callTool({
+                name: "retrieve_prompt",
+                arguments: {
+                    promptName: UUV_PROMPT.GENERATE_TEST_WITHIN_ELEMENT,
+                    baseUrl: "https://example.com",
+                    accessibleName: "First Name",
+                    accessibleRole: "textbox"
+                }
+            });
+
+            expect(result.content[0]).toEqual(expectedWithinElementRoleAndNamePrompt);
+        });
+
+        it(`should get prompt ${UUV_PROMPT.GENERATE_TEST_WITHIN_ELEMENT} with accessible name and accessible role`, async () => {
+            const promptResult = await client.getPrompt({
+                name: UUV_PROMPT.GENERATE_TEST_WITHIN_ELEMENT,
+                arguments: {
+                    baseUrl: "https://example.com",
+                    accessibleName: "First Name",
+                    accessibleRole: "textbox"
+                }
+            });
+
+            expect(promptResult.messages[0]).toEqual({
+                role: "assistant",
+                content: expectedWithinElementRoleAndNamePrompt
+            });
+        });
+
+        it(`should retrieve prompt ${UUV_PROMPT.GENERATE_TEST_WITHIN_ELEMENT} with domSelector`, async () => {
+            const result = await client.callTool({
+                name: "retrieve_prompt",
+                arguments: {
+                    promptName: UUV_PROMPT.GENERATE_TEST_WITHIN_ELEMENT,
+                    baseUrl: "https://example.com",
+                    domSelector: "#fakeItem > #fakeContainer"
+                }
+            });
+
+            expect(result.content[0]).toEqual(expectedWithinElementDomSelectorPrompt);
+        });
+
+        it(`should get prompt ${UUV_PROMPT.GENERATE_TEST_WITHIN_ELEMENT} with domSelector`, async () => {
+            const promptResult = await client.getPrompt({
+                name: UUV_PROMPT.GENERATE_TEST_WITHIN_ELEMENT,
+                arguments: {
+                    baseUrl: "https://example.com",
+                    domSelector: "#fakeItem > #fakeContainer"
+                }
+            });
+
+            expect(promptResult.messages[0]).toEqual({
+                role: "assistant",
+                content: expectedWithinElementDomSelectorPrompt
             });
         });
 
@@ -150,17 +341,20 @@ describe("UUV MCP Server", () => {
                 }
             });
 
-            expect(result.content[0]).toEqual({
-                type: "text",
-                text: "Use the Playwright and UUV MCP tools:\n" +
-                    "    1. Open a browser, then navigate to https://example.com\n" +
-                    "    2. Evaluate exactly, ensuring that the extracted HTML is not truncated: document.querySelector('table').outerHTML\n" +
-                    "    3. Write resulting HTML of the previous step into a file named extraction.html in the current project directory\n" +
-                    "    4. With uuv_generate_Table, Generate UUV tests into ./uuv/e2e to verify the html table with absolute path /workspaces/opensource/weather-app/extraction.html\n" +
-                    "    5. Write generated uuv test into a .feature file in local folder ./uuv/e2e (must use actual line breaks, not literal \"\\n\" characters)\n" +
-                    "\n" +
-                    "IMPORTANT:\n" +
-                    "    - When Playwright returns the result, ignore any console logs or debug lines."
+            expect(result.content[0]).toEqual(expectedExpectTAbleDomSelectorPrompt);
+        });
+
+        it(`should get prompt ${UUV_PROMPT.GENERATE_TEST_EXPECT_TABLE} with domSelector`, async () => {
+            const promptResult = await client.getPrompt({
+                name: UUV_PROMPT.GENERATE_TEST_EXPECT_TABLE,
+                arguments: {
+                    baseUrl: "https://example.com",
+                }
+            });
+
+            expect(promptResult.messages[0]).toEqual({
+                role: "assistant",
+                content: expectedExpectTAbleDomSelectorPrompt
             });
         });
     });
