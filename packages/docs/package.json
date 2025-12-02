@@ -60,7 +60,7 @@
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "3.8.1",
-    "@tsconfig/docusaurus": "2.0.3",
+    "@tsconfig/docusaurus": "2.0.7",
     "@uuv/a11y": "1.0.0-beta.87",
     "@uuv/runner-commons": "2.68.0",
     "handlebars": "^4.7.8",
