@@ -1,3 +1,10 @@
+## [0.4.1](https://github.com/e2e-test-quest/uuv/compare/mcp-server-v0.4.0...mcp-server-v0.4.1) (2025-12-07)
+
+
+### Bug Fixes
+
+* **mcp-server:** add mcp prompts in mcp-server npm package and temp remove valueToType arg ([c5dd4f3](https://github.com/e2e-test-quest/uuv/commit/c5dd4f344f00d43068057a3dfa03a1fc7239eef9))
+
 # [0.4.0](https://github.com/e2e-test-quest/uuv/compare/mcp-server-v0.3.0...mcp-server-v0.4.0) (2025-12-01)
 
 
