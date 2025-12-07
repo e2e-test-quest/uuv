@@ -1,3 +1,10 @@
+## [2.74.1](https://github.com/e2e-test-quest/uuv/compare/runner-cypress-v2.74.0...runner-cypress-v2.74.1) (2025-12-07)
+
+
+### Bug Fixes
+
+* **mcp-server:** add mcp prompts in mcp-server npm package and temp remove valueToType arg ([c5dd4f3](https://github.com/e2e-test-quest/uuv/commit/c5dd4f344f00d43068057a3dfa03a1fc7239eef9))
+
 # [2.74.0](https://github.com/e2e-test-quest/uuv/compare/runner-cypress-v2.73.1...runner-cypress-v2.74.0) (2025-11-30)
 
 
