@@ -99,22 +99,14 @@ export class PromptRetrieverService {
                 promptName: z.enum([
                     UUV_PROMPT.GENERATE_TEST_EXPECT_ELEMENT,
                     UUV_PROMPT.GENERATE_TEST_CLICK_ELEMENT,
-                    UUV_PROMPT.GENERATE_TEST_WITHIN_ELEMENT
-                ]),
-                baseUrl: z.string().describe("The base URL of the page where the element is located."),
-                accessibleName: z.string().optional().describe("Accessible name of the element"),
-                accessibleRole: z.string().optional().describe("Accessible role of the element"),
-                domSelector: z.string().optional().describe("Dom selector of the element"),
-            }),
-            z.object({
-                promptName: z.enum([
+                    UUV_PROMPT.GENERATE_TEST_WITHIN_ELEMENT,
                     UUV_PROMPT.GENERATE_TEST_TYPE_ELEMENT
                 ]),
                 baseUrl: z.string().describe("The base URL of the page where the element is located."),
-                valueToType: z.string().describe("Value to type"),
                 accessibleName: z.string().optional().describe("Accessible name of the element"),
                 accessibleRole: z.string().optional().describe("Accessible role of the element"),
                 domSelector: z.string().optional().describe("Dom selector of the element"),
+                // valueToType: z.string().describe("Value to type"), TODO: implement this arg for UUV_PROMPT.GENERATE_TEST_TYPE_ELEMENT
             })
         ]).superRefine((data, ctx) => {
             if (

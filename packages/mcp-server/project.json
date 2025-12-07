@@ -5,7 +5,7 @@
     "projectType": "library",
     "tags": [],
     "targets": {
-        "build": {
+        "build-tsc": {
             "executor": "@nx/js:tsc",
             "outputs": ["{options.outputPath}"],
             "options": {
@@ -16,6 +16,22 @@
                 "assets": ["packages/mcp-server/*.md"]
             },
             "dependsOn": ["^build"]
+        },
+        "build-copy-prompt-templates": {
+            "executor": "nx:run-commands",
+            "options": {
+                "cwd": "packages/mcp-server",
+                "commands": [
+                  "npm run build-copy-prompt-templates"
+                ]
+            },
+            "dependsOn": ["build-tsc"]
+        },
+        "build": {
+          "dependsOn": [
+            "build-tsc",
+            "build-copy-prompt-templates"
+          ]
         },
         "test": {
             "executor": "@nx/jest:jest",

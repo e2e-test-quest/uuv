@@ -114,7 +114,6 @@ export function createUUVServer() {
             description: uuvPrompts[UUV_PROMPT.GENERATE_TEST_TYPE_ELEMENT].description,
             argsSchema: {
                 baseUrl: z.string().describe("The base URL of the page where the table/grid/treegrid is located."),
-                valueToType: z.string().describe("Value to type"),
                 accessibleName: z.string().optional().describe("Accessible name of the element"),
                 accessibleRole: z.string().optional().describe("Accessible role of the element"),
                 domSelector: z.string().optional().describe("Dom selector of the element")
@@ -153,8 +152,7 @@ export function createUUVServer() {
                 // generate_test_* Fields
                 accessibleName: z.string().optional().describe("Accessible name"),
                 accessibleRole: z.string().optional().describe("Accessible role"),
-                domSelector: z.string().optional().describe("Dom selector of the element"),
-                valueToType: z.string().optional().describe("Value to type")
+                domSelector: z.string().optional().describe("Dom selector of the target element")
             },
         },
         async ({ ...args }) => {
