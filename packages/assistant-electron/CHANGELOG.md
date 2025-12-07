@@ -1,3 +1,10 @@
+## [1.90.1](https://github.com/e2e-test-quest/uuv/compare/assistant-electron-v1.90.0...assistant-electron-v1.90.1) (2025-12-07)
+
+
+### Bug Fixes
+
+* **mcp-server:** add mcp prompts in mcp-server npm package and temp remove valueToType arg ([c5dd4f3](https://github.com/e2e-test-quest/uuv/commit/c5dd4f344f00d43068057a3dfa03a1fc7239eef9))
+
 # [1.90.0](https://github.com/e2e-test-quest/uuv/compare/assistant-electron-v1.89.2...assistant-electron-v1.90.0) (2025-11-30)
 
 
