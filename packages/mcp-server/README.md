@@ -7,38 +7,6 @@ This library is an MCP (Model Context Protocol) server for UUV - a solution to f
 - Opencode, Claude Desktop, Goose or any other MCP client
 - [Playwright MCP Server](https://github.com/microsoft/playwright-mcp)
 
-## Exposed MCP Tools
-
-This MCP server exposes the following tools:
-
-### retrieve_prompt
-- **Description**: Retrieve a uuv prompt template for a coding agent based on a prompt name and arguments.
-- **Input Schema**:
-  - `promptName` (enum): Either "generate_table" or "generate_role_and_name"
-  - `baseUrl` (string): The base URL of the page
-  - For generate_role_and_name:
-    - `accessibleName` (string, optional): Accessible name 
-    - `accessibleRole` (string, optional): Accessible role
-
-### available_sentences
-- **Description**: List all available UUV test sentences/phrases in Gherkin format.
-- **Input Schema**:
-  - `category` (enum, optional): Filters sentences by action type (general, keyboard, click, contains, type, checkable)
-  - `role` (string, optional): Filters sentences related to an accessible role
-
-### generate_role_and_name
-- **Description**: Generate a complete UUV test scenario (Gherkin format) to verify the presence of an element with specified accessible name and role.
-- **Input Schema**:
-  - `baseUrl` (string): The base URL of the page where the element is located
-  - `accessibleName` (string): Accessible name of the element
-  - `accessibleRole` (string): Accessible role of the element
-
-### generate_table
-- **Description**: Generate a complete UUV test scenario (Gherkin format) to verify the presence and content of html table, grid or treegrid.
-- **Input Schema**:
-  - `baseUrl` (string): The base URL of the page where the table/grid/treegrid is located
-  - `innerHtmlFilePath` (string): File path containing the raw innerHTML content
-
 ## Getting started
 
 First, install the UUV MCP server with your client.
@@ -119,3 +87,104 @@ gemini extensions uninstall uuv-e2e-accessibility-test
 ```
 
 </details>
+
+## Exposed MCP Tools
+
+This MCP server exposes the following tools:
+
+### retrieve_prompt
+- **Description**: Retrieve an uuv prompt template for a coding agent based on a prompt name and arguments.
+- **Input Schema**:
+  - `promptName` (enum): Either `generate_test_expect_table`, `generate_test_expect_element`, `generate_test_click_element`, `generate_test_within_element` or `generate_test_type_element`
+  - `baseUrl` (string): The base URL of the page
+  - For `generate_test_expect_table`, `generate_test_expect_element`, `generate_test_click_element`, `generate_test_within_element` or `generate_test_type_element`:
+    - `accessibleName`: (string, optional): Accessible name
+    - `accessibleRole`: (string, optional): Accessible role
+    - `domSelector`: Dom selector of the element
+
+### available_sentences
+- **Description**: List all available UUV test sentences/phrases in Gherkin format.
+- **Input Schema**:
+  - `category` (enum, optional): Filters sentences by action type (general, keyboard, click, contains, type, checkable)
+  - `role` (string, optional): Filters sentences related to an accessible role
+
+### generate_test_expect_element
+- **Description**: Generate a complete UUV test scenario (Gherkin format) to verify the presence of an element with specified (role and name) or domSelector.
+- **Input Schema**:
+  - `baseUrl` (string): The base URL of the page where the element is located
+  - `accessibleName` (string): Accessible name of the element
+  - `accessibleRole` (string): Accessible role of the element
+  - `domSelector`: Dom selector of the element
+
+### generate_test_expect_element
+- **Description**: Generate a complete UUV test scenario (Gherkin format) to verify the presence of an element with specified (role and name) or domSelector.
+- **Input Schema**:
+  - `baseUrl` (string): The base URL of the page where the element is located
+  - `accessibleName` (string): Accessible name of the element
+  - `accessibleRole` (string): Accessible role of the element
+  - `domSelector`: Dom selector of the element
+
+### generate_test_click_element
+- **Description**: Generate a complete UUV test scenario (Gherkin format) that clicks on html element with specified (role and name) or domSelector.
+- **Input Schema**:
+  - `baseUrl` (string): The base URL of the page where the element is located
+  - `accessibleName` (string): Accessible name of the element
+  - `accessibleRole` (string): Accessible role of the element
+  - `domSelector`: Dom selector of the element
+
+### generate_test_type_element
+- **Description**: Generate a complete UUV test scenario (Gherkin format) that focus within a html element with specified (role and name) or domSelector.
+- **Input Schema**:
+  - `baseUrl` (string): The base URL of the page where the element is located
+  - `accessibleName` (string): Accessible name of the element
+  - `accessibleRole` (string): Accessible role of the element
+  - `domSelector`: Dom selector of the element
+
+### generate_test_expect_table
+- **Description**: Generate a complete UUV test scenario (Gherkin format) to verify the presence and content of html table, grid or treegrid.
+- **Input Schema**:
+  - `baseUrl` (string): The base URL of the page where the table/grid/treegrid is located
+  - `innerHtmlFilePath` (string): File path containing the raw innerHTML content
+
+
+## Exposed MCP Prompts
+
+This MCP server exposes the following prompts:
+
+### generate_test_expect_element
+- **Description**: Returns UUV prompt to verify the presence of an element with specified (role and name) or domSelector.
+- **Input Schema**:
+  - `baseUrl` (string): The base URL of the page where the element is located
+  - `accessibleName` (string): Accessible name of the element
+  - `accessibleRole` (string): Accessible role of the element
+  - `domSelector`: Dom selector of the element
+
+### generate_test_expect_element
+- **Description**: Returns UUV prompt to verify the presence of an element with specified (role and name) or domSelector.
+- **Input Schema**:
+  - `baseUrl` (string): The base URL of the page where the element is located
+  - `accessibleName` (string): Accessible name of the element
+  - `accessibleRole` (string): Accessible role of the element
+  - `domSelector`: Dom selector of the element
+
+### generate_test_click_element
+- **Description**: Returns UUV prompt that clicks on html element with specified (role and name) or domSelector.
+- **Input Schema**:
+  - `baseUrl` (string): The base URL of the page where the element is located
+  - `accessibleName` (string): Accessible name of the element
+  - `accessibleRole` (string): Accessible role of the element
+  - `domSelector`: Dom selector of the element
+
+### generate_test_type_element
+- **Description**: Returns UUV prompt that focus within a html element with specified (role and name) or domSelector.
+- **Input Schema**:
+  - `baseUrl` (string): The base URL of the page where the element is located
+  - `accessibleName` (string): Accessible name of the element
+  - `accessibleRole` (string): Accessible role of the element
+  - `domSelector`: Dom selector of the element
+
+### generate_test_expect_table
+- **Description**: Generate a complete UUV test scenario (Gherkin format) to verify the presence and content of html table, grid or treegrid.
+- **Input Schema**:
+  - `baseUrl` (string): The base URL of the page where the table/grid/treegrid is located
+  - `innerHtmlFilePath` (string): File path containing the raw innerHTML content

@@ -26,7 +26,7 @@ describe("UUV MCP Server", () => {
     const expectedTypeElementRoleAndNamePrompt = {
         type: "text",
         text: "Use UUV and Filesystem MCP tools:\n" +
-            "    1. With uuv_generate_test_type_element, Generate UUV tests into ./uuv/e2e to type sentence or value \"Lorem Ipsum\" into an element with accessibleName \"First Name\" and accessibleRole \"textbox\" exist on the webpage https://example.com\n" +
+            "    1. With uuv_generate_test_type_element, Generate UUV tests into ./uuv/e2e to type sentence or value into an element with accessibleName \"First Name\" and accessibleRole \"textbox\" exist on the webpage https://example.com\n" +
             "    2. Write generated uuv test case into a .feature file in local folder ./uuv/e2e (must use actual line breaks, not literal \"\\n\" characters)"
     };
 
@@ -120,7 +120,17 @@ describe("UUV MCP Server", () => {
         });
 
         it("should throw error for invalid tool call", async () => {
-            await expect(client.callTool({ name: "non_existent_tool" })).rejects.toThrow();
+            expect(await client.callTool({ name: "non_existent_tool" })).toEqual(
+                {
+                    content: [
+                        {
+                            type: "text",
+                            text: "MCP error -32602: Tool non_existent_tool not found"
+                        }
+                    ],
+                    isError: true
+                }
+            );
         });
     });
 
@@ -205,7 +215,6 @@ describe("UUV MCP Server", () => {
                 arguments: {
                     promptName: UUV_PROMPT.GENERATE_TEST_TYPE_ELEMENT,
                     baseUrl: "https://example.com",
-                    valueToType: "Lorem Ipsum",
                     accessibleName: "First Name",
                     accessibleRole: "textbox"
                 }
@@ -219,7 +228,6 @@ describe("UUV MCP Server", () => {
                 name: UUV_PROMPT.GENERATE_TEST_TYPE_ELEMENT,
                 arguments: {
                     baseUrl: "https://example.com",
-                    valueToType: "Lorem Ipsum",
                     accessibleName: "First Name",
                     accessibleRole: "textbox"
                 }
