@@ -45,7 +45,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{env.NODE_VERSION}}
-      - run: npm ci && ls -R packages/assistant/node_modules/@typescript-eslint/eslint-plugin/dist/configs
+      - run: npm ci
 
   build:
     runs-on: ubuntu-22.04
@@ -540,20 +540,24 @@ jobs:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-22.04
     needs: [ release ]
+    permissions:
+      id-token: write
+      contents: read
+    environment: publish-npm
     steps:
       - uses: actions/checkout@v4
       - name: Download Release artifact
         uses: actions/download-artifact@v4
         with:
           name: release-artifacts
-      - name: Use Node.js ${{env.NODE_VERSION}}
+      - name: Use Node.js 23
         uses: actions/setup-node@v4
         with:
-          node-version: ${{env.NODE_VERSION}}
+          node-version: 23
           registry-url: 'https://registry.npmjs.org'
+      - name: Install npm 11
+        run: npm install -g npm@11 && npm --version
       - name: Publishing NPM packages
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
         run: |
           for packagePath in $(find dist/packages -name "*.tgz"); do
           npm publish $packagePath --scope ${{env.NPM_PACKAGE_SCOPE}} --access public
