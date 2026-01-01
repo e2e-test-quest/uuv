@@ -559,16 +559,24 @@ jobs:
         run: npm install -g npm@11 && npm --version
       - name: Publishing NPM packages
         run: |
+          FAILED=0
           for packagePath in $(find dist/packages -name "*-beta.*.tgz"); do
             if ! npm publish $packagePath --scope ${{env.NPM_PACKAGE_SCOPE}} --access public --tag beta; then
+              echo "============================="
               echo "⚠️ Beta publish failed for $packagePath"
+              echo "============================="
+              FAILED=1
             fi
           done
           for packagePath in $(find dist/packages -name "*.tgz" ! -name "*-beta.*.tgz"); do
             if ! npm publish $packagePath --scope ${{env.NPM_PACKAGE_SCOPE}} --access public; then
+              echo "============================="
               echo "⚠️ Stable publish failed for $packagePath"
+              echo "============================="
+              FAILED=1
             fi
           done
+          exit "$FAILED"
 
   publish-vscode:
     if: github.ref == 'refs/heads/main'
