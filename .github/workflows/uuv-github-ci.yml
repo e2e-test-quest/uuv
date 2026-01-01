@@ -559,8 +559,15 @@ jobs:
         run: npm install -g npm@11 && npm --version
       - name: Publishing NPM packages
         run: |
-          for packagePath in $(find dist/packages -name "*.tgz"); do
-          npm publish $packagePath --scope ${{env.NPM_PACKAGE_SCOPE}} --access public
+          for packagePath in $(find dist/packages -name "*-beta.*.tgz"); do
+            if ! npm publish $packagePath --scope ${{env.NPM_PACKAGE_SCOPE}} --access public --tag beta; then
+              echo "⚠️ Beta publish failed for $packagePath"
+            fi
+          done
+          for packagePath in $(find dist/packages -name "*.tgz" ! -name "*-beta.*.tgz"); do
+            if ! npm publish $packagePath --scope ${{env.NPM_PACKAGE_SCOPE}} --access public; then
+              echo "⚠️ Stable publish failed for $packagePath"
+            fi
           done
 
   publish-vscode:
