@@ -58,7 +58,7 @@
     "nanoid": "3.3.11",
     "playwright-bdd": "8.4.2",
     "ts-node": "10.9.2",
-    "typescript": "5.8.3"
+    "typescript": "5.9.3"
   },
   "types": "./dist/index.d.ts",
   "main": "./dist/index.js",
