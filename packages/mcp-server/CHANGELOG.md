@@ -1,3 +1,15 @@
+# [0.5.0](https://github.com/e2e-test-quest/uuv/compare/mcp-server-v0.4.1...mcp-server-v0.5.0) (2026-01-01)
+
+
+### Bug Fixes
+
+* **runner-playwright:** update dependency playwright-bdd to v8.4.2 ([0987311](https://github.com/e2e-test-quest/uuv/commit/0987311037768474960cbb6fcadfb888af1f49e0))
+
+
+### Features
+
+* **runner-cypress:** update dependency cypress to v15.8.1 ([b9770d8](https://github.com/e2e-test-quest/uuv/commit/b9770d8e85bea757a39c8829071959f5c05841a9))
+
 ## [0.4.1](https://github.com/e2e-test-quest/uuv/compare/mcp-server-v0.4.0...mcp-server-v0.4.1) (2025-12-07)
 
 
