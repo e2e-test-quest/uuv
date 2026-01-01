@@ -1,3 +1,15 @@
+# [1.0.0-beta.89](https://github.com/e2e-test-quest/uuv/compare/a11y-v1.0.0-beta.88...a11y-v1.0.0-beta.89) (2026-01-01)
+
+
+### Bug Fixes
+
+* **runner-playwright:** update dependency playwright-bdd to v8.4.2 ([0987311](https://github.com/e2e-test-quest/uuv/commit/0987311037768474960cbb6fcadfb888af1f49e0))
+
+
+### Features
+
+* **runner-cypress:** update dependency cypress to v15.8.1 ([b9770d8](https://github.com/e2e-test-quest/uuv/commit/b9770d8e85bea757a39c8829071959f5c05841a9))
+
 # [1.0.0-beta.88](https://github.com/e2e-test-quest/uuv/compare/a11y-v1.0.0-beta.87...a11y-v1.0.0-beta.88) (2025-12-07)
 
 
