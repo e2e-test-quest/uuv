@@ -1,14 +1,14 @@
 {
     "name": "@uuv/dictionary",
-    "version": "0.2.1",
+    "version": "0.3.0",
     "author": "Louis Fredice NJAKO MOLOM (https://github.com/luifr10) & Stanley SERVICAL (https://github.com/stanlee974)",
     "description": "UUV built-in set of cucumber sentences to write e2e tests",
     "type": "commonjs",
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
     "repository": {
-      "type": "git",
-      "url": "https://github.com/e2e-test-quest/uuv"
+        "type": "git",
+        "url": "https://github.com/e2e-test-quest/uuv"
     },
     "keywords": [
         "uuv",
