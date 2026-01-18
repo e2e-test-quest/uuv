@@ -1,3 +1,12 @@
+# [1.102.0](https://github.com/e2e-test-quest/uuv/compare/docs-v1.101.0...docs-v1.102.0) (2026-01-18)
+
+
+### Features
+
+* **deps:** update dependency @modelcontextprotocol/sdk to v1.25.2 [security] ([77e3511](https://github.com/e2e-test-quest/uuv/commit/77e3511ecbf906c72dedc798fa5883109095d0e4))
+* **runner-playwright:** update dependency typescript to v5.9.3 ([3b0f131](https://github.com/e2e-test-quest/uuv/commit/3b0f1314104546c382bfabb38d3bc6a72c9b2e9e))
+* **runner-playwright:** update dependency webpack to v5.104.1 ([d1dd93b](https://github.com/e2e-test-quest/uuv/commit/d1dd93b3426c7e9baee15c4ad88dc294ea23c9c7))
+
 # [1.101.0](https://github.com/e2e-test-quest/uuv/compare/docs-v1.100.1...docs-v1.101.0) (2026-01-01)
 
 
