@@ -11,34 +11,67 @@ export type PromptArgs = {
 } | PromptExtraArgs;
 
 export enum UUV_PROMPT {
-    GENERATE_TEST_EXPECT_TABLE = "generate_test_expect_table",
-    GENERATE_TEST_EXPECT_ELEMENT = "generate_test_expect_element",
-    GENERATE_TEST_CLICK_ELEMENT = "generate_test_click_element",
-    GENERATE_TEST_WITHIN_ELEMENT = "generate_test_within_element",
-    GENERATE_TEST_TYPE_ELEMENT = "generate_test_type_element"
+    AVAILABLE_SENTENCES = "availableSentences",
+    GET_BASE_URL = "getBaseUrl",
+    GENERATE_TEST_EXPECT_TABLE = "genTestExpectTable",
+    GENERATE_TEST_EXPECT_ROLE_AND_NAME = "genTestExpectRoleAndName",
+    GENERATE_TEST_EXPECT_DOM_SELECTOR = "genTestExpectDomSelector",
+    GENERATE_TEST_CLICK_ROLE_AND_NAME = "genTestClickRoleAndName",
+    GENERATE_TEST_CLICK_DOM_SELECTOR = "genTestClickDomSelector",
+    GENERATE_TEST_WITHIN_ROLE_AND_NAME = "genTestWithinRoleAndName",
+    GENERATE_TEST_WITHIN_DOM_SELECTOR = "genTestWithinDomSelector",
+    GENERATE_TEST_TYPE_ROLE_AND_NAME = "genTestTypeRoleAndName"
 }
 
 export const uuvPrompts = {
+    [UUV_PROMPT.GET_BASE_URL]: {
+        title: "getBaseUrl",
+        description: "Retrieve project base url for generated UUV tests"
+    },
     [UUV_PROMPT.GENERATE_TEST_EXPECT_TABLE]: {
         title: "GenerateTestExpectTable",
-        description: "Prompt to generate test for html table or grid or treeGrid"
+        description: "Generate test for html table or grid or treeGrid"
     },
-    [UUV_PROMPT.GENERATE_TEST_EXPECT_ELEMENT]: {
+    [UUV_PROMPT.GENERATE_TEST_EXPECT_ROLE_AND_NAME]: {
         title: "GenerateTestExpectElement",
-        description: "Prompt to generate test that expects of html element with (role and name) or domSelector"
+        description: "Generate test that expects of html element with accessible role and accessible name"
     },
-    [UUV_PROMPT.GENERATE_TEST_CLICK_ELEMENT]: {
+    [UUV_PROMPT.GENERATE_TEST_EXPECT_DOM_SELECTOR]: {
+        title: "GenerateTestExpectElement",
+        description: "Generate test that expects of html element with domSelector"
+    },
+    [UUV_PROMPT.GENERATE_TEST_CLICK_ROLE_AND_NAME]: {
         title: "GenerateTestClickElement",
-        description: "Prompt to generate test that clicks on html element with (role and name) or domSelector"
+        description: "Generate test that clicks on html element with accessible role and accessible name"
     },
-    [UUV_PROMPT.GENERATE_TEST_WITHIN_ELEMENT]: {
+    [UUV_PROMPT.GENERATE_TEST_CLICK_DOM_SELECTOR]: {
+        title: "GenerateTestClickElement",
+        description: "Generate test that clicks on html element with domSelector"
+    },
+    [UUV_PROMPT.GENERATE_TEST_WITHIN_ROLE_AND_NAME]: {
         title: "GenerateTestWithinElement",
-        description: "Prompt to generate test that focus within an html element with (role and name) or domSelector"
+        description: "Generate test that focus within an html element with accessible role and accessible name"
     },
-    [UUV_PROMPT.GENERATE_TEST_TYPE_ELEMENT]: {
+    [UUV_PROMPT.GENERATE_TEST_WITHIN_DOM_SELECTOR]: {
+        title: "GenerateTestWithinElement",
+        description: "Generate test that focus within an html element with domSelector"
+    },
+    [UUV_PROMPT.GENERATE_TEST_TYPE_ROLE_AND_NAME]: {
         title: "GenerateTestTypeElement",
-        description: "Prompt to generate test that types a value into html element with (role and name) or domSelector"
+        description: "Generate test that types a value into html element with accessible role and accessible name"
     }
+};
+
+export const ElementByRoleAndNameInputSchema = {
+    baseUrl: z.string().describe("The base URL of the page where the element is located."),
+    accessibleRole: z.string().describe("Accessible role of the element"),
+    accessibleName: z.string().describe("Accessible name of the element"),
+    // valueToType: z.string().describe("Value to type"), TODO: implement this arg for UUV_PROMPT.GENERATE_TEST_TYPE_ROLE_AND_NAME
+};
+
+export const ElementByDomSelectorInputSchema = {
+    baseUrl: z.string().describe("The base URL of the page where the element is located."),
+    domSelector: z.string().describe("Dom selector of the element"),
 };
 
 export const UUVPromptInputSchema = z.discriminatedUnion("promptName", [
@@ -48,34 +81,23 @@ export const UUVPromptInputSchema = z.discriminatedUnion("promptName", [
     }),
     z.object({
         promptName: z.enum([
-            UUV_PROMPT.GENERATE_TEST_EXPECT_ELEMENT,
-            UUV_PROMPT.GENERATE_TEST_CLICK_ELEMENT,
-            UUV_PROMPT.GENERATE_TEST_WITHIN_ELEMENT,
-            UUV_PROMPT.GENERATE_TEST_TYPE_ELEMENT
+            UUV_PROMPT.GENERATE_TEST_EXPECT_ROLE_AND_NAME,
+            UUV_PROMPT.GENERATE_TEST_CLICK_ROLE_AND_NAME,
+            UUV_PROMPT.GENERATE_TEST_WITHIN_ROLE_AND_NAME,
+            UUV_PROMPT.GENERATE_TEST_TYPE_ROLE_AND_NAME
         ]),
-        baseUrl: z.string().describe("The base URL of the page where the element is located."),
-        accessibleName: z.string().optional().describe("Accessible name of the element"),
-        accessibleRole: z.string().optional().describe("Accessible role of the element"),
-        domSelector: z.string().optional().describe("Dom selector of the element"),
+        accessibleRole: z.string().describe("Accessible role of the element"),
+        accessibleName: z.string().describe("Accessible name of the element"),
     }),
-]).superRefine((data, ctx) => {
-    if (
-        data.promptName === UUV_PROMPT.GENERATE_TEST_EXPECT_ELEMENT ||
-        data.promptName === UUV_PROMPT.GENERATE_TEST_CLICK_ELEMENT  ||
-        data.promptName === UUV_PROMPT.GENERATE_TEST_WITHIN_ELEMENT ||
-        data.promptName === UUV_PROMPT.GENERATE_TEST_TYPE_ELEMENT
-    ) {
-        const hasAccessibleSelector = data.accessibleRole && data.accessibleName;
-        const hasDomSelector = data.domSelector;
-
-        if (!hasAccessibleSelector && !hasDomSelector) {
-            ctx.addIssue({
-                code: z.ZodIssueCode.custom,
-                message: "You must provide either (accessibleRole AND accessibleName) or domSelector",
-            });
-        }
-    }
-});
+    z.object({
+        promptName: z.enum([
+            UUV_PROMPT.GENERATE_TEST_EXPECT_DOM_SELECTOR,
+            UUV_PROMPT.GENERATE_TEST_CLICK_DOM_SELECTOR,
+            UUV_PROMPT.GENERATE_TEST_WITHIN_DOM_SELECTOR
+        ]),
+        domSelector: z.string().describe("Dom selector of the element"),
+    }),
+]);
 
 
 export class PromptRetrieverService {
@@ -90,44 +112,7 @@ export class PromptRetrieverService {
     }
 
     private static validatePromptGenerationRequest(args: PromptArgs) {
-        const promptSchemas = z.discriminatedUnion("promptName", [
-            z.object({
-                promptName: z.literal(UUV_PROMPT.GENERATE_TEST_EXPECT_TABLE),
-                baseUrl: z.string().describe("The base URL of the page where the table/grid/treegrid is located."),
-            }),
-            z.object({
-                promptName: z.enum([
-                    UUV_PROMPT.GENERATE_TEST_EXPECT_ELEMENT,
-                    UUV_PROMPT.GENERATE_TEST_CLICK_ELEMENT,
-                    UUV_PROMPT.GENERATE_TEST_WITHIN_ELEMENT,
-                    UUV_PROMPT.GENERATE_TEST_TYPE_ELEMENT
-                ]),
-                baseUrl: z.string().describe("The base URL of the page where the element is located."),
-                accessibleName: z.string().optional().describe("Accessible name of the element"),
-                accessibleRole: z.string().optional().describe("Accessible role of the element"),
-                domSelector: z.string().optional().describe("Dom selector of the element"),
-                // valueToType: z.string().describe("Value to type"), TODO: implement this arg for UUV_PROMPT.GENERATE_TEST_TYPE_ELEMENT
-            })
-        ]).superRefine((data, ctx) => {
-            if (
-                data.promptName === UUV_PROMPT.GENERATE_TEST_EXPECT_ELEMENT ||
-                data.promptName === UUV_PROMPT.GENERATE_TEST_CLICK_ELEMENT  ||
-                data.promptName === UUV_PROMPT.GENERATE_TEST_WITHIN_ELEMENT ||
-                data.promptName === UUV_PROMPT.GENERATE_TEST_TYPE_ELEMENT
-            ) {
-                const hasAccessibleSelector = data.accessibleRole && data.accessibleName;
-                const hasDomSelector = data.domSelector;
-
-                if (!hasAccessibleSelector && !hasDomSelector) {
-                    ctx.addIssue({
-                        code: z.ZodIssueCode.custom,
-                        message: "You must provide either (accessibleRole AND accessibleName) or domSelector",
-                    });
-                }
-            }
-        });
-
-        return promptSchemas.parse(args);
+        return UUVPromptInputSchema.parse(args);
     }
 
     public static retrievePrompt(args: PromptArgs) {
@@ -135,10 +120,13 @@ export class PromptRetrieverService {
         let prompt: string;
         switch (validatedPrompt.promptName) {
             case UUV_PROMPT.GENERATE_TEST_EXPECT_TABLE:
-            case UUV_PROMPT.GENERATE_TEST_EXPECT_ELEMENT:
-            case UUV_PROMPT.GENERATE_TEST_CLICK_ELEMENT:
-            case UUV_PROMPT.GENERATE_TEST_TYPE_ELEMENT:
-            case UUV_PROMPT.GENERATE_TEST_WITHIN_ELEMENT:
+            case UUV_PROMPT.GENERATE_TEST_EXPECT_ROLE_AND_NAME:
+            case UUV_PROMPT.GENERATE_TEST_EXPECT_DOM_SELECTOR:
+            case UUV_PROMPT.GENERATE_TEST_CLICK_ROLE_AND_NAME:
+            case UUV_PROMPT.GENERATE_TEST_CLICK_DOM_SELECTOR:
+            case UUV_PROMPT.GENERATE_TEST_TYPE_ROLE_AND_NAME:
+            case UUV_PROMPT.GENERATE_TEST_WITHIN_ROLE_AND_NAME:
+            case UUV_PROMPT.GENERATE_TEST_WITHIN_DOM_SELECTOR:
                 prompt = PromptRetrieverService.generatePrompt(args);
                 break;
 
