@@ -1,4 +1,4 @@
-import { PromptRetrieverService } from "./prompt-retriever.service";
+import { PromptRetrieverService, UUV_PROMPT } from "./prompt-retriever.service";
 import * as path from "node:path";
 import fs from "node:fs";
 
@@ -14,8 +14,8 @@ describe("PromptRetrieverService", () => {
     describe("retrievePrompt", () => {
         it("should generate table prompt correctly", () => {
             const mockArgs = {
-                promptName: "generate_test_expect_table",
-                baseUrl: "http://example.com",
+                promptName: UUV_PROMPT.GENERATE_TEST_EXPECT_TABLE,
+                baseUrl: "http://example.com"
             };
 
             // Mock the file reading
@@ -23,47 +23,47 @@ describe("PromptRetrieverService", () => {
 
             const result = PromptRetrieverService.retrievePrompt(mockArgs);
 
-            expect(fs.readFileSync).toHaveBeenCalledWith(path.join(__dirname, "prompts", "generate_test_expect_table.mustache"), "utf8");
+            expect(fs.readFileSync).toHaveBeenCalledWith(path.join(__dirname, "prompts", `${UUV_PROMPT.GENERATE_TEST_EXPECT_TABLE}.mustache`), "utf8");
             expect(result).toBe("Template for http://example.com");
         });
 
         it("should generate role and name prompt correctly", () => {
             const mockArgs = {
-                promptName: "generate_test_expect_element",
-                baseUrl: "http://example.com",
+                promptName: UUV_PROMPT.GENERATE_TEST_EXPECT_ROLE_AND_NAME,
                 accessibleName: "Hello world",
                 accessibleRole: "button",
             };
 
             // Mock the file reading
-            (fs.readFileSync as jest.Mock).mockReturnValue("Template for {{{baseUrl}}} with {{accessibleRole}} and '{{accessibleName}}'");
+            (fs.readFileSync as jest.Mock).mockReturnValue("Template with {{accessibleRole}} and '{{accessibleName}}'");
 
             const result = PromptRetrieverService.retrievePrompt(mockArgs);
 
-            expect(fs.readFileSync).toHaveBeenCalledWith(path.join(__dirname, "prompts", "generate_test_expect_element.mustache"), "utf8");
-            expect(result).toBe(`Template for ${mockArgs.baseUrl} with ${mockArgs.accessibleRole} and '${mockArgs.accessibleName}'`);
+            expect(fs.readFileSync).toHaveBeenCalledWith(path.join(__dirname, "prompts", `${UUV_PROMPT.GENERATE_TEST_EXPECT_ROLE_AND_NAME}.mustache`), "utf8");
+            expect(result).toBe(`Template with ${mockArgs.accessibleRole} and '${mockArgs.accessibleName}'`);
         });
 
-        it("should throw error for invalid argument for generate_test_expect_element", () => {
+        it(`should throw error for invalid argument for ${UUV_PROMPT.GENERATE_TEST_EXPECT_ROLE_AND_NAME}`, () => {
             const mockArgs = {
-                promptName: "generate_test_expect_element",
-                baseUrl: "http://example.com",
+                promptName: UUV_PROMPT.GENERATE_TEST_EXPECT_ROLE_AND_NAME,
                 accessibleName: "Hello world",
             };
 
             expect(() => {
                 PromptRetrieverService.retrievePrompt(mockArgs);
             }).toThrow(JSON.stringify([{
-                code: "custom",
-                message: "You must provide either (accessibleRole AND accessibleName) or domSelector",
-                path: []
+                expected: "string",
+                code: "invalid_type",
+                path: [
+                    "accessibleRole"
+                ],
+                message: "Invalid input: expected string, received undefined"
             }], null, 2));
         });
 
         it("should throw error for invalid prompt name", () => {
             const mockArgs = {
                 promptName: "invalid_prompt",
-                baseUrl: "http://example.com",
             };
 
             expect(() => {
@@ -87,20 +87,19 @@ describe("PromptRetrieverService", () => {
         });
 
         it("should validate prompt generation requests correctly", () => {
-            (fs.readFileSync as jest.Mock).mockReturnValue("Template for {{{baseUrl}}} with {{accessibleName}} and {{accessibleRole}}");
+            (fs.readFileSync as jest.Mock).mockReturnValue("Template with {{accessibleName}} and {{accessibleRole}}");
 
             // Valid table prompt
             const validTableArgs = {
-                promptName: "generate_test_expect_table",
-                baseUrl: "http://example.com",
+                promptName: UUV_PROMPT.GENERATE_TEST_EXPECT_TABLE,
+                baseUrl: "http://example.com"
             };
 
             expect(() => PromptRetrieverService.retrievePrompt(validTableArgs)).not.toThrow();
 
             // Valid role and name prompt
             const validRoleArgs = {
-                promptName: "generate_test_expect_element",
-                baseUrl: "http://example.com",
+                promptName: UUV_PROMPT.GENERATE_TEST_EXPECT_ROLE_AND_NAME,
                 accessibleName: "button",
                 accessibleRole: "toto",
             };

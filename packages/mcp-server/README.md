@@ -26,6 +26,7 @@ First, install the UUV MCP server with your client.
 }
 ```
 
+<details>
 <summary>Opencode</summary>
 
 Follow the MCP Servers [documentation](https://opencode.ai/docs/mcp-servers/). For example in `~/.config/opencode/opencode.json`:
@@ -44,12 +45,11 @@ Follow the MCP Servers [documentation](https://opencode.ai/docs/mcp-servers/). F
     }
   }
 }
-
 ```
-
-
+You can also use the following file as inspiration to configure a **dedicated agent for writing tests**: https://github.com/e2e-test-quest/uuv/tree/main/packages/mcp-server/agents/uuv-assistant.md
 </details>
 
+<details>
 <summary>Claude Code</summary>
 
 Use the Claude Code CLI to add the Marketplace plugin for the UUV:
@@ -71,6 +71,7 @@ claude mcp add uuv npx @uuv/mcp-server@latest
 
 </details>
 
+<details>
 
 <summary>Gemini CLI</summary>
 
@@ -92,55 +93,64 @@ gemini extensions uninstall uuv-e2e-accessibility-test
 
 This MCP server exposes the following tools:
 
-### retrieve_prompt
-- **Description**: Retrieve an uuv prompt template for a coding agent based on a prompt name and arguments.
+### getBaseUrl
+- **Description**: Retrieve project base url for generated UUV tests. In terms of priority, the UUV_BASE_URL environment variable is read, and if it is empty, the value of the baseURL field in the projectPath/uuv/playwright.config.ts or projectPath/uuv/cypress.config.ts file is checked.
 - **Input Schema**:
-  - `promptName` (enum): Either `generate_test_expect_table`, `generate_test_expect_element`, `generate_test_click_element`, `generate_test_within_element` or `generate_test_type_element`
-  - `baseUrl` (string): The base URL of the page
-  - For `generate_test_expect_table`, `generate_test_expect_element`, `generate_test_click_element`, `generate_test_within_element` or `generate_test_type_element`:
-    - `accessibleName`: (string, optional): Accessible name
-    - `accessibleRole`: (string, optional): Accessible role
-    - `domSelector`: Dom selector of the element
+  - `projectPath` (string): Project absolute path
 
-### available_sentences
+### availableSentences
 - **Description**: List all available UUV test sentences/phrases in Gherkin format.
 - **Input Schema**:
   - `category` (enum, optional): Filters sentences by action type (general, keyboard, click, contains, type, checkable)
   - `role` (string, optional): Filters sentences related to an accessible role
 
-### generate_test_expect_element
-- **Description**: Generate a complete UUV test scenario (Gherkin format) to verify the presence of an element with specified (role and name) or domSelector.
+### genTestExpectRoleAndName
+- **Description**: Generate a complete UUV test scenario (Gherkin format) to verify the presence of an element with specified role and name.
 - **Input Schema**:
   - `baseUrl` (string): The base URL of the page where the element is located
-  - `accessibleName` (string): Accessible name of the element
   - `accessibleRole` (string): Accessible role of the element
-  - `domSelector`: Dom selector of the element
+  - `accessibleName` (string): Accessible name of the element
 
-### generate_test_expect_element
-- **Description**: Generate a complete UUV test scenario (Gherkin format) to verify the presence of an element with specified (role and name) or domSelector.
+### genTestExpectDomSelector
+- **Description**: Generate a complete UUV test scenario (Gherkin format) to verify the presence of an element with specified domSelector.
 - **Input Schema**:
   - `baseUrl` (string): The base URL of the page where the element is located
-  - `accessibleName` (string): Accessible name of the element
-  - `accessibleRole` (string): Accessible role of the element
-  - `domSelector`: Dom selector of the element
+  - `domSelector` (string): Dom selector of the element
 
-### generate_test_click_element
-- **Description**: Generate a complete UUV test scenario (Gherkin format) that clicks on html element with specified (role and name) or domSelector.
+### genTestClickRoleAndName
+- **Description**: Generate a complete UUV test scenario (Gherkin format) that clicks on html element with specified role and name.
 - **Input Schema**:
   - `baseUrl` (string): The base URL of the page where the element is located
-  - `accessibleName` (string): Accessible name of the element
   - `accessibleRole` (string): Accessible role of the element
-  - `domSelector`: Dom selector of the element
+  - `accessibleName` (string): Accessible name of the element
 
-### generate_test_type_element
-- **Description**: Generate a complete UUV test scenario (Gherkin format) that focus within a html element with specified (role and name) or domSelector.
+### genTestClickDomSelector
+- **Description**: Generate a complete UUV test scenario (Gherkin format) that clicks on html element with specified domSelector.
 - **Input Schema**:
   - `baseUrl` (string): The base URL of the page where the element is located
-  - `accessibleName` (string): Accessible name of the element
-  - `accessibleRole` (string): Accessible role of the element
-  - `domSelector`: Dom selector of the element
+  - `domSelector` (string): Dom selector of the element
 
-### generate_test_expect_table
+### genTestWithinRoleAndName
+- **Description**: Generate a complete UUV test scenario (Gherkin format) that focus within a html element with specified role and name.
+- **Input Schema**:
+  - `baseUrl` (string): The base URL of the page where the element is located
+  - `accessibleRole` (string): Accessible role of the element
+  - `accessibleName` (string): Accessible name of the element
+
+### genTestWithinDomSelector
+- **Description**: Generate a complete UUV test scenario (Gherkin format) that focus within a html element with specified domSelector.
+- **Input Schema**:
+  - `baseUrl` (string): The base URL of the page where the element is located
+  - `domSelector` (string): Dom selector of the element
+
+### genTestTypeRoleAndName
+- **Description**: Generate a complete UUV test scenario (Gherkin format) that focus within a html element with specified role and name.
+- **Input Schema**:
+  - `baseUrl` (string): The base URL of the page where the element is located
+  - `accessibleRole` (string): Accessible role of the element
+  - `accessibleName` (string): Accessible name of the element
+
+### genTestExpectTable (WIP)
 - **Description**: Generate a complete UUV test scenario (Gherkin format) to verify the presence and content of html table, grid or treegrid.
 - **Input Schema**:
   - `baseUrl` (string): The base URL of the page where the table/grid/treegrid is located
@@ -151,39 +161,46 @@ This MCP server exposes the following tools:
 
 This MCP server exposes the following prompts:
 
-### generate_test_expect_element
-- **Description**: Returns UUV prompt to verify the presence of an element with specified (role and name) or domSelector.
+### genTestExpectRoleAndName
+- **Description**: Returns UUV prompt to verify the presence of an element with specified role and name.
 - **Input Schema**:
-  - `baseUrl` (string): The base URL of the page where the element is located
   - `accessibleName` (string): Accessible name of the element
   - `accessibleRole` (string): Accessible role of the element
-  - `domSelector`: Dom selector of the element
 
-### generate_test_expect_element
-- **Description**: Returns UUV prompt to verify the presence of an element with specified (role and name) or domSelector.
+### genTestExpectDomSelector
+- **Description**: Returns UUV prompt to verify the presence of an element with specified domSelector.
 - **Input Schema**:
-  - `baseUrl` (string): The base URL of the page where the element is located
+  - `domSelector` (string): Dom selector of the element
+
+### genTestClickRoleAndName
+- **Description**: Returns UUV prompt that clicks on html element with specified role and name.
+- **Input Schema**:
   - `accessibleName` (string): Accessible name of the element
   - `accessibleRole` (string): Accessible role of the element
-  - `domSelector`: Dom selector of the element
 
-### generate_test_click_element
-- **Description**: Returns UUV prompt that clicks on html element with specified (role and name) or domSelector.
+### genTestClickDomSelector
+- **Description**: Returns UUV prompt that clicks on html element with specified domSelector.
 - **Input Schema**:
-  - `baseUrl` (string): The base URL of the page where the element is located
+  - `domSelector` (string): Dom selector of the element
+
+### genTestTypeRoleAndName
+- **Description**: Returns UUV prompt that types a value into html element with specified role and name.
+- **Input Schema**:
   - `accessibleName` (string): Accessible name of the element
   - `accessibleRole` (string): Accessible role of the element
-  - `domSelector`: Dom selector of the element
 
-### generate_test_type_element
-- **Description**: Returns UUV prompt that focus within a html element with specified (role and name) or domSelector.
+### genTestWithinRoleAndName
+- **Description**: Returns UUV prompt that focus within a html element with specified role and name.
 - **Input Schema**:
-  - `baseUrl` (string): The base URL of the page where the element is located
   - `accessibleName` (string): Accessible name of the element
   - `accessibleRole` (string): Accessible role of the element
-  - `domSelector`: Dom selector of the element
 
-### generate_test_expect_table
+### genTestWithinDomSelector
+- **Description**: Returns UUV prompt that focus within a html element with specified domSelector.
+- **Input Schema**:
+  - `domSelector` (string): Dom selector of the element
+
+### genTestExpectTable (WIP)
 - **Description**: Generate a complete UUV test scenario (Gherkin format) to verify the presence and content of html table, grid or treegrid.
 - **Input Schema**:
   - `baseUrl` (string): The base URL of the page where the table/grid/treegrid is located
