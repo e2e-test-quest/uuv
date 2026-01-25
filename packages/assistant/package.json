@@ -65,7 +65,7 @@
     "eslint-config-react-app": "7.0.1",
     "figlet": "1.8.1",
     "playwright-chromium": "1.58.0",
-    "tabbable": "6.2.0"
+    "tabbable": "6.4.0"
   },
   "browserslist": {
     "production": [
