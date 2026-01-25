@@ -1,3 +1,19 @@
+# [0.5.0](https://github.com/e2e-test-quest/uuv/compare/dictionary-v0.4.0...dictionary-v0.5.0) (2026-01-25)
+
+
+### Bug Fixes
+
+* **assistant:** update dependency dom-accessibility-api to v0.7.1 ([1e76c40](https://github.com/e2e-test-quest/uuv/commit/1e76c40a6d021a60c42b8a30e80281cb14a816f7))
+* **runner-playwright:** update dependency axe-core to v4.11.1 ([8404435](https://github.com/e2e-test-quest/uuv/commit/8404435e018c6068a7a649a19d2f77b57d8f8260))
+
+
+### Features
+
+* **assistant:** update dependency playwright-chromium to v1.58.0 ([963f73f](https://github.com/e2e-test-quest/uuv/commit/963f73fcff199a46201ce676c9dde278973c4953))
+* **assistant:** update dependency tabbable to v6.4.0 ([0db9a9e](https://github.com/e2e-test-quest/uuv/commit/0db9a9e75a28bcbe4851f666934fdc90b06eaf68))
+* **runner-cypress:** update dependency cypress to v15.9.0 ([16e7102](https://github.com/e2e-test-quest/uuv/commit/16e7102542e9a1a958c3d30971c9314bb6c3f0e2))
+* **runner-playwright:** update dependency webpack to v5.104.1 ([715510a](https://github.com/e2e-test-quest/uuv/commit/715510ac995b295670568b8e8e492b7c6b8937e0))
+
 # [0.4.0](https://github.com/e2e-test-quest/uuv/compare/dictionary-v0.3.0...dictionary-v0.4.0) (2026-01-18)
 
 
