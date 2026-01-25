@@ -61,7 +61,7 @@
     "@uiw/react-codemirror": "^4.22.1",
     "@uuv/dictionary": "0.4.0",
     "antd": "5.27.4",
-    "dom-accessibility-api": "0.7.0",
+    "dom-accessibility-api": "0.7.1",
     "eslint-config-react-app": "7.0.1",
     "figlet": "1.8.1",
     "playwright-chromium": "1.56.1",
