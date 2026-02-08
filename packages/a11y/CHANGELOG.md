@@ -1,3 +1,18 @@
+# [1.0.0-beta.92](https://github.com/e2e-test-quest/uuv/compare/a11y-v1.0.0-beta.91...a11y-v1.0.0-beta.92) (2026-02-08)
+
+
+### Bug Fixes
+
+* **runner-playwright:** update dependency chokidar to v4.0.3 ([40b93ce](https://github.com/e2e-test-quest/uuv/commit/40b93ce3170605fff5ec681ba592478a6059f679))
+
+
+### Features
+
+* **deps:** update dependency @modelcontextprotocol/sdk to v1.26.0 [security] ([2b945ed](https://github.com/e2e-test-quest/uuv/commit/2b945ed51c308be739f45a8bfc27190ba95b0960))
+* **runner-cypress:** update dependency cypress to v15.10.0 ([86db98f](https://github.com/e2e-test-quest/uuv/commit/86db98fcfb28f439cb5122f9b45e61fceded02a4))
+* **runner-cypress:** update dependency junit-report-merger to v9 ([6d95cfc](https://github.com/e2e-test-quest/uuv/commit/6d95cfc0e4e2363f3c83f407fbb485fcf3e39769))
+* **runner-playwright:** update dependency webpack to v5.105.0 ([6097081](https://github.com/e2e-test-quest/uuv/commit/609708177d910b3a0e414d096322497ff4c8cbe6))
+
 # [1.0.0-beta.91](https://github.com/e2e-test-quest/uuv/compare/a11y-v1.0.0-beta.90...a11y-v1.0.0-beta.91) (2026-01-25)
 
 
