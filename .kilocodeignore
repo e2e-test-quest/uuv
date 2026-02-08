@@ -1,0 +1,88 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# compiled output
+/dist/packages/*.tgz
+packages/*/dist
+tmp
+/out-tsc
+
+# dependencies
+node_modules
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# misc
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log
+yarn-error.log
+testem.log
+/typings
+
+
+# npm
+.npmrc
+
+# System Files
+.DS_Store
+Thumbs.db
+*.iml
+packages/runner-cypress/cypress/screenshots/
+
+.gradle
+!gradle/wrapper/gradle-wrapper.jar
+
+packages/runner-playwright/src/cucumber/step_definitions/playwright/generated/
+packages/runner-playwright/reports/
+packages/runner-playwright/tests/.features-gen
+packages/docs/static/assistant/uuv-assistant-resources.bundle.js
+packages/docs/static/assistant/index.html
+packages/docs/static/assistant/style.css
+tests/integration/runner-cypress/
+tests/integration/runner-playwright/
+packages/intellij-plugin/.idea/
+/packages/a11y/bundle/
+/packages/docs/docs/04-wordings/01-generated-wording-description/*
+!/packages/docs/docs/04-wordings/01-generated-wording-description/_category_.json
+/packages/docs/i18n/fr/docusaurus-plugin-content-docs/current/04-wordings/01-generated-wording-description/*
+!/packages/docs/i18n/fr/docusaurus-plugin-content-docs/current/04-wordings/01-generated-wording-description/_category_.json
+/packages/assistant/uuv/.uuv-features-gen/
+/packages/runner-cypress/reports/*
+/packages/runner-cypress/reports/a11y-report.json
+packages/assistant/uuv/reports/
+packages/runner-flutter/test/*_test.dart
+
+.nx
+.history/
+packages/assistant/uuv/.features-gen/
+packages/assistant/test-results/
+packages/assistant/uuv/uuv/reports/
+packages/vscode-extension/.vscode-test/
+packages/vscode-extension/out/
+packages/vscode-extension/*.vsix
+packages/vscode-extension/packages/
+
+# Nuxt dev/build outputs
+.output
+.data
+.nuxt
+.nitro
+.cache
+
+**/junit-report.xml

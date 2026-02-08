@@ -34,7 +34,7 @@
     "start:en": "docusaurus start --port 3100",
     "prestart:fr": "npm run generate-step-definitions",
     "start:fr": "docusaurus start --locale fr --port 3100",
-    "prebuild": "npm run generate-step-definitions && node copy-files.js",
+    "prebuild": "npm run generate-step-definitions",
     "build": "docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",

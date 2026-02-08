@@ -1,0 +1,61 @@
+{
+	"name": "@uuv/assistant-desktop",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "packages/assistant-desktop/src",
+	"projectType": "application",
+	"implicitDependencies": [
+      "assistant"
+    ],
+	"targets": {
+		"dev": {
+			"executor": "nx:run-commands",
+        	"options": {
+				"cwd": "packages/assistant-desktop",
+				"command": "npm run tauri dev"
+			}
+		},
+		"lint": {
+			"executor": "nx:run-commands",
+        	"options": {
+				"cwd": "packages/assistant-desktop",
+				"command": "npm run check"
+			}
+		},
+		"build": {
+			"executor": "nx:run-commands",
+        	"options": {
+				"cwd": "packages/assistant-desktop",
+				"command": "npm run tauri build"
+			}
+		},
+		"semantic-release": {
+          "executor": "@theunderscorer/nx-semantic-release:semantic-release",
+          "options": {
+            "commitMessage": "release(assistant): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}",
+            "plugins": [
+              [
+                "@semantic-release/github",
+                {
+                  "successComment": false,
+                  "failComment": false,
+                  "assets": [
+                    {
+                      "path": "packages/assistant-desktop/src-tauri/target/release/uuv-assistant-desktop.exe",
+                      "label": "Windows Desktop"
+                    },
+                    {
+                      "path": "packages/assistant-desktop/src-tauri/target/release/bundle/deb/*.deb",
+                      "label": "Debian package"
+                    },
+                    {
+                      "path": "packages/assistant-desktop/src-tauri/target/release/bundle/appimage/*.AppImage",
+                      "label": "AppImage package"
+                    }
+                  ]
+                }
+              ]
+            ]
+          }
+        }
+	}
+}

@@ -30,6 +30,7 @@ runs:
           packages/runner-playwright/node_modules
           packages/vscode-extension/node_modules
           packages/a11y-dashboard/node_modules
+          packages/assistant-desktop/node_modules
     - name: Download build artifact
       uses: actions/download-artifact@v4
       with:
