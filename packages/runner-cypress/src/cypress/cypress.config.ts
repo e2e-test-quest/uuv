@@ -1,20 +1,19 @@
 import * as webpack from "@cypress/webpack-preprocessor";
 import {
   addCucumberPreprocessorPlugin,
-  beforeRunHandler,
-  afterRunHandler,
-  beforeSpecHandler,
-  afterSpecHandler
 } from "@badeball/cypress-cucumber-preprocessor";
 import fs from "fs";
 import { UUVListenerHelper, UUVEventEmitter } from "@uuv/runner-commons/runner/event";
 import path from "path";
 
 export async function setupNodeEvents (
-  on: Cypress.PluginEvents,
-  config: Cypress.PluginConfigOptions
+    cypressOn: Cypress.PluginEvents,
+    config: Cypress.PluginConfigOptions
 ): Promise<Cypress.PluginConfigOptions> {
   const startedFile: string[] = [];
+
+  // https://github.com/bahmutov/cypress-on-fix
+  const on = require("cypress-on-fix")(cypressOn);
 
   await addCucumberPreprocessorPlugin(on, config);
 
@@ -62,7 +61,6 @@ export async function setupNodeEvents (
   );
 
   on("before:run", async () => {
-    await beforeRunHandler(config);
     // eslint-disable-next-line dot-notation
     const a11yReportFilePath = config.env["uuvOptions"].report.a11y.outputFile;
     // eslint-disable-next-line dot-notation
@@ -75,13 +73,11 @@ export async function setupNodeEvents (
   });
 
   on("after:run", async (results: CypressCommandLine.CypressRunResult | CypressCommandLine.CypressFailedRunResult) => {
-    await afterRunHandler(config, results);
     UUVEventEmitter.getInstance().emitProgressFinish();
   });
 
   on("before:spec", async (spec: any) => {
     if (!startedFile.includes(spec.absolute)) {
-      await beforeSpecHandler(config, spec);
       UUVEventEmitter.getInstance().emitTestSuiteStarted({
         testSuiteName: spec.name,
         testSuitelocation: spec.absolute
@@ -91,7 +87,6 @@ export async function setupNodeEvents (
   });
 
   on("after:spec", async (spec: any, results: CypressCommandLine.RunResult) => {
-    await afterSpecHandler(config, spec, results);
     results?.tests?.forEach(test => {
       UUVEventEmitter.getInstance().emitTestStarted({
         testName: test.title[1],
