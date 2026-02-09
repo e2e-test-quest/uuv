@@ -1,3 +1,10 @@
+## [1.104.1](https://github.com/e2e-test-quest/uuv/compare/docs-v1.104.0...docs-v1.104.1) (2026-02-09)
+
+
+### Bug Fixes
+
+* **runner-cypress:** use cypress-on-fix for multiple hooks, [#1214](https://github.com/e2e-test-quest/uuv/issues/1214) ([bff79c8](https://github.com/e2e-test-quest/uuv/commit/bff79c8a332bd8f270301623d5ab519c585bcea4))
+
 # [1.104.0](https://github.com/e2e-test-quest/uuv/compare/docs-v1.103.0...docs-v1.104.0) (2026-02-08)
 
 
