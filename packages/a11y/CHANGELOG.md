@@ -1,3 +1,10 @@
+# [1.0.0-beta.93](https://github.com/e2e-test-quest/uuv/compare/a11y-v1.0.0-beta.92...a11y-v1.0.0-beta.93) (2026-02-09)
+
+
+### Bug Fixes
+
+* **runner-cypress:** use cypress-on-fix for multiple hooks, [#1214](https://github.com/e2e-test-quest/uuv/issues/1214) ([bff79c8](https://github.com/e2e-test-quest/uuv/commit/bff79c8a332bd8f270301623d5ab519c585bcea4))
+
 # [1.0.0-beta.92](https://github.com/e2e-test-quest/uuv/compare/a11y-v1.0.0-beta.91...a11y-v1.0.0-beta.92) (2026-02-08)
 
 
