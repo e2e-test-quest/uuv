@@ -1,3 +1,10 @@
+## [3.59.1](https://github.com/e2e-test-quest/uuv/compare/runner-playwright-v3.59.0...runner-playwright-v3.59.1) (2026-02-09)
+
+
+### Bug Fixes
+
+* **runner-cypress:** use cypress-on-fix for multiple hooks, [#1214](https://github.com/e2e-test-quest/uuv/issues/1214) ([bff79c8](https://github.com/e2e-test-quest/uuv/commit/bff79c8a332bd8f270301623d5ab519c585bcea4))
+
 # [3.59.0](https://github.com/e2e-test-quest/uuv/compare/runner-playwright-v3.58.0...runner-playwright-v3.59.0) (2026-02-08)
 
 
