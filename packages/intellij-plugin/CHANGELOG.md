@@ -1,3 +1,10 @@
+## [1.30.1](https://github.com/e2e-test-quest/uuv/compare/intellij-plugin-v1.30.0...intellij-plugin-v1.30.1) (2026-02-09)
+
+
+### Bug Fixes
+
+* **runner-cypress:** use cypress-on-fix for multiple hooks, [#1214](https://github.com/e2e-test-quest/uuv/issues/1214) ([bff79c8](https://github.com/e2e-test-quest/uuv/commit/bff79c8a332bd8f270301623d5ab519c585bcea4))
+
 # [1.30.0](https://github.com/e2e-test-quest/uuv/compare/intellij-plugin-v1.29.0...intellij-plugin-v1.30.0) (2026-02-08)
 
 
