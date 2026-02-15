@@ -279,10 +279,10 @@ function UuvAssistant(props: UuvAssistantProps) {
 
       const formData = new FormData();
       formData.append("html_content", htmlContext);
-      formData.append("target_img", imageBlob, "random_img.jpg");
+      formData.append("target_img_file", imageBlob, "random_img.jpg");
       formData.append("css_selector", cssSelector);
 
-      const uploadResponse = await fetch("http://localhost:5000/api/v1/image/classify-unified", {
+      const uploadResponse = await fetch("http://localhost:8000/api/v1/image/classify-unified", {
         method: "POST",
         body: formData
       });
@@ -297,8 +297,8 @@ function UuvAssistant(props: UuvAssistantProps) {
           const { done, value } = await reader.read();
 
           if (done) {
-break;
-}
+            break;
+          }
 
           buffer += decoder.decode(value, { stream: true });
 
@@ -345,9 +345,9 @@ break;
       const imgResponse = await fetch(imgElement.src);
       const imageBlob = await imgResponse.blob();
       const formData = new FormData();
-      formData.append("target_img", imageBlob, "random_img.jpg");
+      formData.append("target_img_file", imageBlob, "random_img.jpg");
 
-      const multipleDescriptionResponse = await fetch("http://localhost:5000/api/v1/image/multiple-describe", {
+      const multipleDescriptionResponse = await fetch("http://localhost:8000/api/v1/image/multiple-describe", {
         method: "POST",
         body: formData
       });
@@ -374,7 +374,7 @@ break;
           formData.append("image_description", selectedImageDescription);
           formData.append("css_selector", cssSelector);
 
-          const imageAnalysisResponse = await fetch("http://localhost:5000/api/v1/image/classify", {
+          const imageAnalysisResponse = await fetch("http://localhost:8000/api/v1/image/classify", {
             method: "POST",
             body: formData
           });

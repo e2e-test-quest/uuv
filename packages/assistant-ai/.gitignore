@@ -1,0 +1,5 @@
+/mlruns
+/mlartifacts
+mydb.sqlite
+/.venv
+__pycache__
