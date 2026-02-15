@@ -550,12 +550,12 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: build-artifacts-desktop-ubuntu-latest
-          path: packages/assistant-desktop/src-tauri/target/
+          path: packages/assistant-desktop/src-tauri/target/release/
       - name: Download windows build desktop artifact
         uses: actions/download-artifact@v4
         with:
           name: build-artifacts-desktop-windows-latest
-          path: packages/assistant-desktop/src-tauri/target/
+          path: packages/assistant-desktop/src-tauri/target/release/
       - name: Release public packages
         uses: ./.github/actions/nx-run-many
         env:

@@ -55,7 +55,7 @@ yarn add -D @uuv/assistant
 ### Desktop executable
 1. Download executable using the following button :
 
-   <a href="https://github.com/e2e-test-quest/uuv/releases/latest/download/uuv-assistant-win32-x64.zip"><img src="https://img.shields.io/badge/download_uuv--assistant_desktop-black?&style=for-the-badge&logo=github&logoColor=white" alt="documentation"/></a>
+   <a href="https://github.com/e2e-test-quest/uuv/releases/latest/download/uuv-assistant-desktop.exe"><img src="https://img.shields.io/badge/download_uuv--assistant_desktop-black?&style=for-the-badge&logo=github&logoColor=white" alt="documentation"/></a>
 2. Unzip the downloaded zip file
 
 ## Usage
