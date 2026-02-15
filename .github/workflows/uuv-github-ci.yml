@@ -12,6 +12,7 @@ permissions:
   checks: write
 
 env:
+  PYTHON_VERSION: 3.12.3
   NODE_VERSION: 22.18.0
   NPM_PACKAGE_SCOPE: uuv
   UUV_BASE_URL: https://e2e-test-quest.github.io
@@ -57,6 +58,7 @@ jobs:
         uses: ./.github/actions/nx-run-many
         with:
           node-version: ${{env.NODE_VERSION}}
+          python-version: ${{env.PYTHON_VERSION}}
           target: "build"
           exclude: "assistant-desktop,docker-images,runner-flutter,intellij-plugin,a11y-dashboard"
       - name: Upload build artifact
@@ -79,6 +81,7 @@ jobs:
             packages/a11y/dist
             packages/a11y/bundle
             packages/a11y-dashboard/.output
+            packages/assistant-ai/dist/
       - name: Upload docs artifact
         uses: actions/upload-pages-artifact@v3
         with:
@@ -249,6 +252,7 @@ jobs:
         uses: ./.github/actions/nx-run-many
         with:
           node-version: ${{env.NODE_VERSION}}
+          python-version: ${{env.PYTHON_VERSION}}
           target: "unit-tests"
           exclude: "a11y,runner-flutter"
       - name: Test Report
@@ -542,6 +546,7 @@ jobs:
         uses: ./.github/actions/nx-run-many
         with:
           node-version: ${{env.NODE_VERSION}}
+          python-version: ${{env.PYTHON_VERSION}}
           target: "lint"
           exclude: "docs"
 
@@ -581,6 +586,7 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         with:
           node-version: ${{env.NODE_VERSION}}
+          python-version: ${{env.PYTHON_VERSION}}
           target: "semantic-release"
           parallel: "false"
       - name: Update package-lock.json
@@ -643,6 +649,26 @@ jobs:
             fi
           done
           exit "$FAILED"
+
+  publish-pypi:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-22.04
+    needs: [ release ]
+    permissions:
+      id-token: write
+    environment:
+      name: pypi
+      url: https://pypi.org/p/uuv_assistant_ai
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download Release artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: release-artifacts
+      - name: Publish distribution to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: packages/assistant-ai/dist/
 
   publish-vscode:
     if: github.ref == 'refs/heads/main'

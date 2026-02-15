@@ -134,6 +134,14 @@ export const UuvAssistantResultAIImageDescriptionSelector: React.FC<UuvAssistant
                             descriptions[2],
                             2
                         )
+                    },
+                    {
+                        value: descriptions[3] ?? "desc-3",
+                        label: renderLoadingField(
+                            descriptions,
+                            descriptions[3],
+                            3
+                        )
                     }
                 ]}
             />
