@@ -1,3 +1,18 @@
+# [3.60.0](https://github.com/e2e-test-quest/uuv/compare/runner-playwright-v3.59.1...runner-playwright-v3.60.0) (2026-02-15)
+
+
+### Bug Fixes
+
+* **assistant:** update dependency playwright-chromium to v1.58.2 ([34bc2f6](https://github.com/e2e-test-quest/uuv/commit/34bc2f6c53c1fab2a03928966f888f76515fdff2))
+
+
+### Features
+
+* **assistant-desktop:** migrate assistant desktop from electron to tauri ([d1ac014](https://github.com/e2e-test-quest/uuv/commit/d1ac01405e37cce389da7449807f55601db41b74))
+* **runner-cypress:** update dependency @badeball/cypress-cucumber-preprocessor to v24 ([d85b911](https://github.com/e2e-test-quest/uuv/commit/d85b9117941af3f256be7ea2aa2ae55afc116884))
+* **runner-playwright:** update dependency multiple-cucumber-html-reporter to v3.10.0 ([4abcad4](https://github.com/e2e-test-quest/uuv/commit/4abcad42d2c892bd5f797e4d965fbb1aa62c93f1))
+* **runner-playwright:** update dependency webpack to v5.105.2 ([8639885](https://github.com/e2e-test-quest/uuv/commit/8639885be87b51fb9e04a3b78b5f484f41ab22ec))
+
 ## [3.59.1](https://github.com/e2e-test-quest/uuv/compare/runner-playwright-v3.59.0...runner-playwright-v3.59.1) (2026-02-09)
 
 
