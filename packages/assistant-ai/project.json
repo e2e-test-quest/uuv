@@ -1,0 +1,132 @@
+{
+    "name": "assistant-ai",
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "projectType": "application",
+    "sourceRoot": "packages/assistant-ai/assistant_ai",
+    "targets": {
+        "lock": {
+            "executor": "@nxlv/python:lock",
+            "options": {
+                "update": false
+            }
+        },
+        "sync": {
+            "executor": "@nxlv/python:sync",
+            "options": {}
+        },
+        "add": {
+            "executor": "@nxlv/python:add",
+            "options": {}
+        },
+        "update": {
+            "executor": "@nxlv/python:update",
+            "options": {}
+        },
+        "remove": {
+            "executor": "@nxlv/python:remove",
+            "options": {}
+        },
+        "build": {
+            "executor": "@nxlv/python:build",
+            "outputs": ["{projectRoot}/dist"],
+            "options": {
+                "outputPath": "{projectRoot}/dist",
+                "publish": false,
+                "lockedVersions": true,
+                "bundleLocalDependencies": true
+            },
+            "cache": true
+        },
+        "lint": {
+            "executor": "@nxlv/python:ruff-check",
+            "outputs": [],
+            "options": {
+                "lintFilePatterns": ["uuv_assistant_ai", "tests"]
+            },
+            "cache": true
+        },
+        "format": {
+            "executor": "@nxlv/python:ruff-format",
+            "outputs": [],
+            "options": {
+                "filePatterns": ["uuv_assistant_ai", "tests"]
+            },
+            "cache": true
+        },
+        "test": {
+            "executor": "@nxlv/python:run-commands",
+            "outputs": ["{workspaceRoot}/reports/{projectRoot}/unittests", "{workspaceRoot}/coverage/{projectRoot}"],
+            "options": {
+                "command": "uv run pytest tests/",
+                "cwd": "{projectRoot}"
+            },
+            "cache": true
+        },
+        "mlflow": {
+            "executor": "@nxlv/python:run-commands",
+            "options": {
+                "command": "uv run mlflow server --backend-store-uri sqlite:///mlruns.db --port 5000",
+                "cwd": "{projectRoot}"
+            }
+        },
+        "serve": {
+            "executor": "@nxlv/python:run-commands",
+            "options": {
+                "command": "uv run uuv-assistant-ai",
+                "cwd": "{projectRoot}"
+            }
+        },
+        "evaluate": {
+            "executor": "@nxlv/python:run-commands",
+            "options": {
+                "command": "uv run tests/test_image_classifier.py",
+                "cwd": "{projectRoot}"
+            }
+        },
+        "optimize": {
+            "executor": "@nxlv/python:run-commands",
+            "options": {
+                "command": "uv run tests/optimizer.py",
+                "cwd": "{projectRoot}"
+            }
+        },
+        "install": {
+            "executor": "@nxlv/python:install",
+            "options": {
+                "silent": false,
+                "args": "",
+                "verbose": false,
+                "debug": false
+            }
+        },
+        "semantic-release": {
+            "executor": "@theunderscorer/nx-semantic-release:semantic-release",
+            "options": {
+                "commitMessage": "release(assistant-ai): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}",
+                "plugins": [
+                    "@semantic-release/github",
+                    {
+                        "successComment": false,
+                        "failComment": false,
+                        "assets": [
+                            {
+                                "path": "packages/assistant-ai/dist/uuv_assistant_ai-*.whl",
+                                "label": "Python Package"
+                            },
+                            {
+                                "path": "packages/assistant-ai/dist/uuv_assistant_ai-*.tar.gz",
+                                "label": "Package archive"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    "tags": [],
+    "release": {
+        "version": {
+            "versionActions": "@nxlv/python/release/version-actions"
+        }
+    }
+}

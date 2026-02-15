@@ -16,6 +16,14 @@
     color: var(--ua-color-secondary);
 }
 
+#uuvAssistantMenu .ant-menu-submenu {
+    font-size: 18px;
+}
+
+#uuvAssistantMenu .ant-btn-icon {
+    font-size: 18px;
+}
+
 #uuvAssistantMenu {
     position: fixed;
     top: 0;
@@ -217,6 +225,11 @@
 
 #uuvAssistantMenu .settings {
     background-color: var(--ua-bg-color);
+    padding: 1rem;
+}
+
+#uuvAssistantMenu .settings .ant-form-item-extra {
+    font-size: 14px;
 }
 
 dialog::backdrop {
