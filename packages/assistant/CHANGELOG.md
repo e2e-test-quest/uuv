@@ -1,3 +1,10 @@
+## [2.79.1](https://github.com/e2e-test-quest/uuv/compare/assistant-v2.79.0...assistant-v2.79.1) (2026-02-16)
+
+
+### Bug Fixes
+
+* update assistant-desktop release url ([06bcd28](https://github.com/e2e-test-quest/uuv/commit/06bcd2839acc029dfdd512e7c370ff0c0388e17c))
+
 # [2.79.0](https://github.com/e2e-test-quest/uuv/compare/assistant-v2.78.1...assistant-v2.79.0) (2026-02-15)
 
 
