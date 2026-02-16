@@ -4,7 +4,8 @@
   "npm": false,
   "git": true,
   "gitAssets" : [
-    "packages/intellij-plugin/gradle.properties"
+    "packages/intellij-plugin/gradle.properties",
+    "packages/assistant-desktop/src-tauri/Cargo.toml"
   ],
   "github": false,
   "repositoryUrl": "https://github.com/e2e-test-quest/uuv",

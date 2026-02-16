@@ -79,15 +79,15 @@
                   "failComment": false,
                   "assets": [
                     {
-                      "path": "packages/assistant-desktop/src-tauri/target/release/uuv-assistant-desktop.exe",
+                      "path": "packages/assistant-desktop/src-tauri/target/release/windows/uuv-assistant-desktop.exe",
                       "label": "Windows Desktop"
                     },
                     {
-                      "path": "packages/assistant-desktop/src-tauri/target/release/bundle/deb/*.deb",
+                      "path": "packages/assistant-desktop/src-tauri/target/release/ubuntu/deb/*.deb",
                       "label": "Debian package"
                     },
                     {
-                      "path": "packages/assistant-desktop/src-tauri/target/release/bundle/appimage/*.AppImage",
+                      "path": "packages/assistant-desktop/src-tauri/target/release/ubuntu/appimage/*.AppImage",
                       "label": "AppImage package"
                     }
                   ]
