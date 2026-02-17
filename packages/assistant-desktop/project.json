@@ -87,8 +87,8 @@
                       "label": "Debian package"
                     },
                     {
-                      "path": "packages/assistant-desktop/src-tauri/target/release/ubuntu/appimage/*.AppImage",
-                      "label": "AppImage package"
+                      "path": "packages/assistant-desktop/src-tauri/target/release/macos/app/*.app",
+                      "label": "MacOs package"
                     }
                   ]
                 }

@@ -93,10 +93,13 @@ jobs:
         include:
           - os: ubuntu-latest
             target: x86_64-unknown-linux-gnu
-            bundles: deb,appimage
+            bundles: deb
           - os: windows-latest
             target: x86_64-pc-windows-msvc
             bundles: nsis,msi
+          - os: macos-latest
+            target: aarch64-apple-darwin
+            bundles: app
     steps:
       - uses: actions/checkout@v4
 
@@ -147,6 +150,10 @@ jobs:
 
       - name: Build Tauri
         if: matrix.os == 'windows-latest'
+        run: npx nx build assistant-desktop --verbose
+
+      - name: Build Tauri
+        if: matrix.os == 'macos-latest'
         run: npm install && npx nx build assistant-desktop --verbose
 
       - name: Upload artifacts
@@ -156,7 +163,6 @@ jobs:
           name: build-artifacts-desktop-${{ matrix.os }}
           path: |
             packages/assistant-desktop/src-tauri/target/release/bundle/deb/*.deb
-            packages/assistant-desktop/src-tauri/target/release/bundle/appimage/*.AppImage
 
       - name: Upload artifacts
         if: matrix.os == 'windows-latest'
@@ -165,6 +171,13 @@ jobs:
           name: build-artifacts-desktop-${{ matrix.os }}
           path: packages/assistant-desktop/src-tauri/target/release/*.exe
 
+      - name: Upload artifacts
+        if: matrix.os == 'macos-latest'
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts-desktop-${{ matrix.os }}
+          path: |
+            packages/assistant-desktop/src-tauri/target/release/bundle/macos/*.app
   build-gradle:
     runs-on: ubuntu-22.04
     needs: install
@@ -556,6 +569,11 @@ jobs:
         with:
           name: build-artifacts-desktop-windows-latest
           path: packages/assistant-desktop/src-tauri/target/release/windows
+      - name: Download macos build desktop artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts-desktop-macos-latest
+          path: packages/assistant-desktop/src-tauri/target/release/macos
       - name: Release public packages
         uses: ./.github/actions/nx-run-many
         env:
