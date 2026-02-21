@@ -5,13 +5,14 @@ import keyboardIcon from "./assets/keyboard.json";
 import formIcon from "./assets/form.json";
 import datatableIcon from "./assets/datatable.json";
 import modalIcon from "./assets/modal.json";
-import { ConfigProvider, MenuProps, message, theme } from "antd";
+import { ConfigProvider, MenuProps, message, theme, notification } from "antd";
 import { StyleProvider } from "@ant-design/cssinjs";
 import { CssHelper } from "./helper/css-helper";
 import { FocusableElement } from "tabbable";
 import { Extension, gutter } from "@uiw/react-codemirror";
 import { buildResultingScript } from "./helper/result-script-helper";
 import { buildUuvGutter } from "./helper/result-display-helper";
+import { useAiServerUrl } from "./hooks/useAiServerUrl";
 import {
   ActionEnum,
   AdditionalLayerEnum,
@@ -36,7 +37,9 @@ import { TableAndGridService } from "./service/table-and-grid-service";
 import { FormCompletionService } from "./service/form-completion-service";
 import { Translator } from "./translator/abstract-translator";
 import { InformativeNodesHelper } from "./helper/informative-nodes-helper";
+import type { NotificationArgsProps } from "antd";
 
+type NotificationPlacement = NotificationArgsProps["placement"];
 type MenuItem = Required<MenuProps>["items"][number];
 
 function UuvAssistant(props: UuvAssistantProps) {
@@ -60,6 +63,11 @@ function UuvAssistant(props: UuvAssistantProps) {
     useState<boolean>(true);
   const [selectedElement, setSelectedElement] = useState<HTMLElement | undefined>(undefined);
   const [aiResult, setAiResult] = useState<UuvAssistantResultAIAnalysisType | undefined>(undefined);
+  const [api, contextHolder] = notification.useNotification({
+      getContainer: () => props.assistantRoot
+  });
+
+  const [aiServerUrl, setAiServerUrl] = useAiServerUrl();
 
   const selectionHelper = new SelectionHelper(
     onElementSelection,
@@ -255,7 +263,18 @@ function UuvAssistant(props: UuvAssistantProps) {
     }
   };
 
+  const Context = React.createContext({ name: "default" });
+
+  const openNotification = (placement: NotificationPlacement, title: string, message?: string) => {
+    api.error({
+        message: title,
+        description: <Context.Consumer>{() => message}</Context.Consumer>,
+        placement,
+    });
+  };
+
   const callUnifiedAIForImage = async (imgElement: HTMLImageElement) => {
+    const targetUrl = `${aiServerUrl}/api/v1/image/classify-unified`;
     try {
       let currentValue: UuvAssistantResultAIAnalysisType | undefined = {
         mode: AIAnalysisModeEnum.UNIFIED,
@@ -282,8 +301,11 @@ function UuvAssistant(props: UuvAssistantProps) {
       formData.append("target_img_file", imageBlob, "random_img.jpg");
       formData.append("css_selector", cssSelector);
 
-      const uploadResponse = await fetch("http://localhost:8000/api/v1/image/classify-unified", {
+        const uploadResponse = await fetch(targetUrl, {
         method: "POST",
+        headers: {
+          Accept: "text/event-stream",
+        },
         body: formData
       });
 
@@ -325,12 +347,14 @@ function UuvAssistant(props: UuvAssistantProps) {
         });
       }
     } catch (error) {
+      openNotification("topLeft", "An error occured", `When calling url '${targetUrl}' the following error occurred: ${error?.message}`);
       console.error("Erreur:", error);
       setAiResult(undefined);
     }
   };
 
   const callStepByStepAIForImage = async (imgElement: HTMLImageElement) => {
+    let targetUrl = `${aiServerUrl}/api/v1/image/multiple-describe`;
     try {
       const currentValue: UuvAssistantResultAIAnalysisType | undefined = {
         mode: AIAnalysisModeEnum.STEP_BY_STEP,
@@ -347,7 +371,7 @@ function UuvAssistant(props: UuvAssistantProps) {
       const formData = new FormData();
       formData.append("target_img_file", imageBlob, "random_img.jpg");
 
-      const multipleDescriptionResponse = await fetch("http://localhost:8000/api/v1/image/multiple-describe", {
+        const multipleDescriptionResponse = await fetch(targetUrl, {
         method: "POST",
         body: formData
       });
@@ -374,7 +398,8 @@ function UuvAssistant(props: UuvAssistantProps) {
           formData.append("image_description", selectedImageDescription);
           formData.append("css_selector", cssSelector);
 
-          const imageAnalysisResponse = await fetch("http://localhost:8000/api/v1/image/classify", {
+          targetUrl = `${aiServerUrl}/api/v1/image/classify`;
+          const imageAnalysisResponse = await fetch(targetUrl, {
             method: "POST",
             body: formData
           });
@@ -387,6 +412,7 @@ function UuvAssistant(props: UuvAssistantProps) {
         }
       });
     } catch (error) {
+      openNotification("topLeft", "An error occured", `When calling url '${targetUrl}' the following error occurred: ${error?.message}`);
       console.error("Erreur:", error);
       setAiResult(undefined);
     }
@@ -640,12 +666,13 @@ function UuvAssistant(props: UuvAssistantProps) {
           theme={{
             algorithm: isDark ? theme.darkAlgorithm : theme.defaultAlgorithm,
             token: {
-              fontSize: 18,
+              fontSize: 14,
               zIndexBase: 9999999989,
-              zIndexPopupBase: 9999999999,
+              zIndexPopupBase: 9999999999
             },
           }}
         >
+          {contextHolder}
           {visibility === VisibilityEnum.WITH_RESULT && (
             <UuvAssistantResult
               displayedResult={displayedResult.toString()}
@@ -667,6 +694,8 @@ function UuvAssistant(props: UuvAssistantProps) {
               switchIntelligentHighlight={switchIntelligentHighlight}
               onClose={handleCloseView}
               getAsideParentInHierarchy={getAsideParentInHierarchy}
+              aiServerUrl={aiServerUrl}
+              setAiServerUrl={setAiServerUrl}
             />
           )}
 
