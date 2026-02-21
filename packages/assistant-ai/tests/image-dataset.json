@@ -1,0 +1,122 @@
+[
+	{
+		"name": "burned_computer_desk",
+		"html_content": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Technology History</title>\n</head>\n<body>\n    <article>\n        <h1>The Evolution of Computing</h1>\n        <p>From the earliest mechanical calculators to modern supercomputers, technology has advanced at an incredible pace. Let's explore some key milestones in this journey.</p>\n        <img src=\"http://farm1.staticflickr.com/149/437547179_84c28a4c37_z.jpg\" alt=\"Old computer on desk\">\n        <p>This image shows a classic example of early computing hardware. The machine features a bulky monitor and keyboard that were common in the 1980s and 1990s.</p>\n    </article>\n</body>\n</html>",
+		"css_selector": "img",
+		"image_url": "http://farm1.staticflickr.com/149/437547179_84c28a4c37_z.jpg",
+		"image_description": "a burned up old outdated computer sitting on a desk",
+		"expected": {
+			"is_decorative": false,
+			"confidence": 0.92,
+			"analysis_details": "Image shows an outdated computer on a desk with visible hardware components. The surrounding text explicitly refers to this image as 'This image shows a classic example of early computing hardware' and discusses its historical significance in technology evolution."
+		}
+	},
+	{
+		"name": "flip_cellphone_icons",
+		"html_content": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Mobile Phone Features</title>\n</head>\n<body>\n    <section>\n        <h2>Popular Mobile Phone Models</h2>\n        <p>During the early 2000s, flip phones became incredibly popular for their compact design and ease of use. One notable model featured an innovative interface.</p>\n        <img src=\"http://farm2.staticflickr.com/1331/1224659155_01cc3eaa65_z.jpg\" alt=\"Flip phone display\">\n        <p>The device shown here demonstrates how users interacted with their phones, with visible icons on the screen providing access to various functions.</p>\n    </section>\n</body>\n</html>",
+		"css_selector": "img",
+		"image_url": "http://farm2.staticflickr.com/1331/1224659155_01cc3eaa65_z.jpg",
+		"image_description": "a flip cell phone that is open with icons being displayed",
+		"expected": {
+			"is_decorative": false,
+			"confidence": 0.88,
+			"analysis_details": "Image displays an open flip phone showing screen icons. The surrounding text directly references this specific device, explaining its historical context and how users interacted with it through the visible interface icons."
+		}
+	},
+	{
+		"name": "refrigerator_outdoors",
+		"html_content": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Appliance Storage Tips</title>\n</head>\n<body>\n    <article>\n        <h1>Proper Appliance Storage Guide</h1>\n        <p>When moving or storing large appliances, proper preparation is essential to maintain their functionality and longevity.</p>\n        <img src=\"http://farm1.staticflickr.com/158/347193647_b38bb8d5f6_z.jpg\" alt=\"Refrigerator outdoors\">\n        <p>The refrigerator shown here demonstrates proper securing techniques for outdoor storage, with straps and protective coverings.</p>\n    </article>\n</body>\n</html>",
+		"css_selector": "img",
+		"image_url": "http://farm1.staticflickr.com/158/347193647_b38bb8d5f6_z.jpg",
+		"image_description": "tied down refrigerator sitting outdoors in the sun",
+		"expected": {
+			"is_decorative": false,
+			"confidence": 0.9,
+			"analysis_details": "Image shows a refrigerator tied down and exposed to outdoor conditions. The surrounding text discusses appliance storage techniques and explicitly references this image as demonstrating 'proper securing techniques for outdoor storage' with specific details about straps and coverings."
+		}
+	},
+	{
+		"name": "fire_hydrant_water_street",
+		"html_content": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Fire Safety Awareness</title>\n</head>\n<body>\n    <section>\n        <h2>Understanding Fire Hydrants</h2>\n        <p>Fire hydrants are critical components of urban fire safety infrastructure. They provide emergency water access for firefighting operations.</p>\n        <img src=\"http://farm5.staticflickr.com/4032/4551347107_c5c623da7a_z.jpg\" alt=\"Fire hydrant spilling water\">\n        <p>This image captures a fire department training exercise where firefighters test the hydrant's functionality by releasing water into the street.</p>\n    </section>\n</body>\n</html>",
+		"css_selector": "img",
+		"image_url": "http://farm5.staticflickr.com/4032/4551347107_c5c623da7a_z.jpg",
+		"image_description": "a fire hydrant spilling water into a street near a fire truck",
+		"expected": {
+			"is_decorative": false,
+			"confidence": 0.94,
+			"analysis_details": "Image shows a fire hydrant releasing water near a fire truck during what appears to be training. The surrounding text explains hydrants as critical fire safety infrastructure and specifically references this image showing firefighters testing functionality."
+		}
+	},
+	{
+		"name": "park_benches_line",
+		"html_content": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Community Park Features</title>\n</head>\n<body>\n    <article>\n        <h1>Welcome to Our Community Park</h1>\n        <p>Our park offers various amenities for visitors of all ages. One notable feature provides comfortable seating throughout the grounds.</p>\n        <img src=\"http://farm6.staticflickr.com/5344/8755420890_4347727578_z.jpg\" alt=\"Park benches\">\n        <p>The park features numerous seating areas where visitors can rest and enjoy the natural surroundings.</p>\n    </article>\n</body>\n</html>",
+		"css_selector": "img",
+		"image_url": "http://farm6.staticflickr.com/5344/8755420890_4347727578_z.jpg",
+		"image_description": "there are many benches that line this park",
+		"expected": {
+			"is_decorative": false,
+			"confidence": 0.86,
+			"analysis_details": "Image shows multiple benches lining a park area. The surrounding text introduces the park and specifically mentions seating areas as an amenity, with the image caption explaining visitors can rest and enjoy surroundings."
+		}
+	},
+	{
+		"name": "mountain_trees_clouds",
+		"html_content": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Natural Landscapes</title>\n</head>\n<body>\n    <section class=\"hero-banner\">\n        <h1>Explore Nature's Beauty</h1>\n        <p>Discover the breathtaking landscapes that await you in our national parks. From mountains to forests, experience nature at its finest.</p>\n        <img src=\"https://images.unsplash.com/flagged/photo-1441005072573-3a7192272e44\" alt=\"Mountain landscape\">\n    </section>\n</body>\n</html>",
+		"css_selector": ".hero-banner img",
+		"image_url": "https://images.unsplash.com/flagged/photo-1441005072573-3a7192272e44",
+		"image_description": "green trees on mountain under white clouds during daytime",
+		"expected": {
+			"is_decorative": true,
+			"confidence": 0.91,
+			"analysis_details": "Image shows a scenic landscape with green trees on a mountain under white clouds during daytime. The surrounding text provides general welcome messaging about nature exploration without specifically referencing or describing this particular image. No caption or contextual information connects the image to the content."
+		}
+	},
+	{
+		"name": "icebergs_water_daytime",
+		"html_content": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Earth's Wonders</title>\n</head>\n<body>\n    <article class=\"gallery-item\">\n        <h1>Earth's Natural Wonders</h1>\n        <p>Our planet is filled with incredible natural phenomena that inspire awe and wonder. One such spectacle can be seen in polar regions.</p>\n        <img src=\"https://images.unsplash.com/photo-1445966838217-f418f2601b54\" alt=\"Icebergs floating\">\n    </article>\n</body>\n</html>",
+		"css_selector": ".gallery-item img",
+		"image_url": "https://images.unsplash.com/photo-1445966838217-f418f2601b54",
+		"image_description": "icebergs floating on body of water during daytime",
+		"expected": {
+			"is_decorative": true,
+			"confidence": 0.89,
+			"analysis_details": "Image shows icebergs floating in water during daytime. While the surrounding text mentions polar regions and natural phenomena generally, it does not specifically reference or describe this particular image of icebergs. The image serves as a decorative element enhancing the visual appeal without conveying specific information."
+		}
+	},
+	{
+		"name": "moon_snow_mountains_painting",
+		"html_content": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Art and Nature</title>\n</head>\n<body>\n    <section id=\"art-exhibit\">\n        <h1>Nature-Inspired Art Collection</h1>\n        <p>This exhibition showcases how natural landscapes have inspired artists throughout history. Each piece captures the essence of its subject through various artistic techniques.</p>\n        <img src=\"https://images.unsplash.com/photo-1429892494097-cccc61109f58\" alt=\"Full moon painting\">\n    </section>\n</body>\n</html>",
+		"css_selector": "#art-exhibit img",
+		"image_url": "https://images.unsplash.com/photo-1429892494097-cccc61109f58",
+		"image_description": "full-moon above snow-capped mountain painting",
+		"expected": {
+			"is_decorative": true,
+			"confidence": 0.93,
+			"analysis_details": "Image shows a full moon above snow-capped mountains, resembling a painting style. The surrounding text discusses an art exhibition and nature-inspired artwork but does not specifically reference or describe this particular image. It serves as decorative visual content for the exhibit section."
+		}
+	},
+	{
+		"name": "flowers_field_sky",
+		"html_content": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Seasonal Gardens</title>\n</head>\n<body>\n    <div class=\"banner-section\">\n        <h1>Experience Seasonal Beauty</h1>\n        <p>Visit our gardens during spring and summer to see stunning floral displays that change with the seasons. Each bloom brings its own unique color and fragrance.</p>\n        <img src=\"https://images.unsplash.com/photo-1471340620190-18627b679d58\" alt=\"Flowers field\">\n    </div>\n</body>\n</html>",
+		"css_selector": ".banner-section img",
+		"image_url": "https://images.unsplash.com/photo-1471340620190-18627b679d58",
+		"image_description": "white flowers field near body of water under blue and white cloudy sky",
+		"expected": {
+			"is_decorative": true,
+			"confidence": 0.9,
+			"analysis_details": "Image shows a field of white flowers near water under a cloudy sky. The surrounding text invites visitors to experience seasonal garden beauty but does not specifically describe or reference this particular image. The image serves as decorative background content for the banner section."
+		}
+	},
+	{
+		"name": "person_forest_watching_dog",
+		"html_content": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Outdoor Adventures</title>\n</head>\n<body>\n    <section class=\"hero-image-container\">\n        <h1>Connect with Nature</h1>\n        <p>Escape the city and reconnect with the natural world. Our forest trails offer peaceful retreats for nature lovers and outdoor enthusiasts.</p>\n        <img src=\"https://images.unsplash.com/photo-1485956877340-82de80f35552\" alt=\"Person in forest\">\n    </section>\n</body>\n</html>",
+		"css_selector": ".hero-image-container img",
+		"image_url": "https://images.unsplash.com/photo-1485956877340-82de80f35552",
+		"image_description": "person standing on snow covered forest watching dog",
+		"expected": {
+			"is_decorative": true,
+			"confidence": 0.88,
+			"analysis_details": "Image shows a person in a snowy forest with a dog. The surrounding text promotes outdoor adventures and nature connection but does not specifically describe or reference this particular image scene. The image functions as decorative hero content for the adventure section."
+		}
+	}
+]
