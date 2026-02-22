@@ -95,7 +95,7 @@
   },
   "dependencies": {
     "@cucumber/gherkin": "^32.0.0",
-    "@cucumber/messages": "^27.0.0",
+    "@cucumber/messages": "^32.0.0",
     "@types/node-ipc": "^9.2.3",
     "@uuv/runner-commons": "2.73.0",
     "node-ipc": "^12.0.0"
