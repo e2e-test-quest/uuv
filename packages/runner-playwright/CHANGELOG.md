@@ -1,3 +1,20 @@
+# [3.61.0](https://github.com/e2e-test-quest/uuv/compare/runner-playwright-v3.60.0...runner-playwright-v3.61.0) (2026-02-23)
+
+
+### Bug Fixes
+
+* **runner-cypress:** update dependency @badeball/cypress-cucumber-preprocessor to v24.0.1 ([d164cb4](https://github.com/e2e-test-quest/uuv/commit/d164cb4b1c5ee6aae84c2bcabc937f07d281a434))
+
+
+### Features
+
+* **deps:** update dependency @cucumber/gherkin to v38 ([d94b256](https://github.com/e2e-test-quest/uuv/commit/d94b2567a385370418b08b247ffc64255f7930eb))
+* **deps:** update dependency @cucumber/messages to v32 ([d369590](https://github.com/e2e-test-quest/uuv/commit/d36959031c5c525592dd13d89945ae2d9bb2851f))
+* **deps:** update dependency @modelcontextprotocol/sdk to v1.26.0 ([7b674d9](https://github.com/e2e-test-quest/uuv/commit/7b674d97f617fd47c298f8b5ca77e659eb1539d7))
+* **runner-playwright:** update dependency @cucumber/cucumber to v12 ([04348cf](https://github.com/e2e-test-quest/uuv/commit/04348cf236f75e4af29d1601ce3fb5d184d2d36a))
+* **runner-playwright:** update dependency @cucumber/tag-expressions to v9 ([b5803ce](https://github.com/e2e-test-quest/uuv/commit/b5803ce00fedeba3aba205860ce4f906b2661809))
+* **runner-playwright:** update dependency webpack to v5.105.2 ([3631522](https://github.com/e2e-test-quest/uuv/commit/36315228823aa731802a784f3f3c3daa2d4a8e3c))
+
 # [3.60.0](https://github.com/e2e-test-quest/uuv/compare/runner-playwright-v3.59.1...runner-playwright-v3.60.0) (2026-02-15)
 
 
