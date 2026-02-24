@@ -11,7 +11,7 @@
  * understanding English or French.
  */
 
-import { DEFAULT_TIMEOUT, fs, KEY_PRESS } from "@uuv/runner-commons";
+import { fs, KEY_PRESS } from "@uuv/runner-commons";
 import { key } from "@uuv/dictionary";
 import { checkA11y, injectAxe } from "axe-playwright";
 import { devices, expect } from "@playwright/test";
@@ -19,6 +19,7 @@ import { Locator } from "playwright";
 import { DataTable } from "@cucumber/cucumber";
 import {
     addCookie,
+    typeFocusedElement,
     click,
     COOKIE_NAME,
     deleteCookieByName,
@@ -28,14 +29,22 @@ import {
     findWithRoleAndNameAndContentDisabled,
     findWithRoleAndNameAndContentEnabled,
     findWithRoleAndNameFocused,
+    getWithContent,
+    findWithSelector,
+    getwithTestId,
+    findWithTestId,
+    getwithAriaLabel,
+    findWithAriaLabel,
     getCookie,
     getPageOrElement,
     getTimeout,
     MockCookie,
     notFoundWithRoleAndName,
     SelectedElementCookie,
-    TimeoutCookie,
-    withinRoleAndName
+    setTimeout,
+    withinRoleAndName,
+    keyBoardFocusTarget,
+    clickFocusedElement
 } from "./core-engine";
 import { Given, Then, When, World } from "../../preprocessor/run/world";
 import { ContextObject, RunOptions } from "axe-core";
@@ -80,12 +89,7 @@ Given(`${key.when.visit}`, async function(siteUrl: string) {
  * key.when.click.withContext.description
  * */
 When(`${key.when.click.withContext}`, async function() {
-  const keyBoardFocusTargetObj = keyBoardFocusTarget(this);
-  if ((await keyBoardFocusTargetObj.count()) === 1) {
-    await keyBoardFocusTargetObj.click({ timeout: DEFAULT_TIMEOUT });
-  } else {
-    await getPageOrElement(this).then((element: Locator) => element.click({ timeout: DEFAULT_TIMEOUT }));
-  }
+  await clickFocusedElement(this);
 });
 
 /**
@@ -125,11 +129,7 @@ When(`${key.when.resetContext}`, async function() {
  * key.when.withinElement.selector.description
  * */
 When(`${key.when.withinElement.selector}`, async function(selector: string) {
-  await getPageOrElement(this).then(async (element) => {
-    const locator = element.locator(selector);
-    await expect(locator).toHaveCount(1, { timeout: await getTimeout(this) });
-    await locator.focus({ timeout: 10000 });
-  });
+  await findWithSelector(this, selector);
   await addCookie(this, COOKIE_NAME.SELECTED_ELEMENT, new SelectedElementCookie(FILTER_TYPE.SELECTOR, selector));
 });
 
@@ -137,24 +137,24 @@ When(`${key.when.withinElement.selector}`, async function(selector: string) {
  * key.when.type.withContext.description
  * */
 When(`${key.when.type.withContext}`, async function(textToType: string) {
-    await type(this, textToType);
+    await typeFocusedElement(this, textToType);
 });
 
 /**
  * key.when.enter.withContext.description
  * */
 When(`${key.when.enter.withContext}`, async function(textToType: string) {
-    await type(this, textToType);
+    await typeFocusedElement(this, textToType);
 });
 
 /**
  * key.when.type.withContextInGridCell.description
  * */
 When(`${key.when.type.withContextInGridCell}`, async function(textToType: string, lineNumber: number, columnName: string) {
-    await getPageOrElement(this).then(async (element: Locator) => {
+    await getPageOrElement(this).then(async (element) => {
         // Confirm the element is a grid or treegrid
-        const elementRole = await element.getAttribute("role");
-        expect(["grid", "treegrid"], { message: "Focus element doesn't have grid/treegrid role" }).toContain(elementRole!);
+        const elementRole = await((element as Locator).getAttribute("role"));
+        await expect(["grid", "treegrid"], { message: "Focus element doesn't have grid/treegrid role" }).toContain(elementRole!);
 
         // Retrieve column index
         const columnElement = await element.getByRole("columnheader", { name: columnName, exact: true });
@@ -178,10 +178,10 @@ When(`${key.when.select.withContext}`, async function(valueToSet: string) {
     if ((await keyBoardFocusTargetObj.count()) === 1) {
         await keyBoardFocusTargetObj.selectOption({ label: valueToSet });
     } else {
-        await getPageOrElement(this).then(async (element: Locator) => {
+        await getPageOrElement(this).then(async (element) => {
             // console.debug(element);
-            await element.focus({ timeout: 10000 });
-            await element.selectOption({ label: valueToSet });
+            await((element as Locator).focus({ timeout: 10000 }));
+            await((element as Locator).selectOption({ label: valueToSet }));
         });
     }
 });
@@ -245,7 +245,7 @@ When(`${key.when.keyboard.nextElement}`, async function() {
  * key.when.timeout.description
  * */
 When(`${key.when.timeout}`, async function(newTimeout: number) {
-  await addCookie(this, COOKIE_NAME.TIMEOUT, new TimeoutCookie("timeout", newTimeout));
+  await setTimeout(this, newTimeout);
 });
 
 /**
@@ -260,11 +260,7 @@ When(`${key.when.withinElement.roleAndName}`, async function(role: string, name:
  * */
 When(`${key.when.withinElement.testId}`, async function(testId: string) {
   testId = encodeURIComponent(testId);
-  await getPageOrElement(this).then(async (element) => {
-    const locator = element.getByTestId(testId);
-    await expect(locator).toHaveCount(1, { timeout: await getTimeout(this) });
-    await locator.focus({ timeout: 10000 });
-  });
+  await findWithTestId(this, testId);
   await addCookie(this, COOKIE_NAME.SELECTED_ELEMENT, new SelectedElementCookie(FILTER_TYPE.TEST_ID, testId));
 });
 
@@ -316,7 +312,7 @@ When(
  * key.then.element.withSelector.description
  * */
 Then(`${key.then.element.withSelector}`, async function(selector: string) {
-  await getPageOrElement(this).then(async (element) => expect(element.locator(selector)).toHaveCount(1, { timeout: await getTimeout(this) }));
+  await findWithSelector(this, selector);
 });
 
 /**
@@ -364,14 +360,14 @@ Then(`${key.then.element.withRoleAndName}`, async function(role: string, name: s
  * */
 Then(`${key.then.element.withContent}`, async function(textContent: string) {
   // TODO partie pris de faire en exactitude. A voir si on doit faire 2 phrases https://playwright.dev/docs/api/class-locator#locator-get-by-text
-  await getPageOrElement(this).then(async (element) => expect(element.getByText(textContent, { exact: true })).toHaveCount(1, { timeout: await getTimeout(this) }));
+  await expect(await getWithContent(this, textContent)).toHaveCount(1, { timeout: await getTimeout(this) });
 });
 
 /**
  * key.then.element.not.withContent.description
  * */
 Then(`${key.then.element.not.withContent}`, async function(textContent: string) {
-  await getPageOrElement(this).then(async (element) => expect(element.getByText(textContent, { exact: true })).toHaveCount(0, { timeout: await getTimeout(this) }));
+  await expect(await getWithContent(this, textContent)).toHaveCount(0, { timeout: await getTimeout(this) });
 });
 
 /**
@@ -379,7 +375,7 @@ Then(`${key.then.element.not.withContent}`, async function(textContent: string) 
  * */
 Then(`${key.then.element.withTestId}`, async function(testId: string) {
   testId = encodeURIComponent(testId);
-  await getPageOrElement(this).then(async (element) => expect(element.getByTestId(testId, { exact: true })).toHaveCount(1, { timeout: await getTimeout(this) }));
+  await findWithTestId(this, testId);
 });
 
 /**
@@ -387,7 +383,7 @@ Then(`${key.then.element.withTestId}`, async function(testId: string) {
  * */
 Then(`${key.then.element.not.withTestId}`, async function(testId: string) {
   testId = encodeURIComponent(testId);
-  await getPageOrElement(this).then(async (element) => expect(element.getByTestId(testId, { exact: true })).toHaveCount(0, { timeout: await getTimeout(this) }));
+  await expect(await getwithTestId(this, testId)).toHaveCount(0, { timeout: await getTimeout(this) });
 });
 
 /**
@@ -511,12 +507,7 @@ Then(
 Then(
  `${key.then.element.withSelectorFocused}`,
  async function(selector: string) {
-   await getPageOrElement(this).then(async (element) => {
-     const locator = element.locator(selector);
-     await locator.focus({ timeout: 10000 });
-     await expect(locator).toHaveCount(1, { timeout: await getTimeout(this) });
-     await expect(locator).toBeFocused();
-   });
+    await expect((await findWithSelector(this, selector))).toBeFocused({ timeout: await getTimeout(this) });
  });
 
 /**
@@ -544,7 +535,7 @@ Then(
  * */
 Then(`${key.then.element.withAriaLabel}`, async function(expectedAriaLabel: string) {
   expectedAriaLabel = encodeURIComponent(expectedAriaLabel);
-  await getPageOrElement(this).then(async (element) => expect(element.getByLabel(expectedAriaLabel, { exact: true })).toHaveCount(1, { timeout: await getTimeout(this) }));
+  await findWithAriaLabel(this, expectedAriaLabel);
 });
 
 /**
@@ -552,7 +543,7 @@ Then(`${key.then.element.withAriaLabel}`, async function(expectedAriaLabel: stri
  * */
 Then(`${key.then.element.not.withAriaLabel}`, async function(expectedAriaLabel: string) {
   expectedAriaLabel = encodeURIComponent(expectedAriaLabel);
-  await getPageOrElement(this).then(async (element) => expect(element.getByLabel(expectedAriaLabel, { exact: true })).toHaveCount(0, { timeout: await getTimeout(this) }));
+  await expect((await getwithAriaLabel(this, expectedAriaLabel))).toHaveCount(0, { timeout: await getTimeout(this) });
 });
 
 /**
@@ -560,11 +551,8 @@ Then(`${key.then.element.not.withAriaLabel}`, async function(expectedAriaLabel: 
  * */
 Then(`${key.then.element.withAriaLabelAndContent}`, async function(expectedAriaLabel: string, expectedTextContent: string) {
   expectedAriaLabel = encodeURIComponent(expectedAriaLabel);
-  await getPageOrElement(this).then(async (element) => {
-    const byLabel = element.getByLabel(expectedAriaLabel, { exact: true });
-    await expect(byLabel).toHaveCount(1, { timeout: await getTimeout(this) });
-    await expect(byLabel.filter({ hasText: expectedTextContent })).toHaveCount(1);
-  });
+  const byLabel = await findWithAriaLabel(this, expectedAriaLabel);
+  await expect(byLabel.filter({ hasText: expectedTextContent })).toHaveCount(1);
 });
 
 /**
@@ -625,7 +613,7 @@ Then(
        const attributeName = expectedAttribute[0];
        const attributeValue = expectedAttribute[1];
        // await showAttributesInLocator(element);
-       await expect(element).toHaveAttribute(attributeName, attributeValue);
+       await expect((element as Locator)).toHaveAttribute(attributeName, attributeValue);
      }
    });
  }
@@ -663,7 +651,7 @@ Then(
         await findWithRoleAndName(this, "grid", expectedListName);
         await addCookie(this, COOKIE_NAME.SELECTED_ELEMENT, new SelectedElementCookie(FILTER_TYPE.SELECTOR, `role=grid[name="${expectedListName}"]`));
         await getPageOrElement(this).then(async (element) => {
-            await expectTableToHaveContent(element, expectedElementsOfList, "gridcell");
+            await expectTableToHaveContent((element as Locator), expectedElementsOfList, "gridcell");
         });
         await deleteCookieByName(this, COOKIE_NAME.SELECTED_ELEMENT);
     }
@@ -679,7 +667,7 @@ Then(
         await findWithRoleAndName(this, "treegrid", expectedListName);
         await addCookie(this, COOKIE_NAME.SELECTED_ELEMENT, new SelectedElementCookie(FILTER_TYPE.SELECTOR, `role=treegrid[name="${expectedListName}"]`));
         await getPageOrElement(this).then(async (element) => {
-            await expectTableToHaveContent(element, expectedElementsOfList, "gridcell");
+            await expectTableToHaveContent((element as Locator), expectedElementsOfList, "gridcell");
         });
         await deleteCookieByName(this, COOKIE_NAME.SELECTED_ELEMENT);
     }
@@ -695,7 +683,7 @@ Then(
         await findWithRoleAndName(this, "table", expectedListName);
         await addCookie(this, COOKIE_NAME.SELECTED_ELEMENT, new SelectedElementCookie(FILTER_TYPE.SELECTOR, `role=table[name="${expectedListName}"]`));
         await getPageOrElement(this).then(async (element) => {
-            await expectTableToHaveContent(element, expectedElementsOfList, "cell");
+            await expectTableToHaveContent((element as Locator), expectedElementsOfList, "cell");
         });
         await deleteCookieByName(this, COOKIE_NAME.SELECTED_ELEMENT);
     }
@@ -758,10 +746,6 @@ async function pressKey(world: World, key: string) {
   await addCookie(world, COOKIE_NAME.SELECTED_ELEMENT, new SelectedElementCookie(FILTER_TYPE.SELECTOR_PARENT, "*:focus"));
 }
 
-function keyBoardFocusTarget(world: World) {
-  return world.page.locator(":focus");
-}
-
 async function setMockAsConsumed(name: string, mock: MockCookie, world: World) {
   const newMockCookie = new MockCookie(name, mock.url, mock.verb);
   newMockCookie.isConsumed = true;
@@ -777,17 +761,4 @@ async function afterMock(world: World, url: string, verb: string, name: string) 
       await setMockAsConsumed(name, mock, world);
     }
   }
-}
-
-async function type(world: World, textToType: string) {
-    const keyBoardFocusTargetObj = keyBoardFocusTarget(world);
-    if ((await keyBoardFocusTargetObj.count()) === 1) {
-        await keyBoardFocusTargetObj.type(textToType);
-    } else {
-        await getPageOrElement(world).then(async (element: Locator) => {
-            // console.debug(element);
-            await element.focus({ timeout: 10000 });
-            await element.type(textToType);
-        });
-    }
 }

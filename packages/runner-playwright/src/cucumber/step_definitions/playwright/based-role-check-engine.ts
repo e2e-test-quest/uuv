@@ -25,13 +25,12 @@ import {
     findWithRoleAndNameDisabled,
     findWithRoleAndNameEnabled,
     findWithRoleAndNameFocused,
-    getPageOrElement,
-    getTimeout,
     notFoundWithRoleAndName,
-    withinRoleAndName
+    withinRoleAndName,
+    type,
+    findWithRoleAndNameAndValue
 } from "./core-engine";
 import { Then, When } from "../../preprocessor/run/world";
-import { expect } from "@playwright/test";
 
 // Begin of General Section
 
@@ -77,36 +76,22 @@ When(`${key.when.click}`, async function(name: string) {
  * key.when.type.description
  * */
 When(`${key.when.type}`, async function(textToType: string, name: string) {
-  await getPageOrElement(this).then(async (element) => {
-    const byRole = await element.getByRole("$roleId", { name: name, exact: true });
-    await expect(byRole).toHaveCount(1, { timeout: await getTimeout(this) });
-    await byRole.type(textToType);
-    await deleteCookieByName(this, COOKIE_NAME.SELECTED_ELEMENT);
-  });
+  await type(this, "$roleId", name, textToType);
 });
 
 /**
  * key.when.enter.description
  * */
 When(`${key.when.enter}`, async function(textToType: string, name: string) {
-    await getPageOrElement(this).then(async (element) => {
-        const byRole = await element.getByRole("$roleId", { name: name, exact: true });
-        await expect(byRole).toHaveCount(1);
-        await byRole.type(textToType);
-        await deleteCookieByName(this, COOKIE_NAME.SELECTED_ELEMENT);
-    });
+    await type(this, "$roleId", name, textToType);
 });
 
 /**
  * key.then.element.withRoleAndNameAndValue
  * */
 When(`${key.then.element.withRoleAndNameAndValue}`, async function(name: string, expectedValue: string) {
-    await getPageOrElement(this).then(async (element) => {
-        const byRole = await element.getByRole("$roleId", { name: name, exact: true });
-        await expect(byRole).toHaveCount(1, { timeout: await getTimeout(this) });
-        await expect(byRole).toHaveValue(expectedValue, { timeout: await getTimeout(this) });
-        await deleteCookieByName(this, COOKIE_NAME.SELECTED_ELEMENT);
-    });
+    await findWithRoleAndNameAndValue(this, "$roleId", name, expectedValue);
+    await deleteCookieByName(this, COOKIE_NAME.SELECTED_ELEMENT);
 });
 
 // End of Type Section

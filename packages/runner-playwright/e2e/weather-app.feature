@@ -41,6 +41,7 @@ Feature: Weather App example
     And I type the sentence "i" in the text box named "Search for a town"
     # Click on <Filter> button
     And I click on button named "Filter"
+    And I wait 1000 ms
     # Checks the list of available towns.
     Then I should see a list named "Available Towns" and containing
       | Tunis   |
