@@ -42,6 +42,7 @@ Fonctionnalité: Navigation au clavier - Longue
   Scénario: Verify new town form keyboard navigation
     Etant donné que je visite l'Url "https://e2e-test-quest.github.io/weather-app/?isStarted=true"
     Quand je clique sur le bouton nommé "Add new town"
+    Et je dois voir un titre nommé "Add new town"
     Et je commence une navigation au clavier depuis le haut de la page
     Et je vais au prochain élément au clavier
 
@@ -83,6 +84,7 @@ Fonctionnalité: Navigation au clavier - Longue
      Et je simule une requête POST sur l'url "https://e2e-test-quest.github.io/weather-app/api" nommée "mock-post-new-town" avec le contenu suivant "Success"
 
     Quand je clique sur le bouton nommé "Add new town"
+     Et je dois voir un titre nommé "Add new town"
      Et je commence une navigation au clavier depuis le haut de la page
      Et je vais au prochain élément au clavier
      Et je dois voir un lien nommé "Weather App's Logo" avoir le focus clavier

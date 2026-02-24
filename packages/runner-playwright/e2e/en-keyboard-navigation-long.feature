@@ -41,6 +41,7 @@ Feature: Keyboard Navigation - Long
   Scenario: Verify new town form keyboard navigation
     Given I visit path "https://e2e-test-quest.github.io/weather-app/?isStarted=true"
     When I click on button named "Add new town"
+    And I should see a title named "Add new town"
     And I start a keyboard navigation from the top of the page
     And I go to next keyboard element
 
@@ -82,6 +83,7 @@ Feature: Keyboard Navigation - Long
     And I mock a request POST on url "https://e2e-test-quest.github.io/weather-app/api" named "mock-post-new-town" with content "Success"
 
     When I click on button named "Add new town"
+    And I should see a title named "Add new town"
     And I start a keyboard navigation from the top of the page
     And I go to next keyboard element
     And I should see a link named "Weather App's Logo" keyboard focused
