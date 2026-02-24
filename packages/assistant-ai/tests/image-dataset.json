@@ -1,7 +1,7 @@
 [
 	{
 		"name": "burned_computer_desk",
-		"html_content": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Technology History</title>\n</head>\n<body>\n    <article>\n        <h1>The Evolution of Computing</h1>\n        <p>From the earliest mechanical calculators to modern supercomputers, technology has advanced at an incredible pace. Let's explore some key milestones in this journey.</p>\n        <img src=\"http://farm1.staticflickr.com/149/437547179_84c28a4c37_z.jpg\" alt=\"Old computer on desk\">\n        <p>This image shows a classic example of early computing hardware. The machine features a bulky monitor and keyboard that were common in the 1980s and 1990s.</p>\n    </article>\n</body>\n</html>",
+		"html_content": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Technology History</title>\n</head>\n<body>\n    <article>\n        <h1>Museum Accident</h1>\n        <p>Tragedy struck our tech exhibit: a vintage PC was partially destroyed in an unexpected incident. The charred remains of this once-prized machine serve as a stark reminder of how fragile even our most treasured pieces of history can be. While the damage is unfortunate, it highlights the resilience of our collection and the stories each artifact carries—even in the face of accidents.</p>\n        <img src=\"http://farm1.staticflickr.com/149/437547179_84c28a4c37_z.jpg\" alt=\"Old computer on desk\">\n    </article>\n</body>\n</html>",
 		"css_selector": "img",
 		"image_url": "http://farm1.staticflickr.com/149/437547179_84c28a4c37_z.jpg",
 		"image_description": "a burned up old outdated computer sitting on a desk",
@@ -61,7 +61,7 @@
 	},
 	{
 		"name": "mountain_trees_clouds",
-		"html_content": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Natural Landscapes</title>\n</head>\n<body>\n    <section class=\"hero-banner\">\n        <h1>Explore Nature's Beauty</h1>\n        <p>Discover the breathtaking landscapes that await you in our national parks. From mountains to forests, experience nature at its finest.</p>\n        <img src=\"https://images.unsplash.com/flagged/photo-1441005072573-3a7192272e44\" alt=\"Mountain landscape\">\n    </section>\n</body>\n</html>",
+		"html_content": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Welcome to Your Customer Area</title>\n</head>\n<body>\n    <section class=\"hero-banner\">\n        <h1>Welcome to Your Customer Area</h1>\n        <p>We’re delighted to welcome you to your personal space. Here, you can manage your information, track your activity, access your services, and enjoy all the features designed to make your experience simple, fast, and secure. Everything you need is just a click away. Welcome aboard!.</p>\n        <img src=\"https://images.unsplash.com/flagged/photo-1441005072573-3a7192272e44\" alt=\"Mountain landscape\">\n    </section>\n</body>\n</html>",
 		"css_selector": ".hero-banner img",
 		"image_url": "https://images.unsplash.com/flagged/photo-1441005072573-3a7192272e44",
 		"image_description": "green trees on mountain under white clouds during daytime",
@@ -90,14 +90,14 @@
 		"image_url": "https://images.unsplash.com/photo-1429892494097-cccc61109f58",
 		"image_description": "full-moon above snow-capped mountain painting",
 		"expected": {
-			"is_decorative": true,
+			"is_decorative": false,
 			"confidence": 0.93,
 			"analysis_details": "Image shows a full moon above snow-capped mountains, resembling a painting style. The surrounding text discusses an art exhibition and nature-inspired artwork but does not specifically reference or describe this particular image. It serves as decorative visual content for the exhibit section."
 		}
 	},
 	{
 		"name": "flowers_field_sky",
-		"html_content": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Seasonal Gardens</title>\n</head>\n<body>\n    <div class=\"banner-section\">\n        <h1>Experience Seasonal Beauty</h1>\n        <p>Visit our gardens during spring and summer to see stunning floral displays that change with the seasons. Each bloom brings its own unique color and fragrance.</p>\n        <img src=\"https://images.unsplash.com/photo-1471340620190-18627b679d58\" alt=\"Flowers field\">\n    </div>\n</body>\n</html>",
+		"html_content": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Seasonal Gardens</title>\n</head>\n<body>\n    <div class=\"banner-section\">\n        <h1>Experience Seasonal Beauty</h1>\n        <p>Visit our perfume gardens for an unforgettable experience.</p>\n        <img src=\"https://images.unsplash.com/photo-1471340620190-18627b679d58\" alt=\"Flowers field\">\n    </div>\n</body>\n</html>",
 		"css_selector": ".banner-section img",
 		"image_url": "https://images.unsplash.com/photo-1471340620190-18627b679d58",
 		"image_description": "white flowers field near body of water under blue and white cloudy sky",
@@ -109,7 +109,7 @@
 	},
 	{
 		"name": "person_forest_watching_dog",
-		"html_content": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Outdoor Adventures</title>\n</head>\n<body>\n    <section class=\"hero-image-container\">\n        <h1>Connect with Nature</h1>\n        <p>Escape the city and reconnect with the natural world. Our forest trails offer peaceful retreats for nature lovers and outdoor enthusiasts.</p>\n        <img src=\"https://images.unsplash.com/photo-1485956877340-82de80f35552\" alt=\"Person in forest\">\n    </section>\n</body>\n</html>",
+		"html_content": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Outdoor Adventures</title>\n</head>\n<body>\n    <section class=\"hero-image-container\">\n        <h1>Connect with Nature</h1>\n        <p>Escape the city and reconnect with the natural world. Snow walks are perfect for reconnecting with nature, enjoying peaceful moments, and capturing stunning winter photos. Whether you prefer a gentle stroll or an adventurous trek, each step in the snow brings a sense of calm and wonder..</p>\n        <img src=\"https://images.unsplash.com/photo-1485956877340-82de80f35552\" alt=\"Person in forest\">\n    </section>\n</body>\n</html>",
 		"css_selector": ".hero-image-container img",
 		"image_url": "https://images.unsplash.com/photo-1485956877340-82de80f35552",
 		"image_description": "person standing on snow covered forest watching dog",

@@ -4,6 +4,9 @@ inputs:
   node-version:
     required: true
     description: Nodejs version
+  python-version:
+    required: true
+    description: Python version
   target:
     required: true
     description: Target command to run
@@ -39,6 +42,10 @@ runs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ inputs.node-version }}
+    - name: Install uv and set the Python version
+      uses: astral-sh/setup-uv@v7
+      with:
+        python-version: ${{ inputs.python-version }}
     - run: npm ci
       shell: bash
     - run: npm run nx run-many -- --all --target=${{ inputs.target }} --parallel=${{ inputs.parallel }} --verbose --exclude=${{ inputs.exclude }}

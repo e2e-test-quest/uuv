@@ -1,5 +1,5 @@
 /mlruns
 /mlartifacts
-mydb.sqlite
+/mlruns.db
 /.venv
 __pycache__

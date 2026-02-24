@@ -3,6 +3,8 @@ from pydantic import BaseModel, Field
 import re
 import dspy
 
+from ..model import ImageClassifierResult
+
 
 class BoolWithConfidence(BaseModel):
     value: bool = Field(
@@ -175,12 +177,15 @@ class SignatureImageClassifier(dspy.Signature):
     analysis_details: str = dspy.OutputField(
         description=(
             """
-                Concise justification (2-4 sentences) explaining the 'is_decorative' value.
+                Single concise paragraph (2–3 sentences max) justifying the 'is_decorative' value.
             
-               Structure:
-                1. Visual content description (objects, text, people, patterns observed)
-                2. Surrounding piece of text referring to the image
-                3. Decision rationale combining both factors
+                Format rules:
+                    - One paragraph only (no bullet points, no list, no structure labels)
+                    - Concise, clear, factual
+                    - Must include:
+                    1) brief visual description
+                    2) brief reference (or absence of reference) from surrounding text
+                    3) final decision rationale
                 
                 Example: 
                     - "Image contains a call to action figure. The image is referenced in the text as "see following image.". this suggests it is informative and not purely decorative."
@@ -191,30 +196,7 @@ class SignatureImageClassifier(dspy.Signature):
     )
 
 
-class ImageClassifierResult:
-    image_description: str
-    is_decorative: bool
-    confidence: float
-    analysis_details: str
-
-    def __init__(self, image_description: str=None, is_decorative=None, confidence=None, analysis_details=None) -> None:
-        self.image_description = image_description
-        self.is_decorative = is_decorative
-        self.confidence = confidence
-        self.analysis_details = analysis_details
-
-    def toDict(self):
-        return {
-            k: v for k, v in {
-                "image_description": self.image_description,
-                "is_decorative": self.is_decorative,
-                "confidence": self.confidence,
-                "analysis_details": self.analysis_details
-            }.items() if v is not None
-        }
-
-
-class UUVImageClassifier(dspy.Module):
+class UUVImageClassifierAgent(dspy.Module):
     def __init__(self, llm_api_url: str, llm_api_key: str, llm_model: str):
         super().__init__()
         self.lm = dspy.LM(

@@ -3,19 +3,21 @@ import typing
 
 import PIL
 import dspy
-from a11y.image_classifier.image_classifier import UUVImageClassifier, ImageClassifierResult
-from a11y.image_classifier.image_describer import UUVUniqueImageDescriber
+
+from ..image_classifier.model import ImageClassifierResult
+from .sub_agents.image_classifier import UUVImageClassifierAgent
+from .sub_agents.image_describer import UUVUniqueImageDescriberAgent
 
 
-class UUVImageClassifierAgent(dspy.Module):
+class UUVImageClassifierWorkflowAgent(dspy.Module):
     def __init__(self, vlm_api_url: str, vlm_api_key: str, vlm_model: str, llm_api_url: str, llm_api_key: str, llm_model: str):
         super().__init__()
-        self.image_describer = UUVUniqueImageDescriber(
+        self.image_describer = UUVUniqueImageDescriberAgent(
             vlm_api_url=vlm_api_url,
             vlm_api_key=vlm_api_key,
             vlm_model=vlm_model
         )
-        self.image_classifier = UUVImageClassifier(
+        self.image_classifier = UUVImageClassifierAgent(
             llm_api_url=llm_api_url,
             llm_api_key=llm_api_key,
             llm_model=llm_model
@@ -39,7 +41,7 @@ class UUVImageClassifierAgent(dspy.Module):
         return image_classifier_result
 
     @staticmethod
-    def wrap_with_streaming(agent: "UUVImageClassifierAgent",  html_content: str, css_selector: str, image_file: PIL.Image) -> typing.Generator[ImageClassifierResult, None, None]:
+    def wrap_with_streaming(agent: "UUVImageClassifierWorkflowAgent",  html_content: str, css_selector: str, image_file: PIL.Image) -> typing.Generator[ImageClassifierResult, None, None]:
         wrapper = dspy.streamify(
             agent,
             stream_listeners=[

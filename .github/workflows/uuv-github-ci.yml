@@ -12,6 +12,7 @@ permissions:
   checks: write
 
 env:
+  PYTHON_VERSION: 3.9.5
   NODE_VERSION: 22.18.0
   NPM_PACKAGE_SCOPE: uuv
   UUV_BASE_URL: https://e2e-test-quest.github.io
@@ -57,6 +58,7 @@ jobs:
         uses: ./.github/actions/nx-run-many
         with:
           node-version: ${{env.NODE_VERSION}}
+          python-version: ${{env.PYTHON_VERSION}}
           target: "build"
           exclude: "assistant-desktop,docker-images,runner-flutter,intellij-plugin,a11y-dashboard"
       - name: Upload build artifact
@@ -236,6 +238,7 @@ jobs:
         uses: ./.github/actions/nx-run-many
         with:
           node-version: ${{env.NODE_VERSION}}
+          python-version: ${{env.PYTHON_VERSION}}
           target: "unit-tests"
           exclude: "a11y,runner-flutter"
       - name: Test Report
@@ -529,6 +532,7 @@ jobs:
         uses: ./.github/actions/nx-run-many
         with:
           node-version: ${{env.NODE_VERSION}}
+          python-version: ${{env.PYTHON_VERSION}}
           target: "lint"
           exclude: "docs"
 
@@ -563,6 +567,7 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         with:
           node-version: ${{env.NODE_VERSION}}
+          python-version: ${{env.PYTHON_VERSION}}
           target: "semantic-release"
           parallel: "false"
       - name: Update package-lock.json

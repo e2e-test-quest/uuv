@@ -16,7 +16,7 @@ import requests
 import mlflow
 from dotenv import dotenv_values
 
-from a11y.image_classifier.image_classifier_agent import UUVImageClassifierAgent, ImageClassifierResult
+from uuv_assistant_ai.image_classifier.agent import UUVImageClassifierWorkflowAgent
 
 
 def load_dataset(dataset_path: str = "tests/image-dataset.json") -> List[dict]:
@@ -36,7 +36,7 @@ def create_dspy_examples(dataset: List[dict]) -> List[dspy.Example]:
             image_file=download_image(item["image_url"]),
             expected_is_decorative=item["expected"]["is_decorative"],
             expected_confidence=item["expected"]["confidence"],
-            expected_analysis_details=item["expected"]["analysis_details"]
+            expected_analysis_details=item["expected"]["analysis_details"],
         ).with_inputs("image_file", "html_content", "css_selector")
         examples.append(example)
     return examples
@@ -49,15 +49,17 @@ def download_image(image_url: str) -> PIL.Image.Image:
     return PIL.Image.open(response.raw)
 
 
-def is_decorative_metric(example: dspy.Example, prediction: dspy.Prediction, trace=None) -> bool:
+def is_decorative_metric(
+    example: dspy.Example, prediction: dspy.Prediction, trace=None
+) -> bool:
     """
     Metric function to evaluate if is_decorative prediction matches expected value.
-    
+
     Args:
         example: The dataset example containing expected_is_decorative
         prediction: The Prediction from the agent
         trace: Optional trace object for debugging
-    
+
     Returns:
         bool: True if prediction matches expected, False otherwise
     """
@@ -65,22 +67,22 @@ def is_decorative_metric(example: dspy.Example, prediction: dspy.Prediction, tra
 
 
 def evaluate_classifier(
-    agent: UUVImageClassifierAgent,
+    agent: UUVImageClassifierWorkflowAgent,
     devset: List[dspy.Example],
     num_threads: int = 1,
     display_progress: bool = True,
-    display_table: bool = True
+    display_table: bool = True,
 ) -> Tuple[float, dspy.Evaluate]:
     """
     Evaluate the UUVImageClassifierAgent on a test dataset using dspy.Evaluate.
-    
+
     Args:
         agent: The UUVImageClassifierAgent instance to evaluate
         devset: List of dspy.Example objects to evaluate on
         num_threads: Number of threads for parallel evaluation
         display_progress: Whether to show progress bar
         display_table: Whether to display detailed results table
-    
+
     Returns:
         Tuple of (accuracy, Evaluate object)
     """
@@ -89,13 +91,13 @@ def evaluate_classifier(
         devset=devset,
         num_threads=num_threads,
         display_progress=display_progress,
-        display_table=display_table
+        display_table=display_table,
     )
-    
+
     # Run evaluation
-    accuracy = evaluate(agent, metric=is_decorative_metric)
-    
-    return accuracy, evaluate
+    result = evaluate(agent, metric=is_decorative_metric)
+
+    return result
 
 
 def main():
@@ -114,19 +116,19 @@ def main():
 
     
     # Initialize the agent (configure with your API endpoints)
-    agent = UUVImageClassifierAgent(
-        llm_api_url=config.get('LLM_API_URL'),
-        llm_api_key=config.get('LLM_API_KEY'),
-        llm_model=config.get('LLM_MODEL'),
-        vlm_api_url=config.get('VLM_API_URL'),
-        vlm_api_key=config.get('VLM_API_KEY'),
-        vlm_model=config.get('VLM_MODEL')
+    agent = UUVImageClassifierWorkflowAgent(
+        llm_api_url=config.get("LLM_API_URL"),
+        llm_api_key=config.get("LLM_API_KEY"),
+        llm_model=config.get("LLM_MODEL"),
+        vlm_api_url=config.get("VLM_API_URL"),
+        vlm_api_key=config.get("VLM_API_KEY"),
+        vlm_model=config.get("VLM_MODEL"),
     )
     dspy.configure_cache(
         enable_disk_cache=False,
         enable_memory_cache=False,
     )
-    
+
     # Load dataset and create examples
     print("Loading dataset...")
     dataset = load_dataset()
@@ -135,8 +137,7 @@ def main():
     
     # Start MLflow run for this evaluation
     with mlflow.start_run(run_name="image_classifier_evaluation"):
-        # Run evaluation
-        accuracy, evaluate_obj = evaluate_classifier(agent, devset)
+        evaluate_classifier(agent, devset)
 
 
 if __name__ == "__main__":

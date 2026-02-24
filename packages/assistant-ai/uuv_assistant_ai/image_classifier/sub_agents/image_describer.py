@@ -57,7 +57,7 @@ class MultipleImageDescription(dspy.Signature):
     descriptions: List[str] = dspy.OutputField(desc="Exactly 4 distinct image descriptions as a JSON array")
 
 
-class UUVUniqueImageDescriber(dspy.Module):
+class UUVUniqueImageDescriberAgent(dspy.Module):
     """
     Describe image base on it's content
     """
@@ -82,7 +82,7 @@ class UUVUniqueImageDescriber(dspy.Module):
             )
         
 
-class UUVMultipleImageDescriber(dspy.Module):
+class UUVMultipleImageDescriberAgent(dspy.Module):
     """
     Describe image base on it's content
     """
