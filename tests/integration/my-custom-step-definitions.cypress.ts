@@ -9,3 +9,9 @@ Then('My second custom step definition', () => {
     // Your verification
     expect(true).to.eq(true);
 });
+
+
+When('My third custom step definition', () => {
+    // Your verification
+    expect(true).to.eq(true);
+});

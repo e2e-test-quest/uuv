@@ -10,14 +10,15 @@ Feature: UUV Assistant vital features
 
  Scenario: Available mouse actions
   Given I visit path "/"
-  When I click on element with role "menuitem" and name "Mouse actions"
+  When I click on menuitem named "Mouse actions"
+And I wait 1000 ms
   Then I should see a menuitem named "Expect"
   And I should see a menuitem named "Click"
   And I should see a menuitem named "Within"
 
  Scenario: Available keyboard actions
   Given I visit path "/"
-  When I click on element with role "menuitem" and name "Keyboard actions"
+  When I click on menuitem named "Keyboard actions"
   And I should see a menuitem named "Keyboard navigation"
 
  Scenario: Opening result view without result
@@ -28,48 +29,53 @@ Feature: UUV Assistant vital features
 
  Scenario: Select with mouse expect action
   Given I visit path "/"
-  When I click on element with role "menuitem" and name "Mouse actions"
-  And I click on element with role "menuitem" and name "Expect"
+  When I click on menuitem named "Mouse actions"
+  And I wait 1000 ms
+  And I click on menuitem named "Expect"
   And I click on element with role "textbox" and name "Last name"
   Then I should see a title named "Result of Expect"
   And I should see a text box named "Generated UUV Script" and containing "Feature: Your amazing feature name Scenario: Action - Expect Given I visit path \"http://localhost:5173/\" Then I should see a text box named \"Last name\" and containing \"Doe\""
 
  Scenario: Select with mouse expect action - disabled field
   Given I visit path "/"
-  When I click on element with role "menuitem" and name "Mouse actions"
-  And I click on element with role "menuitem" and name "Expect"
+  When I click on menuitem named "Mouse actions"
+  And I wait 1000 ms
+  And I click on menuitem named "Expect"
   And I click on element with role "textbox" and name "First name"
   Then I should see a title named "Result of Expect"
   And I should see a text box named "Generated UUV Script" and containing "Feature: Your amazing feature name Scenario: Action - Expect Given I visit path \"http://localhost:5173/\" Then I should see a text box named \"First name\" and containing \"John\" disabled"
 
  Scenario: Select with mouse click action
   Given I visit path "/"
-  When I click on element with role "menuitem" and name "Mouse actions"
-  And I click on element with role "menuitem" and name "Click"
+  When I click on menuitem named "Mouse actions"
+  And I wait 1000 ms
+  And I click on menuitem named "Click"
   And I click on button named "Reset"
   Then I should see a title named "Result of Click"
   And I should see a text box named "Generated UUV Script" and containing "Feature: Your amazing feature name Scenario: Action - Click Given I visit path \"http://localhost:5173/\" When I click on button named \"Reset\""
 
  Scenario: Select with mouse within action
   Given I visit path "/"
-  When I click on element with role "menuitem" and name "Mouse actions"
-  And I click on element with role "menuitem" and name "Within"
+  When I click on menuitem named "Mouse actions"
+  And I wait 1000 ms
+  And I click on menuitem named "Within"
   And I click on element with role "group" and name "flegend"
   Then I should see a title named "Result of Within"
   And I should see a text box named "Generated UUV Script" and containing "Feature: Your amazing feature name Scenario: Action - Within Given I visit path \"http://localhost:5173/\" When within a group named \"flegend\""
 
  Scenario: Select with mouse type action
   Given I visit path "/"
-  When I click on element with role "menuitem" and name "Mouse actions"
-  And I click on element with role "menuitem" and name "Type"
+  When I click on menuitem named "Mouse actions"
+  And I wait 1000 ms
+  And I click on menuitem named "Type"
   And I click on element with role "textbox" and name "Last name"
   Then I should see a title named "Result of Type"
   And I should see a text box named "Generated UUV Script" and containing "Feature: Your amazing feature name Scenario: Action - Type Given I visit path \"http://localhost:5173/\" When I type the sentence \"Doe\" in the text box named \"Last name\""
 
  Scenario: Select with keyboard navigation action
   Given I visit path "/"
-  When I click on element with role "menuitem" and name "Keyboard actions"
-  And I click on element with role "menuitem" and name "Keyboard navigation"
+  When I click on menuitem named "Keyboard actions"
+  And I click on menuitem named "Keyboard navigation"
   Then I should see a title named "Result of Keyboard Navigation"
 # And I should see a radio named "Current"
 # And I should see a radio named "Expected"
@@ -77,14 +83,14 @@ Feature: UUV Assistant vital features
 
  Scenario: Form completion should hightlight found form
   Given I visit path "/"
-  When I click on element with role "menuitem" and name "Components actions"
-  And I click on element with role "menuitem" and name "Form completion (mouse)"
+  When I click on menuitem named "Components actions"
+  And I click on menuitem named "Form completion (mouse)"
   Then I should see an element with selector "#element-border-0"
 
  Scenario: Form completion should return result for selected form
   Given I visit path "/"
-  When I click on element with role "menuitem" and name "Components actions"
-  And I click on element with role "menuitem" and name "Form completion (mouse)"
+  When I click on menuitem named "Components actions"
+  And I click on menuitem named "Form completion (mouse)"
   And within the element with selector "#element-border-0"
   And I click
   And I reset context

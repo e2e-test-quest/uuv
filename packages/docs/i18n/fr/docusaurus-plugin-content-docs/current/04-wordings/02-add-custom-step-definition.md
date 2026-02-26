@@ -248,13 +248,13 @@ Lors de la rédaction de vos propres phrases, vous pouvez utiliser :
 
 ---
 
-##### `getwithTestId(world: World, testId: string): Promise<Locator>`
+##### `getWithTestId(world: World, testId: string): Promise<Locator>`
 
 > Récupère tous les éléments correspondant à l'ID de test par rapport à l'élément sélectionné actuel ou à la page. Utilisez ceci lorsque vous vous attendez à plusieurs éléments correspondants.
 
 ---
 
-##### `getwithAriaLabel(world: World, expectedAriaLabel: string): Promise<Locator>`
+##### `getWithAriaLabel(world: World, expectedAriaLabel: string): Promise<Locator>`
 
 > Récupère tous les éléments correspondant au libellé ARIA par rapport à l'élément sélectionné actuel ou à la page. Utilisez ceci lorsque vous vous attendez à plusieurs éléments correspondants.
 
