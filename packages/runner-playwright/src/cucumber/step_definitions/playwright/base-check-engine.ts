@@ -31,9 +31,9 @@ import {
     findWithRoleAndNameFocused,
     getWithContent,
     findWithSelector,
-    getwithTestId,
+    getWithTestId,
     findWithTestId,
-    getwithAriaLabel,
+    getWithAriaLabel,
     findWithAriaLabel,
     getCookie,
     getPageOrElement,
@@ -383,7 +383,7 @@ Then(`${key.then.element.withTestId}`, async function(testId: string) {
  * */
 Then(`${key.then.element.not.withTestId}`, async function(testId: string) {
   testId = encodeURIComponent(testId);
-  await expect(await getwithTestId(this, testId)).toHaveCount(0, { timeout: await getTimeout(this) });
+  await expect(await getWithTestId(this, testId)).toHaveCount(0, { timeout: await getTimeout(this) });
 });
 
 /**
@@ -543,7 +543,7 @@ Then(`${key.then.element.withAriaLabel}`, async function(expectedAriaLabel: stri
  * */
 Then(`${key.then.element.not.withAriaLabel}`, async function(expectedAriaLabel: string) {
   expectedAriaLabel = encodeURIComponent(expectedAriaLabel);
-  await expect((await getwithAriaLabel(this, expectedAriaLabel))).toHaveCount(0, { timeout: await getTimeout(this) });
+  await expect((await getWithAriaLabel(this, expectedAriaLabel))).toHaveCount(0, { timeout: await getTimeout(this) });
 });
 
 /**

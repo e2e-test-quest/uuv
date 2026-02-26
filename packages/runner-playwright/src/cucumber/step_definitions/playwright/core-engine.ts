@@ -280,7 +280,7 @@ export async function getWithContent(world: World, textContent: string): Promise
  * @param testId - The test ID attribute value to search for
  * @returns A Promise that resolves to the LocatorTest instance
  */
-export async function getwithTestId(world: World, testId: string): Promise<LocatorTest> {
+export async function getWithTestId(world: World, testId: string): Promise<LocatorTest> {
     return (await getPageOrElement(world)).getByTestId(testId);
 }
 
@@ -292,7 +292,7 @@ export async function getwithTestId(world: World, testId: string): Promise<Locat
  * @returns A Promise that resolves to the LocatorTest instance
  */
 export async function findWithTestId(world: World, testId: string): Promise<LocatorTest> {
-    const locator = await getwithTestId(world, testId);
+    const locator = await getWithTestId(world, testId);
     await expect(locator).toHaveCount(1, { timeout: await getTimeout(world) });
     return locator;
 }
@@ -304,7 +304,7 @@ export async function findWithTestId(world: World, testId: string): Promise<Loca
  * @param expectedAriaLabel - The ARIA label to search for
  * @returns A Promise that resolves to the LocatorTest instance
  */
-export async function getwithAriaLabel(world: World, expectedAriaLabel: string): Promise<LocatorTest> {
+export async function getWithAriaLabel(world: World, expectedAriaLabel: string): Promise<LocatorTest> {
     return (await getPageOrElement(world)).getByLabel(expectedAriaLabel, { exact: true });
 }
 
@@ -316,7 +316,7 @@ export async function getwithAriaLabel(world: World, expectedAriaLabel: string):
  * @returns A Promise that resolves to the LocatorTest instance
  */
 export async function findWithAriaLabel(world: World, expectedAriaLabel: string): Promise<LocatorTest> {
-    const locator = await getwithAriaLabel(world, expectedAriaLabel);
+    const locator = await getWithAriaLabel(world, expectedAriaLabel);
     await expect(locator).toHaveCount(1, { timeout: await getTimeout(world) });
     return locator;
 }

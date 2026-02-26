@@ -244,13 +244,13 @@ When writing your own sentences, you can use :
 
 ---
 
-##### `getwithTestId(world: World, testId: string): Promise<Locator>`
+##### `getWithTestId(world: World, testId: string): Promise<Locator>`
 
 > Gets all elements matching the test ID relative to the current selected element or page. Use this when you expect multiple matching elements.
 
 ---
 
-##### `getwithAriaLabel(world: World, expectedAriaLabel: string): Promise<Locator>`
+##### `getWithAriaLabel(world: World, expectedAriaLabel: string): Promise<Locator>`
 
 > Gets all elements matching the ARIA label relative to the current selected element or page. Use this when you expect multiple matching elements.
 
