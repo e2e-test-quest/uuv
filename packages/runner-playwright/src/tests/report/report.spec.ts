@@ -46,8 +46,8 @@ describe("Runner Playwright JunitReport", () => {
         const testCase = JunitReportHelper.getTestCase(report, "e2e/ko.feature.spec.js", "Ko › Table content should failed when wrong content");
         expect(testCase?.failure._).toContain("Error: cell at index [3, 2] should be Etienne Daaho");
         expect(testCase?.failure._).toContain("locator('role=table[name=\"HTML Table Example\"]').getByRole('row').nth(2).getByRole('cell').nth(1)");
-        expect(testCase?.failure._).toContain("Expected string: \"Etienne Daaho\"");
-        expect(testCase?.failure._).toContain("Received string: \"Francisco Chang\"");
+        expect(testCase?.failure._).toContain("Expected: \"Etienne Daaho\"");
+        expect(testCase?.failure._).toContain("Received: \"Francisco Chang\"");
     });
 
     test("Should fail for test : Select a value in combo box then check - Bad value", () => {
@@ -60,9 +60,9 @@ describe("Runner Playwright JunitReport", () => {
     test("Should fail for test : Set a input text value then check - Bad value", () => {
         const testCase = JunitReportHelper.getTestCase(report, "e2e/ko.feature.spec.js", "Ko › Set a input text value then check - Bad value");
         expect(testCase?.failure._).toContain("Error: expect(locator).toHaveValue(expected) failed");
-        expect(testCase?.failure._).toContain("Timeout: 6000ms");
-        expect(testCase?.failure._).toContain("Locator: getByRole('textbox', { name: 'Town name', exact: true })");
-        expect(testCase?.failure._).toContain("Expected string: \"Qwerty\"");
-        expect(testCase?.failure._).toContain("Received string: \"Azerty\"");
+        expect(testCase?.failure._).toContain("Timeout:  6000ms");
+        expect(testCase?.failure._).toContain("Locator:  getByRole('textbox', { name: 'Town name', exact: true })");
+        expect(testCase?.failure._).toContain("Expected: \"Qwerty\"");
+        expect(testCase?.failure._).toContain("Received: \"Azerty\"");
     });
 });

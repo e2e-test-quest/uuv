@@ -29,7 +29,8 @@
   ],
   "scripts": {
     "nx": "nx",
-    "prepare": "husky"
+    "prepare": "husky",
+    "clear-dependencies": "rm -Rf node_modules/ && rm -Rf packages/a11y/node_modules/ && rm -Rf packages/a11y-dashboard/node_modules/ && rm -Rf packages/assistant/node_modules/ && rm -Rf packages/assistant-desktop/node_modules// && rm -Rf packages/dictionary/node_modules// && rm -Rf packages/docs/node_modules// && rm -Rf packages/mcp-server/node_modules// && rm -Rf packages/runner-commons/node_modules// && rm -Rf packages/runner-cypress/node_modules// && rm -Rf packages/runner-playwright/node_modules// && rm -Rf packages/vscode-extension/node_modules/"
   },
   "dependencies": {
     "tslib": "2.8.1"
