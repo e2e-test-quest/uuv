@@ -1,3 +1,10 @@
+# [2.81.0](https://github.com/e2e-test-quest/uuv/compare/assistant-v2.80.0...assistant-v2.81.0) (2026-02-27)
+
+
+### Features
+
+* **runner-playwright:** refacto and expose selector and timeout functions, [#1240](https://github.com/e2e-test-quest/uuv/issues/1240) ([675e89b](https://github.com/e2e-test-quest/uuv/commit/675e89ba4b3680f7e1ec2bbaaba21f3c50692680))
+
 # [2.80.0](https://github.com/e2e-test-quest/uuv/compare/assistant-v2.79.1...assistant-v2.80.0) (2026-02-23)
 
 
