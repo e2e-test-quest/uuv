@@ -1,3 +1,10 @@
+# [0.11.0](https://github.com/e2e-test-quest/uuv/compare/mcp-server-v0.10.0...mcp-server-v0.11.0) (2026-02-27)
+
+
+### Features
+
+* **runner-playwright:** refacto and expose selector and timeout functions, [#1240](https://github.com/e2e-test-quest/uuv/issues/1240) ([675e89b](https://github.com/e2e-test-quest/uuv/commit/675e89ba4b3680f7e1ec2bbaaba21f3c50692680))
+
 # [0.10.0](https://github.com/e2e-test-quest/uuv/compare/mcp-server-v0.9.1...mcp-server-v0.10.0) (2026-02-23)
 
 
