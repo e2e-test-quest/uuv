@@ -1,3 +1,10 @@
+# [1.107.0](https://github.com/e2e-test-quest/uuv/compare/docs-v1.106.0...docs-v1.107.0) (2026-02-27)
+
+
+### Features
+
+* **runner-playwright:** refacto and expose selector and timeout functions, [#1240](https://github.com/e2e-test-quest/uuv/issues/1240) ([675e89b](https://github.com/e2e-test-quest/uuv/commit/675e89ba4b3680f7e1ec2bbaaba21f3c50692680))
+
 # [1.106.0](https://github.com/e2e-test-quest/uuv/compare/docs-v1.105.1...docs-v1.106.0) (2026-02-23)
 
 
