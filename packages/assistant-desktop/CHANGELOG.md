@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/e2e-test-quest/uuv/compare/assistant-desktop-v1.1.0...assistant-desktop-v1.2.0) (2026-02-27)
+
+
+### Features
+
+* **runner-playwright:** refacto and expose selector and timeout functions, [#1240](https://github.com/e2e-test-quest/uuv/issues/1240) ([675e89b](https://github.com/e2e-test-quest/uuv/commit/675e89ba4b3680f7e1ec2bbaaba21f3c50692680))
+
 # [1.1.0](https://github.com/e2e-test-quest/uuv/compare/assistant-desktop-v1.0.1...assistant-desktop-v1.1.0) (2026-02-23)
 
 
