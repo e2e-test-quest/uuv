@@ -90,7 +90,7 @@
     "@vscode/vsce": "^3.0.0",
     "ts-loader": "^9.5.1",
     "typescript": "^5.4.5",
-    "webpack": "^5.94.0",
+    "webpack": "^5.105.3",
     "webpack-cli": "^5.1.4"
   },
   "dependencies": {
