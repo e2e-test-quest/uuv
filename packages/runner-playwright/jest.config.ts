@@ -12,7 +12,8 @@ export default {
   moduleNameMapper: {
     "@uuv/runner-commons/test": "<rootDir>/../runner-commons/src/tests/index.ts",
     "@uuv/runner-commons": "<rootDir>/../runner-commons/src/index.ts",
-    "@uuv/dictionary": "<rootDir>/../dictionary/src/index.ts"
+    "@uuv/dictionary": "<rootDir>/../dictionary/src/index.ts",
+    "^figlet$": "<rootDir>/../../__mocks__/figlet.ts"
   },
   coverageDirectory: '../../coverage/packages/runner-playwright',
   reporters: [
