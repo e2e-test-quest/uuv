@@ -1,3 +1,15 @@
+# [1.3.0](https://github.com/e2e-test-quest/uuv/compare/assistant-desktop-v1.2.0...assistant-desktop-v1.3.0) (2026-03-02)
+
+
+### Bug Fixes
+
+* **runner-playwright:** update dependency chokidar to v4.0.3 ([c468f01](https://github.com/e2e-test-quest/uuv/commit/c468f01ea1ff3106bac0e4a4b51dc4db283755dd))
+
+
+### Features
+
+* **runner-commons:** update dependency figlet to v1.10.0 ([661130d](https://github.com/e2e-test-quest/uuv/commit/661130d3cdca8a8da87b86a015951ca5461c125d))
+
 # [1.2.0](https://github.com/e2e-test-quest/uuv/compare/assistant-desktop-v1.1.0...assistant-desktop-v1.2.0) (2026-02-27)
 
 
