@@ -1,3 +1,15 @@
+# [0.9.0](https://github.com/e2e-test-quest/uuv/compare/dictionary-v0.8.0...dictionary-v0.9.0) (2026-03-02)
+
+
+### Bug Fixes
+
+* **runner-playwright:** update dependency chokidar to v4.0.3 ([c468f01](https://github.com/e2e-test-quest/uuv/commit/c468f01ea1ff3106bac0e4a4b51dc4db283755dd))
+
+
+### Features
+
+* **runner-commons:** update dependency figlet to v1.10.0 ([661130d](https://github.com/e2e-test-quest/uuv/commit/661130d3cdca8a8da87b86a015951ca5461c125d))
+
 # [0.8.0](https://github.com/e2e-test-quest/uuv/compare/dictionary-v0.7.0...dictionary-v0.8.0) (2026-02-23)
 
 
