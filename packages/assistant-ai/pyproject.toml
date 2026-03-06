@@ -1,0 +1,138 @@
+[tool.coverage.run]
+branch = true
+
+[tool.coverage.report]
+exclude_lines = ['if TYPE_CHECKING:']
+show_missing = true
+
+[tool.pytest.ini_options]
+addopts = """
+ --cov
+ --cov-report html:'../../coverage/packages/assistant-ai/html'
+ --cov-report xml:'../../coverage/packages/assistant-ai/coverage.xml'
+ --html='../../reports/packages/assistant-ai/unittests/html/index.html'
+ --junitxml='../../reports/packages/assistant-ai/unittests/junit.xml'
+"""
+
+[project]
+name = "uuv-assistant-ai"
+version = "1.0.0"
+description = "UUV Assistant AI based, used to improve the life of testers and developers by generating cucumber phrases from the GUI."
+requires-python = ">=3.10,<3.15"
+readme = 'README.md'
+license = {text = "MIT"}
+keywords = [
+    "uuv",
+    "e2e", "end2end", "end 2 end",
+    "test", "testing",
+    "accessibility", "accessibilite", "a11y",
+    "cypress", "playwright", "testing-library",
+    "cucumber", "gherkin", "bdd", "tdd", "acceptance",
+    "ai", "artificial-intelligence", "llm", "vlm",
+    "test-generation", "image-analysis"
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: 3 :: Only",
+    "Framework :: FastAPI",
+    "Framework :: Pydantic",
+    "Topic :: Software Development",
+    "Topic :: Software Development :: Testing",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Utilities",
+]
+dependencies = [
+    "bs4>=0.0.2",
+    "dspy>=3.1.3",
+    "fastapi[standard]>=0.128.6",
+    "pillow>=11.3.0",
+    "python-multipart>=0.0.20",
+]
+authors = [
+    { name="Louis Fredice NJAKO MOLOM", url="https://github.com/luifr10" },
+    { name="Stanley SERVICAL", url="https://github.com/stanlee974" }
+]
+maintainers = [
+    { name="Louis Fredice NJAKO MOLOM", url="https://github.com/luifr10" },
+    { name="Stanley SERVICAL", url="https://github.com/stanlee974" }
+]
+
+[project.urls]
+Homepage = "https://e2e-test-quest.github.io/uuv/"
+Documentation = "https://e2e-test-quest.github.io/uuv/"
+Repository = "https://github.com/e2e-test-quest/uuv"
+Issues = "https://github.com/e2e-test-quest/uuv/issues"
+Changelog = "https://github.com/e2e-test-quest/uuv/blob/main/packages/assistant-ai/CHANGELOG.md"
+Funding = "https://opencollective.com/uuv"
+
+[project.optional-dependencies]
+mlflow = [
+    "mlflow>=3.1.4",
+]
+
+[project.scripts]
+uuv-assistant-ai = "uuv_assistant_ai.server:run"
+
+[tool.hatch.build.targets.wheel]
+packages = ["uuv_assistant_ai"]
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[dependency-groups]
+dev = [
+  "autopep8>=2.3.1",
+  "ruff>=0.8.2",
+  "pytest>=8.3.4",
+  "pytest-sugar>=1.0.0",
+  "pytest-cov>=6.0.0",
+  "pytest-html>=4.1.1",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.ruff]
+exclude = [
+  ".ruff_cache",
+  ".svn",
+  ".tox",
+  ".venv",
+  "dist",
+]
+
+line-length = 88
+indent-width = 4
+
+[tool.ruff.lint]
+select = [
+  # pycodestyle
+  "E",
+  # Pyflakes
+  "F",
+  # pyupgrade
+  "UP",
+  # flake8-bugbear
+  "B",
+  # flake8-simplify
+  "SIM",
+  # isort
+  "I",
+]
+ignore = []
+
+fixable = ["ALL"]
+unfixable = []
+
+[[tool.uv.index]]
+name = "pypi"
+url = "https://pypi.org/simple"
+publish-url = "https://upload.pypi.org/legacy/"
