@@ -607,6 +607,7 @@ jobs:
             packages/intellij-plugin/gradle.properties
             packages/vscode-extension/package.json
             packages/vscode-extension/CHANGELOG.md
+            packages/assistant-ai/dist
 
   publish-npm:
     if: github.ref == 'refs/heads/main'
