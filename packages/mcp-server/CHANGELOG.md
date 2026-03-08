@@ -1,3 +1,17 @@
+# [0.13.0](https://github.com/e2e-test-quest/uuv/compare/mcp-server-v0.12.0...mcp-server-v0.13.0) (2026-03-08)
+
+
+### Bug Fixes
+
+* **runner-playwright:** update dependency chokidar to v4.0.3 ([ff51aab](https://github.com/e2e-test-quest/uuv/commit/ff51aabadce6d0dc5e1b054472a43d1a14142ec3))
+* **runner-playwright:** update dependency chokidar to v4.0.3 ([330ce8f](https://github.com/e2e-test-quest/uuv/commit/330ce8f99c8c84699cc5251159e980cb4318a277))
+* **runner-playwright:** update dependency webpack to v5.105.4 ([ba8a2cf](https://github.com/e2e-test-quest/uuv/commit/ba8a2cfe2114e7e36301125b0d76a2ab1d63002d))
+
+
+### Features
+
+* **assistant-ai:** initialize @uuv/assistant-ai, [#1222](https://github.com/e2e-test-quest/uuv/issues/1222) ([60a0090](https://github.com/e2e-test-quest/uuv/commit/60a0090ad865f5e667614b84582c1808b49137ea))
+
 # [0.12.0](https://github.com/e2e-test-quest/uuv/compare/mcp-server-v0.11.0...mcp-server-v0.12.0) (2026-03-02)
 
 
