@@ -597,6 +597,12 @@ jobs:
           commit_message: "release: update package-lock.json [skip ci]"
           commit_user_name: UUV Bot
           file_pattern: "package-lock.json"
+      - name: Install uv and set the Python version
+        uses: astral-sh/setup-uv@v7
+        with:
+          python-version: ${{env.PYTHON_VERSION}}
+          enable-cache: false
+      - run: npx nx build assistant-ai
       - name: Upload Release artifact
         uses: actions/upload-artifact@v4
         with:
