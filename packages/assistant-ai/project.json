@@ -105,6 +105,29 @@
                 "commitMessage": "release(assistant-ai): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}",
                 "plugins": [
                     [
+                        "@google/semantic-release-replace-plugin",
+                        {
+                            "replacements": [
+                                {
+                                    "files": [
+                                        "packages/assistant-ai/pyproject.toml"
+                                    ],
+                                    "from": "version = \".*\"",
+                                    "to": "version = \"${nextRelease.version}\"",
+                                    "results": [
+                                        {
+                                            "file": "packages/assistant-ai/pyproject.toml",
+                                            "hasChanged": true,
+                                            "numMatches": 1,
+                                            "numReplacements": 1
+                                        }
+                                    ],
+                                    "countMatches": true
+                                }
+                            ]
+                        }
+                    ],
+                    [
                         "@semantic-release/github",
                         {
                             "successComment": false,

@@ -45,44 +45,17 @@ AI-powered assistant that helps testers and developers generate Cucumber BDD tes
 
 ## What is uuv-assistant-ai?
 
-`uuv-assistant-ai` is an AI-powered service that extends the UUV ecosystem by enabling image-based test generation. It uses Vision Language Models (VLMs) and Large Language Models (LLMs) to:
+`uuv-assistant-ai` is an AI-powered service that extends the UUV ecosystem by enabling AI assisted tests. It uses Vision Language Models (VLMs) and Large Language Models (LLMs) to:
+- **Classify images** - Determine if image elements are decorative or informative (in that case it generate suitable image description)
 
-- **Describe images** - Generate natural language descriptions of UI screenshots
-- **Classify images** - Determine if UI elements are decorative or functional
-- **Generate test scenarios** - Convert visual UI analysis into Cucumber BDD test steps
+This service integrates with the main [`@uuv/assistant`](https://e2e-test-quest.github.io/uuv/docs/tools/uuv-assistant) or [`@uuv/assistant-desktop`](https://e2e-test-quest.github.io/uuv/docs/tools/assistant-desktop) to provide a complete solution for E2E test generation.
 
-This service integrates with the main [`@uuv/assistant`](https://e2e-test-quest.github.io/uuv/docs/tools/uuv-assistant) to provide a complete solution for visual test generation.
 
-## Features
-
-- 🖼️ **Image Description** - Uses VLMs to describe UI screenshots in natural language
-- 🧠 **Image Classification** - Classifies images as decorative or functional using LLMs
-- 🔄 **Streaming API** - Real-time streaming of analysis results
-- 📊 **MLflow Integration** - Experiment tracking for model evaluation
-- 🤖 **DSPy Framework** - Built with DSPy for optimized AI workflows
-- 🌐 **FastAPI Server** - RESTful API for easy integration
-
-## Installation
+## Getting started
 
 ### Prerequisites
 
 - Python >=3.10, <3.15
-
-### Setup with `pip` (Recommended)
-
-```bash
-pip install uuv-assistant-ai
-```
-
-### Setup with `uv`
-
-```bash
-# Install the package from PyPI
-uv add uuv-assistant-ai
-
-# Or install with MLflow support
-uv add uuv-assistant-ai[mlflow]
-```
 
 ### Environment Variables
 
@@ -91,36 +64,30 @@ Create a `.env` file with the following variables:
 #### Required (for API access)
 
 ```env
-LLM_API_URL=https://api.openai.com/v1
-LLM_API_KEY=your-openai-api-key
-LLM_MODEL=gpt-4
+LLM_API_URL=https://localhost:11434
+LLM_API_KEY=your-api-key
+LLM_MODEL=ministral-3:8b
 
-VLM_API_URL=https://api.openai.com/v1
-VLM_API_KEY=your-openai-api-key
-VLM_MODEL=gpt-4-vision-preview
+VLM_API_URL=https://localhost:11434
+VLM_API_KEY=your-api-key
+VLM_MODEL=ministral-3:8b
 ```
 
-#### Optional (for experiment tracking)
-
-```env
-MLFLOW_TRACKING_URI=http://localhost:5000
-```
-
-## Usage
-
-### Start the Server
+### Setup with `pip`
 
 ```bash
+pip install uuv-assistant-ai
+
 # After installing from PyPI
 uuv-assistant-ai
-
-# Or using uvx (run without installing)
-uvx uuv-assistant-ai
-
-# For development (from source)
-uv run uuv-assistant-ai
 ```
+The API will be available at `http://localhost:8000`
 
+### Setup with `uv`
+
+```bash
+uvx add uuv-assistant-ai[mlflow]
+```
 The API will be available at `http://localhost:8000`
 
 ### Programmatic Usage
@@ -233,66 +200,6 @@ This step by approach is useful when you need to:
 - Reuse descriptions for multiple operations
 - Analyze multiple elements separately
 - Build custom workflows with intermediate processing
-
-## Development
-
-### Installation
-
-```bash
-# From PyPI
-pip install uuv-assistant-ai
-# or
-uv add uuv-assistant-ai
-
-# From source (for development)
-pip install -e .
-# or
-cd packages/assistant-ai
-uv sync
-```
-
-### Run Tests
-
-```bash
-# Using pip
-pip install pytest pytest-cov pytest-html pytest-sugar
-pytest tests/
-
-# Using uv
-uv run pytest tests/
-```
-
-### Lint and Format
-
-```bash
-# Lint
-uv run ruff check uuv_assistant_ai tests/
-
-# Format
-uv run ruff format uuv_assistant_ai tests/
-```
-
-### Build
-
-```bash
-uv build
-```
-
-## Project Structure
-
-```
-uuv_assistant_ai/
-├── __init__.py
-├── main.py              # FastAPI application
-├── server.py            # Server startup
-└── image_classifier/
-    ├── __init__.py
-    ├── agent.py         # Main workflow agent
-    ├── model.py         # Data models
-    └── sub_agents/
-        ├── image_classifier.py   # Image classification agent
-        └── image_describer.py    # Image description agent
-```
 
 ## Integration with UUV Ecosystem
 

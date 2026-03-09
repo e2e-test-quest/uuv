@@ -662,10 +662,34 @@ jobs:
       url: https://pypi.org/p/uuv_assistant_ai
     steps:
       - uses: actions/checkout@v4
-      - name: Download Release artifact
-        uses: actions/download-artifact@v4
+      - name: Cache node modules
+        uses: actions/cache@v4
         with:
-          name: release-artifacts
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('./package-lock.json') }}
+          path: |
+            node_modules
+            packages/assistant/node_modules
+            packages/docs/node_modules
+            packages/a11y/node_modules
+            packages/dictionary/node_modules
+            packages/mcp-server/node_modules
+            packages/runner-commons/node_modules
+            packages/runner-cypress/node_modules
+            packages/runner-playwright/node_modules
+            packages/vscode-extension/node_modules
+            packages/a11y-dashboard/node_modules
+            packages/assistant-desktop/node_modules
+      - name: Install uv and set the Python version
+        uses: astral-sh/setup-uv@v7
+        with:
+          python-version: ${{env.PYTHON_VERSION}}
+          enable-cache: false            
+      - name: Use Node.js ${{env.NODE_VERSION}}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{env.NODE_VERSION}}
+      - run: npm ci
+      - run: npx nx build assistant-ai
       - name: Publish distribution to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
