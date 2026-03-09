@@ -83,11 +83,11 @@
                       "label": "Windows Desktop"
                     },
                     {
-                      "path": "packages/assistant-desktop/src-tauri/target/release/ubuntu/deb/*.deb",
+                      "path": "packages/assistant-desktop/src-tauri/target/release/ubuntu/*.deb",
                       "label": "Debian package"
                     },
                     {
-                      "path": "packages/assistant-desktop/src-tauri/target/release/macos/app/*.app",
+                      "path": "packages/assistant-desktop/src-tauri/target/release/macos/*.app",
                       "label": "MacOs package"
                     }
                   ]
