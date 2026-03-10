@@ -1,3 +1,18 @@
+# [1.4.0](https://github.com/e2e-test-quest/uuv/compare/assistant-desktop-v1.3.0...assistant-desktop-v1.4.0) (2026-03-10)
+
+
+### Bug Fixes
+
+* **deps:** update tauri monorepo to v2.10.3 ([3ad83a7](https://github.com/e2e-test-quest/uuv/commit/3ad83a7bcf65456bd24e68ecba9d6e5f22faa8ce))
+* **runner-playwright:** update dependency chokidar to v4.0.3 ([ff51aab](https://github.com/e2e-test-quest/uuv/commit/ff51aabadce6d0dc5e1b054472a43d1a14142ec3))
+* **runner-playwright:** update dependency chokidar to v4.0.3 ([330ce8f](https://github.com/e2e-test-quest/uuv/commit/330ce8f99c8c84699cc5251159e980cb4318a277))
+* **runner-playwright:** update dependency webpack to v5.105.4 ([ba8a2cf](https://github.com/e2e-test-quest/uuv/commit/ba8a2cfe2114e7e36301125b0d76a2ab1d63002d))
+
+
+### Features
+
+* **assistant-ai:** initialize @uuv/assistant-ai, [#1222](https://github.com/e2e-test-quest/uuv/issues/1222) ([60a0090](https://github.com/e2e-test-quest/uuv/commit/60a0090ad865f5e667614b84582c1808b49137ea))
+
 # [1.3.0](https://github.com/e2e-test-quest/uuv/compare/assistant-desktop-v1.2.0...assistant-desktop-v1.3.0) (2026-03-02)
 
 
