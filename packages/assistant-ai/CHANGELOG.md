@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/e2e-test-quest/uuv/compare/assistant-ai-v1.0.0...assistant-ai-v1.0.1) (2026-03-10)
+
+
+### Bug Fixes
+
+* **assistant-ai:** refacto readme content ([e7e6599](https://github.com/e2e-test-quest/uuv/commit/e7e6599105951034b3b59ef32e85be469688c047))
+
 # 1.0.0 (2026-03-08)
 
 
