@@ -305,7 +305,7 @@ jobs:
   unit-tests-cypress:
     runs-on: ubuntu-22.04
     container:
-      image: cypress/browsers:node18.12.0-chrome107
+      image: cypress/browsers:node-22.21.0-chrome-141.0.7390.107-1-ff-144.0-edge-141.0.3537.92-1
     needs: [ build ]
     steps:
       - uses: actions/checkout@v4
