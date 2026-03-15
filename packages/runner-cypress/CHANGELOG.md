@@ -1,3 +1,11 @@
+# [2.83.0](https://github.com/e2e-test-quest/uuv/compare/runner-cypress-v2.82.0...runner-cypress-v2.83.0) (2026-03-15)
+
+
+### Features
+
+* **a11y:** add context parameter for wcag checker ([8d5fd08](https://github.com/e2e-test-quest/uuv/commit/8d5fd08b218d3641f404a00d518912a63ee17e28))
+* **runner-cypress:** replace webpack by esbuild ([1a690ec](https://github.com/e2e-test-quest/uuv/commit/1a690ec7db65b62200405370c7b072620aaa9dfd))
+
 # [2.82.0](https://github.com/e2e-test-quest/uuv/compare/runner-cypress-v2.81.0...runner-cypress-v2.82.0) (2026-03-08)
 
 
