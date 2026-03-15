@@ -47,6 +47,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{env.NODE_VERSION}}
+          cache: 'npm'
       - run: npm ci
 
   build:
@@ -211,6 +212,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ inputs.node-version }}
+          cache: 'npm'
       - name: Build gradle artifacts
         run: npx nx build intellij-plugin --verbose
 
@@ -240,6 +242,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ inputs.node-version }}
+          cache: 'npm'
       - name: Build images
         run: npx nx run-many --target=docker:build --exclude=a11y-dashboard
 
@@ -305,7 +308,7 @@ jobs:
   unit-tests-cypress:
     runs-on: ubuntu-22.04
     container:
-      image: cypress/browsers:node18.12.0-chrome107
+      image: cypress/browsers:node-22.21.0-chrome-141.0.7390.107-1-ff-144.0-edge-141.0.3537.92-1
     needs: [ build ]
     steps:
       - uses: actions/checkout@v4
@@ -398,8 +401,8 @@ jobs:
       - name: Use Node.js ${{ inputs.node-version }}
         uses: actions/setup-node@v4
         with:
-          node-version:
-            ${{env.NODE_VERSION}}
+          node-version: ${{env.NODE_VERSION}}
+          cache: 'npm'
       - run: npm ci
       - name: Package runner-cypress
         run: mkdir -p ./dist/packages && npx nx package a11y && npx nx package dictionary && npx nx package runner-commons && npx nx package runner-cypress
@@ -454,8 +457,8 @@ jobs:
       - name: Use Node.js ${{ inputs.node-version }}
         uses: actions/setup-node@v4
         with:
-          node-version:
-            ${{env.NODE_VERSION}}
+          node-version: ${{env.NODE_VERSION}}
+          cache: 'npm'
       - run: npm ci
       - name: Package runner-playwright
         run: mkdir -p ./dist/packages && npx nx package a11y && npx nx package dictionary && npx nx package runner-commons && npx nx package runner-playwright
@@ -634,6 +637,7 @@ jobs:
         with:
           node-version: 23
           registry-url: 'https://registry.npmjs.org'
+          cache: 'npm'
       - name: Install npm 11
         run: npm install -g npm@11 && npm --version
       - name: Publishing NPM packages
@@ -709,6 +713,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{env.NODE_VERSION}}
+          cache: 'npm'
       - run: npm install
       - name: Publishing VsCode Extension
         env:
@@ -731,6 +736,7 @@ jobs:
         with:
           node-version: ${{env.NODE_VERSION}}
           registry-url: 'https://registry.npmjs.org'
+          cache: 'npm'
       - name: Download Release artifact
         uses: actions/download-artifact@v4
         with:

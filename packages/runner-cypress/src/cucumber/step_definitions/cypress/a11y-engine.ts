@@ -32,16 +32,7 @@ import {
 import _ from "lodash";
 
 export const injectUvvA11y = () => {
-
-    const fileName =
-        typeof require?.resolve === "function"
-            ? require.resolve("@uuv/a11y/bundle")
-            : "node_modules/@uuv/a11y/bundle/uuv-a11y.bundle.js";
-    cy.readFile<string>(fileName).then((source) =>
-        cy.window({ log: false }).then((window) => {
-            window.eval(source);
-        })
-    );
+    injectScript("a11yBundlePath");
 };
 
 export const checkUvvA11y = (options: UuvA11yOptions) => {
@@ -91,12 +82,25 @@ export const showUvvA11yReport = (reference: A11yReferenceEnum) => {
     log.finish();
 };
 
+function injectScript(targetScriptEnvVariable) {
+    cy.env([targetScriptEnvVariable]).then(({ a11yBundlePath }) =>
+        cy.readFile<string>(a11yBundlePath).then((source) =>
+            cy.window({ log: false }).then((window) => {
+                window.eval(source);
+            })
+        )
+    );
+}
+
 function getA11yCheckerForReference(win: any, options: UuvA11yOptions, url: string): A11yChecker | undefined {
     let checker;
     console.debug("reference", options.reference);
     switch (options.reference) {
         case A11yReferenceEnum.WCAG_WEB:
-            checker = new win.uuvA11y.WcagChecker(url, options.runnerOptions);
+            checker = new win.uuvA11y.WcagChecker(url, {
+                context: options.runnerContext,
+                options: options.runnerOptions,
+            });
             break;
         case A11yReferenceEnum.WCAG_ANDROID:
             break;
