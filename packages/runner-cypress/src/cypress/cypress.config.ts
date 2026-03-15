@@ -1,7 +1,6 @@
-import * as webpack from "@cypress/webpack-preprocessor";
-import {
-  addCucumberPreprocessorPlugin,
-} from "@badeball/cypress-cucumber-preprocessor";
+import { addCucumberPreprocessorPlugin } from "@badeball/cypress-cucumber-preprocessor";
+import { createEsbuildPlugin } from "@badeball/cypress-cucumber-preprocessor/esbuild";
+import createBundler from "@bahmutov/cypress-esbuild-preprocessor";
 import fs from "fs";
 import { UUVListenerHelper, UUVEventEmitter } from "@uuv/runner-commons/runner/event";
 import path from "path";
@@ -21,42 +20,26 @@ export async function setupNodeEvents (
 
   on(
     "file:preprocessor",
-    webpack.default({
-      webpackOptions: {
-        resolve: {
-          extensions: [".ts", ".js"],
-          fallback: {
-            child_process: false,
-            fs: false,
-            path: require.resolve("path-browserify")
+    createBundler({
+      plugins: [
+        createEsbuildPlugin(config),
+        {
+          name: "ignore-fs",
+          setup(build) {
+            build.onResolve({ filter: /^(fs|child_process)$/ }, () => ({
+              path: "fs",
+              namespace: "ignore",
+            }));
+            build.onLoad({ filter: /.*/, namespace: "ignore" }, () => ({
+              contents: "module.exports = {}",
+              loader: "js",
+            }));
           }
-        },
-        module: {
-          rules: [
-            {
-              test: /\.ts$/,
-              exclude: [/node_modules/],
-              use: [
-                {
-                  loader: "ts-loader",
-                  options: {
-                    transpileOnly: true,
-                  }
-                },
-              ],
-            },
-            {
-              test: /\.feature$/,
-              use: [
-                {
-                  loader: "@badeball/cypress-cucumber-preprocessor/webpack",
-                  options: config,
-                },
-              ],
-            },
-          ],
-        },
-      },
+        }
+      ],
+      alias: {
+        path: "path-browserify"
+      }
     })
   );
 
