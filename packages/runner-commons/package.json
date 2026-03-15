@@ -50,29 +50,29 @@
   ],
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
-      "require": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "require": "./dist/index.js"
     },
     "./wording/web": {
+      "types": "./dist/assets/i18n/web/index.d.ts",
       "import": "./dist/assets/i18n/web/index.js",
-      "require": "./dist/assets/i18n/web/index.js",
-      "types": "./dist/assets/i18n/web/index.d.ts"
+      "require": "./dist/assets/i18n/web/index.js"
     },
     "./wording/web/en": {
+      "types": "./dist/assets/i18n/web/en/index.d.ts",
       "import": "./dist/assets/i18n/web/en/index.js",
-      "require": "./dist/assets/i18n/web/en/index.js",
-      "types": "./dist/assets/i18n/web/en/index.d.ts"
+      "require": "./dist/assets/i18n/web/en/index.js"
     },
     "./runner/event": {
+      "types": "./dist/runner/event/index.d.ts",
       "import": "./dist/runner/event/index.js",
-      "require": "./dist/runner/event/index.js",
-      "types": "./dist/runner/event/index.d.ts"
+      "require": "./dist/runner/event/index.js"
     },
     "./runner/utils": {
+      "types": "./dist/runner/utils.d.ts",
       "import": "./dist/runner/utils.js",
-      "require": "./dist/runner/utils.js",
-      "types": "./dist/runner/utils.d.ts"
+      "require": "./dist/runner/utils.js"
     }
   },
   "dependencies": {

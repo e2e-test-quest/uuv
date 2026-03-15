@@ -45,7 +45,7 @@
   },
   "dependencies": {
     "@badeball/cypress-cucumber-preprocessor": "24.0.1",
-    "@cypress/webpack-preprocessor": "7.0.2",
+    "@bahmutov/cypress-esbuild-preprocessor": "^2.2.8",
     "@testing-library/cypress": "10.1.0",
     "@uuv/a11y": "1.0.0-beta.97",
     "@uuv/runner-commons": "2.76.0",
@@ -81,24 +81,24 @@
   ],
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
-      "require": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "require": "./dist/index.js"
     },
     "./cypress/commands": {
+      "types": "./dist/cypress/commands.d.ts",
       "import": "./dist/cypress/commands.js",
-      "require": "./dist/cypress/commands.js",
-      "types": "./dist/cypress/commands.d.ts"
+      "require": "./dist/cypress/commands.js"
     },
     "./cypress/cypress.config": {
+      "types": "./dist/cypress/cypress.config.d.ts",
       "import": "./dist/cypress/cypress.config.js",
-      "require": "./dist/cypress/cypress.config.js",
-      "types": "./dist/cypress/cypress.config.d.ts"
+      "require": "./dist/cypress/cypress.config.js"
     },
     "./cucumber/step_definitions": {
+      "types": "./dist/cucumber/step_definitions/**/*.d.ts",
       "import": "./dist/cucumber/step_definitions/**/*.js",
-      "require": "./dist/cucumber/step_definitions/**/*.js",
-      "types": "./dist/cucumber/step_definitions/**/*.d.ts"
+      "require": "./dist/cucumber/step_definitions/**/*.js"
     }
   },
   "devDependencies": {
