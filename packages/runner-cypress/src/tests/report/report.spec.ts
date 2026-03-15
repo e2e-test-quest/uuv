@@ -68,7 +68,7 @@ describe("Runner Cypress A11yReport", () => {
     test("Should have good results", () => {
         expect(report.app.name).toEqual("@uuv/cypress");
         expect(report.app.description).toEqual("A solution to facilitate the writing and execution of E2E tests understandable by any human being using cucumber(BDD) and cypress");
-        expect(report.app.usecases.length).toEqual(15);
+        expect(report.app.usecases.length).toEqual(17);
         expect(report.app.usecases[0]).toMatchObject({
             "name": "key.then.a11y.check.default",
             "script": "empty Script",
@@ -125,7 +125,7 @@ describe("Runner Cypress A11yReport", () => {
                 "status": "success"
             }
         });
-        expect(report.app.usecases[4]).toMatchObject({
+        expect(report.app.usecases[5]).toMatchObject({
             "name": "key.then.a11y.check.withTags",
             "script": "empty Script",
             "location": {
@@ -139,7 +139,7 @@ describe("Runner Cypress A11yReport", () => {
                 "status": "success"
             }
         });
-        expect(report.app.usecases[5]).toMatchObject({
+        expect(report.app.usecases[6]).toMatchObject({
             "name": "key.then.a11y.rgaa.defaultWithResultContaining",
             "script": "empty Script",
             "location": {
@@ -152,8 +152,8 @@ describe("Runner Cypress A11yReport", () => {
                 "status": "error"
             }
         });
-        expect(report.app.usecases[5].result.issues.length).toEqual(94);
-        expect(report.app.usecases[6]).toMatchObject({
+        expect(report.app.usecases[6].result.issues.length).toEqual(94);
+        expect(report.app.usecases[7]).toMatchObject({
             "name": "key.then.a11y.rgaa.defaultWithResult",
             "script": "empty Script",
             "location": {
@@ -166,6 +166,6 @@ describe("Runner Cypress A11yReport", () => {
                 "status": "error"
             }
         });
-        expect(report.app.usecases[6].result.issues.length).toEqual(94);
+        expect(report.app.usecases[7].result.issues.length).toEqual(94);
     });
 });

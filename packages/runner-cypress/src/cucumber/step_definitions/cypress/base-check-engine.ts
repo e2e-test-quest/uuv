@@ -83,14 +83,16 @@ When(`${key.when.type.withContextInGridCell}`, function(textToType: string, line
     cy.uuvCheckContextWithinFocusedElement().then(context => {
         context.withinFocusedElement!.then(focusedElement => {
             // Confirm the element is a grid or treegrid
-            expect(getRole(focusedElement.get(0)), "Focus element doesn't have grid/treegrid role").to.be.oneOf(["grid", "treegrid"]);
+            // eslint-disable-next-line @typescript-eslint/no-unused-expressions, no-unused-expressions
+            expect(focusedElement.get(0), "Focus element doesn't have grid/treegrid role").not.to.be.null;
+            expect(getRole(focusedElement.get(0)!), "Focus element doesn't have grid/treegrid role").to.be.oneOf(["grid", "treegrid"]);
 
             cy.wrap(focusedElement).findByRole("columnheader", { name: columnName })
                 .uuvFoundedElement()
                 .then(colmunHeaderElement => {
 
                 // Retrieve column index
-                const columnIndex = Number(colmunHeaderElement.get(0).getAttribute("aria-colindex")) - 1;
+                const columnIndex = Number(colmunHeaderElement.get(0)!.getAttribute("aria-colindex")) - 1;
                 cy.wrap(focusedElement).findAllByRole("row").then((rows) => {
                     cy.wrap(rows[lineNumber]).findAllByRole("gridcell").then((cells) => {
                         // Double click on the cell
@@ -705,10 +707,14 @@ Then(
 Then(
  `${key.then.a11y.axecore.withFixtureContextAndFixtureOption}`,
   function(context: any, option: any) {
-   cy.injectAxe();
+   cy.injectUvvA11y();
    cy.fixture(context).then(context => {
      cy.fixture(option).then(option => {
-       cy.checkA11y(context, option);
+       cy.checkUvvA11y({
+        reference: A11yReferenceEnum.WCAG_WEB,
+        runnerContext: context,
+        runnerOptions: option
+       });
      });
    });
  });

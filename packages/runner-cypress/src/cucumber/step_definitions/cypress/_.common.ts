@@ -197,6 +197,7 @@ export function pressKey(key: string) {
 
 export type UuvA11yOptions = {
     reference: A11yReferenceEnum;
+    runnerContext?: any;
     runnerOptions?: any;
     expectedResult?: UuvA11yExpectedResult
 }
