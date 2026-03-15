@@ -120,6 +120,11 @@ export async function setupNodeEvents (
     fs.writeFileSync(reportFilePath, JSON.stringify(emptyReport, null, 4), { flag: "w" });
   }
 
+  // eslint-disable-next-line dot-notation
+  config.env["a11yBundlePath"] = typeof require?.resolve === "function"
+            ? require.resolve("@uuv/a11y/bundle")
+            : "node_modules/@uuv/a11y/bundle/uuv-a11y.bundle.js";
+
   // Make sure to return the config object as it might have been modified by the plugin.
   return config;
 }
