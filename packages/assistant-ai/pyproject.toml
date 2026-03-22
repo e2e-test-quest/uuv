@@ -16,7 +16,7 @@ addopts = """
 
 [project]
 name = "uuv-assistant-ai"
-version = "1.1.0"
+version = "1.2.0"
 description = "UUV Assistant AI based, used to improve the life of testers and developers by generating cucumber phrases from the GUI."
 requires-python = ">=3.10,<3.15"
 readme = 'README.md'
