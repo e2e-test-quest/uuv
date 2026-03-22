@@ -56,7 +56,7 @@
     "lodash": "^4.17.21",
     "multiple-cucumber-html-reporter": "3.10.0",
     "nanoid": "3.3.11",
-    "playwright-bdd": "8.4.2",
+    "playwright-bdd": "8.5.0",
     "ts-node": "10.9.2",
     "typescript": "5.9.3"
   },
