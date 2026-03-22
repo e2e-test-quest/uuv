@@ -463,7 +463,11 @@ describe("UUV Cli Cypress", () => {
       });
     });
     // eslint-disable-next-line dot-notation
-    runnerInstance["getCypress"]().open = mockOpen;
+    runnerInstance["getCypress"] = () => {
+        return {
+          open: mockOpen
+        } as any;
+      };
     if (result) {
       mockE2e = jest.fn(() => {
         return new Promise((resolve) => {
@@ -473,7 +477,11 @@ describe("UUV Cli Cypress", () => {
         });
       });
       // eslint-disable-next-line dot-notation
-      runnerInstance["getCypress"]().run = mockE2e;
+      runnerInstance["getCypress"] = () => {
+        return {
+          run: mockE2e
+        } as any;
+      };
       // eslint-disable-next-line dot-notation
       runnerInstance["mergeJunitReport"] = jest.fn().mockImplementation(() => {
         // Not empty
