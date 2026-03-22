@@ -1,3 +1,13 @@
+# [2.78.0](https://github.com/e2e-test-quest/uuv/compare/runner-commons-v2.77.0...runner-commons-v2.78.0) (2026-03-22)
+
+
+### Features
+
+* **runner-commons:** update dependency figlet to v1.11.0 ([9ef9e82](https://github.com/e2e-test-quest/uuv/commit/9ef9e821f340f50a5471ebe9b986c823956a5d1e))
+* **runner-cypress:** update dependency cypress to v15.12.0 ([05efa53](https://github.com/e2e-test-quest/uuv/commit/05efa5391684165efa222b1f773df080e7b22be7))
+* **runner-playwright:** update dependency @cucumber/cucumber to v12.7.0 ([ee4ef96](https://github.com/e2e-test-quest/uuv/commit/ee4ef9627e620587a64f8db76dbbea0acc0f82e6))
+* **runner-playwright:** update dependency playwright-bdd to v8.5.0 ([7003f59](https://github.com/e2e-test-quest/uuv/commit/7003f5933a4478cfcf0c880cc9182432bd388490))
+
 # [2.77.0](https://github.com/e2e-test-quest/uuv/compare/runner-commons-v2.76.0...runner-commons-v2.77.0) (2026-03-15)
 
 
