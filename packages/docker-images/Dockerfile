@@ -1,4 +1,4 @@
-FROM node:22.22.1-bookworm-slim AS base
+FROM node:22.22.2-bookworm-slim AS base
 
 ENV PROJECT_WORKSPACE="/workspace"
 ADD uuv-command-builder.sh /
