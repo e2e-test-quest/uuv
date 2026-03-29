@@ -1,3 +1,13 @@
+# [1.7.0](https://github.com/e2e-test-quest/uuv/compare/assistant-desktop-v1.6.0...assistant-desktop-v1.7.0) (2026-03-29)
+
+
+### Features
+
+* **deps:** update dependency @cucumber/gherkin to v39 ([23d4002](https://github.com/e2e-test-quest/uuv/commit/23d400287d3a414774b45c8768d7c410e2d351fa))
+* **deps:** update dependency @modelcontextprotocol/sdk to v1.28.0 ([c605a3f](https://github.com/e2e-test-quest/uuv/commit/c605a3fb01b8668902a3bc5f0c5aa5b04438bf03))
+* **deps:** update dependency zod to v4.3.6 ([26921b8](https://github.com/e2e-test-quest/uuv/commit/26921b82290e881e72f4c18a1f487683ccee66c7))
+* **runner-cypress:** update dependency cypress to v15.13.0 ([2765ead](https://github.com/e2e-test-quest/uuv/commit/2765ead56b7e013ca5d0a0f5efbe4ee7bd794c28))
+
 # [1.6.0](https://github.com/e2e-test-quest/uuv/compare/assistant-desktop-v1.5.0...assistant-desktop-v1.6.0) (2026-03-22)
 
 
