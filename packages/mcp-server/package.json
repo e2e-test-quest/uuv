@@ -57,7 +57,7 @@
     }
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "1.26.0",
+    "@modelcontextprotocol/sdk": "1.28.0",
     "@types/mustache": "^4.2.6",
     "@uuv/assistant": "2.85.0",
     "@uuv/dictionary": "0.12.0",
