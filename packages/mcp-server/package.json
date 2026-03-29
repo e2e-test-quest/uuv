@@ -65,7 +65,7 @@
     "mustache": "^4.2.0",
     "tsconfig-paths": "4.2.0",
     "tslib": "2.3.0",
-    "zod": "4.1.13"
+    "zod": "4.3.6"
   },
   "funding": {
     "type": "opencollective",
