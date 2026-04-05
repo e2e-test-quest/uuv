@@ -1,3 +1,17 @@
+# [1.8.0](https://github.com/e2e-test-quest/uuv/compare/assistant-desktop-v1.7.0...assistant-desktop-v1.8.0) (2026-04-05)
+
+
+### Bug Fixes
+
+* **runner-playwright:** update dependency axe-core to v4.11.2 ([6be5e42](https://github.com/e2e-test-quest/uuv/commit/6be5e428c862d08e218d60cff9785c0d77962c57))
+
+
+### Features
+
+* **assistant:** update dependency playwright-chromium to v1.59.1 ([d430c96](https://github.com/e2e-test-quest/uuv/commit/d430c96e7445eb262ca27900c0b778058c8b08f7))
+* **deps:** update dependency @modelcontextprotocol/sdk to v1.29.0 ([e311320](https://github.com/e2e-test-quest/uuv/commit/e3113201ae81eb7bc488e9af0224416186417ec1))
+* **deps:** update docusaurus monorepo to v3.9.2 ([cba0174](https://github.com/e2e-test-quest/uuv/commit/cba0174f196682e1bd7642c2ce91c895f5300ca8))
+
 # [1.7.0](https://github.com/e2e-test-quest/uuv/compare/assistant-desktop-v1.6.0...assistant-desktop-v1.7.0) (2026-03-29)
 
 
