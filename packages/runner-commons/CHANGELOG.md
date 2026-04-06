@@ -1,3 +1,10 @@
+# [2.81.0](https://github.com/e2e-test-quest/uuv/compare/runner-commons-v2.80.0...runner-commons-v2.81.0) (2026-04-06)
+
+
+### Features
+
+* **mcp-server:** introduce uuv assistant architect with tool and prompt genNominalTestCase, [#1326](https://github.com/e2e-test-quest/uuv/issues/1326) ([1aea5b2](https://github.com/e2e-test-quest/uuv/commit/1aea5b26fe12b953b9841c632ffc56a6536c22ae))
+
 # [2.80.0](https://github.com/e2e-test-quest/uuv/compare/runner-commons-v2.79.0...runner-commons-v2.80.0) (2026-04-05)
 
 
