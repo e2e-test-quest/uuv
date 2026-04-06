@@ -1,3 +1,10 @@
+# [1.39.0](https://github.com/e2e-test-quest/uuv/compare/intellij-plugin-v1.38.0...intellij-plugin-v1.39.0) (2026-04-06)
+
+
+### Features
+
+* **mcp-server:** introduce uuv assistant architect with tool and prompt genNominalTestCase, [#1326](https://github.com/e2e-test-quest/uuv/issues/1326) ([1aea5b2](https://github.com/e2e-test-quest/uuv/commit/1aea5b26fe12b953b9841c632ffc56a6536c22ae))
+
 # [1.38.0](https://github.com/e2e-test-quest/uuv/compare/intellij-plugin-v1.37.0...intellij-plugin-v1.38.0) (2026-04-05)
 
 
