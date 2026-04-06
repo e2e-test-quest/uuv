@@ -2,7 +2,7 @@
     "extends": "../../tsconfig.base.json",
     "compilerOptions": {
         "baseUrl": ".",
-        "module": "commonjs",
+        "module": "nodenext",
         "forceConsistentCasingInFileNames": true,
         "strict": false,
         "importHelpers": true,
@@ -13,7 +13,11 @@
         "noImplicitReturns": false,
         "noFallthroughCasesInSwitch": true,
         "noPropertyAccessFromIndexSignature": true,
-        "checkJs": false
+        "checkJs": false,
+        "esModuleInterop": true,
+        "moduleResolution": "nodenext",
+        "isolatedModules": true,
+        "types": ["node"]
     },
     "include": [],
     "references": [

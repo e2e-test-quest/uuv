@@ -1,8 +1,8 @@
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { InMemoryTransport } from "@modelcontextprotocol/sdk/inMemory";
+import { InMemoryTransport } from "@modelcontextprotocol/sdk/inMemory.js";
 import { createUUVServer } from "./mcp-server-factory";
-import { UUV_PROMPT } from "./services/prompt-retriever.service";
+import { UUV_MCP_SERVER_ITEM } from "./services/prompt-retriever.service";
 import path from "path";
 
 describe("UUV MCP Server", () => {
@@ -104,14 +104,15 @@ describe("UUV MCP Server", () => {
             const prompts = await client.listPrompts();
 
             expect(prompts.prompts.map(prompt => prompt.name)).toEqual([
-                UUV_PROMPT.GENERATE_TEST_EXPECT_TABLE,
-                UUV_PROMPT.GENERATE_TEST_EXPECT_ROLE_AND_NAME,
-                UUV_PROMPT.GENERATE_TEST_CLICK_ROLE_AND_NAME,
-                UUV_PROMPT.GENERATE_TEST_WITHIN_ROLE_AND_NAME,
-                UUV_PROMPT.GENERATE_TEST_EXPECT_DOM_SELECTOR,
-                UUV_PROMPT.GENERATE_TEST_CLICK_DOM_SELECTOR,
-                UUV_PROMPT.GENERATE_TEST_WITHIN_DOM_SELECTOR,
-                UUV_PROMPT.GENERATE_TEST_TYPE_ROLE_AND_NAME
+                UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_TABLE,
+                UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_ROLE_AND_NAME,
+                UUV_MCP_SERVER_ITEM.GENERATE_TEST_CLICK_ROLE_AND_NAME,
+                UUV_MCP_SERVER_ITEM.GENERATE_TEST_WITHIN_ROLE_AND_NAME,
+                UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_DOM_SELECTOR,
+                UUV_MCP_SERVER_ITEM.GENERATE_TEST_CLICK_DOM_SELECTOR,
+                UUV_MCP_SERVER_ITEM.GENERATE_TEST_WITHIN_DOM_SELECTOR,
+                UUV_MCP_SERVER_ITEM.GENERATE_TEST_TYPE_ROLE_AND_NAME,
+                UUV_MCP_SERVER_ITEM.GENERATE_NOMINAL_TEST_CASE
             ]);
         });
 
@@ -119,16 +120,17 @@ describe("UUV MCP Server", () => {
             const tools = await client.listTools();
 
             expect(tools.tools.map(tool => tool.name)).toEqual([
-                UUV_PROMPT.GET_BASE_URL,
+                UUV_MCP_SERVER_ITEM.GET_BASE_URL,
                 "availableSentences",
-                UUV_PROMPT.GENERATE_TEST_EXPECT_ROLE_AND_NAME,
-                UUV_PROMPT.GENERATE_TEST_EXPECT_DOM_SELECTOR,
-                UUV_PROMPT.GENERATE_TEST_CLICK_ROLE_AND_NAME,
-                UUV_PROMPT.GENERATE_TEST_CLICK_DOM_SELECTOR,
-                UUV_PROMPT.GENERATE_TEST_WITHIN_ROLE_AND_NAME,
-                UUV_PROMPT.GENERATE_TEST_WITHIN_DOM_SELECTOR,
-                UUV_PROMPT.GENERATE_TEST_TYPE_ROLE_AND_NAME,
-                UUV_PROMPT.GENERATE_TEST_EXPECT_TABLE
+                UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_ROLE_AND_NAME,
+                UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_DOM_SELECTOR,
+                UUV_MCP_SERVER_ITEM.GENERATE_TEST_CLICK_ROLE_AND_NAME,
+                UUV_MCP_SERVER_ITEM.GENERATE_TEST_CLICK_DOM_SELECTOR,
+                UUV_MCP_SERVER_ITEM.GENERATE_TEST_WITHIN_ROLE_AND_NAME,
+                UUV_MCP_SERVER_ITEM.GENERATE_TEST_WITHIN_DOM_SELECTOR,
+                UUV_MCP_SERVER_ITEM.GENERATE_TEST_TYPE_ROLE_AND_NAME,
+                UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_TABLE,
+                UUV_MCP_SERVER_ITEM.GENERATE_NOMINAL_TEST_CASE
             ]);
         });
 
@@ -148,9 +150,9 @@ describe("UUV MCP Server", () => {
     });
 
     describe("prompt", () => {
-        it(`should get prompt ${UUV_PROMPT.GENERATE_TEST_EXPECT_ROLE_AND_NAME} with accessible name and accessible role`, async () => {
+        it(`should get prompt ${UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_ROLE_AND_NAME} with accessible name and accessible role`, async () => {
             const promptResult = await client.getPrompt({
-                name: UUV_PROMPT.GENERATE_TEST_EXPECT_ROLE_AND_NAME,
+                name: UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_ROLE_AND_NAME,
                 arguments: {
                     baseUrl: "https://example.com",
                     accessibleName: "Get started",
@@ -164,9 +166,9 @@ describe("UUV MCP Server", () => {
             });
         });
 
-        it(`should get prompt ${UUV_PROMPT.GENERATE_TEST_EXPECT_DOM_SELECTOR} with domSelector`, async () => {
+        it(`should get prompt ${UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_DOM_SELECTOR} with domSelector`, async () => {
             const promptResult = await client.getPrompt({
-                name: UUV_PROMPT.GENERATE_TEST_EXPECT_DOM_SELECTOR,
+                name: UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_DOM_SELECTOR,
                 arguments: {
                     domSelector: "#fakeItem > #fakeContainer"
                 }
@@ -178,9 +180,9 @@ describe("UUV MCP Server", () => {
             });
         });
 
-        it(`should get prompt ${UUV_PROMPT.GENERATE_TEST_TYPE_ROLE_AND_NAME} with accessible name and accessible role`, async () => {
+        it(`should get prompt ${UUV_MCP_SERVER_ITEM.GENERATE_TEST_TYPE_ROLE_AND_NAME} with accessible name and accessible role`, async () => {
             const promptResult = await client.getPrompt({
-                name: UUV_PROMPT.GENERATE_TEST_TYPE_ROLE_AND_NAME,
+                name: UUV_MCP_SERVER_ITEM.GENERATE_TEST_TYPE_ROLE_AND_NAME,
                 arguments: {
                     accessibleName: "First Name",
                     accessibleRole: "textbox"
@@ -193,9 +195,9 @@ describe("UUV MCP Server", () => {
             });
         });
 
-        it(`should get prompt ${UUV_PROMPT.GENERATE_TEST_CLICK_ROLE_AND_NAME} with accessible name and accessible role`, async () => {
+        it(`should get prompt ${UUV_MCP_SERVER_ITEM.GENERATE_TEST_CLICK_ROLE_AND_NAME} with accessible name and accessible role`, async () => {
             const promptResult = await client.getPrompt({
-                name: UUV_PROMPT.GENERATE_TEST_CLICK_ROLE_AND_NAME,
+                name: UUV_MCP_SERVER_ITEM.GENERATE_TEST_CLICK_ROLE_AND_NAME,
                 arguments: {
                     accessibleName: "First Name",
                     accessibleRole: "textbox"
@@ -208,9 +210,9 @@ describe("UUV MCP Server", () => {
             });
         });
 
-        it(`should get prompt ${UUV_PROMPT.GENERATE_TEST_CLICK_DOM_SELECTOR} with accessible name and accessible role`, async () => {
+        it(`should get prompt ${UUV_MCP_SERVER_ITEM.GENERATE_TEST_CLICK_DOM_SELECTOR} with accessible name and accessible role`, async () => {
             const promptResult = await client.getPrompt({
-                name: UUV_PROMPT.GENERATE_TEST_CLICK_DOM_SELECTOR,
+                name: UUV_MCP_SERVER_ITEM.GENERATE_TEST_CLICK_DOM_SELECTOR,
                 arguments: {
                     domSelector: "#fakeItem > #fakeContainer"
                 }
@@ -222,9 +224,9 @@ describe("UUV MCP Server", () => {
             });
         });
 
-        it(`should get prompt ${UUV_PROMPT.GENERATE_TEST_WITHIN_ROLE_AND_NAME} with accessible name and accessible role`, async () => {
+        it(`should get prompt ${UUV_MCP_SERVER_ITEM.GENERATE_TEST_WITHIN_ROLE_AND_NAME} with accessible name and accessible role`, async () => {
             const promptResult = await client.getPrompt({
-                name: UUV_PROMPT.GENERATE_TEST_WITHIN_ROLE_AND_NAME,
+                name: UUV_MCP_SERVER_ITEM.GENERATE_TEST_WITHIN_ROLE_AND_NAME,
                 arguments: {
                     accessibleName: "First Name",
                     accessibleRole: "textbox"
@@ -237,9 +239,9 @@ describe("UUV MCP Server", () => {
             });
         });
 
-        it(`should get prompt ${UUV_PROMPT.GENERATE_TEST_WITHIN_DOM_SELECTOR} with domSelector`, async () => {
+        it(`should get prompt ${UUV_MCP_SERVER_ITEM.GENERATE_TEST_WITHIN_DOM_SELECTOR} with domSelector`, async () => {
             const promptResult = await client.getPrompt({
-                name: UUV_PROMPT.GENERATE_TEST_WITHIN_DOM_SELECTOR,
+                name: UUV_MCP_SERVER_ITEM.GENERATE_TEST_WITHIN_DOM_SELECTOR,
                 arguments: {
                     domSelector: "#fakeItem > #fakeContainer"
                 }
@@ -251,9 +253,9 @@ describe("UUV MCP Server", () => {
             });
         });
 
-        it(`should get prompt ${UUV_PROMPT.GENERATE_TEST_EXPECT_TABLE} with domSelector`, async () => {
+        it(`should get prompt ${UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_TABLE} with domSelector`, async () => {
             const promptResult = await client.getPrompt({
-                name: UUV_PROMPT.GENERATE_TEST_EXPECT_TABLE,
+                name: UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_TABLE,
                 arguments: {
                     baseUrl: "https://example.com",
                 }
@@ -269,7 +271,7 @@ describe("UUV MCP Server", () => {
     describe("available_sentences", () => {
         it("should list available sentences", async () => {
             const result = await client.callTool({
-                name: UUV_PROMPT.AVAILABLE_SENTENCES,
+                name: UUV_MCP_SERVER_ITEM.AVAILABLE_SENTENCES,
                 arguments: {}
             });
             const sentences = JSON.parse(result.content[0].text);
@@ -278,7 +280,7 @@ describe("UUV MCP Server", () => {
 
         it("should list available sentences filtered by role", async () => {
             const result = await client.callTool({
-                name: UUV_PROMPT.AVAILABLE_SENTENCES,
+                name: UUV_MCP_SERVER_ITEM.AVAILABLE_SENTENCES,
                 arguments: {
                     role: "button"
                 }
@@ -296,7 +298,7 @@ describe("UUV MCP Server", () => {
 
         it("should list available sentences filtered by section", async () => {
             const result = await client.callTool({
-                name: UUV_PROMPT.AVAILABLE_SENTENCES,
+                name: UUV_MCP_SERVER_ITEM.AVAILABLE_SENTENCES,
                 arguments: {
                     category: "click"
                 }
@@ -314,7 +316,7 @@ describe("UUV MCP Server", () => {
 
         it("should list available sentences filtered by role section", async () => {
             const result = await client.callTool({
-                name: UUV_PROMPT.AVAILABLE_SENTENCES,
+                name: UUV_MCP_SERVER_ITEM.AVAILABLE_SENTENCES,
                 arguments: {
                     category: "click",
                     role: "button"
@@ -333,18 +335,18 @@ describe("UUV MCP Server", () => {
         });
     });
 
-    describe(`${UUV_PROMPT.GENERATE_TEST_EXPECT_ROLE_AND_NAME}`, () => {
-        it(`should throws error when ${UUV_PROMPT.GENERATE_TEST_EXPECT_ROLE_AND_NAME} parameters are invalid`, async () => {
+    describe(`${UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_ROLE_AND_NAME}`, () => {
+        it(`should throws error when ${UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_ROLE_AND_NAME} parameters are invalid`, async () => {
             const result = await client.callTool({
-                name: UUV_PROMPT.GENERATE_TEST_EXPECT_ROLE_AND_NAME,
+                name: UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_ROLE_AND_NAME,
                 arguments: {
-                    promptName: UUV_PROMPT.GENERATE_TEST_EXPECT_ROLE_AND_NAME,
+                    promptName: UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_ROLE_AND_NAME,
                     baseUrl: "https://example.com"
                 }
             });
 
             expect(result.content[0]).toEqual({
-                text: `MCP error -32602: Input validation error: Invalid arguments for tool ${UUV_PROMPT.GENERATE_TEST_EXPECT_ROLE_AND_NAME}: ` + JSON.stringify([
+                text: `MCP error -32602: Input validation error: Invalid arguments for tool ${UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_ROLE_AND_NAME}: ` + JSON.stringify([
                     {
                         expected: "string",
                         code: "invalid_type",
@@ -366,9 +368,9 @@ describe("UUV MCP Server", () => {
             });
         });
 
-        it(`should throws error when ${UUV_PROMPT.GENERATE_TEST_EXPECT_ROLE_AND_NAME} is call for accessibleRole table`, async () => {
+        it(`should throws error when ${UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_ROLE_AND_NAME} is call for accessibleRole table`, async () => {
             const result = await client.callTool({
-                name: UUV_PROMPT.GENERATE_TEST_EXPECT_ROLE_AND_NAME,
+                name: UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_ROLE_AND_NAME,
                 arguments: {
                     baseUrl: "https://example.com",
                     accessibleRole: "table",
@@ -379,9 +381,9 @@ describe("UUV MCP Server", () => {
             expect(result.content[0].text).toEqual("For role 'table/grid/treegrid', you must use generate_test_expect_table tool.");
         });
 
-        it(`should ${UUV_PROMPT.GENERATE_TEST_EXPECT_ROLE_AND_NAME} with accessible name and accessible role`, async () => {
+        it(`should ${UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_ROLE_AND_NAME} with accessible name and accessible role`, async () => {
             const result = await client.callTool({
-                name: UUV_PROMPT.GENERATE_TEST_EXPECT_ROLE_AND_NAME,
+                name: UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_ROLE_AND_NAME,
                 arguments: {
                     baseUrl: "https://example.com",
                     accessibleName: "Get started",
@@ -392,17 +394,17 @@ describe("UUV MCP Server", () => {
             expect(result.content[0]).toEqual({
                 type: "text",
                 text: "Feature: Your amazing feature name\n" +
-                    "  Scenario: Action - An action\n" +
+                    "  Scenario: Expect an element\n" +
                     "    Given I visit path \"https://example.com\"\n" +
                     "    Then I should see a button named \"Get started\"\n"
             });
         });
     });
 
-    describe(`${UUV_PROMPT.GENERATE_TEST_EXPECT_DOM_SELECTOR}`, () => {
-        it(`should ${UUV_PROMPT.GENERATE_TEST_EXPECT_DOM_SELECTOR} with domSelector`, async () => {
+    describe(`${UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_DOM_SELECTOR}`, () => {
+        it(`should ${UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_DOM_SELECTOR} with domSelector`, async () => {
             const result = await client.callTool({
-                name: UUV_PROMPT.GENERATE_TEST_EXPECT_DOM_SELECTOR,
+                name: UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_DOM_SELECTOR,
                 arguments: {
                     baseUrl: "https://example.com",
                     domSelector: "#fakeItem > #fakeContainer"
@@ -412,25 +414,25 @@ describe("UUV MCP Server", () => {
             expect(result.content[0]).toEqual({
                 type: "text",
                 text: "Feature: Your amazing feature name\n" +
-                    "  Scenario: Action - An action\n" +
+                    "  Scenario: Expect an element\n" +
                     "    Given I visit path \"https://example.com\"\n" +
                     "    Then I should see an element with selector \"#fakeItem > #fakeContainer\"\n"
             });
         });
     });
 
-    describe(`${UUV_PROMPT.GENERATE_TEST_CLICK_ROLE_AND_NAME}`, () => {
-        it(`should throws error when ${UUV_PROMPT.GENERATE_TEST_CLICK_ROLE_AND_NAME} parameters are invalid`, async () => {
+    describe(`${UUV_MCP_SERVER_ITEM.GENERATE_TEST_CLICK_ROLE_AND_NAME}`, () => {
+        it(`should throws error when ${UUV_MCP_SERVER_ITEM.GENERATE_TEST_CLICK_ROLE_AND_NAME} parameters are invalid`, async () => {
             const result = await client.callTool({
-                name: UUV_PROMPT.GENERATE_TEST_CLICK_ROLE_AND_NAME,
+                name: UUV_MCP_SERVER_ITEM.GENERATE_TEST_CLICK_ROLE_AND_NAME,
                 arguments: {
-                    promptName: UUV_PROMPT.GENERATE_TEST_CLICK_ROLE_AND_NAME,
+                    promptName: UUV_MCP_SERVER_ITEM.GENERATE_TEST_CLICK_ROLE_AND_NAME,
                     baseUrl: "https://example.com",
                 },
             });
 
             expect(result.content[0]).toEqual({
-                text: `MCP error -32602: Input validation error: Invalid arguments for tool ${UUV_PROMPT.GENERATE_TEST_CLICK_ROLE_AND_NAME}: ` + JSON.stringify([
+                text: `MCP error -32602: Input validation error: Invalid arguments for tool ${UUV_MCP_SERVER_ITEM.GENERATE_TEST_CLICK_ROLE_AND_NAME}: ` + JSON.stringify([
                     {
                         expected: "string",
                         code: "invalid_type",
@@ -452,9 +454,9 @@ describe("UUV MCP Server", () => {
             });
         });
 
-        it(`should ${UUV_PROMPT.GENERATE_TEST_CLICK_ROLE_AND_NAME} with accessible name and accessible role`, async () => {
+        it(`should ${UUV_MCP_SERVER_ITEM.GENERATE_TEST_CLICK_ROLE_AND_NAME} with accessible name and accessible role`, async () => {
             const result = await client.callTool({
-                name: UUV_PROMPT.GENERATE_TEST_CLICK_ROLE_AND_NAME,
+                name: UUV_MCP_SERVER_ITEM.GENERATE_TEST_CLICK_ROLE_AND_NAME,
                 arguments: {
                     baseUrl: "https://example.com",
                     accessibleName: "Get started",
@@ -465,17 +467,17 @@ describe("UUV MCP Server", () => {
             expect(result.content[0]).toEqual({
                 type: "text",
                 text: "Feature: Your amazing feature name\n" +
-                    "  Scenario: Action - An action\n" +
+                    "  Scenario: Action - Click on element\n" +
                     "    Given I visit path \"https://example.com\"\n" +
                     "    When I click on button named \"Get started\"\n"
             });
         });
     });
 
-    describe(`${UUV_PROMPT.GENERATE_TEST_CLICK_DOM_SELECTOR}`, () => {
-        it(`should ${UUV_PROMPT.GENERATE_TEST_CLICK_DOM_SELECTOR} with domSelector`, async () => {
+    describe(`${UUV_MCP_SERVER_ITEM.GENERATE_TEST_CLICK_DOM_SELECTOR}`, () => {
+        it(`should ${UUV_MCP_SERVER_ITEM.GENERATE_TEST_CLICK_DOM_SELECTOR} with domSelector`, async () => {
             const result = await client.callTool({
-                name: UUV_PROMPT.GENERATE_TEST_CLICK_DOM_SELECTOR,
+                name: UUV_MCP_SERVER_ITEM.GENERATE_TEST_CLICK_DOM_SELECTOR,
                 arguments: {
                     baseUrl: "https://example.com",
                     domSelector: "#fakeItem > #fakeContainer"
@@ -485,7 +487,7 @@ describe("UUV MCP Server", () => {
             expect(result.content[0]).toEqual({
                 type: "text",
                 text: "Feature: Your amazing feature name\n" +
-                    "  Scenario: Action - An action\n" +
+                    "  Scenario: Action - Click on element\n" +
                     "    Given I visit path \"https://example.com\"\n" +
                     "    When within the element with selector \"#fakeItem > #fakeContainer\"\n" +
                     "    Then I click\n"
@@ -493,18 +495,18 @@ describe("UUV MCP Server", () => {
         });
     });
 
-    describe(`${UUV_PROMPT.GENERATE_TEST_WITHIN_ROLE_AND_NAME}`, () => {
-        it(`should throws error when ${UUV_PROMPT.GENERATE_TEST_WITHIN_ROLE_AND_NAME} parameters are invalid`, async () => {
+    describe(`${UUV_MCP_SERVER_ITEM.GENERATE_TEST_WITHIN_ROLE_AND_NAME}`, () => {
+        it(`should throws error when ${UUV_MCP_SERVER_ITEM.GENERATE_TEST_WITHIN_ROLE_AND_NAME} parameters are invalid`, async () => {
             const result = await client.callTool({
-                name: UUV_PROMPT.GENERATE_TEST_WITHIN_ROLE_AND_NAME,
+                name: UUV_MCP_SERVER_ITEM.GENERATE_TEST_WITHIN_ROLE_AND_NAME,
                 arguments: {
-                    promptName: UUV_PROMPT.GENERATE_TEST_WITHIN_ROLE_AND_NAME,
+                    promptName: UUV_MCP_SERVER_ITEM.GENERATE_TEST_WITHIN_ROLE_AND_NAME,
                     baseUrl: "https://example.com",
                 },
             });
 
             expect(result.content[0]).toEqual({
-                text: `MCP error -32602: Input validation error: Invalid arguments for tool ${UUV_PROMPT.GENERATE_TEST_WITHIN_ROLE_AND_NAME}: ` + JSON.stringify([
+                text: `MCP error -32602: Input validation error: Invalid arguments for tool ${UUV_MCP_SERVER_ITEM.GENERATE_TEST_WITHIN_ROLE_AND_NAME}: ` + JSON.stringify([
                     {
                         expected: "string",
                         code: "invalid_type",
@@ -526,9 +528,9 @@ describe("UUV MCP Server", () => {
             });
         });
 
-        it(`should ${UUV_PROMPT.GENERATE_TEST_WITHIN_ROLE_AND_NAME} with accessible name and accessible role`, async () => {
+        it(`should ${UUV_MCP_SERVER_ITEM.GENERATE_TEST_WITHIN_ROLE_AND_NAME} with accessible name and accessible role`, async () => {
             const result = await client.callTool({
-                name: UUV_PROMPT.GENERATE_TEST_WITHIN_ROLE_AND_NAME,
+                name: UUV_MCP_SERVER_ITEM.GENERATE_TEST_WITHIN_ROLE_AND_NAME,
                 arguments: {
                     baseUrl: "https://example.com",
                     accessibleName: "Get started",
@@ -539,17 +541,17 @@ describe("UUV MCP Server", () => {
             expect(result.content[0]).toEqual({
                 type: "text",
                 text: "Feature: Your amazing feature name\n" +
-                    "  Scenario: Action - An action\n" +
+                    "  Scenario: Within an element\n" +
                     "    Given I visit path \"https://example.com\"\n" +
                     "    When within a button named \"Get started\"\n"
             });
         });
     });
 
-    describe(`${UUV_PROMPT.GENERATE_TEST_WITHIN_DOM_SELECTOR}`, () => {
-        it(`should ${UUV_PROMPT.GENERATE_TEST_WITHIN_DOM_SELECTOR} with domSelector`, async () => {
+    describe(`${UUV_MCP_SERVER_ITEM.GENERATE_TEST_WITHIN_DOM_SELECTOR}`, () => {
+        it(`should ${UUV_MCP_SERVER_ITEM.GENERATE_TEST_WITHIN_DOM_SELECTOR} with domSelector`, async () => {
             const result = await client.callTool({
-                name: UUV_PROMPT.GENERATE_TEST_WITHIN_DOM_SELECTOR,
+                name: UUV_MCP_SERVER_ITEM.GENERATE_TEST_WITHIN_DOM_SELECTOR,
                 arguments: {
                     baseUrl: "https://example.com",
                     domSelector: "#fakeItem > #fakeContainer"
@@ -559,25 +561,25 @@ describe("UUV MCP Server", () => {
             expect(result.content[0]).toEqual({
                 type: "text",
                 text: "Feature: Your amazing feature name\n" +
-                    "  Scenario: Action - An action\n" +
+                    "  Scenario: Within an element\n" +
                     "    Given I visit path \"https://example.com\"\n" +
                     "    When within the element with selector \"#fakeItem > #fakeContainer\"\n"
             });
         });
     });
 
-    describe(`${UUV_PROMPT.GENERATE_TEST_TYPE_ROLE_AND_NAME}`, () => {
-        it(`should throws error when ${UUV_PROMPT.GENERATE_TEST_TYPE_ROLE_AND_NAME} parameters are invalid`, async () => {
+    describe(`${UUV_MCP_SERVER_ITEM.GENERATE_TEST_TYPE_ROLE_AND_NAME}`, () => {
+        it(`should throws error when ${UUV_MCP_SERVER_ITEM.GENERATE_TEST_TYPE_ROLE_AND_NAME} parameters are invalid`, async () => {
             const result = await client.callTool({
-                name: UUV_PROMPT.GENERATE_TEST_TYPE_ROLE_AND_NAME,
+                name: UUV_MCP_SERVER_ITEM.GENERATE_TEST_TYPE_ROLE_AND_NAME,
                 arguments: {
-                    promptName: UUV_PROMPT.GENERATE_TEST_TYPE_ROLE_AND_NAME,
+                    promptName: UUV_MCP_SERVER_ITEM.GENERATE_TEST_TYPE_ROLE_AND_NAME,
                     baseUrl: "https://example.com",
                 },
             });
 
             expect(result.content[0]).toEqual({
-                text: `MCP error -32602: Input validation error: Invalid arguments for tool ${UUV_PROMPT.GENERATE_TEST_TYPE_ROLE_AND_NAME}: ` + JSON.stringify([
+                text: `MCP error -32602: Input validation error: Invalid arguments for tool ${UUV_MCP_SERVER_ITEM.GENERATE_TEST_TYPE_ROLE_AND_NAME}: ` + JSON.stringify([
                     {
                         expected: "string",
                         code: "invalid_type",
@@ -599,9 +601,9 @@ describe("UUV MCP Server", () => {
             });
         });
 
-        it(`should ${UUV_PROMPT.GENERATE_TEST_TYPE_ROLE_AND_NAME} with accessible name and accessible role`, async () => {
+        it(`should ${UUV_MCP_SERVER_ITEM.GENERATE_TEST_TYPE_ROLE_AND_NAME} with accessible name and accessible role`, async () => {
             const result = await client.callTool({
-                name: UUV_PROMPT.GENERATE_TEST_TYPE_ROLE_AND_NAME,
+                name: UUV_MCP_SERVER_ITEM.GENERATE_TEST_TYPE_ROLE_AND_NAME,
                 arguments: {
                     baseUrl: "https://example.com",
                     accessibleName: "Get started",
@@ -612,17 +614,17 @@ describe("UUV MCP Server", () => {
             expect(result.content[0]).toEqual({
                 type: "text",
                 text: "Feature: Your amazing feature name\n" +
-                    "  Scenario: Action - An action\n" +
+                    "  Scenario: Action - Type into field\n" +
                     "    Given I visit path \"https://example.com\"\n" +
                     "    When I type the sentence \"Lorem ipsum\" in the text box named \"Get started\"\n"
             });
         });
     });
 
-    describe(`${UUV_PROMPT.GENERATE_TEST_EXPECT_TABLE}`, () => {
+    describe(`${UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_TABLE}`, () => {
         it("should generate good content", async () => {
         const result = await client.callTool({
-            name: UUV_PROMPT.GENERATE_TEST_EXPECT_TABLE,
+            name: UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_TABLE,
             arguments: {
                 baseUrl: "https://example.com",
                 innerHtmlFilePath: path.join(__dirname, "tests", "mock-table.html")
@@ -632,7 +634,7 @@ describe("UUV MCP Server", () => {
         expect(result.content[0]).toEqual({
             type: "text",
             text: "Feature: Your amazing feature name\n" +
-                "  Scenario: Action - Expect Array\n" +
+                "  Scenario: Expect Array\n" +
                 "    Given I visit path \"https://example.com\"\n" +
                 "    Then I should see a table named \"Mock table\" and containing \n" +
                 "      | Company                      | Contact          | Country |\n" +

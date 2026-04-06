@@ -1,6 +1,7 @@
 import { BaseSentence, Dictionary, RoleBasedSentence } from "@uuv/dictionary";
 
 export type SentenceSearchQuery = {
+    key?: string;
     category?: string;
     role?: string;
 };
@@ -8,6 +9,7 @@ export type SentenceSearchQuery = {
 export class SentenceService {
     constructor(private dictionary: Dictionary) {
     }
+
     private getBaseSentences() {
         return this.dictionary.getBaseSentences();
     }
@@ -27,6 +29,10 @@ export class SentenceService {
 
         if (query.category) {
             sentences = sentences.filter(s => (s as RoleBasedSentence).section === query.category);
+        }
+
+        if (query.key) {
+            sentences = sentences.filter(s => s.key === query.key);
         }
 
         return sentences;

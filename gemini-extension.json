@@ -12,7 +12,10 @@
             "args": [
                 "-y",
                 "@uuv/mcp-server@latest"
-            ]
+            ],
+            "env": {
+                "UUV_LLM_MODEL": "gemini/gemini-2.5-pro"
+            }
         }
     }
 }

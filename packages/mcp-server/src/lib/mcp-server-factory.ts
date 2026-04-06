@@ -5,7 +5,7 @@ import {
     ElementByDomSelectorInputSchema,
     ElementByRoleAndNameInputSchema,
     PromptRetrieverService,
-    UUV_PROMPT,
+    UUV_MCP_SERVER_ITEM,
     uuvPrompts,
 } from "./services/prompt-retriever.service";
 import { getDefinedDictionary } from "@uuv/dictionary";
@@ -17,8 +17,9 @@ import {
     FindElementByRoleAndName,
     getElementService,
 } from "./services/expect.service";
-import { CallToolResult } from "@modelcontextprotocol/sdk/types";
+import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 import { getBaseUrl } from "./services/general.service";
+import { generateScenario } from "./services/architect/architect.service";
 
 function handleElementTestGeneration(input: Partial<FindElement> & { serviceType: ElementServiceType }): CallToolResult {
     let result: string;
@@ -49,10 +50,10 @@ export function createUUVServer() {
     });
 
     server.registerPrompt(
-        UUV_PROMPT.GENERATE_TEST_EXPECT_TABLE,
+        UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_TABLE,
         {
-            title: uuvPrompts[UUV_PROMPT.GENERATE_TEST_EXPECT_TABLE].title,
-            description: uuvPrompts[UUV_PROMPT.GENERATE_TEST_EXPECT_TABLE].description,
+            title: uuvPrompts[UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_TABLE].title,
+            description: uuvPrompts[UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_TABLE].description,
             argsSchema: {
                 baseUrl: z.string().describe("The base URL of the page where the table/grid/treegrid is located."),
             },
@@ -64,7 +65,7 @@ export function createUUVServer() {
                     content: {
                         type: "text",
                         text: PromptRetrieverService.retrievePrompt({
-                            promptName: UUV_PROMPT.GENERATE_TEST_EXPECT_TABLE,
+                            promptName: UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_TABLE,
                             ...args
                         }),
                     },
@@ -74,10 +75,10 @@ export function createUUVServer() {
     );
 
     [
-        UUV_PROMPT.GENERATE_TEST_EXPECT_ROLE_AND_NAME,
-        UUV_PROMPT.GENERATE_TEST_CLICK_ROLE_AND_NAME,
-        UUV_PROMPT.GENERATE_TEST_WITHIN_ROLE_AND_NAME
-    ].forEach((promptName: UUV_PROMPT) => {
+        UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_ROLE_AND_NAME,
+        UUV_MCP_SERVER_ITEM.GENERATE_TEST_CLICK_ROLE_AND_NAME,
+        UUV_MCP_SERVER_ITEM.GENERATE_TEST_WITHIN_ROLE_AND_NAME
+    ].forEach((promptName: UUV_MCP_SERVER_ITEM) => {
         server.registerPrompt(
             promptName,
             {
@@ -106,10 +107,10 @@ export function createUUVServer() {
     });
 
     [
-        UUV_PROMPT.GENERATE_TEST_EXPECT_DOM_SELECTOR,
-        UUV_PROMPT.GENERATE_TEST_CLICK_DOM_SELECTOR,
-        UUV_PROMPT.GENERATE_TEST_WITHIN_DOM_SELECTOR
-    ].forEach((promptName: UUV_PROMPT) => {
+        UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_DOM_SELECTOR,
+        UUV_MCP_SERVER_ITEM.GENERATE_TEST_CLICK_DOM_SELECTOR,
+        UUV_MCP_SERVER_ITEM.GENERATE_TEST_WITHIN_DOM_SELECTOR
+    ].forEach((promptName: UUV_MCP_SERVER_ITEM) => {
         server.registerPrompt(
             promptName,
             {
@@ -137,10 +138,10 @@ export function createUUVServer() {
     });
 
     server.registerPrompt(
-        UUV_PROMPT.GENERATE_TEST_TYPE_ROLE_AND_NAME,
+        UUV_MCP_SERVER_ITEM.GENERATE_TEST_TYPE_ROLE_AND_NAME,
         {
-            title: uuvPrompts[UUV_PROMPT.GENERATE_TEST_TYPE_ROLE_AND_NAME].title,
-            description: uuvPrompts[UUV_PROMPT.GENERATE_TEST_TYPE_ROLE_AND_NAME].description,
+            title: uuvPrompts[UUV_MCP_SERVER_ITEM.GENERATE_TEST_TYPE_ROLE_AND_NAME].title,
+            description: uuvPrompts[UUV_MCP_SERVER_ITEM.GENERATE_TEST_TYPE_ROLE_AND_NAME].description,
             argsSchema: {
                 accessibleRole: z.string().optional().describe("Accessible role of the element"),
                 accessibleName: z.string().optional().describe("Accessible name of the element")
@@ -153,7 +154,7 @@ export function createUUVServer() {
                     content: {
                         type: "text",
                         text: PromptRetrieverService.retrievePrompt({
-                            promptName: UUV_PROMPT.GENERATE_TEST_TYPE_ROLE_AND_NAME,
+                            promptName: UUV_MCP_SERVER_ITEM.GENERATE_TEST_TYPE_ROLE_AND_NAME,
                             ...args
                         })
                     }
@@ -162,11 +163,36 @@ export function createUUVServer() {
         })
     );
 
-    server.registerTool(
-        UUV_PROMPT.GET_BASE_URL,
+    server.registerPrompt(
+        UUV_MCP_SERVER_ITEM.GENERATE_NOMINAL_TEST_CASE,
         {
-            title: uuvPrompts[UUV_PROMPT.GET_BASE_URL].title,
-            description: uuvPrompts[UUV_PROMPT.GET_BASE_URL].description,
+            title: uuvPrompts[UUV_MCP_SERVER_ITEM.GENERATE_NOMINAL_TEST_CASE].title,
+            description: uuvPrompts[UUV_MCP_SERVER_ITEM.GENERATE_NOMINAL_TEST_CASE].description,
+            argsSchema: {
+                testCase: z.string().describe("Brief description of the test scenario to be generated"),
+            },
+        },
+        ({ ...args }) => ({
+            messages: [
+                {
+                    role: "assistant",
+                    content: {
+                        type: "text",
+                        text: PromptRetrieverService.retrievePrompt({
+                            promptName: UUV_MCP_SERVER_ITEM.GENERATE_NOMINAL_TEST_CASE,
+                            ...args
+                        }),
+                    },
+                },
+            ],
+        })
+    );
+
+    server.registerTool(
+        UUV_MCP_SERVER_ITEM.GET_BASE_URL,
+        {
+            title: uuvPrompts[UUV_MCP_SERVER_ITEM.GET_BASE_URL].title,
+            description: uuvPrompts[UUV_MCP_SERVER_ITEM.GET_BASE_URL].description,
             inputSchema: {
                 projectPath: z.string().describe("Project absolute path"),
             },
@@ -184,7 +210,7 @@ export function createUUVServer() {
     );
 
     server.registerTool(
-        UUV_PROMPT.AVAILABLE_SENTENCES,
+        UUV_MCP_SERVER_ITEM.AVAILABLE_SENTENCES,
         {
             title: "List Available UUV Sentences",
             description:
@@ -214,9 +240,9 @@ export function createUUVServer() {
     );
 
     server.registerTool(
-        UUV_PROMPT.GENERATE_TEST_EXPECT_ROLE_AND_NAME,
+        UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_ROLE_AND_NAME,
         {
-            title: uuvPrompts[UUV_PROMPT.GENERATE_TEST_EXPECT_ROLE_AND_NAME].title,
+            title: uuvPrompts[UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_ROLE_AND_NAME].title,
             description:
                 // eslint-disable-next-line max-len
                 "Generate a complete UUV test scenario (Gherkin format) to verify the presence of an element with specified accessible name and role. Use this when the user asks to create/write/generate a UUV scenario or test for checking element visibility. DON'T USE IF ACCESSIBLE ROLE IS grid, treegrid, table, or form",
@@ -231,9 +257,9 @@ export function createUUVServer() {
     );
 
     server.registerTool(
-        UUV_PROMPT.GENERATE_TEST_EXPECT_DOM_SELECTOR,
+        UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_DOM_SELECTOR,
         {
-            title: uuvPrompts[UUV_PROMPT.GENERATE_TEST_EXPECT_DOM_SELECTOR].title,
+            title: uuvPrompts[UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_DOM_SELECTOR].title,
             description:
             // eslint-disable-next-line max-len
                 "Generate a complete UUV test scenario (Gherkin format) to verify the presence of an element with specified domSelector. Use this when the user asks to create/write/generate a UUV scenario or test for checking element visibility. DON'T USE IF ACCESSIBLE ROLE IS grid, treegrid, table, or form",
@@ -245,9 +271,9 @@ export function createUUVServer() {
     );
 
     server.registerTool(
-        UUV_PROMPT.GENERATE_TEST_CLICK_ROLE_AND_NAME,
+        UUV_MCP_SERVER_ITEM.GENERATE_TEST_CLICK_ROLE_AND_NAME,
         {
-            title: uuvPrompts[UUV_PROMPT.GENERATE_TEST_CLICK_ROLE_AND_NAME].title,
+            title: uuvPrompts[UUV_MCP_SERVER_ITEM.GENERATE_TEST_CLICK_ROLE_AND_NAME].title,
             description:
                 // eslint-disable-next-line max-len
                 "Generate a complete UUV test scenario (Gherkin format) to click on an element with specified accessible name and role. Use this when the user asks to create/write/generate a UUV scenario or test for checking element visibility. DON'T USE IF ACCESSIBLE ROLE IS grid, treegrid, table, or form",
@@ -259,9 +285,9 @@ export function createUUVServer() {
     );
 
     server.registerTool(
-        UUV_PROMPT.GENERATE_TEST_CLICK_DOM_SELECTOR,
+        UUV_MCP_SERVER_ITEM.GENERATE_TEST_CLICK_DOM_SELECTOR,
         {
-            title: uuvPrompts[UUV_PROMPT.GENERATE_TEST_CLICK_DOM_SELECTOR].title,
+            title: uuvPrompts[UUV_MCP_SERVER_ITEM.GENERATE_TEST_CLICK_DOM_SELECTOR].title,
             description:
             // eslint-disable-next-line max-len
                 "Generate a complete UUV test scenario (Gherkin format) to click on an element with specified domSelector. Use this when the user asks to create/write/generate a UUV scenario or test for checking element visibility. DON'T USE IF ACCESSIBLE ROLE IS grid, treegrid, table, or form",
@@ -273,7 +299,7 @@ export function createUUVServer() {
     );
 
     server.registerTool(
-        UUV_PROMPT.GENERATE_TEST_WITHIN_ROLE_AND_NAME,
+        UUV_MCP_SERVER_ITEM.GENERATE_TEST_WITHIN_ROLE_AND_NAME,
         {
             title: "Generate test that focus within an html element with (role and name) or domSelector",
             description:
@@ -286,7 +312,7 @@ export function createUUVServer() {
         }
     );
     server.registerTool(
-        UUV_PROMPT.GENERATE_TEST_WITHIN_DOM_SELECTOR,
+        UUV_MCP_SERVER_ITEM.GENERATE_TEST_WITHIN_DOM_SELECTOR,
         {
             title: "Generate test that focus within an html element with (role and name) or domSelector",
             description:
@@ -300,9 +326,9 @@ export function createUUVServer() {
     );
 
     server.registerTool(
-        UUV_PROMPT.GENERATE_TEST_TYPE_ROLE_AND_NAME,
+        UUV_MCP_SERVER_ITEM.GENERATE_TEST_TYPE_ROLE_AND_NAME,
         {
-            title: uuvPrompts[UUV_PROMPT.GENERATE_TEST_TYPE_ROLE_AND_NAME].title,
+            title: uuvPrompts[UUV_MCP_SERVER_ITEM.GENERATE_TEST_TYPE_ROLE_AND_NAME].title,
             description:
             // eslint-disable-next-line max-len
                 "Generate a complete UUV test scenario (Gherkin format) that types a value into an html element with specified accessible name and role. Use this when the user asks to create/write/generate a UUV scenario or test for checking element visibility. DON'T USE IF ACCESSIBLE ROLE IS grid, treegrid, table, or form",
@@ -314,9 +340,9 @@ export function createUUVServer() {
     );
 
     server.registerTool(
-        UUV_PROMPT.GENERATE_TEST_EXPECT_TABLE,
+        UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_TABLE,
         {
-            title: uuvPrompts[UUV_PROMPT.GENERATE_TEST_EXPECT_TABLE].title,
+            title: uuvPrompts[UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_TABLE].title,
             description:
                 // eslint-disable-next-line max-len
                 "Generate a complete UUV test scenario (Gherkin format) to verify the presence and the content of html table, grid or treegrid given innerHtml. ONLY USE IF ACCESSIBLE ROLE IS grid, treegrid, table, or form",
@@ -331,6 +357,32 @@ export function createUUVServer() {
                     {
                         type: "text",
                         text: await ExpectTableService.generateExpectForTable(baseUrl, innerHtmlFilePath),
+                    },
+                ],
+            };
+        }
+    );
+
+    server.registerTool(
+        UUV_MCP_SERVER_ITEM.GENERATE_NOMINAL_TEST_CASE,
+        {
+            title: uuvPrompts[UUV_MCP_SERVER_ITEM.GENERATE_NOMINAL_TEST_CASE].title,
+            description: uuvPrompts[UUV_MCP_SERVER_ITEM.GENERATE_NOMINAL_TEST_CASE].title, //TODO: improve
+            inputSchema: {
+                baseUrl: z.string().describe("The base URL of the page where the element is located."),
+                testCase: z.string().describe("Brief description of the test scenario to be generated"),
+            },
+        },
+        async ({ baseUrl, testCase }) => {
+            // eslint-disable-next-line dot-notation
+            const llmModel = process.env["UUV_LLM_MODEL"] ?? "anthropic/claude-sonnet-4.6";
+            // eslint-disable-next-line dot-notation
+            const llmApi = process.env["UUV_LLM_API"];
+            return {
+                content: [
+                    {
+                        type: "text",
+                        text: (await generateScenario(baseUrl, testCase, llmModel, llmApi)) ?? "",
                     },
                 ],
             };

@@ -1,17 +1,23 @@
 import { AbstractElementService } from "./abstract-element.service";
-import { buildResultingScript, TypeTranslator } from "@uuv/assistant";
+import { TranslateSentences, TypeTranslator } from "@uuv/assistant";
 import { FindElementByDomSelector, FindElementByRoleAndName } from "../expect.service";
 
 export class TypeElementService extends AbstractElementService {
-    override generateTestForAccessibleNameAndRole(input: FindElementByRoleAndName): string {
+    override generatedFeatureName = "Your amazing feature name";
+    override generatedScenarioName = "Action - Type into field";
+
+    override generateSentenceForAccessibleNameAndRole(input: FindElementByRoleAndName): TranslateSentences {
         const translator: TypeTranslator = new TypeTranslator();
-        translator.useValueAsMockData = false;
-        const result = translator.getSentenceFromAccessibleRoleAndName(input.accessibleRole, input.accessibleName);
-        return buildResultingScript("Your amazing feature name", "Action - An action", result.sentences, input.baseUrl);
+        if (input.valueToType) {
+            translator.mockData = input.valueToType;
+        } else {
+            translator.useValueAsMockData = false;
+        }
+        return translator.getSentenceFromAccessibleRoleAndName(input.accessibleRole, input.accessibleName);
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    override generateTestForDomSelector(input: FindElementByDomSelector): string {
+    override generateSentenceForDomSelector(input: FindElementByDomSelector): TranslateSentences {
         throw Error("Not implemented yet");
     }
 }

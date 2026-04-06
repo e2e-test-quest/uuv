@@ -10,7 +10,7 @@ describe("ExpectElementService", () => {
 
         expect(result).toEqual(
             "Feature: Your amazing feature name\n" +
-                "  Scenario: Action - An action\n" +
+                "  Scenario: Expect an element\n" +
                 `    Given I visit path "${baseUrl}"\n` +
                 `    Then I should see a ${accessibleRole} named "${accessibleName}"\n`
         );
@@ -27,7 +27,7 @@ describe("ExpectElementService", () => {
 
         expect(result).toEqual(
             "Feature: Your amazing feature name\n" +
-                "  Scenario: Action - An action\n" +
+                "  Scenario: Expect an element\n" +
                 `    Given I visit path "${baseUrl}"\n` +
                 `    Then I should see an element with selector "${domSelector}"\n`
         );

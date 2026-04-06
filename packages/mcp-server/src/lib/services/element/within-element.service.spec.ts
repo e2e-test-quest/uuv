@@ -10,7 +10,7 @@ describe("WithinElementService", () => {
 
         expect(result).toEqual(
             "Feature: Your amazing feature name\n" +
-                "  Scenario: Action - An action\n" +
+                "  Scenario: Within an element\n" +
                 `    Given I visit path "${baseUrl}"\n` +
                 `    When within a ${accessibleRole} named "${accessibleName}"\n`
         );
@@ -27,7 +27,7 @@ describe("WithinElementService", () => {
 
         expect(result).toEqual(
             "Feature: Your amazing feature name\n" +
-                "  Scenario: Action - An action\n" +
+                "  Scenario: Within an element\n" +
                 `    Given I visit path "${baseUrl}"\n` +
                 `    When within the element with selector "${domSelector}"\n`
         );
