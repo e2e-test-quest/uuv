@@ -12,21 +12,27 @@
  */
 
 import { Translator } from "./abstract-translator";
-import { BaseSentence, EnrichedSentence, StepCaseEnum, TranslateSentences } from "./model";
+import { BaseSentence, EnrichedSentence, StepCaseEnum, StepSentence, TranslateSentences } from "./model";
 
 const stepCase = StepCaseEnum.WHEN;
 
 export class TypeTranslator extends Translator {
     private _useValueAsMockData = true;
+    private _mockData;
 
 
     set useValueAsMockData(value: boolean) {
         this._useValueAsMockData = value;
     }
 
+    set mockData(value: string) {
+        this._mockData = value;
+        this._useValueAsMockData = false;
+    }
+
     override getSentenceFromAccessibleRoleAndName(accessibleRole: string, accessibleName: string): TranslateSentences {
         const response = this.initResponse();
-        response.sentences = this.buildSentencesWithRoleAndName(accessibleRole, accessibleName, this._useValueAsMockData);
+        response.steps = this.buildSentencesWithRoleAndName(accessibleRole, accessibleName, this._useValueAsMockData);
         return response;
     }
 
@@ -38,8 +44,11 @@ export class TypeTranslator extends Translator {
         const response = this.initResponse();
         const computedKey = accessibleRole === "textbox" ? "key.when.type" : "key.when.enter";
         const sentence = this.computeSentenceFromKeyRoleNameAndContent(computedKey, accessibleRole, accessibleName, content);
-        response.sentences = [
-            stepCase + sentence,
+        response.steps = [
+            {
+                keyword: stepCase,
+                sentence
+            }
         ];
         return response;
     }
@@ -55,10 +64,19 @@ export class TypeTranslator extends Translator {
             /* eslint-disable  @typescript-eslint/no-explicit-any */
             (htmlElem as any).value :
             htmlElem?.getAttribute("value") ?? htmlElem?.firstChild?.textContent?.trim();
-        response.sentences = [
-            stepCase + sentence,
-            StepCaseEnum.AND + clickSentence.wording.replace("{string}", this.getMockedDataForHtmlElement(htmlElem!, content)),
-            StepCaseEnum.AND + resetContextSentence.wording
+        response.steps = [
+            {
+                keyword: stepCase,
+                sentence
+            },
+            {
+                keyword: StepCaseEnum.AND,
+                sentence: clickSentence.wording.replace("{string}", this.getMockedDataForHtmlElement(htmlElem!, content))
+            },
+            {
+                keyword: StepCaseEnum.AND,
+                sentence: resetContextSentence.wording
+            }
         ];
         return response;
     }
@@ -74,14 +92,18 @@ export class TypeTranslator extends Translator {
                 });
             })[0];
     }
-    private buildSentencesWithRoleAndName(accessibleRole: string, accessibleName: string, useValueAsMockData = true) {
+    private buildSentencesWithRoleAndName(accessibleRole: string, accessibleName: string, useValueAsMockData = true): StepSentence[] {
         const sentenceKey = accessibleRole === "textbox" ? "key.when.type" : "key.when.enter";
         const wording = this.buildWording(sentenceKey, accessibleRole, accessibleName, useValueAsMockData);
-        return [stepCase + wording];
+        return [
+            {
+                keyword: stepCase,
+                sentence: wording
+            }
+        ];
     }
 
-    /* eslint-disable  @typescript-eslint/no-explicit-any */
-    private buildWording(computedKey: string, accessibleRole: string, accessibleName: string, useValueAsMockData = true) {
+    private buildWording(computedKey: string, accessibleRole: string, accessibleName: string, useValueAsMockData = true): string  {
         const typeSentence = [
             ...this.dictionary.getRoleBasedSentencesTemplate(),
             ...this.dictionary.getBaseSentences()
@@ -97,6 +119,9 @@ export class TypeTranslator extends Translator {
     }
 
     private getMockedDataForAccessibleRole(accessibleRole: string, useValueAsMockData = true): string {
+        if(this._mockData) {
+            return this._mockData;
+        }
         let content: string | undefined;
         if (useValueAsMockData) {
             const isInputHtmlOrTextArea = this.selectedHtmlElem instanceof HTMLInputElement || this.selectedHtmlElem instanceof HTMLTextAreaElement;

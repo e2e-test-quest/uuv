@@ -4,6 +4,7 @@ import { ClickTranslator } from "../src/translator/click-translator";
 import { KeyboardNavigationTranslator } from "../src/translator/keyboard-navigation-translator";
 import { TypeTranslator } from "../src/translator/type-translator";
 import { UUV_DISABLED_CLASS } from "../src/Commons";
+import { StepCaseEnum } from "../src";
 
 describe("translator - Expected", () => {
     const { buttonWithRoleName, buttonWithRoleNameAndContent, selectorWithDataTestId, selectorWithNth, dialog, table, grid } = dom();
@@ -11,21 +12,44 @@ describe("translator - Expected", () => {
 
     test("translator - with role, name and content", async () => {
         expect(await translator.translate(buttonWithRoleNameAndContent)).toEqual({
-            sentences: ["Then I should see a button named \"myButton\" and containing \"myTextButton\""],
+            steps: [
+                {
+                    keyword: StepCaseEnum.THEN,
+                    sentence: "I should see a button named \"myButton\" and containing \"myTextButton\"",
+                }
+            ],
+            suggestion: undefined
         });
     });
     test("translator - with role, name", async () => {
-        expect(await translator.translate(buttonWithRoleName)).toEqual({ sentences: ["Then I should see a button named \"myButton\""] });
+        expect(await translator.translate(buttonWithRoleName)).toEqual({
+            steps: [
+                {
+                    keyword: StepCaseEnum.THEN,
+                    sentence: "I should see a button named \"myButton\"",
+                }
+            ],
+            suggestion: undefined
+        });
     });
     test("translator - with role, name and content disabled", async () => {
         buttonWithRoleNameAndContent.className = `${buttonWithRoleNameAndContent.className} + ${UUV_DISABLED_CLASS}`;
         expect(await translator.translate(buttonWithRoleNameAndContent)).toEqual({
-            sentences: ["Then I should see a button named \"myButton\" and containing \"myTextButton\" disabled"],
+            steps: [
+                {
+                    keyword: StepCaseEnum.THEN,
+                    sentence: "I should see a button named \"myButton\" and containing \"myTextButton\" disabled",
+                }
+            ],
+            suggestion: undefined
         });
     });
     test("translator - with selector- with Id", async () => {
         expect(await translator.translate(selectorWithDataTestId)).toEqual({
-            sentences: ["Then I should see an element with selector \"span[data-testid=spanTestId]\""],
+            steps: [{
+                keyword: StepCaseEnum.THEN,
+                sentence: "I should see an element with selector \"span[data-testid=spanTestId]\"",
+            }],
             suggestion: {
                 accessibleAttribute: "",
                 accessibleValue: "",
@@ -36,7 +60,10 @@ describe("translator - Expected", () => {
     });
     test("translator - with selector- with nth", async () => {
         expect(await translator.translate(selectorWithNth)).toEqual({
-            sentences: ["Then I should see an element with selector \"div#myDiv > span:nth-of-type(3)\""],
+            steps: [{
+                keyword: StepCaseEnum.THEN,
+                sentence: "I should see an element with selector \"div#myDiv > span:nth-of-type(3)\"",
+            }],
             suggestion: {
                 accessibleAttribute: "",
                 accessibleValue: "",
@@ -46,10 +73,26 @@ describe("translator - Expected", () => {
         });
     });
     test("translator - table with role and name", async () => {
-        expect(await translator.translate(table)).toEqual({ sentences: ["Then I should see a table named \"myTable\""] });
+        expect(await translator.translate(table)).toEqual({
+            steps: [
+                {
+                    keyword: StepCaseEnum.THEN,
+                    sentence: "I should see a table named \"myTable\"",
+                }
+            ],
+            suggestion: undefined
+        });
     });
     test("translator - grid with role and name", async () => {
-        expect(await translator.translate(grid)).toEqual({ sentences: ["Then I should see a grid named \"myGrid\""] });
+        expect(await translator.translate(grid)).toEqual({
+            steps: [
+                {
+                    keyword: StepCaseEnum.THEN,
+                    sentence: "I should see a grid named \"myGrid\"",
+                }
+            ],
+            suggestion: undefined
+        });
     });
     test("translator - computeDialogSentenceFromKeyNameAndContent", async () => {
         const sentences = await translator.computeDialogSentenceFromKeyNameAndContent("key.when.withinElement.roleAndName", "myDialog", dialog);
@@ -80,17 +123,46 @@ describe("translator - Within", () => {
     const translator = new WithinTranslator();
 
     test("translator - with role, name and content", async () => {
-        expect(await translator.translate(buttonWithRoleNameAndContent)).toEqual({ sentences: ["When within a button named \"myButton\""] });
+        expect(await translator.translate(buttonWithRoleNameAndContent)).toEqual({
+            steps: [
+                {
+                    keyword: StepCaseEnum.WHEN,
+                    sentence: "within a button named \"myButton\"",
+                }
+            ],
+            suggestion: undefined
+        });
     });
     test("translator - with role, name", async () => {
-        expect(await translator.translate(buttonWithRoleName)).toEqual({ sentences: ["When within a button named \"myButton\""] });
+        expect(await translator.translate(buttonWithRoleName)).toEqual({
+            steps: [
+                {
+                    keyword: StepCaseEnum.WHEN,
+                    sentence: "within a button named \"myButton\"",
+                }
+            ],
+            suggestion: undefined
+        });
     });
     test("translator - with role, name and content disabled", async () => {
-        expect(await translator.translate(buttonWithRoleNameAndContent)).toEqual({ sentences: ["When within a button named \"myButton\""] });
+        expect(await translator.translate(buttonWithRoleNameAndContent)).toEqual({
+            steps: [
+                {
+                    keyword: StepCaseEnum.WHEN,
+                    sentence: "within a button named \"myButton\"",
+                }
+            ],
+            suggestion: undefined
+        });
     });
     test("translator - with selector- with Id", async () => {
         expect(await translator.translate(selectorWithDataTestId)).toEqual({
-            sentences: ["When within the element with selector \"span[data-testid=spanTestId]\""],
+            steps: [
+                {
+                    keyword: StepCaseEnum.WHEN,
+                    sentence: "within the element with selector \"span[data-testid=spanTestId]\"",
+                }
+            ],
             suggestion: {
                 accessibleAttribute: "",
                 accessibleValue: "",
@@ -101,7 +173,12 @@ describe("translator - Within", () => {
     });
     test("translator - with selector- with nth", async () => {
         expect(await translator.translate(selectorWithNth)).toEqual({
-            sentences: ["When within the element with selector \"div#myDiv > span:nth-of-type(3)\""],
+            steps: [
+                {
+                    keyword: StepCaseEnum.WHEN,
+                    sentence: "within the element with selector \"div#myDiv > span:nth-of-type(3)\"",
+                }
+            ],
             suggestion: {
                 accessibleAttribute: "",
                 accessibleValue: "",
@@ -117,17 +194,50 @@ describe("translator - Click", () => {
     const translator = new ClickTranslator();
 
     test("translator - with role, name and content", async () => {
-        expect(await translator.translate(buttonWithRoleNameAndContent)).toEqual({ sentences: ["When I click on button named \"myButton\""] });
+        expect(await translator.translate(buttonWithRoleNameAndContent)).toEqual({
+            steps: [
+                {
+                    keyword: StepCaseEnum.WHEN,
+                    sentence: "I click on button named \"myButton\"",
+                }
+            ],
+            suggestion: undefined
+        });
     });
     test("translator - with role, name", async () => {
-        expect(await translator.translate(buttonWithRoleName)).toEqual({ sentences: ["When I click on button named \"myButton\""] });
+        expect(await translator.translate(buttonWithRoleName)).toEqual({
+            steps: [
+                {
+                    keyword: StepCaseEnum.WHEN,
+                    sentence: "I click on button named \"myButton\"",
+                }
+            ],
+            suggestion: undefined
+        });
     });
     test("translator - with role, name and content disabled", async () => {
-        expect(await translator.translate(buttonWithRoleNameAndContent)).toEqual({ sentences: ["When I click on button named \"myButton\""] });
+        expect(await translator.translate(buttonWithRoleNameAndContent)).toEqual({
+            steps: [
+                {
+                    keyword: StepCaseEnum.WHEN,
+                    sentence: "I click on button named \"myButton\"",
+                }
+            ],
+            suggestion: undefined
+        });
     });
     test("translator - with selector- with Id", async () => {
         expect(await translator.translate(selectorWithDataTestId)).toEqual({
-            sentences: ["When within the element with selector \"span[data-testid=spanTestId]\"", "Then I click"],
+            steps: [
+                {
+                    keyword: StepCaseEnum.WHEN,
+                    sentence: "within the element with selector \"span[data-testid=spanTestId]\"",
+                },
+                {
+                    keyword: StepCaseEnum.THEN,
+                    sentence: "I click",
+                }
+            ],
             suggestion: {
                 accessibleAttribute: "",
                 accessibleValue: "",
@@ -138,7 +248,16 @@ describe("translator - Click", () => {
     });
     test("translator - with selector- with nth", async () => {
         expect(await translator.translate(selectorWithNth)).toEqual({
-            sentences: ["When within the element with selector \"div#myDiv > span:nth-of-type(3)\"", "Then I click"],
+            steps: [
+                {
+                    keyword: StepCaseEnum.WHEN,
+                    sentence: "within the element with selector \"div#myDiv > span:nth-of-type(3)\"",
+                },
+                {
+                    keyword: StepCaseEnum.THEN,
+                    sentence: "I click",
+                }
+            ],
             suggestion: {
                 accessibleAttribute: "",
                 accessibleValue: "",
@@ -155,9 +274,15 @@ describe("translator - keyboard", () => {
 
     test("translator - focus - with selector", async () => {
         expect(await translator.translate(selectorWithNth)).toEqual({
-            sentences: [
-                "Then I go to next keyboard element",
-                "And the element with selector \"div#myDiv > span:nth-of-type(3)\" should be keyboard focused",
+            steps: [
+                {
+                    keyword: StepCaseEnum.THEN,
+                    sentence: "I go to next keyboard element",
+                },
+                {
+                    keyword: StepCaseEnum.AND,
+                    sentence: "the element with selector \"div#myDiv > span:nth-of-type(3)\" should be keyboard focused",
+                }
             ],
             suggestion: {
                 accessibleAttribute: "",
@@ -170,7 +295,13 @@ describe("translator - keyboard", () => {
 
     test("translator - focus - with role and name", async () => {
         expect(await translator.translate(buttonWithRoleName)).toEqual({
-            sentences: ["Then the next keyboard element focused should be a button named \"myButton\""],
+            steps: [
+                {
+                    keyword: StepCaseEnum.THEN,
+                    sentence: "the next keyboard element focused should be a button named \"myButton\"",
+                }
+            ],
+            suggestion: undefined
         });
     });
 });
@@ -181,19 +312,44 @@ describe("translator - Type", () => {
 
     test("translator - with role, name for input type text", async () => {
         expect(await translator.translate(inputText)).toEqual({
-            sentences: ["When I type the sentence \"Lorem ipsum\" in the text box named \"inputText\""],
+            steps: [
+                {
+                    keyword: StepCaseEnum.WHEN,
+                    sentence: "I type the sentence \"Lorem ipsum\" in the text box named \"inputText\"",
+                }
+            ],
+            suggestion: undefined
         });
     });
 
     test("translator - with role, name for input type number", async () => {
         expect(await translator.translate(inputNumber)).toEqual({
-            sentences: ["When I enter the value \"123\" in the spin button named \"inputNumber\""],
+            steps: [
+                {
+                    keyword: StepCaseEnum.WHEN,
+                    sentence: "I enter the value \"123\" in the spin button named \"inputNumber\"",
+                }
+            ],
+            suggestion: undefined
         });
     });
 
     test("translator - with selector - with Id", async () => {
         expect(await translator.translate(inputRange)).toEqual({
-            sentences: ["When within the element with selector \"input#inputRange\"", "And I type the sentence \"50\"", "And I reset context"],
+             steps: [
+                {
+                    keyword: StepCaseEnum.WHEN,
+                    sentence: "within the element with selector \"input#inputRange\"",
+                },
+                {
+                    keyword: StepCaseEnum.AND,
+                    sentence: "I type the sentence \"50\"",
+                },
+                {
+                    keyword: StepCaseEnum.AND,
+                    sentence: "I reset context",
+                }
+            ],
             suggestion: {
                 accessibleAttribute: "",
                 accessibleValue: "",
@@ -205,7 +361,7 @@ describe("translator - Type", () => {
 
     test("translator - with selector - with hidden", async () => {
         expect(await translator.translate(inputHidden)).toEqual({
-            sentences: [],
+            steps: [],
             suggestion: undefined,
         });
     });

@@ -12,14 +12,14 @@
  */
 
 import { Translator } from "./abstract-translator";
-import { BaseSentence, StepCaseEnum, TranslateSentences } from "./model";
+import { BaseSentence, StepCaseEnum, StepSentence, TranslateSentences } from "./model";
 
 const stepCase = StepCaseEnum.WHEN;
 
 export class ClickTranslator extends Translator {
     override getSentenceFromAccessibleRoleAndName(accessibleRole: string, accessibleName: string): TranslateSentences {
         const response = this.initResponse();
-        response.sentences = this.buildSentencesWithRoleAndName(accessibleRole, accessibleName);
+        response.steps = this.buildSentencesWithRoleAndName(accessibleRole, accessibleName);
         return response;
     }
 
@@ -36,23 +36,41 @@ export class ClickTranslator extends Translator {
         const computedKey = "key.when.withinElement.selector";
         const sentence = this.computeSentenceFromKeyAndSelector(computedKey, domSelector);
         const clickSentence: BaseSentence = this.getSentenceFromKey("key.when.click.withContext");
-        response.sentences = [stepCase + sentence, StepCaseEnum.THEN + clickSentence.wording];
+        response.steps = [
+            {
+                keyword: stepCase,
+                sentence
+            },
+            {
+                keyword: StepCaseEnum.THEN,
+                sentence: clickSentence.wording
+            }
+        ];
         return response;
     }
 
-    private buildSentencesWithRoleAndName(accessibleRole: string, accessibleName: string) {
+    private buildSentencesWithRoleAndName(accessibleRole: string, accessibleName: string): StepSentence[] {
         const role = this.dictionary.getDefinedRoles().find(role => role.shouldGenerateClickSentence && role.id === accessibleRole);
         if (role) {
             const wording = this.buildWording("key.when.click", accessibleRole, accessibleName);
-            return [stepCase + wording];
+            return [
+                {
+                    keyword: stepCase,
+                    sentence: wording
+                }
+            ];
         } else {
             const clickSentence: BaseSentence = this.getSentenceFromKey("key.when.click.withRole");
-            return [stepCase + clickSentence.wording.replace("{string}", `"${accessibleRole}"`).replace("{string}", `"${accessibleName}"`)];
+            return [
+                {
+                    keyword: stepCase,
+                    sentence: clickSentence.wording.replace("{string}", `"${accessibleRole}"`).replace("{string}", `"${accessibleName}"`)
+                }
+            ];
         }
     }
 
-    /* eslint-disable  @typescript-eslint/no-explicit-any */
-    private buildWording(computedKey: string, accessibleRole: string, accessibleName: string) {
+    private buildWording(computedKey: string, accessibleRole: string, accessibleName: string): string {
         const clickSentence = [
             ...this.dictionary.getRoleBasedSentencesTemplate(),
             ...this.dictionary.getBaseSentences()

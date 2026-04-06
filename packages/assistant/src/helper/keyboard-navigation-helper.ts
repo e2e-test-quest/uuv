@@ -14,7 +14,7 @@
 import { FocusableElement, tabbable } from "tabbable";
 import { AdditionalLayerEnum, ResultSentence } from "../Commons";
 import * as LayerHelper from "./layer-helper";
-import { StepCaseEnum } from "../translator/model";
+import { getStepAsString, StepCaseEnum } from "../translator/model";
 import { KeyboardNavigationTranslator } from "../translator/keyboard-navigation-translator";
 import { Translator } from "../translator/abstract-translator";
 import { HIGHLIGHT_ORANGE_PROPS } from "./highlight/highlight-helper";
@@ -66,7 +66,7 @@ export async function buildResultSentence(
   const sentences: string[] = [];
   const startKeyboardNavigationSentence = translator.getSentenceFromKey("key.given.keyboard.startNavigationFromTheTop");
   if (startKeyboardNavigationSentence) {
-    sentences.push(StepCaseEnum.AND + startKeyboardNavigationSentence.wording);
+    sentences.push(`${StepCaseEnum.AND} ${startKeyboardNavigationSentence.wording}`);
   }
   const promises = focusableElements.map(async (node) => {
     const focusBySelectorControlSentence = translator.getSentenceFromKey("key.then.element.withSelectorFocused");
@@ -74,8 +74,8 @@ export async function buildResultSentence(
 
     if (focusBySelectorControlSentence && focusByRoleAndNameControlSentence) {
       const result = await translator.translate(node);
-      result.sentences.forEach((element) => {
-        sentences.push(element);
+      result.steps.forEach((step) => {
+        sentences.push(getStepAsString(step));
       });
     } else {
       console.error("sentences next focus element or check focused element is undefined");
