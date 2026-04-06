@@ -1,3 +1,10 @@
+# [1.0.0-beta.102](https://github.com/e2e-test-quest/uuv/compare/a11y-v1.0.0-beta.101...a11y-v1.0.0-beta.102) (2026-04-06)
+
+
+### Features
+
+* **mcp-server:** introduce uuv assistant architect with tool and prompt genNominalTestCase, [#1326](https://github.com/e2e-test-quest/uuv/issues/1326) ([1aea5b2](https://github.com/e2e-test-quest/uuv/commit/1aea5b26fe12b953b9841c632ffc56a6536c22ae))
+
 # [1.0.0-beta.101](https://github.com/e2e-test-quest/uuv/compare/a11y-v1.0.0-beta.100...a11y-v1.0.0-beta.101) (2026-04-05)
 
 
