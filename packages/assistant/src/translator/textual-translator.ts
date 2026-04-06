@@ -16,39 +16,51 @@ import { ExpectTranslator } from "./expect-translator";
 
 const stepCase = StepCaseEnum.THEN;
 
+export class TextualTranslator {
+    static computeSentence(element: HTMLElement | SVGElement | Element): Promise<TranslateSentences | null> {
+        if (!this.isTextualNode(element)) {
+            return Promise.resolve(null);
+        }
+        
+        const textContent = this.getTextContent(element);
+        const response: TranslateSentences = TextualTranslator.computeTextContentSentence(textContent);
+        return Promise.resolve(response);
+    }
 
-export async function computeSentence(element: HTMLElement | SVGElement | Element): Promise<TranslateSentences | null> {
-  if (!isTextualNode(element)) {
-      return null;
-  }
-  const sentenceKey = "key.then.element.withContent";
-  const sentence = getData(element);
-  const response: TranslateSentences = {
-      suggestion: undefined,
-      sentences: []
-  };
-    response.sentences = [stepCase + new ExpectTranslator().computeSentenceFromKeyAndContent(sentenceKey, sentence)];
-    return Promise.resolve(response);
-}
+    static computeTextContentSentence(textContent: string) {
+        const sentenceKey = "key.then.element.withContent";
+        const response: TranslateSentences = {
+            suggestion: undefined,
+            steps: []
+        };
+        response.steps = [
+            {
+                keyword: stepCase,
+                sentence: new ExpectTranslator().computeSentenceFromKeyAndContent(sentenceKey, textContent)
+            }
+        ];
+        return response;
+    }
 
-export function isTextualNode(element: HTMLElement | SVGElement | Element): boolean {
-    return [
-        "caption",
-        "code",
-        "del",
-        "em",
-        "span",
-        "div",
-        "ins",
-        "p",
-        "strong",
-        "sub",
-        "sup"
-    ].includes(element.tagName.toLowerCase())
-        && element.childNodes.length === 1
-        && element.childNodes[0].nodeName.toLowerCase() === "#text";
-}
+    static isTextualNode(element: HTMLElement | SVGElement | Element): boolean {
+        return [
+            "caption",
+            "code",
+            "del",
+            "em",
+            "span",
+            "div",
+            "ins",
+            "p",
+            "strong",
+            "sub",
+            "sup"
+        ].includes(element.tagName.toLowerCase())
+            && element.childNodes.length === 1
+            && element.childNodes[0].nodeName.toLowerCase() === "#text";
+    }
 
-function getData(element: HTMLElement | SVGElement | Element): string {
-    return element?.childNodes[0].textContent ?? "";
+    static getTextContent(element: HTMLElement | SVGElement | Element): string {
+        return element?.childNodes[0].textContent ?? "";
+    }
 }

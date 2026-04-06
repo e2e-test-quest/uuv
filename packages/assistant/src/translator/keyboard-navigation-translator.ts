@@ -21,7 +21,12 @@ export class KeyboardNavigationTranslator extends Translator {
         const response = this.initResponse();
         const computedKey = "key.then.element.nextWithRoleAndNameFocused";
         const sentence = this.computeSentenceFromKeyRoleAndName(computedKey, accessibleRole, accessibleName);
-        response.sentences = [stepCase + sentence];
+        response.steps = [
+            {
+                keyword: stepCase,
+                sentence
+            }
+        ];
         return response;
     }
 
@@ -38,9 +43,15 @@ export class KeyboardNavigationTranslator extends Translator {
         const computedKey = "key.then.element.withSelectorFocused";
         const sentence = this.computeSentenceFromKeyAndSelector(computedKey, domSelector);
         const nextFocusedElementSentence = this.dictionary.getBaseSentences().find((el: BaseSentence) => el.key === "key.when.keyboard.nextElement");
-        response.sentences = [
-            stepCase + nextFocusedElementSentence?.wording,
-            StepCaseEnum.AND + sentence
+        response.steps = [
+            {
+                keyword: stepCase,
+                sentence: nextFocusedElementSentence?.wording ?? ""
+            },
+            {
+                keyword: StepCaseEnum.AND,
+                sentence
+            }
         ];
         return response;
     }

@@ -17,6 +17,7 @@ import { TypeTranslator } from "../translator/type-translator";
 import { ClickTranslator } from "../translator/click-translator";
 import { getRole } from "dom-accessibility-api";
 import { AbstractComponentService } from "./abstract-component-service";
+import { getSentencesAsStringArray } from "../translator/model";
 
 export class FormCompletionService extends AbstractComponentService {
 
@@ -40,7 +41,7 @@ export class FormCompletionService extends AbstractComponentService {
             foundSubmitButton = true;
           }
           const result = await translator.translate(formElement);
-          sentences.push(...result.sentences);
+          sentences.push(...getSentencesAsStringArray(result));
         }
         return Promise.resolve("");
       });

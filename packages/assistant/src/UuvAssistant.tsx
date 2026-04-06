@@ -215,7 +215,7 @@ function UuvAssistant(props: UuvAssistantProps) {
     let translator;
     if (props.translator) {
       translator = Promise.resolve({
-        sentences: [props.translator(el)],
+        steps: [props.translator(el)],
       } as TranslateSentences);
     } else {
       translator = selectionHelper.buildResultSentence(
@@ -227,10 +227,10 @@ function UuvAssistant(props: UuvAssistantProps) {
 
     translator.then((translateSentences) => {
       setVisibility(VisibilityEnum.WITH_RESULT);
-      const data = translateSentences.sentences.map((elem, key) => {
+      const data = translateSentences.steps.map((elem, key) => {
         return {
           key: key as React.Key,
-          result: elem,
+          result: `${elem.keyword} ${elem.sentence}`,
         } as ResultSentence;
       });
       setGeneratedScript(

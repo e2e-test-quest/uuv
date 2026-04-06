@@ -32,13 +32,26 @@ export type EnrichedSentence = {
 }
 
 export enum StepCaseEnum {
-    WHEN = "When ",
-    THEN = "Then ",
-    GIVEN = "Given ",
-    AND = "And "
+    WHEN = "When",
+    THEN = "Then",
+    GIVEN = "Given",
+    AND = "And"
+}
+
+export type StepSentence = {
+    keyword: StepCaseEnum,
+    sentence: string
 }
 
 export type TranslateSentences = {
     suggestion: Suggestion | undefined,
-    sentences: string[]
+    steps: StepSentence[]
+}
+
+export function getSentencesAsStringArray(translatedSentence: TranslateSentences | null): string[] {
+    return translatedSentence?.steps.map(step => getStepAsString(step)) ?? [];
+}
+
+export function getStepAsString(step: StepSentence): string {
+    return `${step.keyword} ${step.sentence}`;
 }

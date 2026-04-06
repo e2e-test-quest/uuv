@@ -14,8 +14,8 @@
 
 import { UUV_DISABLED_CLASS } from "../Commons";
 import { Translator } from "./abstract-translator";
-import { EnrichedSentence, StepCaseEnum, TranslateSentences } from "./model";
-import * as TextualTranslator from "./textual-translator";
+import { EnrichedSentence, StepCaseEnum, getSentencesAsStringArray, TranslateSentences } from "./model";
+import { TextualTranslator } from "./textual-translator";
 import { InformativeNodesHelper } from "../helper/informative-nodes-helper";
 import { computeAccessibleName } from "dom-accessibility-api";
 
@@ -24,7 +24,12 @@ const stepCase = StepCaseEnum.THEN;
 export class ExpectTranslator extends Translator {
     private buildResponse(sentences: string[]): TranslateSentences {
         const response = this.initResponse();
-        response.sentences = sentences.map(s => stepCase + s);
+        response.steps = sentences.map(s => {
+            return {
+                keyword: stepCase,
+                sentence: s
+            };
+        });
         return response;
     }
 
@@ -84,10 +89,10 @@ export class ExpectTranslator extends Translator {
         const getSentencesForNode = async (node: HTMLElement): Promise<string[]> => {
             if (TextualTranslator.isTextualNode(node)) {
                 const res = await TextualTranslator.computeSentence(node);
-                return res?.sentences ?? [];
+                return getSentencesAsStringArray(res);
             }
             const res = await this.translate(node);
-            return res?.sentences ?? [];
+            return getSentencesAsStringArray(res);
         };
 
         const handleElement = async (element: HTMLElement) => {

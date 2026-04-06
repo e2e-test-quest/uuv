@@ -21,7 +21,12 @@ export class WithinTranslator extends Translator {
         const response = this.initResponse();
         const computedKey = "key.when.withinElement.roleAndName";
         const sentence = this.computeSentenceFromKeyRoleAndName(computedKey, accessibleRole, accessibleName);
-        response.sentences = [stepCase + sentence];
+        response.steps = [
+            {
+                keyword: stepCase,
+                sentence
+            }
+        ];
         return response;
     }
 
@@ -33,7 +38,12 @@ export class WithinTranslator extends Translator {
         const response = this.initResponse();
         const computedKey = "key.when.withinElement.roleAndName";
         const sentence = this.computeSentenceFromKeyRoleNameAndContent(computedKey, accessibleRole, accessibleName, content);
-        response.sentences = [stepCase + sentence];
+        response.steps = [
+            {
+                keyword: stepCase,
+                sentence
+            }
+        ];
         return response;
     }
 
@@ -41,7 +51,12 @@ export class WithinTranslator extends Translator {
         const response = this.initResponse();
         const computedKey = "key.when.withinElement.selector";
         const sentence = this.computeSentenceFromKeyAndSelector(computedKey, domSelector);
-        response.sentences = [stepCase + sentence];
+        response.steps = [
+            {
+                keyword: stepCase,
+                sentence
+            }
+        ];
         return response;
     }
 }

@@ -25,7 +25,7 @@ export abstract class Translator {
         this.selectedHtmlElem = htmlElem;
         let response = {
             suggestion: undefined,
-            sentences: []
+            steps: []
         } as TranslateSentences;
         if (htmlElem.getAttribute("type") !== "hidden") {
             if (accessibleRole && accessibleName) {
@@ -97,7 +97,7 @@ export abstract class Translator {
     protected initResponse(): TranslateSentences {
         return {
             suggestion: undefined,
-            sentences: []
+            steps: []
         };
     }
 
