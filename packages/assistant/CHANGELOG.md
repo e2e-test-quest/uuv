@@ -1,3 +1,11 @@
+# [2.88.0](https://github.com/e2e-test-quest/uuv/compare/assistant-v2.87.0...assistant-v2.88.0) (2026-04-06)
+
+
+### Features
+
+* **assistant:** refacto sentence generation, [#1326](https://github.com/e2e-test-quest/uuv/issues/1326) ([6faf176](https://github.com/e2e-test-quest/uuv/commit/6faf176116b564f1322ce39fc0f8458021e0bad3))
+* **mcp-server:** introduce uuv assistant architect with tool and prompt genNominalTestCase, [#1326](https://github.com/e2e-test-quest/uuv/issues/1326) ([1aea5b2](https://github.com/e2e-test-quest/uuv/commit/1aea5b26fe12b953b9841c632ffc56a6536c22ae))
+
 # [2.87.0](https://github.com/e2e-test-quest/uuv/compare/assistant-v2.86.0...assistant-v2.87.0) (2026-04-05)
 
 
