@@ -11,11 +11,13 @@ export type FindElementByRoleAndName = {
     baseUrl: string;
     accessibleName: string;
     accessibleRole: string;
+    valueToType?: string;
 };
 
 export type FindElementByDomSelector = {
     baseUrl: string;
     domSelector: string;
+    valueToType?: string;
 };
 
 export type FindElement = FindElementByRoleAndName & FindElementByDomSelector;
@@ -47,6 +49,6 @@ export class ExpectTableService {
         const dom = new JSDOM(fs.readFileSync(innerHtmlFilePath, "utf8"));
         const element = dom.window.document.body.firstElementChild;
         const result = await tableAndGridService.buildResultSentence(element as HTMLElement);
-        return buildResultingScript("Your amazing feature name", "Action - Expect Array", result, baseUrl);
+        return buildResultingScript("Your amazing feature name", "Expect Array", result, baseUrl);
     }
 }

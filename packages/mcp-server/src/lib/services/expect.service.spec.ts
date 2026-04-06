@@ -11,7 +11,7 @@ describe("ExpectService", () => {
 
             expect(result).toEqual(
                 "Feature: Your amazing feature name\n" +
-                    "  Scenario: Action - Expect Array\n" +
+                    "  Scenario: Expect Array\n" +
                     `    Given I visit path "${baseUrl}"\n` +
                     "    Then I should see a table named \"Mock table\" and containing \n" +
                     "      | Company                      | Contact          | Country |\n" +

@@ -10,7 +10,7 @@ describe("TypeElementService", () => {
 
         expect(result).toEqual(
             "Feature: Your amazing feature name\n" +
-                "  Scenario: Action - An action\n" +
+                "  Scenario: Action - Type into field\n" +
                 `    Given I visit path "${baseUrl}"\n` +
                 `    When I enter the value "Lorem ipsum" in the ${accessibleRole} named "${accessibleName}"\n`
         );

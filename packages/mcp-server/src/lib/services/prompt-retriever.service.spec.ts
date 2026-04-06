@@ -1,4 +1,4 @@
-import { PromptRetrieverService, UUV_PROMPT } from "./prompt-retriever.service";
+import { PromptRetrieverService, UUV_MCP_SERVER_ITEM } from "./prompt-retriever.service";
 import * as path from "node:path";
 import fs from "node:fs";
 
@@ -14,7 +14,7 @@ describe("PromptRetrieverService", () => {
     describe("retrievePrompt", () => {
         it("should generate table prompt correctly", () => {
             const mockArgs = {
-                promptName: UUV_PROMPT.GENERATE_TEST_EXPECT_TABLE,
+                promptName: UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_TABLE,
                 baseUrl: "http://example.com"
             };
 
@@ -23,13 +23,13 @@ describe("PromptRetrieverService", () => {
 
             const result = PromptRetrieverService.retrievePrompt(mockArgs);
 
-            expect(fs.readFileSync).toHaveBeenCalledWith(path.join(__dirname, "prompts", `${UUV_PROMPT.GENERATE_TEST_EXPECT_TABLE}.mustache`), "utf8");
+            expect(fs.readFileSync).toHaveBeenCalledWith(path.join(__dirname, "prompts", `${UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_TABLE}.mustache`), "utf8");
             expect(result).toBe("Template for http://example.com");
         });
 
         it("should generate role and name prompt correctly", () => {
             const mockArgs = {
-                promptName: UUV_PROMPT.GENERATE_TEST_EXPECT_ROLE_AND_NAME,
+                promptName: UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_ROLE_AND_NAME,
                 accessibleName: "Hello world",
                 accessibleRole: "button",
             };
@@ -39,13 +39,13 @@ describe("PromptRetrieverService", () => {
 
             const result = PromptRetrieverService.retrievePrompt(mockArgs);
 
-            expect(fs.readFileSync).toHaveBeenCalledWith(path.join(__dirname, "prompts", `${UUV_PROMPT.GENERATE_TEST_EXPECT_ROLE_AND_NAME}.mustache`), "utf8");
+            expect(fs.readFileSync).toHaveBeenCalledWith(path.join(__dirname, "prompts", `${UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_ROLE_AND_NAME}.mustache`), "utf8");
             expect(result).toBe(`Template with ${mockArgs.accessibleRole} and '${mockArgs.accessibleName}'`);
         });
 
-        it(`should throw error for invalid argument for ${UUV_PROMPT.GENERATE_TEST_EXPECT_ROLE_AND_NAME}`, () => {
+        it(`should throw error for invalid argument for ${UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_ROLE_AND_NAME}`, () => {
             const mockArgs = {
-                promptName: UUV_PROMPT.GENERATE_TEST_EXPECT_ROLE_AND_NAME,
+                promptName: UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_ROLE_AND_NAME,
                 accessibleName: "Hello world",
             };
 
@@ -91,7 +91,7 @@ describe("PromptRetrieverService", () => {
 
             // Valid table prompt
             const validTableArgs = {
-                promptName: UUV_PROMPT.GENERATE_TEST_EXPECT_TABLE,
+                promptName: UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_TABLE,
                 baseUrl: "http://example.com"
             };
 
@@ -99,7 +99,7 @@ describe("PromptRetrieverService", () => {
 
             // Valid role and name prompt
             const validRoleArgs = {
-                promptName: UUV_PROMPT.GENERATE_TEST_EXPECT_ROLE_AND_NAME,
+                promptName: UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_ROLE_AND_NAME,
                 accessibleName: "button",
                 accessibleRole: "toto",
             };

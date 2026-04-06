@@ -10,7 +10,7 @@ describe("ClickElementService", () => {
 
         expect(result).toEqual(
             "Feature: Your amazing feature name\n" +
-                "  Scenario: Action - An action\n" +
+                "  Scenario: Action - Click on element\n" +
                 `    Given I visit path "${baseUrl}"\n` +
                 `    When I click on ${accessibleRole} named "${accessibleName}"\n`
         );
@@ -27,7 +27,7 @@ describe("ClickElementService", () => {
 
         expect(result).toEqual(
             "Feature: Your amazing feature name\n" +
-                "  Scenario: Action - An action\n" +
+                "  Scenario: Action - Click on element\n" +
                 `    Given I visit path "${baseUrl}"\n` +
                 `    When within the element with selector "${domSelector}"\n` +
                 "    Then I click\n"

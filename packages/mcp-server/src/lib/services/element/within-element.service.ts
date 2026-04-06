@@ -1,17 +1,19 @@
 import { AbstractElementService } from "./abstract-element.service";
-import { buildResultingScript, WithinTranslator } from "@uuv/assistant";
+import { TranslateSentences, WithinTranslator } from "@uuv/assistant";
 import { FindElementByDomSelector, FindElementByRoleAndName } from "../expect.service";
 
 export class WithinElementService extends AbstractElementService {
-    override generateTestForAccessibleNameAndRole(input: FindElementByRoleAndName): string {
+    override generatedFeatureName = "Your amazing feature name";
+    override generatedScenarioName = "Within an element";
+
+
+    override generateSentenceForAccessibleNameAndRole(input: FindElementByRoleAndName): TranslateSentences {
         const translator = new WithinTranslator();
-        const result = translator.getSentenceFromAccessibleRoleAndName(input.accessibleRole, input.accessibleName);
-        return buildResultingScript("Your amazing feature name", "Action - An action", result.sentences, input.baseUrl);
+        return translator.getSentenceFromAccessibleRoleAndName(input.accessibleRole, input.accessibleName);
     }
 
-    override generateTestForDomSelector(input: FindElementByDomSelector): string {
+    override generateSentenceForDomSelector(input: FindElementByDomSelector): TranslateSentences {
         const translator = new WithinTranslator();
-        const result = translator.getSentenceFromDomSelector(input.domSelector);
-        return buildResultingScript("Your amazing feature name", "Action - An action", result.sentences, input.baseUrl);
+        return translator.getSentenceFromDomSelector(input.domSelector);
     }
 }

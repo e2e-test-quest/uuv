@@ -12,7 +12,10 @@
             "args": [
                 "-y",
                 "@uuv/mcp-server@latest"
-            ]
+            ],
+            "env": {
+                "UUV_LLM_MODEL": "anthropic/claude-sonnet-4.6"
+            }
         }
     }
 }

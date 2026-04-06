@@ -1,13 +1,11 @@
 {
     "extends": "./tsconfig.json",
     "compilerOptions": {
-        "module": "commonjs",
         "declaration": true,
         "types": ["node"],
         "forceConsistentCasingInFileNames": true,
         "allowJs": true,
         "strict": true,
-        "esModuleInterop": true,
         "skipLibCheck": true,
         "noImplicitOverride": true,
         "noPropertyAccessFromIndexSignature": true,
