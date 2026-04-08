@@ -14,7 +14,8 @@
                 "@uuv/mcp-server@latest"
             ],
             "env": {
-                "UUV_LLM_MODEL": "anthropic/claude-sonnet-4.6"
+                "UUV_LLM_MODEL": "anthropic/claude-haiku-4-5",
+                "UUV_JSON_FLAT_MODEL_ENABLED": true
             }
         }
     }

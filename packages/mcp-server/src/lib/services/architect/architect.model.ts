@@ -1,5 +1,12 @@
 import z from "zod";
 
+export type ExplorationStepOutput = {
+    // eslint-disable-next-line dot-notation
+    comment: string;
+    "Ran Playwright code": string;
+    action: string;
+};
+
 export const AccessibleElementSchema = z.object({
   accessibleName: z.string()
                     .describe(
@@ -45,7 +52,43 @@ export const StepSchema = z.discriminatedUnion("action", [
   NavigationStepSchema,
 ]);
 
-export type Step = z.infer<typeof StepSchema>;
+export const FlatStepSchema = z.object({
+  stepNumber: z
+    .number()
+    .describe("Sequential step number in the scenario."),
+
+  action: z
+    .enum(["click", "type", "expect", "within", "navigation"])
+    .describe(
+      "Action to perform. Determines which other fields are required. 'type' requires valueToType. 'navigation' requires targetUrl. Other actions use targetElement."
+    ),
+
+  targetElement: AccessibleElementSchema.optional().describe(
+    "Target UI element of the action. Required for click, type, expect and within actions."
+  ),
+
+  valueToType: z
+    .string()
+    .optional()
+    .describe(
+      "Text to type into the element. Only used when action is 'type'."
+    ),
+
+  targetUrl: z
+    .string()
+    .optional()
+    .describe(
+      "Destination URL. Only used when action is 'navigation'."
+    ),
+
+  description: z
+    .string()
+    .describe(
+      "Human readable description explaining what this step does."
+    ),
+});
+
+export type Step = z.infer<typeof StepSchema> | z.infer<typeof FlatStepSchema>;
 
 export const ScenarioResultSchema = z.object({
   scenarioTitle: z.string().describe("Short title for this test scenario"),
@@ -54,4 +97,11 @@ export const ScenarioResultSchema = z.object({
   thenSteps: z.array(StepSchema).describe("Expected outcomes that verify the system behaved correctly")
 });
 
-export type ScenarioResult = z.infer<typeof ScenarioResultSchema>;
+export const FlatScenarioResultSchema = z.object({
+  scenarioTitle: z.string().describe("Short title for this test scenario"),
+  givenSteps: z.array(FlatStepSchema).describe("Preconditions that set up the initial context of the scenario"),
+  whenSteps: z.array(FlatStepSchema).describe("Actions or events that trigger the behavior being tested"),
+  thenSteps: z.array(FlatStepSchema).describe("Expected outcomes that verify the system behaved correctly")
+});
+
+export type ScenarioResult = z.infer<typeof ScenarioResultSchema> | z.infer<typeof FlatScenarioResultSchema>;

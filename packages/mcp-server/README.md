@@ -12,6 +12,14 @@ This library is an MCP (Model Context Protocol) server for UUV - a solution to f
 
 First, install the UUV MCP server with your client.
 
+### Parameters
+| Environment Variable          | Required                               | Example Value                                                                                               | Description                                                                                                                                                                   |
+| ----------------------------- | -------------------------------------- | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `UUV_LLM_MODEL`               | Yes                                    | `openai/gpt-4.1`<br>`anthropic/claude-haiku-4-5`<br>`google/gemini-2.0-flash`<br>`ollama/qwen3-coder-next` | Specifies the LLM model used by the MCP server. Supported LLM providers are **OpenAI, Anthropic, Google, and Ollama**. The value must follow the format `<provider>/<modelName>`. |
+| `UUV_JSON_FLAT_MODEL_ENABLED` | Recommended `True` (especially for Anthropic and Gemini) and `False` for other llm | `true`                                                                                                      | Enables flat JSON output formatting from the model. This is **strongly recommended for Anthropic and Gemini models** to ensure reliable structured outputs for the tool.                 |
+| `UUV_LLM_API`                 | Optional (Ollama only)                 | `http://localhost:11434/api`                                                                                | Base API endpoint for the LLM provider when using a **local Ollama model**. Not required when using hosted providers such as OpenAI, Anthropic, or Google.                    |
+
+
 **Standard config** works in most of the tools:
 
 ```js
@@ -24,7 +32,8 @@ First, install the UUV MCP server with your client.
       ],
       "env": {
         // For antropic - Remove commented lines
-        "UUV_LLM_MODEL": "anthropic/claude-sonnet-4.6"                
+        "UUV_LLM_MODEL": "anthropic/claude-haiku-4-5",
+        "UUV_JSON_FLAT_MODEL_ENABLED": true
         // For ollama
         // "UUV_LLM_MODEL": "qwen3-coder-next",
         // "UUV_LLM_API": "http://localhost:11434/api"
@@ -183,7 +192,7 @@ This MCP server exposes the following tools:
     - `innerHtmlFilePath` (string): File path containing the raw innerHTML content
 
 ### genNominalTestCase (Experimental)
-
+Supported LLM provider are openai, anthropic, google and ollama
 - **Description**: Generate a complete UUV test scenario (Gherkin format) for the nominal case using AI-driven browser exploration with Playwright tools.
 - **Input Schema**:
     - `testCase` (string): Brief description of the test scenario to be generated

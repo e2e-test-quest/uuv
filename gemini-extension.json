@@ -14,7 +14,8 @@
                 "@uuv/mcp-server@latest"
             ],
             "env": {
-                "UUV_LLM_MODEL": "gemini/gemini-2.5-pro"
+                "UUV_LLM_MODEL": "google/gemini-2.5-pro",
+                "UUV_JSON_FLAT_MODEL_ENABLED": true
             }
         }
     }
