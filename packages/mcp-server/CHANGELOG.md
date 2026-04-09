@@ -1,3 +1,10 @@
+# [0.19.0](https://github.com/e2e-test-quest/uuv/compare/mcp-server-v0.18.0...mcp-server-v0.19.0) (2026-04-09)
+
+
+### Features
+
+* **mcp-server:** add support to llm provider anthropic gemini and openai ([9ef53bd](https://github.com/e2e-test-quest/uuv/commit/9ef53bdaed4ab1d22e1f66cf0432f391f77045fe))
+
 # [0.18.0](https://github.com/e2e-test-quest/uuv/compare/mcp-server-v0.17.0...mcp-server-v0.18.0) (2026-04-06)
 
 
