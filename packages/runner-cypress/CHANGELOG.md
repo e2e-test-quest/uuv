@@ -1,3 +1,10 @@
+# [2.88.0](https://github.com/e2e-test-quest/uuv/compare/runner-cypress-v2.87.0...runner-cypress-v2.88.0) (2026-04-09)
+
+
+### Features
+
+* **mcp-server:** add support to llm provider anthropic gemini and openai ([9ef53bd](https://github.com/e2e-test-quest/uuv/commit/9ef53bdaed4ab1d22e1f66cf0432f391f77045fe))
+
 # [2.87.0](https://github.com/e2e-test-quest/uuv/compare/runner-cypress-v2.86.0...runner-cypress-v2.87.0) (2026-04-06)
 
 
