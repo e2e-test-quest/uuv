@@ -1,3 +1,10 @@
+# [1.10.0](https://github.com/e2e-test-quest/uuv/compare/assistant-desktop-v1.9.0...assistant-desktop-v1.10.0) (2026-04-09)
+
+
+### Features
+
+* **mcp-server:** add support to llm provider anthropic gemini and openai ([9ef53bd](https://github.com/e2e-test-quest/uuv/commit/9ef53bdaed4ab1d22e1f66cf0432f391f77045fe))
+
 # [1.9.0](https://github.com/e2e-test-quest/uuv/compare/assistant-desktop-v1.8.0...assistant-desktop-v1.9.0) (2026-04-06)
 
 
