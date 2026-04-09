@@ -1,3 +1,10 @@
+# [1.40.0](https://github.com/e2e-test-quest/uuv/compare/intellij-plugin-v1.39.0...intellij-plugin-v1.40.0) (2026-04-09)
+
+
+### Features
+
+* **mcp-server:** add support to llm provider anthropic gemini and openai ([9ef53bd](https://github.com/e2e-test-quest/uuv/commit/9ef53bdaed4ab1d22e1f66cf0432f391f77045fe))
+
 # [1.39.0](https://github.com/e2e-test-quest/uuv/compare/intellij-plugin-v1.38.0...intellij-plugin-v1.39.0) (2026-04-06)
 
 
