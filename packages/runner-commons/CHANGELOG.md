@@ -1,3 +1,10 @@
+# [2.82.0](https://github.com/e2e-test-quest/uuv/compare/runner-commons-v2.81.0...runner-commons-v2.82.0) (2026-04-09)
+
+
+### Features
+
+* **mcp-server:** add support to llm provider anthropic gemini and openai ([9ef53bd](https://github.com/e2e-test-quest/uuv/commit/9ef53bdaed4ab1d22e1f66cf0432f391f77045fe))
+
 # [2.81.0](https://github.com/e2e-test-quest/uuv/compare/runner-commons-v2.80.0...runner-commons-v2.81.0) (2026-04-06)
 
 
