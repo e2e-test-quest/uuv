@@ -1,3 +1,10 @@
+# [0.16.0](https://github.com/e2e-test-quest/uuv/compare/dictionary-v0.15.0...dictionary-v0.16.0) (2026-04-09)
+
+
+### Features
+
+* **mcp-server:** add support to llm provider anthropic gemini and openai ([9ef53bd](https://github.com/e2e-test-quest/uuv/commit/9ef53bdaed4ab1d22e1f66cf0432f391f77045fe))
+
 # [0.15.0](https://github.com/e2e-test-quest/uuv/compare/dictionary-v0.14.0...dictionary-v0.15.0) (2026-04-06)
 
 
