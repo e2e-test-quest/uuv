@@ -6,9 +6,11 @@ import { render } from "mustache";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type PromptExtraArgs = Record<string, any>;
 
-export type PromptArgs = {
-    promptName: UUV_MCP_SERVER_ITEM;
-} | PromptExtraArgs;
+export type PromptArgs =
+    | {
+          promptName: UUV_MCP_SERVER_ITEM;
+      }
+    | PromptExtraArgs;
 
 export enum UUV_MCP_SERVER_ITEM {
     AVAILABLE_SENTENCES = "availableSentences",
@@ -21,50 +23,65 @@ export enum UUV_MCP_SERVER_ITEM {
     GENERATE_TEST_WITHIN_ROLE_AND_NAME = "genTestWithinRoleAndName",
     GENERATE_TEST_WITHIN_DOM_SELECTOR = "genTestWithinDomSelector",
     GENERATE_TEST_TYPE_ROLE_AND_NAME = "genTestTypeRoleAndName",
-    GENERATE_NOMINAL_TEST_CASE = "genNominalTestCase"
+    GENERATE_NOMINAL_TEST_CASE = "genNominalTestCase",
+    INSTALL_UUV_DEPENDENCY = "installUuvDependency",
+    CHECK_UUV_DEPENDENCY = "checkUuvDependency",
+    GET_UUV_VERSION = "getUuvVersion",
 }
 
 export const uuvPrompts = {
     [UUV_MCP_SERVER_ITEM.GET_BASE_URL]: {
         title: "getBaseUrl",
-        description: "Retrieve project base url for generated UUV tests"
+        description: "Retrieve project base url for generated UUV tests",
     },
     [UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_TABLE]: {
         title: "GenerateTestExpectTable",
-        description: "Generate test for html table or grid or treeGrid"
+        description: "Generate test for html table or grid or treeGrid",
     },
     [UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_ROLE_AND_NAME]: {
         title: "GenerateTestExpectElement",
-        description: "Generate test that expects of html element with accessible role and accessible name"
+        description: "Generate test that expects of html element with accessible role and accessible name",
     },
     [UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_DOM_SELECTOR]: {
         title: "GenerateTestExpectElement",
-        description: "Generate test that expects of html element with domSelector"
+        description: "Generate test that expects of html element with domSelector",
     },
     [UUV_MCP_SERVER_ITEM.GENERATE_TEST_CLICK_ROLE_AND_NAME]: {
         title: "GenerateTestClickElement",
-        description: "Generate test that clicks on html element with accessible role and accessible name"
+        description: "Generate test that clicks on html element with accessible role and accessible name",
     },
     [UUV_MCP_SERVER_ITEM.GENERATE_TEST_CLICK_DOM_SELECTOR]: {
         title: "GenerateTestClickElement",
-        description: "Generate test that clicks on html element with domSelector"
+        description: "Generate test that clicks on html element with domSelector",
     },
     [UUV_MCP_SERVER_ITEM.GENERATE_TEST_WITHIN_ROLE_AND_NAME]: {
         title: "GenerateTestWithinElement",
-        description: "Generate test that focus within an html element with accessible role and accessible name"
+        description: "Generate test that focus within an html element with accessible role and accessible name",
     },
     [UUV_MCP_SERVER_ITEM.GENERATE_TEST_WITHIN_DOM_SELECTOR]: {
         title: "GenerateTestWithinElement",
-        description: "Generate test that focus within an html element with domSelector"
+        description: "Generate test that focus within an html element with domSelector",
     },
     [UUV_MCP_SERVER_ITEM.GENERATE_TEST_TYPE_ROLE_AND_NAME]: {
         title: "GenerateTestTypeElement",
-        description: "Generate test that types a value into html element with accessible role and accessible name"
+        description: "Generate test that types a value into html element with accessible role and accessible name",
     },
     [UUV_MCP_SERVER_ITEM.GENERATE_NOMINAL_TEST_CASE]: {
         title: "GenerateNominalTestCase",
-        description: "Generates a UUV test scenario for the nominal case"
-    }
+        description: "Generates a UUV test scenario for the nominal case",
+    },
+    [UUV_MCP_SERVER_ITEM.INSTALL_UUV_DEPENDENCY]: {
+        title: "InstallUUVDependencies",
+        description: "Install @uuv/playwright npm package",
+    },
+    [UUV_MCP_SERVER_ITEM.CHECK_UUV_DEPENDENCY]: {
+        title: "CheckUUVDependencies",
+        description: "Check if @uuv/playwright npm package is installed",
+    },
+    [UUV_MCP_SERVER_ITEM.GET_UUV_VERSION]: {
+        title: "GetUUVVersion",
+        description: "Get the current version of @uuv/playwright npm package",
+    },
 };
 
 export const ElementByRoleAndNameInputSchema = {
@@ -77,6 +94,19 @@ export const ElementByRoleAndNameInputSchema = {
 export const ElementByDomSelectorInputSchema = {
     baseUrl: z.string().describe("The base URL of the page where the element is located."),
     domSelector: z.string().describe("Dom selector of the element"),
+};
+
+export const InstallDependenciesInputSchema = {
+    projectPath: z.string().describe("Path to the project directory"),
+    packageName: z.string().default("@uuv/playwright").optional().describe("Optional package name to instal"),
+};
+
+export const CheckDependenciesInputSchema = {
+    projectPath: z.string().describe("Path to the project directory"),
+};
+
+export const GetUuvVersionInputSchema = {
+    projectPath: z.string().describe("Path to the project directory"),
 };
 
 export const UUVPromptInputSchema = z.discriminatedUnion("promptName", [
@@ -93,7 +123,7 @@ export const UUVPromptInputSchema = z.discriminatedUnion("promptName", [
             UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_ROLE_AND_NAME,
             UUV_MCP_SERVER_ITEM.GENERATE_TEST_CLICK_ROLE_AND_NAME,
             UUV_MCP_SERVER_ITEM.GENERATE_TEST_WITHIN_ROLE_AND_NAME,
-            UUV_MCP_SERVER_ITEM.GENERATE_TEST_TYPE_ROLE_AND_NAME
+            UUV_MCP_SERVER_ITEM.GENERATE_TEST_TYPE_ROLE_AND_NAME,
         ]),
         accessibleRole: z.string().describe("Accessible role of the element"),
         accessibleName: z.string().describe("Accessible name of the element"),
@@ -102,12 +132,21 @@ export const UUVPromptInputSchema = z.discriminatedUnion("promptName", [
         promptName: z.enum([
             UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_DOM_SELECTOR,
             UUV_MCP_SERVER_ITEM.GENERATE_TEST_CLICK_DOM_SELECTOR,
-            UUV_MCP_SERVER_ITEM.GENERATE_TEST_WITHIN_DOM_SELECTOR
+            UUV_MCP_SERVER_ITEM.GENERATE_TEST_WITHIN_DOM_SELECTOR,
         ]),
         domSelector: z.string().describe("Dom selector of the element"),
     }),
+    z.object({
+        promptName: z.literal(UUV_MCP_SERVER_ITEM.INSTALL_UUV_DEPENDENCY),
+        packageName: z.string().optional().describe("Optional package name to install (default: @uuv/playwright)"),
+    }),
+    z.object({
+        promptName: z.literal(UUV_MCP_SERVER_ITEM.CHECK_UUV_DEPENDENCY)
+    }),
+    z.object({
+        promptName: z.literal(UUV_MCP_SERVER_ITEM.GET_UUV_VERSION)
+    }),
 ]);
-
 
 export class PromptRetrieverService {
     private static loadPromptTemplate(promptName: string): string {
@@ -137,6 +176,9 @@ export class PromptRetrieverService {
             case UUV_MCP_SERVER_ITEM.GENERATE_TEST_WITHIN_ROLE_AND_NAME:
             case UUV_MCP_SERVER_ITEM.GENERATE_TEST_WITHIN_DOM_SELECTOR:
             case UUV_MCP_SERVER_ITEM.GENERATE_NOMINAL_TEST_CASE:
+            case UUV_MCP_SERVER_ITEM.INSTALL_UUV_DEPENDENCY:
+            case UUV_MCP_SERVER_ITEM.CHECK_UUV_DEPENDENCY:
+            case UUV_MCP_SERVER_ITEM.GET_UUV_VERSION:
                 prompt = PromptRetrieverService.generatePrompt(args);
                 break;
 

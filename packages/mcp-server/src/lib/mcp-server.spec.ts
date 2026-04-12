@@ -11,63 +11,71 @@ describe("UUV MCP Server", () => {
 
     const expectedExpectElementRoleAndNamePrompt = {
         type: "text",
-        text: "Use UUV MCP tools:\n" +
+        text:
+            "Use UUV MCP tools:\n" +
             "    1. With uuv_getBaseUrl, retrieve base url\n" +
             "    2. With uuv_genTestExpectRoleAndName, Generate UUV tests into ./uuv/e2e to verify that an element with accessibleName \"Get started\" and accessibleRole \"button\" exist on the webpage baseUrl\n" +
-            "    3. Write generated uuv test case into a .feature file in local folder ./uuv/e2e (must use actual line breaks, not literal \"\\n\" characters)"
+            "    3. Write generated uuv test case into a .feature file in local folder ./uuv/e2e (must use actual line breaks, not literal \"\\n\" characters)",
     };
 
     const expectedExpectElementDomSelectorPrompt = {
         type: "text",
-        text: "Use UUV MCP tools:\n" +
+        text:
+            "Use UUV MCP tools:\n" +
             "    1. With uuv_getBaseUrl, retrieve base url\n" +
             "    2. With uuv_genTestExpectDomSelector, Generate UUV tests into ./uuv/e2e to verify that an element with domSelector \"#fakeItem > #fakeContainer\" exist on the webpage baseUrl\n" +
-            "    3. Write generated uuv test case into a .feature file in local folder ./uuv/e2e (must use actual line breaks, not literal \"\\n\" characters)"
+            "    3. Write generated uuv test case into a .feature file in local folder ./uuv/e2e (must use actual line breaks, not literal \"\\n\" characters)",
     };
 
     const expectedTypeElementRoleAndNamePrompt = {
         type: "text",
-        text: "Use UUV MCP tools:\n" +
+        text:
+            "Use UUV MCP tools:\n" +
             "    1. With uuv_getBaseUrl, retrieve base url\n" +
             "    2. With uuv_genTestTypeRoleAndName, Generate UUV tests into ./uuv/e2e to type sentence or value into an element with accessibleName \"First Name\" and accessibleRole \"textbox\" exist on the webpage baseUrl\n" +
-            "    3. Write generated uuv test case into a .feature file in local folder ./uuv/e2e (must use actual line breaks, not literal \"\\n\" characters)"
+            "    3. Write generated uuv test case into a .feature file in local folder ./uuv/e2e (must use actual line breaks, not literal \"\\n\" characters)",
     };
 
     const expectedClickElementRoleAndNamePrompt = {
         type: "text",
-        text: "Use UUV MCP tools:\n" +
+        text:
+            "Use UUV MCP tools:\n" +
             "    1. With uuv_getBaseUrl, retrieve base url\n" +
             "    2. With uuv_genTestClickRoleAndName, Generate UUV tests into ./uuv/e2e to click on an element with accessibleName \"First Name\" and accessibleRole \"textbox\" exist on the webpage baseUrl\n" +
-            "    3. Write generated uuv test case into a .feature file in local folder ./uuv/e2e (must use actual line breaks, not literal \"\\n\" characters)"
+            "    3. Write generated uuv test case into a .feature file in local folder ./uuv/e2e (must use actual line breaks, not literal \"\\n\" characters)",
     };
 
     const expectedClickElementDomSelectorPrompt = {
         type: "text",
-        text: "Use UUV MCP tools:\n" +
+        text:
+            "Use UUV MCP tools:\n" +
             "    1. With uuv_getBaseUrl, retrieve base url\n" +
             "    2. With uuv_genTestClickDomSelector, Generate UUV tests into ./uuv/e2e to click on an element with domSelector \"#fakeItem > #fakeContainer\" exist on the webpage baseUrl\n" +
-            "    3. Write generated uuv test case into a .feature file in local folder ./uuv/e2e (must use actual line breaks, not literal \"\\n\" characters)"
+            "    3. Write generated uuv test case into a .feature file in local folder ./uuv/e2e (must use actual line breaks, not literal \"\\n\" characters)",
     };
 
     const expectedWithinElementRoleAndNamePrompt = {
         type: "text",
-        text: "Use UUV MCP tools:\n" +
+        text:
+            "Use UUV MCP tools:\n" +
             "    1. With uuv_getBaseUrl, retrieve base url\n" +
             "    2. With uuv_genTestWithinRoleAndName, Generate UUV tests into ./uuv/e2e to focus on an element with accessibleName \"First Name\" and accessibleRole \"textbox\" exist on the webpage baseUrl\n" +
-            "    3. Write generated uuv test case into a .feature file in local folder ./uuv/e2e (must use actual line breaks, not literal \"\\n\" characters)"
+            "    3. Write generated uuv test case into a .feature file in local folder ./uuv/e2e (must use actual line breaks, not literal \"\\n\" characters)",
     };
 
     const expectedWithinElementDomSelectorPrompt = {
         type: "text",
-        text: "Use UUV MCP tools:\n" +
+        text:
+            "Use UUV MCP tools:\n" +
             "    1. With uuv_getBaseUrl, retrieve base url\n" +
             "    2. With uuv_genTestWithinDomSelector, Generate UUV tests into ./uuv/e2e to focus on an element with domSelector \"#fakeItem > #fakeContainer\" exist on the webpage baseUrl\n" +
-            "    3. Write generated uuv test case into a .feature file in local folder ./uuv/e2e (must use actual line breaks, not literal \"\\n\" characters)"
+            "    3. Write generated uuv test case into a .feature file in local folder ./uuv/e2e (must use actual line breaks, not literal \"\\n\" characters)",
     };
 
     const expectedExpectTableDomSelectorPrompt = {
         type: "text",
-        text: "Use the Playwright and UUV MCP tools:\n" +
+        text:
+            "Use the Playwright and UUV MCP tools:\n" +
             "    1. Open a browser, then navigate to https://example.com\n" +
             "    2. Evaluate exactly, ensuring that the extracted HTML is not truncated: document.querySelector('table').outerHTML\n" +
             "    3. Write resulting HTML of the previous step into a file named extraction.html in the current project directory\n" +
@@ -75,7 +83,7 @@ describe("UUV MCP Server", () => {
             "    5. Write generated uuv test into a .feature file in local folder ./uuv/e2e (must use actual line breaks, not literal \"\\n\" characters)\n" +
             "\n" +
             "IMPORTANT:\n" +
-            "    - When Playwright returns the result, ignore any console logs or debug lines."
+            "    - When Playwright returns the result, ignore any console logs or debug lines.",
     };
 
     beforeEach(async () => {
@@ -83,15 +91,9 @@ describe("UUV MCP Server", () => {
 
         server = createUUVServer();
 
-        client = new Client(
-            { name: "test-client", version: "1.0.0" },
-            { capabilities: {} }
-        );
+        client = new Client({ name: "test-client", version: "1.0.0" }, { capabilities: {} });
 
-        await Promise.all([
-            server.connect(serverTransport),
-            client.connect(clientTransport)
-        ]);
+        await Promise.all([server.connect(serverTransport), client.connect(clientTransport)]);
     });
 
     afterEach(async () => {
@@ -112,7 +114,10 @@ describe("UUV MCP Server", () => {
                 UUV_MCP_SERVER_ITEM.GENERATE_TEST_CLICK_DOM_SELECTOR,
                 UUV_MCP_SERVER_ITEM.GENERATE_TEST_WITHIN_DOM_SELECTOR,
                 UUV_MCP_SERVER_ITEM.GENERATE_TEST_TYPE_ROLE_AND_NAME,
-                UUV_MCP_SERVER_ITEM.GENERATE_NOMINAL_TEST_CASE
+                UUV_MCP_SERVER_ITEM.GENERATE_NOMINAL_TEST_CASE,
+                UUV_MCP_SERVER_ITEM.INSTALL_UUV_DEPENDENCY,
+                UUV_MCP_SERVER_ITEM.CHECK_UUV_DEPENDENCY,
+                UUV_MCP_SERVER_ITEM.GET_UUV_VERSION,
             ]);
         });
 
@@ -130,22 +135,23 @@ describe("UUV MCP Server", () => {
                 UUV_MCP_SERVER_ITEM.GENERATE_TEST_WITHIN_DOM_SELECTOR,
                 UUV_MCP_SERVER_ITEM.GENERATE_TEST_TYPE_ROLE_AND_NAME,
                 UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_TABLE,
-                UUV_MCP_SERVER_ITEM.GENERATE_NOMINAL_TEST_CASE
+                UUV_MCP_SERVER_ITEM.GENERATE_NOMINAL_TEST_CASE,
+                UUV_MCP_SERVER_ITEM.INSTALL_UUV_DEPENDENCY,
+                UUV_MCP_SERVER_ITEM.CHECK_UUV_DEPENDENCY,
+                UUV_MCP_SERVER_ITEM.GET_UUV_VERSION,
             ]);
         });
 
         it("should throw error for invalid tool call", async () => {
-            expect(await client.callTool({ name: "non_existent_tool" })).toEqual(
-                {
-                    content: [
-                        {
-                            type: "text",
-                            text: "MCP error -32602: Tool non_existent_tool not found"
-                        }
-                    ],
-                    isError: true
-                }
-            );
+            expect(await client.callTool({ name: "non_existent_tool" })).toEqual({
+                content: [
+                    {
+                        type: "text",
+                        text: "MCP error -32602: Tool non_existent_tool not found",
+                    },
+                ],
+                isError: true,
+            });
         });
     });
 
@@ -156,13 +162,13 @@ describe("UUV MCP Server", () => {
                 arguments: {
                     baseUrl: "https://example.com",
                     accessibleName: "Get started",
-                    accessibleRole: "button"
-                }
+                    accessibleRole: "button",
+                },
             });
 
             expect(promptResult.messages[0]).toEqual({
                 role: "assistant",
-                content: expectedExpectElementRoleAndNamePrompt
+                content: expectedExpectElementRoleAndNamePrompt,
             });
         });
 
@@ -170,13 +176,13 @@ describe("UUV MCP Server", () => {
             const promptResult = await client.getPrompt({
                 name: UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_DOM_SELECTOR,
                 arguments: {
-                    domSelector: "#fakeItem > #fakeContainer"
-                }
+                    domSelector: "#fakeItem > #fakeContainer",
+                },
             });
 
             expect(promptResult.messages[0]).toEqual({
                 role: "assistant",
-                content: expectedExpectElementDomSelectorPrompt
+                content: expectedExpectElementDomSelectorPrompt,
             });
         });
 
@@ -185,13 +191,13 @@ describe("UUV MCP Server", () => {
                 name: UUV_MCP_SERVER_ITEM.GENERATE_TEST_TYPE_ROLE_AND_NAME,
                 arguments: {
                     accessibleName: "First Name",
-                    accessibleRole: "textbox"
-                }
+                    accessibleRole: "textbox",
+                },
             });
 
             expect(promptResult.messages[0]).toEqual({
                 role: "assistant",
-                content: expectedTypeElementRoleAndNamePrompt
+                content: expectedTypeElementRoleAndNamePrompt,
             });
         });
 
@@ -200,13 +206,13 @@ describe("UUV MCP Server", () => {
                 name: UUV_MCP_SERVER_ITEM.GENERATE_TEST_CLICK_ROLE_AND_NAME,
                 arguments: {
                     accessibleName: "First Name",
-                    accessibleRole: "textbox"
-                }
+                    accessibleRole: "textbox",
+                },
             });
 
             expect(promptResult.messages[0]).toEqual({
                 role: "assistant",
-                content: expectedClickElementRoleAndNamePrompt
+                content: expectedClickElementRoleAndNamePrompt,
             });
         });
 
@@ -214,13 +220,13 @@ describe("UUV MCP Server", () => {
             const promptResult = await client.getPrompt({
                 name: UUV_MCP_SERVER_ITEM.GENERATE_TEST_CLICK_DOM_SELECTOR,
                 arguments: {
-                    domSelector: "#fakeItem > #fakeContainer"
-                }
+                    domSelector: "#fakeItem > #fakeContainer",
+                },
             });
 
             expect(promptResult.messages[0]).toEqual({
                 role: "assistant",
-                content: expectedClickElementDomSelectorPrompt
+                content: expectedClickElementDomSelectorPrompt,
             });
         });
 
@@ -229,13 +235,13 @@ describe("UUV MCP Server", () => {
                 name: UUV_MCP_SERVER_ITEM.GENERATE_TEST_WITHIN_ROLE_AND_NAME,
                 arguments: {
                     accessibleName: "First Name",
-                    accessibleRole: "textbox"
-                }
+                    accessibleRole: "textbox",
+                },
             });
 
             expect(promptResult.messages[0]).toEqual({
                 role: "assistant",
-                content: expectedWithinElementRoleAndNamePrompt
+                content: expectedWithinElementRoleAndNamePrompt,
             });
         });
 
@@ -243,13 +249,13 @@ describe("UUV MCP Server", () => {
             const promptResult = await client.getPrompt({
                 name: UUV_MCP_SERVER_ITEM.GENERATE_TEST_WITHIN_DOM_SELECTOR,
                 arguments: {
-                    domSelector: "#fakeItem > #fakeContainer"
-                }
+                    domSelector: "#fakeItem > #fakeContainer",
+                },
             });
 
             expect(promptResult.messages[0]).toEqual({
                 role: "assistant",
-                content: expectedWithinElementDomSelectorPrompt
+                content: expectedWithinElementDomSelectorPrompt,
             });
         });
 
@@ -258,12 +264,12 @@ describe("UUV MCP Server", () => {
                 name: UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_TABLE,
                 arguments: {
                     baseUrl: "https://example.com",
-                }
+                },
             });
 
             expect(promptResult.messages[0]).toEqual({
                 role: "assistant",
-                content: expectedExpectTableDomSelectorPrompt
+                content: expectedExpectTableDomSelectorPrompt,
             });
         });
     });
@@ -272,7 +278,7 @@ describe("UUV MCP Server", () => {
         it("should list available sentences", async () => {
             const result = await client.callTool({
                 name: UUV_MCP_SERVER_ITEM.AVAILABLE_SENTENCES,
-                arguments: {}
+                arguments: {},
             });
             const sentences = JSON.parse(result.content[0].text);
             expect(sentences.length).toBeGreaterThan(0);
@@ -282,8 +288,8 @@ describe("UUV MCP Server", () => {
             const result = await client.callTool({
                 name: UUV_MCP_SERVER_ITEM.AVAILABLE_SENTENCES,
                 arguments: {
-                    role: "button"
-                }
+                    role: "button",
+                },
             });
             const sentences = JSON.parse(result.content[0].text);
             expect(sentences.length).toBeGreaterThan(0);
@@ -291,7 +297,7 @@ describe("UUV MCP Server", () => {
                 expect.arrayOf(
                     expect.objectContaining({
                         role: "button",
-                    }),
+                    })
                 )
             );
         });
@@ -300,8 +306,8 @@ describe("UUV MCP Server", () => {
             const result = await client.callTool({
                 name: UUV_MCP_SERVER_ITEM.AVAILABLE_SENTENCES,
                 arguments: {
-                    category: "click"
-                }
+                    category: "click",
+                },
             });
             const sentences = JSON.parse(result.content[0].text);
             expect(sentences.length).toBeGreaterThan(0);
@@ -309,7 +315,7 @@ describe("UUV MCP Server", () => {
                 expect.arrayOf(
                     expect.objectContaining({
                         section: "click",
-                    }),
+                    })
                 )
             );
         });
@@ -319,8 +325,8 @@ describe("UUV MCP Server", () => {
                 name: UUV_MCP_SERVER_ITEM.AVAILABLE_SENTENCES,
                 arguments: {
                     category: "click",
-                    role: "button"
-                }
+                    role: "button",
+                },
             });
             const sentences = JSON.parse(result.content[0].text);
             expect(sentences.length).toBeGreaterThan(0);
@@ -328,8 +334,8 @@ describe("UUV MCP Server", () => {
                 expect.arrayOf(
                     expect.objectContaining({
                         section: "click",
-                        role: "button"
-                    }),
+                        role: "button",
+                    })
                 )
             );
         });
@@ -341,29 +347,31 @@ describe("UUV MCP Server", () => {
                 name: UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_ROLE_AND_NAME,
                 arguments: {
                     promptName: UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_ROLE_AND_NAME,
-                    baseUrl: "https://example.com"
-                }
+                    baseUrl: "https://example.com",
+                },
             });
 
             expect(result.content[0]).toEqual({
-                text: `MCP error -32602: Input validation error: Invalid arguments for tool ${UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_ROLE_AND_NAME}: ` + JSON.stringify([
-                    {
-                        expected: "string",
-                        code: "invalid_type",
-                        path: [
-                            "accessibleRole"
+                text:
+                    `MCP error -32602: Input validation error: Invalid arguments for tool ${UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_ROLE_AND_NAME}: ` +
+                    JSON.stringify(
+                        [
+                            {
+                                expected: "string",
+                                code: "invalid_type",
+                                path: ["accessibleRole"],
+                                message: "Invalid input: expected string, received undefined",
+                            },
+                            {
+                                expected: "string",
+                                code: "invalid_type",
+                                path: ["accessibleName"],
+                                message: "Invalid input: expected string, received undefined",
+                            },
                         ],
-                        message: "Invalid input: expected string, received undefined"
-                    },
-                    {
-                        expected: "string",
-                        code: "invalid_type",
-                        path: [
-                            "accessibleName"
-                        ],
-                        message: "Invalid input: expected string, received undefined"
-                    }
-                ], null, 2),
+                        null,
+                        2
+                    ),
                 type: "text",
             });
         });
@@ -374,8 +382,8 @@ describe("UUV MCP Server", () => {
                 arguments: {
                     baseUrl: "https://example.com",
                     accessibleRole: "table",
-                    accessibleName: "temp"
-                }
+                    accessibleName: "temp",
+                },
             });
 
             expect(result.content[0].text).toEqual("For role 'table/grid/treegrid', you must use generate_test_expect_table tool.");
@@ -387,16 +395,17 @@ describe("UUV MCP Server", () => {
                 arguments: {
                     baseUrl: "https://example.com",
                     accessibleName: "Get started",
-                    accessibleRole: "button"
-                }
+                    accessibleRole: "button",
+                },
             });
 
             expect(result.content[0]).toEqual({
                 type: "text",
-                text: "Feature: Your amazing feature name\n" +
+                text:
+                    "Feature: Your amazing feature name\n" +
                     "  Scenario: Expect an element\n" +
                     "    Given I visit path \"https://example.com\"\n" +
-                    "    Then I should see a button named \"Get started\"\n"
+                    "    Then I should see a button named \"Get started\"\n",
             });
         });
     });
@@ -407,16 +416,17 @@ describe("UUV MCP Server", () => {
                 name: UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_DOM_SELECTOR,
                 arguments: {
                     baseUrl: "https://example.com",
-                    domSelector: "#fakeItem > #fakeContainer"
-                }
+                    domSelector: "#fakeItem > #fakeContainer",
+                },
             });
 
             expect(result.content[0]).toEqual({
                 type: "text",
-                text: "Feature: Your amazing feature name\n" +
+                text:
+                    "Feature: Your amazing feature name\n" +
                     "  Scenario: Expect an element\n" +
                     "    Given I visit path \"https://example.com\"\n" +
-                    "    Then I should see an element with selector \"#fakeItem > #fakeContainer\"\n"
+                    "    Then I should see an element with selector \"#fakeItem > #fakeContainer\"\n",
             });
         });
     });
@@ -432,25 +442,27 @@ describe("UUV MCP Server", () => {
             });
 
             expect(result.content[0]).toEqual({
-                text: `MCP error -32602: Input validation error: Invalid arguments for tool ${UUV_MCP_SERVER_ITEM.GENERATE_TEST_CLICK_ROLE_AND_NAME}: ` + JSON.stringify([
-                    {
-                        expected: "string",
-                        code: "invalid_type",
-                        path: [
-                            "accessibleRole"
+                text:
+                    `MCP error -32602: Input validation error: Invalid arguments for tool ${UUV_MCP_SERVER_ITEM.GENERATE_TEST_CLICK_ROLE_AND_NAME}: ` +
+                    JSON.stringify(
+                        [
+                            {
+                                expected: "string",
+                                code: "invalid_type",
+                                path: ["accessibleRole"],
+                                message: "Invalid input: expected string, received undefined",
+                            },
+                            {
+                                expected: "string",
+                                code: "invalid_type",
+                                path: ["accessibleName"],
+                                message: "Invalid input: expected string, received undefined",
+                            },
                         ],
-                        message: "Invalid input: expected string, received undefined"
-                    },
-                    {
-                        expected: "string",
-                        code: "invalid_type",
-                        path: [
-                            "accessibleName"
-                        ],
-                        message: "Invalid input: expected string, received undefined"
-                    }
-                ], null, 2),
-                type: "text"
+                        null,
+                        2
+                    ),
+                type: "text",
             });
         });
 
@@ -460,16 +472,17 @@ describe("UUV MCP Server", () => {
                 arguments: {
                     baseUrl: "https://example.com",
                     accessibleName: "Get started",
-                    accessibleRole: "button"
-                }
+                    accessibleRole: "button",
+                },
             });
 
             expect(result.content[0]).toEqual({
                 type: "text",
-                text: "Feature: Your amazing feature name\n" +
+                text:
+                    "Feature: Your amazing feature name\n" +
                     "  Scenario: Action - Click on element\n" +
                     "    Given I visit path \"https://example.com\"\n" +
-                    "    When I click on button named \"Get started\"\n"
+                    "    When I click on button named \"Get started\"\n",
             });
         });
     });
@@ -480,17 +493,18 @@ describe("UUV MCP Server", () => {
                 name: UUV_MCP_SERVER_ITEM.GENERATE_TEST_CLICK_DOM_SELECTOR,
                 arguments: {
                     baseUrl: "https://example.com",
-                    domSelector: "#fakeItem > #fakeContainer"
-                }
+                    domSelector: "#fakeItem > #fakeContainer",
+                },
             });
 
             expect(result.content[0]).toEqual({
                 type: "text",
-                text: "Feature: Your amazing feature name\n" +
+                text:
+                    "Feature: Your amazing feature name\n" +
                     "  Scenario: Action - Click on element\n" +
                     "    Given I visit path \"https://example.com\"\n" +
                     "    When within the element with selector \"#fakeItem > #fakeContainer\"\n" +
-                    "    Then I click\n"
+                    "    Then I click\n",
             });
         });
     });
@@ -506,25 +520,27 @@ describe("UUV MCP Server", () => {
             });
 
             expect(result.content[0]).toEqual({
-                text: `MCP error -32602: Input validation error: Invalid arguments for tool ${UUV_MCP_SERVER_ITEM.GENERATE_TEST_WITHIN_ROLE_AND_NAME}: ` + JSON.stringify([
-                    {
-                        expected: "string",
-                        code: "invalid_type",
-                        path: [
-                            "accessibleRole"
+                text:
+                    `MCP error -32602: Input validation error: Invalid arguments for tool ${UUV_MCP_SERVER_ITEM.GENERATE_TEST_WITHIN_ROLE_AND_NAME}: ` +
+                    JSON.stringify(
+                        [
+                            {
+                                expected: "string",
+                                code: "invalid_type",
+                                path: ["accessibleRole"],
+                                message: "Invalid input: expected string, received undefined",
+                            },
+                            {
+                                expected: "string",
+                                code: "invalid_type",
+                                path: ["accessibleName"],
+                                message: "Invalid input: expected string, received undefined",
+                            },
                         ],
-                        message: "Invalid input: expected string, received undefined"
-                    },
-                    {
-                        expected: "string",
-                        code: "invalid_type",
-                        path: [
-                            "accessibleName"
-                        ],
-                        message: "Invalid input: expected string, received undefined"
-                    }
-                ], null, 2),
-                type: "text"
+                        null,
+                        2
+                    ),
+                type: "text",
             });
         });
 
@@ -534,16 +550,17 @@ describe("UUV MCP Server", () => {
                 arguments: {
                     baseUrl: "https://example.com",
                     accessibleName: "Get started",
-                    accessibleRole: "button"
-                }
+                    accessibleRole: "button",
+                },
             });
 
             expect(result.content[0]).toEqual({
                 type: "text",
-                text: "Feature: Your amazing feature name\n" +
+                text:
+                    "Feature: Your amazing feature name\n" +
                     "  Scenario: Within an element\n" +
                     "    Given I visit path \"https://example.com\"\n" +
-                    "    When within a button named \"Get started\"\n"
+                    "    When within a button named \"Get started\"\n",
             });
         });
     });
@@ -554,16 +571,17 @@ describe("UUV MCP Server", () => {
                 name: UUV_MCP_SERVER_ITEM.GENERATE_TEST_WITHIN_DOM_SELECTOR,
                 arguments: {
                     baseUrl: "https://example.com",
-                    domSelector: "#fakeItem > #fakeContainer"
-                }
+                    domSelector: "#fakeItem > #fakeContainer",
+                },
             });
 
             expect(result.content[0]).toEqual({
                 type: "text",
-                text: "Feature: Your amazing feature name\n" +
+                text:
+                    "Feature: Your amazing feature name\n" +
                     "  Scenario: Within an element\n" +
                     "    Given I visit path \"https://example.com\"\n" +
-                    "    When within the element with selector \"#fakeItem > #fakeContainer\"\n"
+                    "    When within the element with selector \"#fakeItem > #fakeContainer\"\n",
             });
         });
     });
@@ -579,25 +597,27 @@ describe("UUV MCP Server", () => {
             });
 
             expect(result.content[0]).toEqual({
-                text: `MCP error -32602: Input validation error: Invalid arguments for tool ${UUV_MCP_SERVER_ITEM.GENERATE_TEST_TYPE_ROLE_AND_NAME}: ` + JSON.stringify([
-                    {
-                        expected: "string",
-                        code: "invalid_type",
-                        path: [
-                            "accessibleRole"
+                text:
+                    `MCP error -32602: Input validation error: Invalid arguments for tool ${UUV_MCP_SERVER_ITEM.GENERATE_TEST_TYPE_ROLE_AND_NAME}: ` +
+                    JSON.stringify(
+                        [
+                            {
+                                expected: "string",
+                                code: "invalid_type",
+                                path: ["accessibleRole"],
+                                message: "Invalid input: expected string, received undefined",
+                            },
+                            {
+                                expected: "string",
+                                code: "invalid_type",
+                                path: ["accessibleName"],
+                                message: "Invalid input: expected string, received undefined",
+                            },
                         ],
-                        message: "Invalid input: expected string, received undefined"
-                    },
-                    {
-                        expected: "string",
-                        code: "invalid_type",
-                        path: [
-                            "accessibleName"
-                        ],
-                        message: "Invalid input: expected string, received undefined"
-                    }
-                ], null, 2),
-                type: "text"
+                        null,
+                        2
+                    ),
+                type: "text",
             });
         });
 
@@ -607,45 +627,47 @@ describe("UUV MCP Server", () => {
                 arguments: {
                     baseUrl: "https://example.com",
                     accessibleName: "Get started",
-                    accessibleRole: "textbox"
-                }
+                    accessibleRole: "textbox",
+                },
             });
 
             expect(result.content[0]).toEqual({
                 type: "text",
-                text: "Feature: Your amazing feature name\n" +
+                text:
+                    "Feature: Your amazing feature name\n" +
                     "  Scenario: Action - Type into field\n" +
                     "    Given I visit path \"https://example.com\"\n" +
-                    "    When I type the sentence \"Lorem ipsum\" in the text box named \"Get started\"\n"
+                    "    When I type the sentence \"Lorem ipsum\" in the text box named \"Get started\"\n",
             });
         });
     });
 
     describe(`${UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_TABLE}`, () => {
         it("should generate good content", async () => {
-        const result = await client.callTool({
-            name: UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_TABLE,
-            arguments: {
-                baseUrl: "https://example.com",
-                innerHtmlFilePath: path.join(__dirname, "tests", "mock-table.html")
-            }
-        });
+            const result = await client.callTool({
+                name: UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_TABLE,
+                arguments: {
+                    baseUrl: "https://example.com",
+                    innerHtmlFilePath: path.join(__dirname, "tests", "mock-table.html"),
+                },
+            });
 
-        expect(result.content[0]).toEqual({
-            type: "text",
-            text: "Feature: Your amazing feature name\n" +
-                "  Scenario: Expect Array\n" +
-                "    Given I visit path \"https://example.com\"\n" +
-                "    Then I should see a table named \"Mock table\" and containing \n" +
-                "      | Company                      | Contact          | Country |\n" +
-                "      | ---------------------------- | ---------------- | ------- |\n" +
-                "      | Alfreds Futterkiste          | Maria Anders     | Germany |\n" +
-                "      | Centro comercial Moctezuma   | Francisco Chang  | Mexico  |\n" +
-                "      | Ernst Handel                 | Roland Mendel    | Austria |\n" +
-                "      | Island Trading               | Helen Bennett    | UK      |\n" +
-                "      | Laughing Bacchus Winecellars | Yoshi Tannamuri  | Canada  |\n" +
-                "      | Magazzini Alimentari Riuniti | Giovanni Rovelli | Italy   |\n"
+            expect(result.content[0]).toEqual({
+                type: "text",
+                text:
+                    "Feature: Your amazing feature name\n" +
+                    "  Scenario: Expect Array\n" +
+                    "    Given I visit path \"https://example.com\"\n" +
+                    "    Then I should see a table named \"Mock table\" and containing \n" +
+                    "      | Company                      | Contact          | Country |\n" +
+                    "      | ---------------------------- | ---------------- | ------- |\n" +
+                    "      | Alfreds Futterkiste          | Maria Anders     | Germany |\n" +
+                    "      | Centro comercial Moctezuma   | Francisco Chang  | Mexico  |\n" +
+                    "      | Ernst Handel                 | Roland Mendel    | Austria |\n" +
+                    "      | Island Trading               | Helen Bennett    | UK      |\n" +
+                    "      | Laughing Bacchus Winecellars | Yoshi Tannamuri  | Canada  |\n" +
+                    "      | Magazzini Alimentari Riuniti | Giovanni Rovelli | Italy   |\n",
+            });
         });
-    });
     });
 });
