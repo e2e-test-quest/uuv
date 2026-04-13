@@ -5,6 +5,10 @@ import CodeBlock from '@theme/CodeBlock';
 `@uuv` (**U**ser centric **U**secases **V**alidator) est un écosystème qui **simplifie** l'**écriture** et l'**exécution** de tests
 End to End dans une approche BDD et du point de vue d'utilisateur final. Les **tests E2E** écrits sont donc **compréhensibles par tout être humain**
 
+:::info[✨ Nouveau : Génération de tests avec l'IA(MCP)]
+Découvrez **[@uuv/mcp-server](#serveur-mcp-model-context-protocol)** - la solution IA qui génère automatiquement des scénarios Gherkin lisibles par un humain ! Utilisez des LLM comme OpenAI, Anthropic et Google pour explorer votre application et générer des tests E2E accessibles en quelques minutes.
+:::
+
 ## Le problème
 
 La mise en place de tests de logiciels automatisés est une pratique de plus en plus répandue. Cela ajoute un meilleur
@@ -54,6 +58,9 @@ UUV est un écosystème cohérent s'appuyant sur des outils qui sont des référ
   - *[Cypress](https://www.cypress.io/)* -> [@uuv/cypress](https://www.npmjs.com/package/@uuv/cypress)
   - *[Playwright](https://playwright.dev/)* -> [@uuv/playwright](https://www.npmjs.com/package/@uuv/playwright)
 
+- ### Serveur MCP (Model Context Protocol)
+    - *[@uuv/mcp-server](./tools/uuv-mcp-server)* : Génération de tests pilotée par l'IA et intégration avec les LLM
+      <br/>Génère automatiquement des scénarios Gherkin lisibles par un humain en utilisant OpenAI, Anthropic, Google ou Ollama
 
 ## Les avantages
 - Si bien utilisé, intègre l’accessibilité dès le développement

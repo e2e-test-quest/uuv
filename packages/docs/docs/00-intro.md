@@ -1,7 +1,12 @@
 import CodeBlock from '@theme/CodeBlock';
 
 # Concepts
+
 `@uuv` (**U**ser centric **U**secases **V**alidator) is an ecosystem that **simplifies** End to End test **writing** and **execution** using BDD (Behaviour Driven Development) and a user-centric approaches. Written **E2E tests** are therefore **understandable by any human being**.
+
+:::info[✨ New: AI-Powered Test Generation with MCP]
+Discover **[@uuv/mcp-server](/docs/tools/uuv-mcp-server)** - the AI-driven solution that automatically generates human-readable Gherkin test scenarios! Use LLMs like OpenAI, Anthropic, and Google to explore your app and generate accessible E2E tests in minutes.
+:::
 
 ## The problem
 
@@ -20,7 +25,7 @@ Therefore, several additional questions arise:
 
 - How to clearly express use cases?
 - For omnichannel applications, how to check your application on different browsers and devices?
-  For omnichannel applications, how do you check your application on different browsers and devices?**
+  For omnichannel applications, how do you check your application on different browsers and devices?\*\*
 - How to perform relevant DOM checks from a user perspective?
 - How to guarantee that the application developed complies with digital accessibility requirements?
 
@@ -44,9 +49,13 @@ To answer the above issues and many others, our solution is to set up a coherent
   - *[Cypress](https://www.cypress.io/)* -> [@uuv/cypress](https://www.npmjs.com/package/@uuv/cypress)
   - *[Playwright](https://playwright.dev/)* -> [@uuv/playwright](https://www.npmjs.com/package/@uuv/playwright)
 
+- ### MCP (Model Context Protocol) Server
+    - _[@uuv/mcp-server](./tools/uuv-mcp-server)_ : AI-driven test generation and integration with LLMs
+      <br/>Automatically generates human-readable Gherkin test scenarios using OpenAI, Anthropic, Google, or Ollama LLMs
 ## The benefits
 
 - If used correctly, integrates accessibility from the development stage
+- AI-driven test generation with MCP server for automated test creation and suggestions
 - A living documentation is possible because we propose an unified language for developers and non-developers with a [rich dictionary](category/step-definition) of ready-to-use sentences
 - [@uuv/assistant](tools/uuv-assistant) that facilitates the writing of tests by suggesting the most accessible sentences
 - [JetBrains Plugin](tools/uuv-jetbrains-plugin) that helps you to write and execute your UUV E2E tests from JetBrains IDEs
