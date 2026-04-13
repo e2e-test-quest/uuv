@@ -3,6 +3,10 @@ import TabItem from '@theme/TabItem';
 
 # Configuration
 
+:::info[✨ Nouveau : Génération de tests avec l'IA(MCP)]
+Démarrez encore plus vite avec **[@uuv/mcp-server](/docs/tools/uuv-mcp-server)** - la solution IA qui génère automatiquement des scénarios Gherkin lisibles par un humain ! Intégrez des LLM comme OpenAI, Anthropic et Google pour explorer votre application et générer des tests E2E accessibles en quelques minutes.
+:::
+
 ## Mise à jour du .gitignore
 
 Modifier le fichier `.gitignore` pour rajouter les lignes suivantes :
