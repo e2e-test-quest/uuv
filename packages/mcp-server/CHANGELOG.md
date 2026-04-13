@@ -1,3 +1,10 @@
+# [0.20.0](https://github.com/e2e-test-quest/uuv/compare/mcp-server-v0.19.0...mcp-server-v0.20.0) (2026-04-13)
+
+
+### Features
+
+* **mcp-server:** add uuv install, check and getVersion tools and prompt ([b136e06](https://github.com/e2e-test-quest/uuv/commit/b136e06b0f704dcbd9c26a6324ba0930c4585c43))
+
 # [0.19.0](https://github.com/e2e-test-quest/uuv/compare/mcp-server-v0.18.0...mcp-server-v0.19.0) (2026-04-09)
 
 
