@@ -1,3 +1,20 @@
+# [2.90.0](https://github.com/e2e-test-quest/uuv/compare/assistant-v2.89.0...assistant-v2.90.0) (2026-04-21)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @ai-sdk/anthropic to v3.0.71 ([20df877](https://github.com/e2e-test-quest/uuv/commit/20df877b84a46e8848476092326dcef63cb42147))
+* **deps:** update dependency @ai-sdk/google to v3.0.64 ([1a56ab5](https://github.com/e2e-test-quest/uuv/commit/1a56ab59d9fdce318322a595e7df5c323b5fb7a1))
+* **deps:** update dependency @ai-sdk/mcp to v1.0.36 ([7e57b14](https://github.com/e2e-test-quest/uuv/commit/7e57b1495fdb0feefd453f66b4eb0a597ab1df4b))
+* **deps:** update dependency @ai-sdk/openai to v3.0.53 ([dae8bdc](https://github.com/e2e-test-quest/uuv/commit/dae8bdc3356aa98ff3ffd224e8d9490818cacc46))
+* **deps:** update dependency ai to v6.0.168 ([0148c2c](https://github.com/e2e-test-quest/uuv/commit/0148c2ca9f025f644386d7ac9933c494b4035a48))
+* **runner-playwright:** update dependency axe-core to v4.11.3 ([33178af](https://github.com/e2e-test-quest/uuv/commit/33178afaab25ecdd3e62a885035cc3ee30a925df))
+
+
+### Features
+
+* **runner-playwright:** update dependency @cucumber/cucumber to v12.8.1 ([a463012](https://github.com/e2e-test-quest/uuv/commit/a463012a3954eebdc60a7ce8b36aba62e462d64e))
+
 # [2.89.0](https://github.com/e2e-test-quest/uuv/compare/assistant-v2.88.0...assistant-v2.89.0) (2026-04-09)
 
 
