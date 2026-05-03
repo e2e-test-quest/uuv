@@ -46,7 +46,7 @@
   "dependencies": {
     "@badeball/cypress-cucumber-preprocessor": "24.0.1",
     "@bahmutov/cypress-esbuild-preprocessor": "^2.2.8",
-    "@testing-library/cypress": "10.1.0",
+    "@testing-library/cypress": "10.1.3",
     "@uuv/a11y": "1.0.0-beta.104",
     "@uuv/runner-commons": "2.83.0",
     "axe-core": "4.11.3",
