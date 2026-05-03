@@ -60,7 +60,7 @@
     "@ai-sdk/anthropic": "3.0.74",
     "@ai-sdk/google": "3.0.67",
     "@ai-sdk/mcp": "1.0.39",
-    "@ai-sdk/openai": "3.0.53",
+    "@ai-sdk/openai": "3.0.58",
     "@modelcontextprotocol/sdk": "1.29.0",
     "@types/mustache": "^4.2.6",
     "@uuv/assistant": "2.90.0",
