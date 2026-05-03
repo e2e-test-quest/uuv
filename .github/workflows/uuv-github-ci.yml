@@ -182,6 +182,7 @@ jobs:
           name: build-artifacts-desktop-${{ matrix.os }}
           path: |
             packages/assistant-desktop/src-tauri/target/release/bundle/macos/*.app
+  
   build-gradle:
     runs-on: ubuntu-22.04
     needs: install
@@ -213,6 +214,8 @@ jobs:
         with:
           node-version: ${{ inputs.node-version }}
           cache: 'npm'
+      - run: npm ci
+        shell: bash
       - name: Build gradle artifacts
         run: npx nx build intellij-plugin --verbose
 
@@ -243,6 +246,8 @@ jobs:
         with:
           node-version: ${{ inputs.node-version }}
           cache: 'npm'
+      - run: npm ci
+        shell: bash
       - name: Build images
         run: npx nx run-many --target=docker:build --exclude=a11y-dashboard
 
