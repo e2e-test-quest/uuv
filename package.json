@@ -72,8 +72,8 @@
   },
   "overrides": {
     "lodash": "~4.18.0",
-    "@nuxt/kit": "3.21.2",
-    "@nuxt/schema": "3.21.2",
+    "@nuxt/kit": "3.21.4",
+    "@nuxt/schema": "3.21.4",
     "citty": "0.2.2"
   },
   "workspaces": [
