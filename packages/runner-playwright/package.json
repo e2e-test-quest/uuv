@@ -52,7 +52,7 @@
     "axe-playwright": "2.2.2",
     "chalk-table": "1.0.2",
     "chokidar": "4.0.3",
-    "cucumber-json-report-formatter": "0.1.4",
+    "cucumber-json-report-formatter": "0.1.5",
     "lodash": "^4.17.21",
     "multiple-cucumber-html-reporter": "3.10.0",
     "nanoid": "3.3.11",
