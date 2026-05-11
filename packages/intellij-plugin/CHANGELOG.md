@@ -1,3 +1,16 @@
+## [1.42.1](https://github.com/e2e-test-quest/uuv/compare/intellij-plugin-v1.42.0...intellij-plugin-v1.42.1) (2026-05-11)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @ai-sdk/anthropic to v3.0.76 ([5d9ddc6](https://github.com/e2e-test-quest/uuv/commit/5d9ddc6cef9cb19313db8d232d866b11537a70c0))
+* **deps:** update dependency @ai-sdk/google to v3.0.71 ([9621076](https://github.com/e2e-test-quest/uuv/commit/9621076e45e37425cb93d05c1970bc91cdf413c5))
+* **deps:** update dependency @ai-sdk/mcp to v1.0.41 ([46d8048](https://github.com/e2e-test-quest/uuv/commit/46d80488ce84c73c24d8980f61db19e3bf278bcd))
+* **deps:** update dependency @ai-sdk/openai to v3.0.63 ([a7c15fd](https://github.com/e2e-test-quest/uuv/commit/a7c15fdced5d22ebf21064eb43892b1ffc70959a))
+* **deps:** update dependency ai to v6.0.177 ([74eb3d6](https://github.com/e2e-test-quest/uuv/commit/74eb3d63456b19468e0dfa69faf30135e90ebabd))
+* **runner-playwright:** update dependency @cucumber/cucumber to v12.8.3 ([84de9b3](https://github.com/e2e-test-quest/uuv/commit/84de9b3baa8d9bedbd16304f0569ca7dfd367162))
+* **runner-playwright:** update dependency nanoid to v3.3.12 ([fbf665c](https://github.com/e2e-test-quest/uuv/commit/fbf665c5a73da58e124842e95c9660229b5f384e))
+
 # [1.42.0](https://github.com/e2e-test-quest/uuv/compare/intellij-plugin-v1.41.0...intellij-plugin-v1.42.0) (2026-05-04)
 
 
