@@ -157,7 +157,7 @@ When(`${key.when.type.withContextInGridCell}`, async function(textToType: string
         await expect(["grid", "treegrid"], { message: "Focus element doesn't have grid/treegrid role" }).toContain(elementRole!);
 
         // Retrieve column index
-        const columnElement = await element.getByRole("columnheader", { name: columnName, exact: true });
+        const columnElement = element.getByRole("columnheader", { name: columnName, exact: true });
         const colIndex = Number(await columnElement.getAttribute("aria-colindex")) - 1;
 
         // Double click on the cell
@@ -191,7 +191,7 @@ When(`${key.when.select.withContext}`, async function(valueToSet: string) {
  * */
 When(`${key.then.combobox.withNameValue}`, async function(name: string, expectedValue: string) {
     await getPageOrElement(this).then(async (element) => {
-        const byRole = await element.getByRole("combobox", { name: name, exact: true });
+        const byRole = element.getByRole("combobox", { name: name, exact: true });
         await expect(byRole).toHaveCount(1, { timeout: await getTimeout(this) });
         await expect(byRole.getByRole("option", { name: expectedValue, selected: true, exact: true }))
             .toHaveCount(1, { timeout: await getTimeout(this) });
@@ -204,7 +204,7 @@ When(`${key.then.combobox.withNameValue}`, async function(name: string, expected
  * */
 When(`${key.then.combobox.selectValue}`, async function(valueToSet: string, name: string) {
     await getPageOrElement(this).then(async (element) => {
-        const byRole = await element.getByRole("combobox", { name: name, exact: true });
+        const byRole = element.getByRole("combobox", { name: name, exact: true });
         await expect(byRole).toHaveCount(1, { timeout: await getTimeout(this) });
         await byRole.selectOption({ label: valueToSet });
         await deleteCookieByName(this, COOKIE_NAME.SELECTED_ELEMENT);

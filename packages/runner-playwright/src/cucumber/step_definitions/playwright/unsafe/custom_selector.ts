@@ -14,6 +14,7 @@
 import { World, When } from "../../../preprocessor/run/world";
 
 When("je suis une phrase custom qui vérifie l'existence d'un noeud par le sélecteur {string}", async function (this: World, selector: string) {
+    // eslint-disable-next-line playwright/no-unused-locators
     await this.page.locator(selector);
 });
 
