@@ -65,7 +65,7 @@
     "@types/mustache": "^4.2.6",
     "@uuv/assistant": "2.91.1",
     "@uuv/dictionary": "0.18.1",
-    "ai": "6.0.177",
+    "ai": "6.0.184",
     "jsdom": "26.1.0",
     "mustache": "^4.2.0",
     "ollama-ai-provider-v2": "^3.5.0",
