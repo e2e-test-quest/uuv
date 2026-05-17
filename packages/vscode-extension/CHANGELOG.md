@@ -1,3 +1,23 @@
+# [1.54.0](https://github.com/e2e-test-quest/uuv/compare/vscode-extension-v1.53.1...vscode-extension-v1.54.0) (2026-05-17)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @ai-sdk/anthropic to v3.0.78 ([64a1c50](https://github.com/e2e-test-quest/uuv/commit/64a1c50df9b6ba7071c1918a3de93dd95b854ff0))
+* **deps:** update dependency @ai-sdk/google to v3.0.75 ([786ece5](https://github.com/e2e-test-quest/uuv/commit/786ece52187bc42f04b3a9995a316dd7e66a4e15))
+* **deps:** update dependency @ai-sdk/mcp to v1.0.42 ([e4135c1](https://github.com/e2e-test-quest/uuv/commit/e4135c1705454db5fbe68a409b729d545a62b91a))
+* **deps:** update dependency @ai-sdk/openai to v3.0.64 ([2d0e950](https://github.com/e2e-test-quest/uuv/commit/2d0e950459eae2dfdee25b7f558450845fb0c159))
+* **deps:** update dependency ai to v6.0.184 ([1741dff](https://github.com/e2e-test-quest/uuv/commit/1741dfff0e6f28f038c8f272e40f675e2342bd43))
+* **runner-playwright:** update dependency playwright-bdd to v8.5.1 ([93815ec](https://github.com/e2e-test-quest/uuv/commit/93815ec37afaa6f8dc0338500f2a676a45412220))
+
+
+### Features
+
+* **assistant:** update dependency playwright-chromium to v1.60.0 ([ee59bf6](https://github.com/e2e-test-quest/uuv/commit/ee59bf63b5832c392dc998080d1aea8c4428700e))
+* **deps:** update dependency tslib to v2.8.1 ([85d4f31](https://github.com/e2e-test-quest/uuv/commit/85d4f314c368e95f8221a779bfb4063d4af503c2))
+* **runner-cypress:** update dependency cypress to v15.15.0 ([872ac71](https://github.com/e2e-test-quest/uuv/commit/872ac71452a7cec086c8dab4cbdaa179285bc69f))
+* **runner-playwright:** update dependency @cucumber/cucumber to v12.9.0 ([424c539](https://github.com/e2e-test-quest/uuv/commit/424c5397f9568acc12066972e5b00e1faade7b51))
+
 ## [1.53.1](https://github.com/e2e-test-quest/uuv/compare/vscode-extension-v1.53.0...vscode-extension-v1.53.1) (2026-05-11)
 
 
