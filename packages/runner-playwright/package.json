@@ -99,7 +99,7 @@
     "eslint-plugin-cucumber": "2.0.0",
     "eslint-plugin-jest": "29.15.2",
     "eslint-plugin-playwright": "2.10.2",
-    "ts-loader": "9.5.4",
+    "ts-loader": "9.5.7",
     "tsconfig-paths": "4.2.0",
     "webpack": "5.105.4"
   },
