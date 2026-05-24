@@ -7,7 +7,6 @@ import report from "multiple-cucumber-html-reporter";
 import { nanoid } from "nanoid";
 import chalk from "chalk";
 import chalkTable from "chalk-table";
-import { UuvCustomFormatter } from "./uuv-custom-formatter";
 import parseTagsExpression from "@cucumber/tag-expressions";
 import path from "path";
 import { UUVEventEmitter } from "@uuv/runner-commons/runner/event";
@@ -532,7 +531,8 @@ class UuvPlaywrightReporterHelper {
     }
 
     private async formatCucumberMessageFile(inputMessageFile: string, outputFormattedFileJson:string) {
-        const formatter = new UuvCustomFormatter();
+        const { Formatter } = await import("cucumber-json-report-formatter");
+        const formatter = new Formatter();
         await formatter.parseCucumberJson(inputMessageFile, outputFormattedFileJson);
     }
 
