@@ -1,3 +1,19 @@
+# [0.24.0](https://github.com/e2e-test-quest/uuv/compare/mcp-server-v0.23.0...mcp-server-v0.24.0) (2026-05-27)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @ai-sdk/anthropic to v3.0.79 ([ef5f4d7](https://github.com/e2e-test-quest/uuv/commit/ef5f4d7b7dcd45b9efe3a250740d5597717838a2))
+* **deps:** update dependency @ai-sdk/google to v3.0.79 ([5bd8e02](https://github.com/e2e-test-quest/uuv/commit/5bd8e027ff9129ba53641eb2172bd2ee15b46159))
+* **deps:** update dependency @ai-sdk/mcp to v1.0.43 ([fb5e8e3](https://github.com/e2e-test-quest/uuv/commit/fb5e8e381fc7e096199edba397267c9902bda0cf))
+* **deps:** update dependency @ai-sdk/openai to v3.0.65 ([831dcf3](https://github.com/e2e-test-quest/uuv/commit/831dcf3c6c3b778ac96ded94d7078974cf8f47b7))
+* **runner-playwright:** update dependency cucumber-json-report-formatter to v0.1.5 ([2a61e93](https://github.com/e2e-test-quest/uuv/commit/2a61e9387205d6fb1018cd76f6800080bed02194))
+
+
+### Features
+
+* **runner-playwright:** remove uuv custom formatter ([98dce50](https://github.com/e2e-test-quest/uuv/commit/98dce5079970a1e8eeb66b6fa482b99dbb9d76e9))
+
 # [0.23.0](https://github.com/e2e-test-quest/uuv/compare/mcp-server-v0.22.1...mcp-server-v0.23.0) (2026-05-17)
 
 
