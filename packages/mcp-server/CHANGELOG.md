@@ -1,3 +1,10 @@
+## [0.24.1](https://github.com/e2e-test-quest/uuv/compare/mcp-server-v0.24.0...mcp-server-v0.24.1) (2026-06-11)
+
+
+### Bug Fixes
+
+* **mcp-server:** fix prompt template typo ([a56b3a2](https://github.com/e2e-test-quest/uuv/commit/a56b3a2f1fd95b95e44d3621867a3ccc2846e86f))
+
 # [0.24.0](https://github.com/e2e-test-quest/uuv/compare/mcp-server-v0.23.0...mcp-server-v0.24.0) (2026-05-27)
 
 
