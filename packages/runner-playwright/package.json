@@ -101,7 +101,7 @@
     "eslint-plugin-playwright": "2.10.2",
     "ts-loader": "9.5.7",
     "tsconfig-paths": "4.2.0",
-    "webpack": "5.105.4"
+    "webpack": "5.107.2"
   },
   "funding": {
     "type": "opencollective",
