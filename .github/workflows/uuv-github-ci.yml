@@ -13,7 +13,7 @@ permissions:
 
 env:
   PYTHON_VERSION: 3.12.3
-  NODE_VERSION: 22.18.0
+  NODE_VERSION: 24.14.0
   NPM_PACKAGE_SCOPE: uuv
   UUV_BASE_URL: https://e2e-test-quest.github.io
 
@@ -561,10 +561,10 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: release-artifacts
-      - name: Use Node.js 23
+      - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 23
+          node-version: ${{env.NODE_VERSION}}
           registry-url: 'https://registry.npmjs.org'
           cache: 'npm'
       - name: Install npm 11
