@@ -1,110 +1,113 @@
 {
-  "name": "@uuv/playwright",
-  "version": "3.74.0",
-  "type": "commonjs",
-  "author": "Louis Fredice NJAKO MOLOM (https://github.com/luifr10) & Stanley SERVICAL (https://github.com/stanlee974)",
-  "description": "A solution to facilitate the writing and execution of E2E tests understandable by any human being using cucumber(BDD) and playwright",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/e2e-test-quest/uuv"
-  },
-  "homepage": "https://e2e-test-quest.github.io/uuv/",
-  "bin": {
-    "uuv": "bin/uuv"
-  },
-  "keywords": [
-    "uuv",
-    "e2e",
-    "end2end",
-    "end 2 end",
-    "test",
-    "testing",
-    "accessibility",
-    "accessibilite",
-    "a11y",
-    "cypress",
-    "playwright",
-    "testing-library",
-    "cucumber",
-    "gherkin",
-    "bdd",
-    "tdd",
-    "acceptance"
-  ],
-  "scripts": {
-    "generate:step-definitions": "ts-node generate-step-definitions.ts",
-    "package": "npm pack --pack-destination=\"../../dist/packages\"",
-    "postinstall": "node postinstall.js",
-    "unit-tests": "jest --runInBand --coverage --config=./jest.config.ts --testPathIgnorePatterns=src/tests/report",
-    "verify-report": "jest --runInBand --coverage --config=./jest.config.ts --testPathPatterns=src/tests/report",
-    "e2e-test:run": "ts-node test.ts e2e",
-    "e2e-test:open": "ts-node test.ts open --",
-    "test": "npm run unit-tests && npm run e2e-test:run"
-  },
-  "dependencies": {
-    "@cucumber/cucumber": "12.9.0",
-    "@cucumber/tag-expressions": "9.1.0",
-    "@playwright/test": "^1.55.0",
-    "@uuv/a11y": "1.0.0-beta.108",
-    "@uuv/runner-commons": "2.85.1",
-    "axe-core": "4.11.4",
-    "axe-playwright": "2.2.2",
-    "chalk-table": "1.0.2",
-    "chokidar": "4.0.3",
-    "cucumber-json-report-formatter": "0.1.4",
-    "lodash": "^4.17.21",
-    "multiple-cucumber-html-reporter": "3.10.0",
-    "nanoid": "3.3.12",
-    "playwright-bdd": "9.2.0",
-    "ts-node": "10.9.2",
-    "typescript": "5.9.3"
-  },
-  "types": "./dist/index.d.ts",
-  "main": "./dist/index.js",
-  "files": [
-    "dist/cucumber/**/*",
-    "dist/reporter/**/*",
-    "dist/lib/**/*",
-    "dist/index.d.ts",
-    "dist/index.js",
-    "bin/**/*",
-    "postinstall.js",
-    "target-config/**/*",
-    "src/cucumber/step_definitions/playwright/generated/**/*",
-    "src/cucumber/step_definitions/playwright/unsafe/**/*",
-    "*.md",
-    ".npmignore"
-  ],
-  "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+    "name": "@uuv/playwright",
+    "version": "3.74.0",
+    "type": "commonjs",
+    "author": "Louis Fredice NJAKO MOLOM (https://github.com/luifr10) & Stanley SERVICAL (https://github.com/stanlee974)",
+    "description": "A solution to facilitate the writing and execution of E2E tests understandable by any human being using cucumber(BDD) and playwright",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/e2e-test-quest/uuv"
     },
-    "./uuv-playwright-reporter": {
-      "import": "./dist/reporter/uuv-playwright-reporter.js",
-      "require": "./dist/reporter/uuv-playwright-reporter.js",
-      "types": "./dist/reporter/uuv-playwright-reporter.d.ts"
+    "homepage": "https://e2e-test-quest.github.io/uuv/",
+    "engines": {
+        "node": ">=24"
+    },
+    "bin": {
+        "uuv": "bin/uuv"
+    },
+    "keywords": [
+        "uuv",
+        "e2e",
+        "end2end",
+        "end 2 end",
+        "test",
+        "testing",
+        "accessibility",
+        "accessibilite",
+        "a11y",
+        "cypress",
+        "playwright",
+        "testing-library",
+        "cucumber",
+        "gherkin",
+        "bdd",
+        "tdd",
+        "acceptance"
+    ],
+    "scripts": {
+        "generate:step-definitions": "ts-node generate-step-definitions.ts",
+        "package": "npm pack --pack-destination=\"../../dist/packages\"",
+        "postinstall": "node postinstall.js",
+        "unit-tests": "jest --runInBand --coverage --config=./jest.config.ts --testPathIgnorePatterns=src/tests/report",
+        "verify-report": "jest --runInBand --coverage --config=./jest.config.ts --testPathPatterns=src/tests/report",
+        "e2e-test:run": "ts-node test.ts e2e",
+        "e2e-test:open": "ts-node test.ts open --",
+        "test": "npm run unit-tests && npm run e2e-test:run"
+    },
+    "dependencies": {
+        "@cucumber/cucumber": "12.9.0",
+        "@cucumber/tag-expressions": "9.1.0",
+        "@playwright/test": "^1.55.0",
+        "@uuv/a11y": "1.0.0-beta.108",
+        "@uuv/runner-commons": "2.85.1",
+        "axe-core": "4.11.4",
+        "axe-playwright": "2.2.2",
+        "chalk-table": "1.0.2",
+        "chokidar": "4.0.3",
+        "cucumber-json-report-formatter": "0.1.4",
+        "lodash": "^4.17.21",
+        "multiple-cucumber-html-reporter": "3.10.0",
+        "nanoid": "3.3.12",
+        "playwright-bdd": "9.2.0",
+        "ts-node": "10.9.2",
+        "typescript": "5.9.3"
+    },
+    "types": "./dist/index.d.ts",
+    "main": "./dist/index.js",
+    "files": [
+        "dist/cucumber/**/*",
+        "dist/reporter/**/*",
+        "dist/lib/**/*",
+        "dist/index.d.ts",
+        "dist/index.js",
+        "bin/**/*",
+        "postinstall.js",
+        "target-config/**/*",
+        "src/cucumber/step_definitions/playwright/generated/**/*",
+        "src/cucumber/step_definitions/playwright/unsafe/**/*",
+        "*.md",
+        ".npmignore"
+    ],
+    "exports": {
+        ".": {
+            "import": "./dist/index.js",
+            "require": "./dist/index.js",
+            "types": "./dist/index.d.ts"
+        },
+        "./uuv-playwright-reporter": {
+            "import": "./dist/reporter/uuv-playwright-reporter.js",
+            "require": "./dist/reporter/uuv-playwright-reporter.js",
+            "types": "./dist/reporter/uuv-playwright-reporter.d.ts"
+        }
+    },
+    "devDependencies": {
+        "@types/minimist": "1.2.5",
+        "@types/node": "22.19.17",
+        "@typescript-eslint/eslint-plugin": "8.59.3",
+        "@typescript-eslint/parser": "8.59.3",
+        "chalk": "^4.1.2",
+        "cross-env": "7.0.3",
+        "eslint": "8.57.1",
+        "eslint-plugin-cucumber": "2.0.0",
+        "eslint-plugin-jest": "29.15.2",
+        "eslint-plugin-playwright": "2.10.2",
+        "ts-loader": "9.5.7",
+        "tsconfig-paths": "4.2.0",
+        "webpack": "5.105.4"
+    },
+    "funding": {
+        "type": "opencollective",
+        "url": "https://opencollective.com/uuv"
     }
-  },
-  "devDependencies": {
-    "@types/minimist": "1.2.5",
-    "@types/node": "22.19.17",
-    "@typescript-eslint/eslint-plugin": "8.59.3",
-    "@typescript-eslint/parser": "8.59.3",
-    "chalk": "^4.1.2",
-    "cross-env": "7.0.3",
-    "eslint": "8.57.1",
-    "eslint-plugin-cucumber": "2.0.0",
-    "eslint-plugin-jest": "29.15.2",
-    "eslint-plugin-playwright": "2.10.2",
-    "ts-loader": "9.5.7",
-    "tsconfig-paths": "4.2.0",
-    "webpack": "5.105.4"
-  },
-  "funding": {
-    "type": "opencollective",
-    "url": "https://opencollective.com/uuv"
-  }
 }

@@ -9,7 +9,7 @@ Démarrez encore plus vite avec **[@uuv/mcp-server](/docs/tools/uuv-mcp-server)*
 
 :::warning[Configurations requises]
 
-- Node.js 18+ ([Regarder ici comment installer Node.js et Npm](https://kinsta.com/blog/how-to-install-node-js/#how-to-install-nodejs-and-npm))
+- Node.js 24+ ([Regarder ici comment installer Node.js et Npm](https://kinsta.com/blog/how-to-install-node-js/#how-to-install-nodejs-and-npm))
 - Npm/Yarn aura besoin d'accéder à internet lors de l'installation de la librairie
 - Un de ces systèmes d'exploitation : - Windows 10+, Windows Server 2016+ ou Windows Subsystem for Linux (WSL). - MacOS 12 Monterey, MacOS 13 Ventura, ou MacOS 14 Sonoma. - Debian 11, Debian 12, Ubuntu 20.04 ou Ubuntu 22.04, avec l'architecture x86-64 ou arm64.
   :::
