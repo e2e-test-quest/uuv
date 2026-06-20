@@ -65,7 +65,6 @@
         "@uuv/dictionary": "0.19.1",
         "antd": "5.27.4",
         "dom-accessibility-api": "0.7.1",
-        "eslint-config-react-app": "7.0.1",
         "figlet": "1.11.0",
         "playwright-chromium": "1.60.0",
         "tabbable": "6.4.0"
