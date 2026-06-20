@@ -3,8 +3,10 @@ export default {
     preset: "../../jest.preset.js",
     testEnvironment: "node",
     transform: {
-        "^.+\\.[tj]s$": ["ts-jest", { tsconfig: "<rootDir>/tsconfig.spec.json" }]
+        "^.+\\.[tj]s$": ["ts-jest", { tsconfig: "<rootDir>/tsconfig.spec.json" }],
+        "^.+\\.mjs$": ["babel-jest", { presets: [["@babel/preset-env", { targets: { node: "current" } }]] }],
     },
+    transformIgnorePatterns: ["../../node_modules/(?!(jsdom/node_modules|@exodus|@csstools)/)"],
     moduleFileExtensions: ["ts", "js", "html"],
     coverageDirectory: "../../coverage/packages/mcp-server",
     moduleNameMapper: {
