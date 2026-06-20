@@ -1,90 +1,93 @@
 {
-  "name": "@uuv/runner-commons",
-  "version": "2.85.1",
-  "type": "commonjs",
-  "author": "Louis Fredice NJAKO MOLOM (https://github.com/luifr10) & Stanley SERVICAL (https://github.com/stanlee974)",
-  "description": "A common lib for uuv",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/e2e-test-quest/uuv"
-  },
-  "homepage": "https://e2e-test-quest.github.io/uuv/",
-  "keywords": [
-    "uuv",
-    "e2e",
-    "end2end",
-    "end 2 end",
-    "test",
-    "testing",
-    "accessibility",
-    "accessibilite",
-    "a11y",
-    "cypress",
-    "playwright",
-    "testing-library",
-    "cucumber",
-    "gherkin",
-    "bdd",
-    "tdd",
-    "acceptance"
-  ],
-  "scripts": {
-    "package": "npm pack --pack-destination=\"../../dist/packages\"",
-    "lint": "npx eslint . --ext .js,.ts,.feature --fix",
-    "test": "npm run unit-test --",
-    "unit-tests": "jest --coverage"
-  },
-  "devDependencies": {
-    "xml2js": "^0.6.2"
-  },
-  "files": [
-    "dist/index.d.ts",
-    "dist/index.js",
-    "dist/step-definition-generator/**/*",
-    "dist/assets/**/*",
-    "src/assets/i18n/*/*/*.json",
-    "dist/runner/**/*",
-    "dist/cli/**/*",
-    "*.md"
-  ],
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.js"
+    "name": "@uuv/runner-commons",
+    "version": "2.85.1",
+    "type": "commonjs",
+    "author": "Louis Fredice NJAKO MOLOM (https://github.com/luifr10) & Stanley SERVICAL (https://github.com/stanlee974)",
+    "description": "A common lib for uuv",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/e2e-test-quest/uuv"
     },
-    "./wording/web": {
-      "types": "./dist/assets/i18n/web/index.d.ts",
-      "import": "./dist/assets/i18n/web/index.js",
-      "require": "./dist/assets/i18n/web/index.js"
+    "engines": {
+        "node": ">=24"
     },
-    "./wording/web/en": {
-      "types": "./dist/assets/i18n/web/en/index.d.ts",
-      "import": "./dist/assets/i18n/web/en/index.js",
-      "require": "./dist/assets/i18n/web/en/index.js"
+    "homepage": "https://e2e-test-quest.github.io/uuv/",
+    "keywords": [
+        "uuv",
+        "e2e",
+        "end2end",
+        "end 2 end",
+        "test",
+        "testing",
+        "accessibility",
+        "accessibilite",
+        "a11y",
+        "cypress",
+        "playwright",
+        "testing-library",
+        "cucumber",
+        "gherkin",
+        "bdd",
+        "tdd",
+        "acceptance"
+    ],
+    "scripts": {
+        "package": "npm pack --pack-destination=\"../../dist/packages\"",
+        "lint": "npx eslint . --ext .js,.ts,.feature --fix",
+        "test": "npm run unit-test --",
+        "unit-tests": "jest --coverage"
     },
-    "./runner/event": {
-      "types": "./dist/runner/event/index.d.ts",
-      "import": "./dist/runner/event/index.js",
-      "require": "./dist/runner/event/index.js"
+    "devDependencies": {
+        "xml2js": "^0.6.2"
     },
-    "./runner/utils": {
-      "types": "./dist/runner/utils.d.ts",
-      "import": "./dist/runner/utils.js",
-      "require": "./dist/runner/utils.js"
+    "files": [
+        "dist/index.d.ts",
+        "dist/index.js",
+        "dist/step-definition-generator/**/*",
+        "dist/assets/**/*",
+        "src/assets/i18n/*/*/*.json",
+        "dist/runner/**/*",
+        "dist/cli/**/*",
+        "*.md"
+    ],
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "require": "./dist/index.js"
+        },
+        "./wording/web": {
+            "types": "./dist/assets/i18n/web/index.d.ts",
+            "import": "./dist/assets/i18n/web/index.js",
+            "require": "./dist/assets/i18n/web/index.js"
+        },
+        "./wording/web/en": {
+            "types": "./dist/assets/i18n/web/en/index.d.ts",
+            "import": "./dist/assets/i18n/web/en/index.js",
+            "require": "./dist/assets/i18n/web/en/index.js"
+        },
+        "./runner/event": {
+            "types": "./dist/runner/event/index.d.ts",
+            "import": "./dist/runner/event/index.js",
+            "require": "./dist/runner/event/index.js"
+        },
+        "./runner/utils": {
+            "types": "./dist/runner/utils.d.ts",
+            "import": "./dist/runner/utils.js",
+            "require": "./dist/runner/utils.js"
+        }
+    },
+    "dependencies": {
+        "chalk": "^4.1.2",
+        "figlet": "1.11.0",
+        "lodash": "^4.17.21",
+        "minimist": "1.2.8",
+        "node-ipc": "^12.0.0",
+        "@uuv/dictionary": "0.19.1"
+    },
+    "funding": {
+        "type": "opencollective",
+        "url": "https://opencollective.com/uuv"
     }
-  },
-  "dependencies": {
-    "chalk": "^4.1.2",
-    "figlet": "1.11.0",
-    "lodash": "^4.17.21",
-    "minimist": "1.2.8",
-    "node-ipc": "^12.0.0",
-    "@uuv/dictionary": "0.19.1"
-  },
-  "funding": {
-    "type": "opencollective",
-    "url": "https://opencollective.com/uuv"
-  }
 }

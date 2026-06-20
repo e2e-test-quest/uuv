@@ -1,87 +1,90 @@
 {
-  "name": "@uuv/mcp-server",
-  "version": "0.24.1",
-  "description": "A Model Context Protocol (MCP) server for UUV - a solution to facilitate the writing and execution of E2E tests understandable by any human being(English or French) using cucumber(BDD) and cypress or playwright.",
-  "author": "Louis Fredice NJAKO MOLOM (https://github.com/luifr10) & Stanley SERVICAL (https://github.com/stanlee974)",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/e2e-test-quest/uuv.git",
-    "directory": "packages/mcp-server"
-  },
-  "keywords": [
-    "uuv",
-    "mcp",
-    "model-context-protocol",
-    "e2e",
-    "end2end",
-    "end 2 end",
-    "test",
-    "testing",
-    "accessibility",
-    "accessibilite",
-    "a11y",
-    "cypress",
-    "playwright",
-    "testing-library",
-    "cucumber",
-    "gherkin",
-    "bdd",
-    "tdd",
-    "acceptance"
-  ],
-  "type": "commonjs",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "files": [
-    "dist/**/*",
-    "README.md",
-    "LICENSE"
-  ],
-  "scripts": {
-    "start": "ts-node src/lib/mcp-server.ts",
-    "inspector": "npx @modelcontextprotocol/inspector --config test-mcp.json --server default-server",
-    "lint": "npx eslint . --ext .js,.ts,.feature --fix",
-    "build-copy-prompt-templates": "copyfiles -u 1 \"src/lib/prompts/**/*\" dist",
-    "tests": "jest --coverage --config=./jest.config.ts",
-    "package": "npm pack --pack-destination=\"../../dist/packages\""
-  },
-  "bin": {
-    "mcp-server": "./dist/index.js"
-  },
-  "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+    "name": "@uuv/mcp-server",
+    "version": "0.24.1",
+    "description": "A Model Context Protocol (MCP) server for UUV - a solution to facilitate the writing and execution of E2E tests understandable by any human being(English or French) using cucumber(BDD) and cypress or playwright.",
+    "author": "Louis Fredice NJAKO MOLOM (https://github.com/luifr10) & Stanley SERVICAL (https://github.com/stanlee974)",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/e2e-test-quest/uuv.git",
+        "directory": "packages/mcp-server"
+    },
+    "engines": {
+        "node": ">=24"
+    },
+    "keywords": [
+        "uuv",
+        "mcp",
+        "model-context-protocol",
+        "e2e",
+        "end2end",
+        "end 2 end",
+        "test",
+        "testing",
+        "accessibility",
+        "accessibilite",
+        "a11y",
+        "cypress",
+        "playwright",
+        "testing-library",
+        "cucumber",
+        "gherkin",
+        "bdd",
+        "tdd",
+        "acceptance"
+    ],
+    "type": "commonjs",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "files": [
+        "dist/**/*",
+        "README.md",
+        "LICENSE"
+    ],
+    "scripts": {
+        "start": "ts-node src/lib/mcp-server.ts",
+        "inspector": "npx @modelcontextprotocol/inspector --config test-mcp.json --server default-server",
+        "lint": "npx eslint . --ext .js,.ts,.feature --fix",
+        "build-copy-prompt-templates": "copyfiles -u 1 \"src/lib/prompts/**/*\" dist",
+        "tests": "jest --coverage --config=./jest.config.ts",
+        "package": "npm pack --pack-destination=\"../../dist/packages\""
+    },
+    "bin": {
+        "mcp-server": "./dist/index.js"
+    },
+    "exports": {
+        ".": {
+            "import": "./dist/index.js",
+            "require": "./dist/index.js",
+            "types": "./dist/index.d.ts"
+        }
+    },
+    "dependencies": {
+        "@ai-sdk/anthropic": "3.0.79",
+        "@ai-sdk/google": "3.0.79",
+        "@ai-sdk/mcp": "1.0.43",
+        "@ai-sdk/openai": "3.0.65",
+        "@modelcontextprotocol/sdk": "1.29.0",
+        "@types/mustache": "^4.2.6",
+        "@uuv/assistant": "2.93.0",
+        "@uuv/dictionary": "0.19.1",
+        "ai": "6.0.184",
+        "jsdom": "26.1.0",
+        "mustache": "^4.2.0",
+        "ollama-ai-provider-v2": "^3.5.0",
+        "pino": "^10.3.1",
+        "pino-pretty": "^13.1.3",
+        "tsconfig-paths": "4.2.0",
+        "tslib": "2.8.1",
+        "zod": "4.3.6"
+    },
+    "funding": {
+        "type": "opencollective",
+        "url": "https://opencollective.com/uuv"
+    },
+    "devDependencies": {
+        "@modelcontextprotocol/inspector": "^0.21.0",
+        "copyfiles": "^2.4.1",
+        "ts-node": "^10.9.2"
     }
-  },
-  "dependencies": {
-    "@ai-sdk/anthropic": "3.0.79",
-    "@ai-sdk/google": "3.0.79",
-    "@ai-sdk/mcp": "1.0.43",
-    "@ai-sdk/openai": "3.0.65",
-    "@modelcontextprotocol/sdk": "1.29.0",
-    "@types/mustache": "^4.2.6",
-    "@uuv/assistant": "2.93.0",
-    "@uuv/dictionary": "0.19.1",
-    "ai": "6.0.184",
-    "jsdom": "26.1.0",
-    "mustache": "^4.2.0",
-    "ollama-ai-provider-v2": "^3.5.0",
-    "pino": "^10.3.1",
-    "pino-pretty": "^13.1.3",
-    "tsconfig-paths": "4.2.0",
-    "tslib": "2.8.1",
-    "zod": "4.3.6"
-  },
-  "funding": {
-    "type": "opencollective",
-    "url": "https://opencollective.com/uuv"
-  },
-  "devDependencies": {
-    "@modelcontextprotocol/inspector": "^0.21.0",
-    "copyfiles": "^2.4.1",
-    "ts-node": "^10.9.2"
-  }
 }

@@ -15,7 +15,7 @@ As an MCP server, `@uuv/mcp-server` acts as a bridge between AI models and E2E t
 ## Setup
 
 ### Requirements
-- **Node.js 20 or higher**
+- **Node.js 24 or higher**
 
 ### Supported LLMs
 

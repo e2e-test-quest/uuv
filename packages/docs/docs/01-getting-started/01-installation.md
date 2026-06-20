@@ -9,7 +9,7 @@ Get started even faster with **[@uuv/mcp-server](/docs/tools/uuv-mcp-server)** -
 
 :::warning[System requirements]
 
-- Node.js 18+ ([See here how to install Node.js and Npm](https://kinsta.com/blog/how-to-install-node-js/#how-to-install-nodejs-and-npm))
+- Node.js 24+ ([See here how to install Node.js and Npm](https://kinsta.com/blog/how-to-install-node-js/#how-to-install-nodejs-and-npm))
 - Npm/Yarn will need access to the internet when installing the library
 - One of these OS :
     - Windows 10+, Windows Server 2016+ or Windows Subsystem for Linux (WSL).

@@ -1,116 +1,119 @@
 {
-  "name": "@uuv/cypress",
-  "version": "2.91.1",
-  "type": "commonjs",
-  "author": "Louis Fredice NJAKO MOLOM (https://github.com/luifr10) & Stanley SERVICAL (https://github.com/stanlee974)",
-  "description": "A solution to facilitate the writing and execution of E2E tests understandable by any human being using cucumber(BDD) and cypress",
-  "license": "MIT",
-  "homepage": "https://e2e-test-quest.github.io/uuv/",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/e2e-test-quest/uuv"
-  },
-  "bin": {
-    "uuv": "bin/uuv"
-  },
-  "keywords": [
-    "uuv",
-    "e2e",
-    "end2end",
-    "end 2 end",
-    "test",
-    "testing",
-    "accessibility",
-    "accessibilite",
-    "a11y",
-    "cypress",
-    "playwright",
-    "testing-library",
-    "cucumber",
-    "gherkin",
-    "bdd",
-    "tdd",
-    "acceptance"
-  ],
-  "scripts": {
-    "generate:step-definitions": "ts-node generate-step-definitions.ts",
-    "package": "npm pack --pack-destination=\"../../dist/packages\"",
-    "postinstall": "node postinstall.js",
-    "unit-tests": "jest --runInBand --coverage --config=./jest.config.ts --testPathIgnorePatterns=src/tests/report",
-    "verify-report": "jest --runInBand --coverage --config=./jest.config.ts --testPathPatterns=src/tests/report",
-    "e2e-test:run": "ts-node test.ts e2e",
-    "e2e-test:open": "ts-node test.ts open",
-    "test": "npm run unit-tests && npm run e2e-test:run",
-    "lint": "eslint -c .eslintrc.js"
-  },
-  "dependencies": {
-    "@badeball/cypress-cucumber-preprocessor": "24.0.1",
-    "@bahmutov/cypress-esbuild-preprocessor": "^2.2.8",
-    "@testing-library/cypress": "10.1.3",
-    "@uuv/a11y": "1.0.0-beta.108",
-    "@uuv/runner-commons": "2.85.1",
-    "axe-core": "4.11.4",
-    "chai-subset": "^1.6.0",
-    "cypress": "15.15.0",
-    "cypress-on-fix": "^1.1.0",
-    "cypress-real-events": "^1.10.0",
-    "dom-accessibility-api": "^0.7.0",
-    "is-admin": "4.0.0",
-    "junit-report-merger": "^9.0.0",
-    "lodash": "^4.17.21",
-    "multiple-cucumber-html-reporter": "3.10.0",
-    "path-browserify": "^1.0.1",
-    "ts-node": "10.9.2",
-    "typescript": "5.9.3",
-    "webpack": "5.105.4"
-  },
-  "types": "./dist/index.d.ts",
-  "main": "./dist/index.js",
-  "files": [
-    "dist/cucumber/**/*",
-    "dist/cypress/**/*",
-    "dist/lib/**/*",
-    "dist/index.d.ts",
-    "dist/index.js",
-    "bin/**/*",
-    "postinstall.js",
-    "target-config/**/*",
-    "src/cucumber/step_definitions/cypress/generated/**/*",
-    "*.md"
-  ],
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.js"
+    "name": "@uuv/cypress",
+    "version": "2.91.1",
+    "type": "commonjs",
+    "author": "Louis Fredice NJAKO MOLOM (https://github.com/luifr10) & Stanley SERVICAL (https://github.com/stanlee974)",
+    "description": "A solution to facilitate the writing and execution of E2E tests understandable by any human being using cucumber(BDD) and cypress",
+    "license": "MIT",
+    "homepage": "https://e2e-test-quest.github.io/uuv/",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/e2e-test-quest/uuv"
     },
-    "./cypress/commands": {
-      "types": "./dist/cypress/commands.d.ts",
-      "import": "./dist/cypress/commands.js",
-      "require": "./dist/cypress/commands.js"
+    "engines": {
+        "node": ">=24"
     },
-    "./cypress/cypress.config": {
-      "types": "./dist/cypress/cypress.config.d.ts",
-      "import": "./dist/cypress/cypress.config.js",
-      "require": "./dist/cypress/cypress.config.js"
+    "bin": {
+        "uuv": "bin/uuv"
     },
-    "./cucumber/step_definitions": {
-      "types": "./dist/cucumber/step_definitions/**/*.d.ts",
-      "import": "./dist/cucumber/step_definitions/**/*.js",
-      "require": "./dist/cucumber/step_definitions/**/*.js"
+    "keywords": [
+        "uuv",
+        "e2e",
+        "end2end",
+        "end 2 end",
+        "test",
+        "testing",
+        "accessibility",
+        "accessibilite",
+        "a11y",
+        "cypress",
+        "playwright",
+        "testing-library",
+        "cucumber",
+        "gherkin",
+        "bdd",
+        "tdd",
+        "acceptance"
+    ],
+    "scripts": {
+        "generate:step-definitions": "ts-node generate-step-definitions.ts",
+        "package": "npm pack --pack-destination=\"../../dist/packages\"",
+        "postinstall": "node postinstall.js",
+        "unit-tests": "jest --runInBand --coverage --config=./jest.config.ts --testPathIgnorePatterns=src/tests/report",
+        "verify-report": "jest --runInBand --coverage --config=./jest.config.ts --testPathPatterns=src/tests/report",
+        "e2e-test:run": "ts-node test.ts e2e",
+        "e2e-test:open": "ts-node test.ts open",
+        "test": "npm run unit-tests && npm run e2e-test:run",
+        "lint": "eslint -c .eslintrc.js"
+    },
+    "dependencies": {
+        "@badeball/cypress-cucumber-preprocessor": "24.0.1",
+        "@bahmutov/cypress-esbuild-preprocessor": "^2.2.8",
+        "@testing-library/cypress": "10.1.3",
+        "@uuv/a11y": "1.0.0-beta.108",
+        "@uuv/runner-commons": "2.85.1",
+        "axe-core": "4.11.4",
+        "chai-subset": "^1.6.0",
+        "cypress": "15.15.0",
+        "cypress-on-fix": "^1.1.0",
+        "cypress-real-events": "^1.10.0",
+        "dom-accessibility-api": "^0.7.0",
+        "is-admin": "4.0.0",
+        "junit-report-merger": "^9.0.0",
+        "lodash": "^4.17.21",
+        "multiple-cucumber-html-reporter": "3.10.0",
+        "path-browserify": "^1.0.1",
+        "ts-node": "10.9.2",
+        "typescript": "5.9.3",
+        "webpack": "5.105.4"
+    },
+    "types": "./dist/index.d.ts",
+    "main": "./dist/index.js",
+    "files": [
+        "dist/cucumber/**/*",
+        "dist/cypress/**/*",
+        "dist/lib/**/*",
+        "dist/index.d.ts",
+        "dist/index.js",
+        "bin/**/*",
+        "postinstall.js",
+        "target-config/**/*",
+        "src/cucumber/step_definitions/cypress/generated/**/*",
+        "*.md"
+    ],
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "require": "./dist/index.js"
+        },
+        "./cypress/commands": {
+            "types": "./dist/cypress/commands.d.ts",
+            "import": "./dist/cypress/commands.js",
+            "require": "./dist/cypress/commands.js"
+        },
+        "./cypress/cypress.config": {
+            "types": "./dist/cypress/cypress.config.d.ts",
+            "import": "./dist/cypress/cypress.config.js",
+            "require": "./dist/cypress/cypress.config.js"
+        },
+        "./cucumber/step_definitions": {
+            "types": "./dist/cucumber/step_definitions/**/*.d.ts",
+            "import": "./dist/cucumber/step_definitions/**/*.js",
+            "require": "./dist/cucumber/step_definitions/**/*.js"
+        }
+    },
+    "devDependencies": {
+        "@types/minimist": "1.2.5",
+        "@types/node": "22.19.17",
+        "chalk": "^4.1.2",
+        "cross-env": "7.0.3",
+        "eslint-plugin-cypress": "4.3.0",
+        "ts-loader": "9.5.7",
+        "tsconfig-paths": "4.2.0"
+    },
+    "funding": {
+        "type": "opencollective",
+        "url": "https://opencollective.com/uuv"
     }
-  },
-  "devDependencies": {
-    "@types/minimist": "1.2.5",
-    "@types/node": "22.19.17",
-    "chalk": "^4.1.2",
-    "cross-env": "7.0.3",
-    "eslint-plugin-cypress": "4.3.0",
-    "ts-loader": "9.5.7",
-    "tsconfig-paths": "4.2.0"
-  },
-  "funding": {
-    "type": "opencollective",
-    "url": "https://opencollective.com/uuv"
-  }
 }

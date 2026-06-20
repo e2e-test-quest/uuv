@@ -18,7 +18,7 @@ En tant que serveur MCP, `@uuv/mcp-server` fait le lien entre les modèles IA et
 
 ### Prérequis
 
-- **Node.js 20 ou supérieur**
+- **Node.js 24 ou supérieur**
 
 ### LLM pris en charge
 

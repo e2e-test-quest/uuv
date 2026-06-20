@@ -1,137 +1,140 @@
 {
-  "name": "@uuv/assistant",
-  "version": "2.93.0",
-  "author": "Louis Fredice NJAKO MOLOM (https://github.com/luifr10) & Stanley SERVICAL (https://github.com/stanlee974)",
-  "description": "UUV Helper used to improve the life of testers and developers by generating cucumber phrases from the GUI.",
-  "license": "MIT",
-  "type": "commonjs",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/e2e-test-quest/uuv"
-  },
-  "homepage": "https://e2e-test-quest.github.io/uuv/",
-  "keywords": [
-    "uuv",
-    "e2e",
-    "end2end",
-    "end 2 end",
-    "test",
-    "testing",
-    "accessibility",
-    "accessibilite",
-    "a11y",
-    "cypress",
-    "playwright",
-    "testing-library",
-    "cucumber",
-    "gherkin",
-    "bdd",
-    "tdd",
-    "acceptance"
-  ],
-  "bin": {
-    "uuv-assistant": "./dist/launcher/uuv-assistant-launcher.js"
-  },
-  "scripts": {
-    "react:start": "vite",
-    "build-react": "vite build",
-    "react:test": "jest --coverage",
-    "launch": "ts-node launcher/uuv-assistant-launcher.ts",
-    "launch:custom": "ts-node tests/uuv-assistant-custom-launcher.ts",
-    "build-conf": "node compute-conf.js",
-    "build-bundle": "node bundle-script.js",
-    "package": "npm pack --pack-destination=\"../../dist/packages\"",
-    "lint": "eslint -c .eslintrc.js",
-    "test": "npm run unit-tests && npm run e2e-test:run",
-    "unit-tests": "jest --coverage --config=./jest.config.ts",
-    "e2e-test:run": "npm run uuv e2e --",
-    "e2e-test:open": "npm run uuv open --",
-    "uuv": "node ../../node_modules/@uuv/playwright/bin/uuv"
-  },
-  "browser": {
-    "fs": false,
-    "os": false,
-    "path": false
-  },
-  "dependencies": {
-    "@ant-design/icons": "^5.0.1",
-    "@codemirror/legacy-modes": "^6.4.0",
-    "@codemirror/view": "^6.26.3",
-    "@uiw/codemirror-theme-github": "^4.22.1",
-    "@uiw/react-codemirror": "^4.22.1",
-    "@uuv/dictionary": "0.19.1",
-    "antd": "5.27.4",
-    "dom-accessibility-api": "0.7.1",
-    "eslint-config-react-app": "7.0.1",
-    "figlet": "1.11.0",
-    "playwright-chromium": "1.60.0",
-    "tabbable": "6.4.0"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "devDependencies": {
-    "@testing-library/dom": "^10.4.1",
-    "@testing-library/jest-dom": "6.9.1",
-    "@testing-library/react": "16.3.2",
-    "@testing-library/user-event": "14.6.1",
-    "@types/jest": "29.5.14",
-    "@types/jquery": "3.5.34",
-    "@types/node": "22.19.17",
-    "@types/react": "18.3.28",
-    "@types/react-dom": "18.3.7",
-    "@types/styled-components": "5.1.36",
-    "@types/testing-library__jest-dom": "5.14.9",
-    "@typescript-eslint/eslint-plugin": "8.59.3",
-    "@typescript-eslint/parser": "8.59.3",
-    "@uuv/playwright": "3.74.0",
-    "@vitejs/plugin-react": "4.7.0",
-    "eslint-plugin-react": "7.37.5",
-    "jest-environment-jsdom": "^29.5.0",
-    "minimist": "1.2.8",
-    "react": "18.3.1",
-    "react-dom": "18.3.1",
-    "react-router-dom": "^7.0.0",
-    "replace-json-property": "1.9.0",
-    "styled-components": "6.3.12",
-    "ts-jest": "29.4.9",
-    "ts-loader": "^9.4.2",
-    "ts-node": "10.9.2",
-    "tsconfig-paths": "4.2.0",
-    "typescript": "5.9.3",
-    "vite": "7.3.3"
-  },
-  "files": [
-    "dist/uuv-assistant-resources.bundle.js",
-    "dist/launcher/**/*",
-    "dist/src/**/*",
-    "postinstall.js"
-  ],
-  "main": "./dist/src/index.js",
-  "types": "./dist/src/index.d.ts",
-  "exports": {
-    ".": {
-      "require": "./dist/src/index.js",
-      "types": "./dist/src/index.d.ts",
-      "import": "./dist/src/index.js"
+    "name": "@uuv/assistant",
+    "version": "2.93.0",
+    "author": "Louis Fredice NJAKO MOLOM (https://github.com/luifr10) & Stanley SERVICAL (https://github.com/stanlee974)",
+    "description": "UUV Helper used to improve the life of testers and developers by generating cucumber phrases from the GUI.",
+    "license": "MIT",
+    "type": "commonjs",
+    "engines": {
+        "node": ">=24"
     },
-    "./launcher": {
-      "require": "./dist/launcher/index.js",
-      "types": "./dist/launcher/index.d.ts",
-      "import": "./dist/launcher/index.js"
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/e2e-test-quest/uuv"
+    },
+    "homepage": "https://e2e-test-quest.github.io/uuv/",
+    "keywords": [
+        "uuv",
+        "e2e",
+        "end2end",
+        "end 2 end",
+        "test",
+        "testing",
+        "accessibility",
+        "accessibilite",
+        "a11y",
+        "cypress",
+        "playwright",
+        "testing-library",
+        "cucumber",
+        "gherkin",
+        "bdd",
+        "tdd",
+        "acceptance"
+    ],
+    "bin": {
+        "uuv-assistant": "./dist/launcher/uuv-assistant-launcher.js"
+    },
+    "scripts": {
+        "react:start": "vite",
+        "build-react": "vite build",
+        "react:test": "jest --coverage",
+        "launch": "ts-node launcher/uuv-assistant-launcher.ts",
+        "launch:custom": "ts-node tests/uuv-assistant-custom-launcher.ts",
+        "build-conf": "node compute-conf.js",
+        "build-bundle": "node bundle-script.js",
+        "package": "npm pack --pack-destination=\"../../dist/packages\"",
+        "lint": "eslint -c .eslintrc.js",
+        "test": "npm run unit-tests && npm run e2e-test:run",
+        "unit-tests": "jest --coverage --config=./jest.config.ts",
+        "e2e-test:run": "npm run uuv e2e --",
+        "e2e-test:open": "npm run uuv open --",
+        "uuv": "node ../../node_modules/@uuv/playwright/bin/uuv"
+    },
+    "browser": {
+        "fs": false,
+        "os": false,
+        "path": false
+    },
+    "dependencies": {
+        "@ant-design/icons": "^5.0.1",
+        "@codemirror/legacy-modes": "^6.4.0",
+        "@codemirror/view": "^6.26.3",
+        "@uiw/codemirror-theme-github": "^4.22.1",
+        "@uiw/react-codemirror": "^4.22.1",
+        "@uuv/dictionary": "0.19.1",
+        "antd": "5.27.4",
+        "dom-accessibility-api": "0.7.1",
+        "eslint-config-react-app": "7.0.1",
+        "figlet": "1.11.0",
+        "playwright-chromium": "1.60.0",
+        "tabbable": "6.4.0"
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    },
+    "devDependencies": {
+        "@testing-library/dom": "^10.4.1",
+        "@testing-library/jest-dom": "6.9.1",
+        "@testing-library/react": "16.3.2",
+        "@testing-library/user-event": "14.6.1",
+        "@types/jest": "29.5.14",
+        "@types/jquery": "3.5.34",
+        "@types/node": "22.19.17",
+        "@types/react": "18.3.28",
+        "@types/react-dom": "18.3.7",
+        "@types/styled-components": "5.1.36",
+        "@types/testing-library__jest-dom": "5.14.9",
+        "@typescript-eslint/eslint-plugin": "8.59.3",
+        "@typescript-eslint/parser": "8.59.3",
+        "@uuv/playwright": "3.74.0",
+        "@vitejs/plugin-react": "4.7.0",
+        "eslint-plugin-react": "7.37.5",
+        "jest-environment-jsdom": "^29.5.0",
+        "minimist": "1.2.8",
+        "react": "18.3.1",
+        "react-dom": "18.3.1",
+        "react-router-dom": "^7.0.0",
+        "replace-json-property": "1.9.0",
+        "styled-components": "6.3.12",
+        "ts-jest": "29.4.9",
+        "ts-loader": "^9.4.2",
+        "ts-node": "10.9.2",
+        "tsconfig-paths": "4.2.0",
+        "typescript": "5.9.3",
+        "vite": "7.3.3"
+    },
+    "files": [
+        "dist/uuv-assistant-resources.bundle.js",
+        "dist/launcher/**/*",
+        "dist/src/**/*",
+        "postinstall.js"
+    ],
+    "main": "./dist/src/index.js",
+    "types": "./dist/src/index.d.ts",
+    "exports": {
+        ".": {
+            "require": "./dist/src/index.js",
+            "types": "./dist/src/index.d.ts",
+            "import": "./dist/src/index.js"
+        },
+        "./launcher": {
+            "require": "./dist/launcher/index.js",
+            "types": "./dist/launcher/index.d.ts",
+            "import": "./dist/launcher/index.js"
+        }
+    },
+    "funding": {
+        "type": "opencollective",
+        "url": "https://opencollective.com/uuv"
     }
-  },
-  "funding": {
-    "type": "opencollective",
-    "url": "https://opencollective.com/uuv"
-  }
 }
