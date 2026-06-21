@@ -1,3 +1,23 @@
+# [1.44.0](https://github.com/e2e-test-quest/uuv/compare/intellij-plugin-v1.43.1...intellij-plugin-v1.44.0) (2026-06-21)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @ai-sdk/anthropic to v3.0.85 ([0b29846](https://github.com/e2e-test-quest/uuv/commit/0b29846dab19f342e2cacbcbc7905763975ad3b3))
+* **deps:** update dependency @ai-sdk/google to v3.0.83 ([e5930d1](https://github.com/e2e-test-quest/uuv/commit/e5930d1b9abf083080b0146d0e41db10f7423cc7))
+* **deps:** update dependency @ai-sdk/mcp to v1.0.52 ([346b83f](https://github.com/e2e-test-quest/uuv/commit/346b83f3e1944dc47da2ba840fee68750e7f9cfb))
+* **deps:** update dependency @ai-sdk/openai to v3.0.73 ([58b2fb6](https://github.com/e2e-test-quest/uuv/commit/58b2fb6d5d1023669d88b69a3482e5da99eade73))
+* **deps:** update dependency ai to v6.0.208 ([bceab4b](https://github.com/e2e-test-quest/uuv/commit/bceab4bd5d249fe64304d87c22bf881fe7df0d2d))
+
+
+### Features
+
+* **deps:** update dependency zod to v4.4.3 ([e3a2c95](https://github.com/e2e-test-quest/uuv/commit/e3a2c95e5dba50a0043e24fb1af49d27f48f5484))
+* migrate to node 24 ([e0c0b6d](https://github.com/e2e-test-quest/uuv/commit/e0c0b6dfa5342cbe4f77ab4304ef8786faffc322))
+* **runner-cypress:** update dependency cypress to v15.17.0 ([ad1e998](https://github.com/e2e-test-quest/uuv/commit/ad1e998fe9f32709675fa87153daec2baa7ab7d7))
+* **runner-playwright:** update dependency axe-core to v4.12.1 ([8c38698](https://github.com/e2e-test-quest/uuv/commit/8c3869850a94dd131148d788f21634bb58c93195))
+* **runner-playwright:** update playwright-bdd to v9 ([072868c](https://github.com/e2e-test-quest/uuv/commit/072868c38a0429024c61d00742e73335fa42d3d5))
+
 ## [1.43.1](https://github.com/e2e-test-quest/uuv/compare/intellij-plugin-v1.43.0...intellij-plugin-v1.43.1) (2026-05-27)
 
 
