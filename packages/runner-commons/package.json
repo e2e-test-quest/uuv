@@ -1,6 +1,6 @@
 {
     "name": "@uuv/runner-commons",
-    "version": "2.85.1",
+    "version": "2.86.0",
     "type": "commonjs",
     "author": "Louis Fredice NJAKO MOLOM (https://github.com/luifr10) & Stanley SERVICAL (https://github.com/stanlee974)",
     "description": "A common lib for uuv",
@@ -84,7 +84,7 @@
         "lodash": "^4.17.21",
         "minimist": "1.2.8",
         "node-ipc": "^12.0.0",
-        "@uuv/dictionary": "0.19.1"
+        "@uuv/dictionary": "0.20.0"
     },
     "funding": {
         "type": "opencollective",
