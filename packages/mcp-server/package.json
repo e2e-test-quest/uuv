@@ -1,6 +1,6 @@
 {
     "name": "@uuv/mcp-server",
-    "version": "0.24.1",
+    "version": "0.25.0",
     "description": "A Model Context Protocol (MCP) server for UUV - a solution to facilitate the writing and execution of E2E tests understandable by any human being(English or French) using cucumber(BDD) and cypress or playwright.",
     "author": "Louis Fredice NJAKO MOLOM (https://github.com/luifr10) & Stanley SERVICAL (https://github.com/stanlee974)",
     "license": "MIT",
@@ -66,8 +66,8 @@
         "@ai-sdk/openai": "3.0.73",
         "@modelcontextprotocol/sdk": "1.29.0",
         "@types/mustache": "^4.2.6",
-        "@uuv/assistant": "2.93.0",
-        "@uuv/dictionary": "0.19.1",
+        "@uuv/assistant": "2.94.0",
+        "@uuv/dictionary": "0.20.0",
         "ai": "6.0.208",
         "jsdom": "29.1.1",
         "mustache": "^4.2.0",
