@@ -147,6 +147,7 @@ And I wait 1000 ms
   And within the element with selector "summary"
   And I click
   And I reset context
+  And I wait 1000 ms
   When I click on menuitem named "Components actions"
   And I click on menuitem named "Table and Grid Expect"
   And within the element with selector "#element-border-4"

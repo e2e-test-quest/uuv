@@ -36,6 +36,7 @@ Feature: Table and grid
 
   Scenario: key.then.aggrid.withNameAndContent
     When I visit path "https://e2e-test-quest.github.io/simple-webapp/aggrid.html"
+    And I wait 100 ms
     Then I should see a grid named "AG Grid Example" and containing
       | Make             | Model            | Price            | Electric         |
       | ---------------- | ---------------- | ---------------- | ---------------- |
@@ -49,6 +50,7 @@ Feature: Table and grid
 
   Scenario: key.then.aggrid-edit.withNameAndContent
     Given I visit path "https://e2e-test-quest.github.io/simple-webapp/aggrid.html"
+    And I wait 100 ms
     And I should see a grid named "Editable AG Grid Example" and containing
       | Make             | Model            | Price            | Electric                                     |
       | ---------------- | ---------------- | ---------------- | ----------------                             |
