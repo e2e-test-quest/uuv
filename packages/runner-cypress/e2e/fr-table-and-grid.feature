@@ -37,6 +37,7 @@ Fonctionnalité: Tableau et grille
 
   Scénario: key.then.aggrid.withNameAndContent
     Quand je visite l'Url "https://e2e-test-quest.github.io/simple-webapp/aggrid.html"
+    Et j'attends 100 ms
     Alors je dois voir une grille nommée "AG Grid Example" et contenant
       | Make             | Model            | Price            | Electric         |
       | ---------------- | ---------------- | ---------------- | ---------------- |
@@ -50,6 +51,7 @@ Fonctionnalité: Tableau et grille
 
   Scénario: key.then.aggrid-edit.withNameAndContent
     Etant donné que je visite l'Url "https://e2e-test-quest.github.io/simple-webapp/aggrid.html"
+    Et j'attends 100 ms
     Et je dois voir une grille nommée "Editable AG Grid Example" et contenant
       | Make             | Model            | Price            | Electric                                     |
       | ---------------- | ---------------- | ---------------- | ----------------                             |
