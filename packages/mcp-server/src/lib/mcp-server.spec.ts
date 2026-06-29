@@ -8,6 +8,8 @@ import path from "path";
 describe("UUV MCP Server", () => {
     let client: Client;
     let server: McpServer;
+    // eslint-disable-next-line dot-notation
+    process.env["UUV_API_ENABLED"] = "false";
 
     const expectedExpectElementRoleAndNamePrompt = {
         type: "text",

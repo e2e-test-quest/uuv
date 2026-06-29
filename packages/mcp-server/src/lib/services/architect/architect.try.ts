@@ -1,7 +1,8 @@
 // eslint-disable-next-line dot-notation
 process.env["PINO_LOG_LEVEL"] = "debug";
+import { logger } from "../utils";
 
-import { validateArgs, generateScenario, logger } from "./architect.service";
+import { validateArgs, generateScenario } from "./architect.service";
 
 const targetUrl = process.argv[2];
 const scenario = process.argv[3];

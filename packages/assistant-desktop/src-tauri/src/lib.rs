@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 #[tauri::command]
 async fn open_url_with_uuv_assistant(url: String, app: tauri::AppHandle) {
     // Create initialization script that loads the external JS bundle
@@ -31,11 +33,17 @@ async fn open_url_with_uuv_assistant(url: String, app: tauri::AppHandle) {
         .unwrap();
 }
 
+#[tauri::command]
+fn get_env_vars() -> HashMap<String, String> {
+    std::env::vars().collect()
+}
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_opener::init())
-        .invoke_handler(tauri::generate_handler![open_url_with_uuv_assistant])
+        .plugin(tauri_plugin_shell::init())
+        .invoke_handler(tauri::generate_handler![open_url_with_uuv_assistant, get_env_vars])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

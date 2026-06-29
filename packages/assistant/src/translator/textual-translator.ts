@@ -21,10 +21,24 @@ export class TextualTranslator {
         if (!this.isTextualNode(element)) {
             return Promise.resolve(null);
         }
-        
+
         const textContent = this.getTextContent(element);
         const response: TranslateSentences = TextualTranslator.computeTextContentSentence(textContent);
         return Promise.resolve(response);
+    }
+
+    static computeSentenceFromKeyAndContent(sentenceKey: string, textContent: string) {
+        const response: TranslateSentences = {
+            suggestion: undefined,
+            steps: [],
+        };
+        response.steps = [
+            {
+                keyword: stepCase,
+                sentence: new ExpectTranslator().computeSentenceFromKeyAndContent(sentenceKey, textContent),
+            },
+        ];
+        return response;
     }
 
     static computeTextContentSentence(textContent: string) {

@@ -24,6 +24,7 @@ import {
 import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 import { getBaseUrl } from "./services/general.service";
 import { generateScenario } from "./services/architect/architect.service";
+import { UuvAgent } from "./agents/uuv.agent";
 
 function handleElementTestGeneration(input: Partial<FindElement> & { serviceType: ElementServiceType }): CallToolResult {
     let result: string;
@@ -47,11 +48,30 @@ function handleElementTestGeneration(input: Partial<FindElement> & { serviceType
     };
 }
 
+function startApiServer(llmModel: string, llmApi?: string) {
+    const imageClassifierAgent = new UuvAgent(llmModel, llmApi);
+    imageClassifierAgent.start();
+}
+
 export function createUUVServer() {
     const server = new McpServer({
         name: "uuv-mcp-server",
         version: "0.0.1-beta",
     });
+
+    // eslint-disable-next-line dot-notation
+    const llmModel = process.env["UUV_LLM_MODEL"] ?? "anthropic/claude-sonnet-4.6";
+    // eslint-disable-next-line dot-notation
+    const llmApi = process.env["UUV_LLM_API"];
+    // eslint-disable-next-line dot-notation
+    const isApiEnabled = ["true", "1", "yes"].includes(
+        // eslint-disable-next-line dot-notation
+        (process.env["UUV_API_ENABLED"] || "true").toLowerCase()
+    );
+
+    if (isApiEnabled) {
+        startApiServer(llmModel, llmApi);
+    }
 
     server.registerPrompt(
         UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_TABLE,
@@ -192,34 +212,32 @@ export function createUUVServer() {
         })
     );
 
-    [
-        UUV_MCP_SERVER_ITEM.INSTALL_UUV_DEPENDENCY,
-        UUV_MCP_SERVER_ITEM.CHECK_UUV_DEPENDENCY,
-        UUV_MCP_SERVER_ITEM.GET_UUV_VERSION,
-    ].forEach((promptName: UUV_MCP_SERVER_ITEM) => {
-        server.registerPrompt(
-            promptName,
-            {
-                title: uuvPrompts[promptName].title,
-                description: uuvPrompts[promptName].description,
-                argsSchema: {},
-            },
-            ({ ...args }) => ({
-                messages: [
-                    {
-                        role: "assistant",
-                        content: {
-                            type: "text",
-                            text: PromptRetrieverService.retrievePrompt({
-                                promptName,
-                                ...args,
-                            }),
+    [UUV_MCP_SERVER_ITEM.INSTALL_UUV_DEPENDENCY, UUV_MCP_SERVER_ITEM.CHECK_UUV_DEPENDENCY, UUV_MCP_SERVER_ITEM.GET_UUV_VERSION].forEach(
+        (promptName: UUV_MCP_SERVER_ITEM) => {
+            server.registerPrompt(
+                promptName,
+                {
+                    title: uuvPrompts[promptName].title,
+                    description: uuvPrompts[promptName].description,
+                    argsSchema: {},
+                },
+                ({ ...args }) => ({
+                    messages: [
+                        {
+                            role: "assistant",
+                            content: {
+                                type: "text",
+                                text: PromptRetrieverService.retrievePrompt({
+                                    promptName,
+                                    ...args,
+                                }),
+                            },
                         },
-                    },
-                ],
-            })
-        );
-    });
+                    ],
+                })
+            );
+        }
+    );
 
     server.registerTool(
         UUV_MCP_SERVER_ITEM.GET_BASE_URL,
@@ -408,10 +426,6 @@ export function createUUVServer() {
             },
         },
         async ({ baseUrl, testCase }) => {
-            // eslint-disable-next-line dot-notation
-            const llmModel = process.env["UUV_LLM_MODEL"] ?? "anthropic/claude-sonnet-4.6";
-            // eslint-disable-next-line dot-notation
-            const llmApi = process.env["UUV_LLM_API"];
             return {
                 content: [
                     {

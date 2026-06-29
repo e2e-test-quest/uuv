@@ -1,0 +1,11 @@
+Use UUV MCP tools:
+    1. Analyze the image content shown at CSS selector {{cssSelector}} on the webpage
+    2. Evaluate surrounding context: {{#textBefore}}Text before image: {{textBefore}}{{^last}}...{{/last}}{{/textBefore}}{{#textAfter}}Text after image: {{textAfter}}{{/textAfter}}{{^textAfter}}No surrounding text provided{{/textAfter}}
+    3. Use ChainOfThought reasoning: First analyze the visual elements, then determine purpose, finally classify as decorative or informative
+     - {{#hasDescription}}Image description: {{imageDescription}}{{/hasDescription}}{{^hasDescription}}No image description provided. Analyze visual characteristics directly.{{/hasDescription}}
+    4. Return classification result with confidence level
+
+Final Output:
+    - is_decorative: {{#isDecorative}}true{{/isDecorative}}{{^isDecorative}}false{{/isDecorative}}
+    - confidence: {{confidence}}
+    - analysis_details: {{analysisDetails}}

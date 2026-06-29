@@ -7,9 +7,13 @@ export class ExpectElementService extends AbstractElementService {
     override generatedScenarioName = "Expect an element";
 
     override generateSentenceForAccessibleNameAndRole(input: FindElementByRoleAndName): TranslateSentences {
-        return (input.accessibleRole === "text" || input.valueToType === "") && input.valueToType ?
-            TextualTranslator.computeTextContentSentence(input.valueToType) :
-            (new ExpectTranslator()).getSentenceFromAccessibleRoleAndName(input.accessibleRole, input.accessibleName);
+        if ((input.accessibleRole === "text" || input.valueToType === "") && input.valueToType) {
+            return TextualTranslator.computeTextContentSentence(input.valueToType);
+        } else if ((input.accessibleRole === "page_title" || input.valueToType === "") && input.valueToType) {
+            return TextualTranslator.computeSentenceFromKeyAndContent("key.then.page.withTitle", input.accessibleName);
+        } else {
+            return new ExpectTranslator().getSentenceFromAccessibleRoleAndName(input.accessibleRole, input.accessibleName);
+        }
     }
 
     override generateSentenceForDomSelector(input: FindElementByDomSelector): TranslateSentences {
