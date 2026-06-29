@@ -1,9 +1,5 @@
-import { generateText, Output, stepCountIs, tool, zodSchema } from "ai";
+import { generateText, Output, stepCountIs, zodSchema } from "ai";
 import { ExplorationStepOutput, FlatScenarioResultSchema, ScenarioResult, ScenarioResultSchema, Step } from "./architect.model";
-import { createOllama } from "ollama-ai-provider-v2";
-import { openai } from "@ai-sdk/openai";
-import { anthropic } from "@ai-sdk/anthropic";
-import { google } from "@ai-sdk/google";
 import { createMCPClient } from "@ai-sdk/mcp";
 // eslint-disable-next-line camelcase
 import { Experimental_StdioMCPTransport } from "@ai-sdk/mcp/mcp-stdio";
@@ -14,16 +10,8 @@ import { WithinElementService } from "../element/within-element.service";
 import { ExpectElementService } from "../element/expect-element.service";
 import { GeneralElementService } from "../element/general-element.service";
 import { StepCaseEnum, TranslateSentences } from "@uuv/assistant";
-import pino from "pino";
 import z from "zod";
-
-export const logger = pino({
-    // eslint-disable-next-line dot-notation
-    level: process.env["PINO_LOG_LEVEL"] || "info",
-    transport: {
-        target: "pino-pretty",
-    },
-});
+import { getLanguageModel, logger } from "../utils";
 
 const SYSTEM_PROMPT = `
   You are an automated testing agent with access to Playwright MCP tools.
@@ -65,8 +53,8 @@ function parsePlaywrightToolResult(text: string): Record<string, string> {
 
     for (const part of parts) {
         if (!part.trim()) {
-continue;
-}
+            continue;
+        }
         const newlineIndex = part.indexOf("\n");
         const title = part.slice(0, newlineIndex).trim();
         const content = part.slice(newlineIndex + 1).trim();
@@ -77,17 +65,7 @@ continue;
 }
 
 async function analyzeScenario(targetUrl: string, scenario: string, tools: any, llmModel: string, llmApi?: string): Promise<string> {
-    const providers = {
-        openai,
-        anthropic,
-        google,
-        ollama: createOllama({
-            baseURL: llmApi,
-        })
-    };
-
-    const [provider, modelName] = llmModel.split("/");
-    const model = providers[provider](modelName);
+    const model = getLanguageModel(llmModel, llmApi);
 
     // Accumulate all step texts
     const explorationStepOutputs = await exploreTheScenario(scenario, targetUrl, model, tools);
@@ -107,25 +85,39 @@ async function extractScenarioSteps(model: any, explorationStepOutputs: Explorat
     );
     logger.debug("isJsonModelFlatModeEnabled");
     logger.debug(isJsonModelFlatModeEnabled);
-    const schema: z.ZodTypeAny = isJsonModelFlatModeEnabled
-        ? FlatScenarioResultSchema
-        : ScenarioResultSchema;
-    return await generateText({
+    const schema: z.ZodTypeAny = isJsonModelFlatModeEnabled ? FlatScenarioResultSchema : ScenarioResultSchema;
+    const { output } = await generateText({
         model,
+        system: `
+            /nothink
+            You are a test scenario architect.
+            The "comment" field in each trace step may contain a draft scenario in this format:
+              <action> - <role> - <accessibleName>
+              <action> - <role> - <accessibleName> - <value>
+              navigation - <url>
+        `,
         prompt: `
         Based on this full execution trace of the browser automation session, produce a structured test scenario, always start with a navigation step.
         
         Some steps were used for exploration purposes only and do not lead to any meaningful outcome (you can identify them using the "comment" field when it indicates uncertainty, dead ends, or intermediate exploration).
         Exclude those exploration-only steps from the final structured scenario and keep only the steps that are part of the actual user flow.
 
-        Trace:
-        ${JSON.stringify(explorationStepOutputs, null, 2)}
-
-        Return JSON matching the schema.
+        Input trace:
+        ${JSON.stringify(explorationStepOutputs, null, 2)}        
       `,
-        maxOutputTokens: 4096,
-        output: Output.object({ schema: zodSchema(schema) }),
+        output: Output.object({ schema }),
+        stopWhen: stepCountIs(10),
     });
+
+    logger.debug("output");
+    logger.debug(output);
+
+    return { output };
+    // logger.debug("parsedOutput");
+    // const parsedOutput = schema.parse(JSON.parse(output));
+    // logger.debug(JSON.stringify(parsedOutput));
+    //
+    // return { output: parsedOutput };
 }
 
 async function exploreTheScenario(scenario: string, targetUrl: string, model: any, tools: any) {
@@ -245,7 +237,7 @@ function generateUUVGherkinStepTool(input: Step): TranslateSentences {
             // eslint-disable-next-line dot-notation
             valueToType: input["targetElement"].value ?? input["valueToType"],
         });
-    // eslint-disable-next-line dot-notation
+        // eslint-disable-next-line dot-notation
     } else if (input["targetUrl"]) {
         // eslint-disable-next-line dot-notation
         const sentence = new GeneralElementService().findSentenceFromKey("key.when.visit", input["targetUrl"]);
@@ -273,13 +265,13 @@ function refineAction(input: Step) {
     return input.action;
 }
 
-export function validateArgs(targetUrl?: string, scenario?: string): boolean {
+export function validateArgs(targetUrl?: string, scenario?: string) {
     if (!targetUrl || !scenario) {
         logger.error("Usage: architect <targetUrl> \"<scenario description>\"");
-        logger.error("Example: architect https://make-it-soft.com \"User logs in with valid credentials\"");
-        return false;
+        const message = "Example: architect https://make-it-soft.com \"User logs in with valid credentials\"";
+        logger.error(message);
+        throw Error(message);
     }
-    return true;
 }
 
 export async function generateScenario(targetUrl: string, scenario: string, llmModel: string, llmApi?: string): Promise<string | null> {

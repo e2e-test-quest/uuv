@@ -1,0 +1,28 @@
+# Image Classification Unified Workflow
+
+Use UUV MCP tools to complete the workflow:
+
+## Step 1: Describe the Image
+    1. With uuv_describeImage, describe the UI element in the image (CSS: {{cssSelector}})
+    2. Provide a comprehensive description including:
+       - Main visual elements
+       - Text content
+       - Layout characteristics
+       - Color scheme and styling
+    3. Capture key visual features and context
+
+## Step 2: Classify with ChainOfThought
+    1. Analyze the image description: {{imageDescription}}
+    2. Extract surrounding context: {{#textBefore}}Text before image: {{textBefore}}{{/textBefore}}{{#textAfter}}Text after image: {{textAfter}}{{/textAfter}}
+    3. Apply ChainOfThought reasoning:
+       - **Step 1**: Analyze visual elements in the image
+       - **Step 2**: Determine purpose and function based on visual characteristics
+       - **Step 3**: Consider user interaction patterns
+       - **Step 4**: Evaluate accessibility implications
+    4. Make final classification:
+
+## Step 3: Return Classification Result
+    - is_decorative: {{#isDecorative}}true{{/isDecorative}}{{^isDecorative}}false{{/isDecorative}}
+    - confidence: {{confidence}}
+    - analysis_details: {{analysisDetails}}
+    - image_description: {{imageDescription}}

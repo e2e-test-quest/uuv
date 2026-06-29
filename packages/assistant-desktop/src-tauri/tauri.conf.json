@@ -13,8 +13,8 @@
     "windows": [
       {
         "title": "UUV Assistant - Home",
-        "width": 1280,
-        "height": 720
+        "minWidth": 1600,
+        "minHeight": 900
       }
     ],
     "security": {

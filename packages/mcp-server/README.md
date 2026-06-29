@@ -85,11 +85,12 @@ gemini extensions install https://github.com/e2e-test-quest/uuv --auto-update
 
 #### Environment Variables
 
-| Environment Variable          | Required                                  | Description                                                                                |
-| ----------------------------- | ----------------------------------------- | ------------------------------------------------------------------------------------------ |
-| `UUV_LLM_MODEL`               | Yes                                       | Specifies the LLM model used by the MCP server. Format: `<provider>/<modelName>`           |
-| `UUV_JSON_FLAT_MODEL_ENABLED` | Recommended (`true` for Anthropic/Gemini) | Enables flat JSON output formatting (strongly recommended for Anthropic and Gemini models) |
-| `UUV_LLM_API`                 | Optional (Ollama only)                    | Base API endpoint for local Ollama models                                                  |
+| Environment Variable          | Format                   | Required                                  | Description                                                                                | examples                                                |
+|-------------------------------|--------------------------|-------------------------------------------|--------------------------------------------------------------------------------------------|---------------------------------------------------------|
+| `UUV_LLM_MODEL`               | `<provider>/<modelName>` | Yes                                       | Specifies the LLM model used by the MCP server.                                            | -`anthropic/claude-sonnet-4-6`<br/>-`ollama/qwen3.6:35b` |
+| `UUV_JSON_FLAT_MODEL_ENABLED` | boolean                  | Recommended (`true` for Anthropic/Gemini) | Enables flat JSON output formatting (strongly recommended for Anthropic and Gemini models) | -`true`<br/>-`false`                                    |
+| `UUV_LLM_API`                 | url                      | Optional (Required only for Ollama)  | Base API endpoint for local Ollama models                                                  | `http://localhost:11434`                             |
+| `UUV_API_ENABLED`             | boolean                  | Optional (`true` by default)         | Enables the internal image-classification API server powered by the configured LLM model   | -`true`<br/>-`false`                                 |
 
 ## Usage (MCP Prompts)
 
@@ -103,10 +104,10 @@ The `@uuv/mcp-server` offers two complementary approaches to generate your e2e t
 
 These two prompts are unique: **they actually navigate your application** to understand its structure before generating tests. No more manual parameters to fill in — the AI explores, analyzes, and produces scenarios tailored to your real interface.
 
-| Template | Purpose | Key Parameters |
-|---|---|---|
-| `genNominalTestCase` | Generates a full test scenario (happy path) by exploring the app | `testCase` |
-| `genTestExpectTable` | Verifies table content by inspecting real data | `baseUrl`, `innerHtmlFilePath` |
+| Template             | Purpose                                                          | Key Parameters                 |
+|----------------------|------------------------------------------------------------------|--------------------------------|
+| `genNominalTestCase` | Generates a full test scenario (happy path) by exploring the app | `testCase`                     |
+| `genTestExpectTable` | Verifies table content by inspecting real data                   | `baseUrl`, `innerHtmlFilePath` |
 
 **Why is this powerful?** Rather than describing what you want to test, you simply describe your intent — the MCP server takes care of exploring your application, identifying relevant elements, and generating a test that matches your actual interface.
 
