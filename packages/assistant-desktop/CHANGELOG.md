@@ -1,3 +1,10 @@
+# [1.17.0](https://github.com/e2e-test-quest/uuv/compare/assistant-desktop-v1.16.0...assistant-desktop-v1.17.0) (2026-06-30)
+
+
+### Features
+
+* migrate image classifier to mcp-server ([fa06581](https://github.com/e2e-test-quest/uuv/commit/fa0658177d2776d5a96de82b8e3c32c6d4d16d2b))
+
 # [1.16.0](https://github.com/e2e-test-quest/uuv/compare/assistant-desktop-v1.15.0...assistant-desktop-v1.16.0) (2026-06-21)
 
 
