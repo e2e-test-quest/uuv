@@ -1,3 +1,10 @@
+# [1.56.0](https://github.com/e2e-test-quest/uuv/compare/vscode-extension-v1.55.0...vscode-extension-v1.56.0) (2026-06-30)
+
+
+### Features
+
+* migrate image classifier to mcp-server ([fa06581](https://github.com/e2e-test-quest/uuv/commit/fa0658177d2776d5a96de82b8e3c32c6d4d16d2b))
+
 # [1.55.0](https://github.com/e2e-test-quest/uuv/compare/vscode-extension-v1.54.1...vscode-extension-v1.55.0) (2026-06-21)
 
 
