@@ -1,3 +1,10 @@
+# [2.87.0](https://github.com/e2e-test-quest/uuv/compare/runner-commons-v2.86.0...runner-commons-v2.87.0) (2026-06-30)
+
+
+### Features
+
+* migrate image classifier to mcp-server ([fa06581](https://github.com/e2e-test-quest/uuv/commit/fa0658177d2776d5a96de82b8e3c32c6d4d16d2b))
+
 # [2.86.0](https://github.com/e2e-test-quest/uuv/compare/runner-commons-v2.85.1...runner-commons-v2.86.0) (2026-06-21)
 
 
