@@ -1,3 +1,10 @@
+# [1.45.0](https://github.com/e2e-test-quest/uuv/compare/intellij-plugin-v1.44.0...intellij-plugin-v1.45.0) (2026-06-30)
+
+
+### Features
+
+* migrate image classifier to mcp-server ([fa06581](https://github.com/e2e-test-quest/uuv/commit/fa0658177d2776d5a96de82b8e3c32c6d4d16d2b))
+
 # [1.44.0](https://github.com/e2e-test-quest/uuv/compare/intellij-plugin-v1.43.1...intellij-plugin-v1.44.0) (2026-06-21)
 
 
