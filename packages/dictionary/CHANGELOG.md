@@ -1,3 +1,10 @@
+# [0.21.0](https://github.com/e2e-test-quest/uuv/compare/dictionary-v0.20.0...dictionary-v0.21.0) (2026-06-30)
+
+
+### Features
+
+* migrate image classifier to mcp-server ([fa06581](https://github.com/e2e-test-quest/uuv/commit/fa0658177d2776d5a96de82b8e3c32c6d4d16d2b))
+
 # [0.20.0](https://github.com/e2e-test-quest/uuv/compare/dictionary-v0.19.1...dictionary-v0.20.0) (2026-06-21)
 
 
