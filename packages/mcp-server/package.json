@@ -86,7 +86,7 @@
         "url": "https://opencollective.com/uuv"
     },
     "devDependencies": {
-        "@babel/preset-env": "7.29.0",
+        "@babel/preset-env": "7.29.7",
         "@hono/node-server": "^1.19.14",
         "@modelcontextprotocol/inspector": "^0.22.0",
         "babel-jest": "30.4.1",
