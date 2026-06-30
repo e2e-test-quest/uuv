@@ -1,3 +1,11 @@
+# [1.11.0](https://github.com/e2e-test-quest/uuv/compare/assistant-ai-v1.10.0...assistant-ai-v1.11.0) (2026-06-30)
+
+
+### Features
+
+* **assistant-ai:** update python version ([6f5cd62](https://github.com/e2e-test-quest/uuv/commit/6f5cd62b9e516bf41cc8448486b7f763d0a53208))
+* migrate image classifier to mcp-server ([fa06581](https://github.com/e2e-test-quest/uuv/commit/fa0658177d2776d5a96de82b8e3c32c6d4d16d2b))
+
 # [1.10.0](https://github.com/e2e-test-quest/uuv/compare/assistant-ai-v1.9.1...assistant-ai-v1.10.0) (2026-06-21)
 
 
