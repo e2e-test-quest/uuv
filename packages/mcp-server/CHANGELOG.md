@@ -1,3 +1,10 @@
+# [0.26.0](https://github.com/e2e-test-quest/uuv/compare/mcp-server-v0.25.0...mcp-server-v0.26.0) (2026-06-30)
+
+
+### Features
+
+* migrate image classifier to mcp-server ([fa06581](https://github.com/e2e-test-quest/uuv/commit/fa0658177d2776d5a96de82b8e3c32c6d4d16d2b))
+
 # [0.25.0](https://github.com/e2e-test-quest/uuv/compare/mcp-server-v0.24.1...mcp-server-v0.25.0) (2026-06-21)
 
 
