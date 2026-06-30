@@ -1,3 +1,10 @@
+# [3.76.0](https://github.com/e2e-test-quest/uuv/compare/runner-playwright-v3.75.0...runner-playwright-v3.76.0) (2026-06-30)
+
+
+### Features
+
+* migrate image classifier to mcp-server ([fa06581](https://github.com/e2e-test-quest/uuv/commit/fa0658177d2776d5a96de82b8e3c32c6d4d16d2b))
+
 # [3.75.0](https://github.com/e2e-test-quest/uuv/compare/runner-playwright-v3.74.0...runner-playwright-v3.75.0) (2026-06-21)
 
 
