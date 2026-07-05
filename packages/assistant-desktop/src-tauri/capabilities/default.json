@@ -4,6 +4,7 @@
     "description": "Capability for the main window",
     "windows": ["main"],
     "permissions": [
+        "os:default",
         "core:default",
         "opener:default",
         "shell:allow-kill",
@@ -13,10 +14,12 @@
                 {
                     "name": "npx",
                     "cmd": "npx",
-                    "args": [
-                        "-y",
-                        "@uuv/mcp-server"
-                    ]
+                    "args": [ "-y", "@uuv/mcp-server@latest" ]
+                },
+                {
+                    "name": "cmd",
+                    "cmd": "cmd",
+                    "args": [ "/C", "npx -y @uuv/mcp-server@latest" ]
                 }
             ]
         }

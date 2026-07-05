@@ -1,6 +1,7 @@
 <script lang="ts">
   import { invoke } from "@tauri-apps/api/core";
   import { Command, Child } from '@tauri-apps/plugin-shell';
+  import { platform } from '@tauri-apps/plugin-os';
 
   const DEFAULT_TARGET_URL = "https://google.fr";
   const UUV_AGENT_HEALTH_URL = "http://localhost:8000/health";
@@ -21,6 +22,7 @@
         UUV_AGENT_HEALTH_URL,
         { globalTimeoutMs, retryDelayMs: 2000, requestTimeoutMs: 2000 }
     );
+    console.debug("isUrlAvailable: ", response);
     if(response.available) {
       status = UUV_AGENT_STATE.started;
       llmApiUrl = (response.body as any)?.llmApi ?? llmApiUrl;
@@ -63,8 +65,21 @@
       if (!validateBeforeSubmit(event)) return;
       status = UUV_AGENT_STATE.loading;
       errorMessage = '';
-      await startServer();
+      try {
+        await startServer();
+      } catch (e) {
+        status = UUV_AGENT_STATE.stopped;
+        console.error('Une erreur s\'est produite');
+        console.error(e);
+      }
     }
+  }
+
+  function getStartCommand(): { command: string, args: string} {
+    const currentPlatform = platform();
+    return currentPlatform === 'windows' ?
+        { command: 'cmd', args: ['/C', 'npx -y @uuv/mcp-server@latest'] } :
+        { command: 'npx', args: ['-y', '@uuv/mcp-server@latest'] };
   }
 
   export async function startServer() {
@@ -74,56 +89,57 @@
     }
 
     const sysEnv = await invoke<Record<string, string>>('get_env_vars')
+    const options = {
+      env: {
+        ...sysEnv,
+        UUV_LLM_MODEL: llmModel,
+        UUV_LLM_API: llmApiUrl,
+        UUV_API_ENABLED: 'true',
+        PINO_LOG_LEVEL: 'debug'
+      },
+    };
+    const commandToExecute = getStartCommand();
 
     const command = Command.create(
-        'npx',
-        [
-          '-y',
-          '@uuv/mcp-server'
-        ],
-        {
-          env: {
-            ...sysEnv,
-            UUV_LLM_MODEL: llmModel,
-            UUV_LLM_API: llmApiUrl,
-            UUV_API_ENABLED: 'true',
-            PINO_LOG_LEVEL: 'debug'
-          },
-        }
+        commandToExecute.command,
+        commandToExecute.args,
+        options
     )
 
     command.stdout.on('data', (line) => {
-      console.log('[server stdout]', line)
+      console.debug('[server stdout]', line);
     })
     command.stderr.on('data', (line) => {
-      console.error('[server stderr]', line)
+      console.error('[server stderr]', line);
     })
 
     command.on('close', (data) => {
-      console.log(`Server stoppped (code: ${data.code})`)
-      serverProcess = null
+      console.debug(`Server stoppped (code: ${data.code})`);
+      serverProcess = null;
       status = UUV_AGENT_STATE.stopped;
     })
 
     command.on('error', (err) => {
       status = UUV_AGENT_STATE.stopped;
-      console.error('Server error :', err)
-      serverProcess = null
+      console.error('Server error :', err);
+      serverProcess = null;
     })
 
-    serverProcess = await command.spawn()
-    console.log('Server started, PID:', serverProcess.pid)
+    serverProcess = await command.spawn();
+    console.debug('Server started, PID:', serverProcess.pid);
     await listenStatusUpdate(10 * 60 * 1000);
   }
 
   export async function stopServer() {
+    console.debug(serverProcess);
     if (!serverProcess) {
-      console.warn('No server is running')
-      return
+      console.warn('No server is running');
+      return;
     }
 
-    await serverProcess.kill()
-    serverProcess = null
+    await invoke('kill_process_tree', { pid: serverProcess.pid });
+    serverProcess = null;
+    status = UUV_AGENT_STATE.stopped;
   }
 
   export function uuvAgentStatusLabel(status: UUV_AGENT_STATE) {
@@ -191,8 +207,6 @@
         clearTimeout(requestTimeoutId);
         lastError = error.message;
       }
-
-      console.log('lastError', lastError);
 
       const elapsed = Date.now() - startTime;
       const remaining = options.globalTimeoutMs - elapsed;
@@ -661,6 +675,7 @@
 
   #service_toggle_submit.loading {
     background-color: #2d66c3;
+    color: #fff;
   }
 
   .form-row {
