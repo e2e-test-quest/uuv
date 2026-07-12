@@ -1,3 +1,19 @@
+# [2.94.0](https://github.com/e2e-test-quest/uuv/compare/runner-cypress-v2.93.0...runner-cypress-v2.94.0) (2026-07-12)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @ai-sdk/anthropic to v3.0.96 ([73ac271](https://github.com/e2e-test-quest/uuv/commit/73ac271c3ad5a395a17915c4b74390054d16ebe1))
+* **deps:** update dependency @ai-sdk/google to v3.0.91 ([41ee72e](https://github.com/e2e-test-quest/uuv/commit/41ee72ed1d66249a5b6ac784481d4a3083e22540))
+* **deps:** update dependency @ai-sdk/mcp to v1.0.61 ([a407557](https://github.com/e2e-test-quest/uuv/commit/a40755756666b2e94c0f9ad82d9f641fb3e20a62))
+* **deps:** update dependency @ai-sdk/openai to v3.0.84 ([2eb8671](https://github.com/e2e-test-quest/uuv/commit/2eb867122222a5ce295ef5e2758631471255c7bc))
+* **runner-playwright:** update dependency nanoid to v3.3.16 ([114bd54](https://github.com/e2e-test-quest/uuv/commit/114bd5464ed4b0dc93bf26468a716f2978cfaec5))
+
+
+### Features
+
+* **runner-cypress:** update dependency cypress to v15.18.1 ([a20c665](https://github.com/e2e-test-quest/uuv/commit/a20c665396746d5b331cc8ab2aa20e4974c70098))
+
 # [2.93.0](https://github.com/e2e-test-quest/uuv/compare/runner-cypress-v2.92.0...runner-cypress-v2.93.0) (2026-06-30)
 
 
