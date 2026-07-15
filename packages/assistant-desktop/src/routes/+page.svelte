@@ -17,10 +17,10 @@
 
   listenStatusUpdate();
 
-  async function listenStatusUpdate(globalTimeoutMs: number = 3 * 60 * 1000) {
+  async function listenStatusUpdate(globalTimeoutMs: number = 3 * 60 * 1000, retryDelayMs: number = 2000, requestTimeoutMs: number = 2000) {
     const response = await isUrlAvailable(
         UUV_AGENT_HEALTH_URL,
-        { globalTimeoutMs, retryDelayMs: 2000, requestTimeoutMs: 2000 }
+        { globalTimeoutMs, retryDelayMs, requestTimeoutMs }
     );
     console.debug("isUrlAvailable: ", response);
     if(response.available) {
@@ -75,7 +75,7 @@
     }
   }
 
-  function getStartCommand(): { command: string, args: string} {
+  function getStartCommand(): { command: string, args: string[] } {
     const currentPlatform = platform();
     return currentPlatform === 'windows' ?
         { command: 'cmd', args: ['/C', 'npx -y @uuv/mcp-server@latest'] } :
