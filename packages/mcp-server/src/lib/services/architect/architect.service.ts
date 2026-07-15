@@ -1,321 +1,53 @@
-import { generateText, Output, stepCountIs, zodSchema } from "ai";
-import { ExplorationStepOutput, FlatScenarioResultSchema, ScenarioResult, ScenarioResultSchema, Step } from "./architect.model";
-import { createMCPClient } from "@ai-sdk/mcp";
-// eslint-disable-next-line camelcase
-import { Experimental_StdioMCPTransport } from "@ai-sdk/mcp/mcp-stdio";
-import { AbstractElementService } from "../element/abstract-element.service";
-import { ClickElementService } from "../element/click-element.service";
-import { TypeElementService } from "../element/type-element.service";
-import { WithinElementService } from "../element/within-element.service";
-import { ExpectElementService } from "../element/expect-element.service";
-import { GeneralElementService } from "../element/general-element.service";
-import { StepCaseEnum, TranslateSentences } from "@uuv/assistant";
-import z from "zod";
-import { getLanguageModel, logger } from "../utils";
+import { logger } from "../utils";
+import { BaseChatModel } from "@langchain/core/language_models/chat_models";
+import { ArchitectExplorerService } from "./explorer/architect-explorer.service";
+import { ArchitectFormatterService } from "./formatter/architect-formatter.service";
+import { getLangWatchTracer } from "langwatch";
+import { setupObservability } from "langwatch/observability/node";
+import { LangWatchTracer } from "langwatch/observability";
 
-const SYSTEM_PROMPT = `
-  You are an automated testing agent with access to Playwright MCP tools.
 
-  You MUST always follow this process in order:
-  1. Call "browser_navigate" with the target URL
-  2. Analyze the HTML to identify any prior steps needed before the actual test
-  3. Execute each prior step using Playwright tools (browser_click, browser_fill, browser_select_option...)
-  4. Then executes the input test scenario, and for each revelant html element: 
-    - determine action (navigation, "expect", "type", "click", "within")
-    - for html form fill all required field.
-  5. After each action, re-fetch the HTML to observe the new page state when needed
-  6. Finally generate a whole test scenario like the following output example:
-    \`\`\`
-      1 - navigation - \`https://example.com\`
-      2 - click - button - \`Buy\`
-      3 - type - textbox - \`Username\` - \`My username\`
-      4 - expect - heading - \`Hello world\`
-      4 - expect - text - \`Welcome to this app\`
-    \`\`\`
-`;
+export class ArchitectService {
+    private readonly explorer!: ArchitectExplorerService;
+    private readonly tracer!: LangWatchTracer;
+    private readonly formatter!: ArchitectFormatterService;
 
-function filterTools(tools: Record<string, any>): Record<string, any> {
-    const ALLOWED_TOOLS = new Set([
-        "browser_navigate",
-        "browser_snapshot",
-        "browser_click",
-        "browser_type",
-        "browser_fill",
-        "browser_select_option",
-        "browser_evaluate",
-    ]);
-    return Object.fromEntries(Object.entries(tools).filter(([name]) => ALLOWED_TOOLS.has(name)));
-}
-
-function parsePlaywrightToolResult(text: string): Record<string, string> {
-    const sections: Record<string, string> = {};
-    const parts = text.split(/^### /m);
-
-    for (const part of parts) {
-        if (!part.trim()) {
-            continue;
-        }
-        const newlineIndex = part.indexOf("\n");
-        const title = part.slice(0, newlineIndex).trim();
-        const content = part.slice(newlineIndex + 1).trim();
-        sections[title] = content;
-    }
-
-    return sections;
-}
-
-async function analyzeScenario(targetUrl: string, scenario: string, tools: any, llmModel: string, llmApi?: string): Promise<string> {
-    const model = getLanguageModel(llmModel, llmApi);
-
-    // Accumulate all step texts
-    const explorationStepOutputs = await exploreTheScenario(scenario, targetUrl, model, tools);
-
-    const { output } = await extractScenarioSteps(model, explorationStepOutputs);
-
-    logger.debug("Raw output");
-    logger.debug(output);
-
-    return formatScenario(output as ScenarioResult);
-}
-
-async function extractScenarioSteps(model: any, explorationStepOutputs: ExplorationStepOutput[]) {
-    const isJsonModelFlatModeEnabled = ["true", "1", "yes"].includes(
-        // eslint-disable-next-line dot-notation
-        (process.env["UUV_JSON_FLAT_MODEL_ENABLED"] || "").toLowerCase()
-    );
-    logger.debug("isJsonModelFlatModeEnabled");
-    logger.debug(isJsonModelFlatModeEnabled);
-    const schema: z.ZodTypeAny = isJsonModelFlatModeEnabled ? FlatScenarioResultSchema : ScenarioResultSchema;
-    const { output } = await generateText({
-        model,
-        system: `
-            /nothink
-            You are a test scenario architect.
-            The "comment" field in each trace step may contain a draft scenario in this format:
-              <action> - <role> - <accessibleName>
-              <action> - <role> - <accessibleName> - <value>
-              navigation - <url>
-        `,
-        prompt: `
-        Based on this full execution trace of the browser automation session, produce a structured test scenario, always start with a navigation step.
-        
-        Some steps were used for exploration purposes only and do not lead to any meaningful outcome (you can identify them using the "comment" field when it indicates uncertainty, dead ends, or intermediate exploration).
-        Exclude those exploration-only steps from the final structured scenario and keep only the steps that are part of the actual user flow.
-
-        Input trace:
-        ${JSON.stringify(explorationStepOutputs, null, 2)}        
-      `,
-        output: Output.object({ schema }),
-        stopWhen: stepCountIs(10),
-    });
-
-    logger.debug("output");
-    logger.debug(output);
-
-    return { output };
-    // logger.debug("parsedOutput");
-    // const parsedOutput = schema.parse(JSON.parse(output));
-    // logger.debug(JSON.stringify(parsedOutput));
-    //
-    // return { output: parsedOutput };
-}
-
-async function exploreTheScenario(scenario: string, targetUrl: string, model: any, tools: any) {
-    const stepOutputs: Record<string, string>[] = [];
-    const explorationPrompt = `Generate the following usecase: \`${scenario}\`, starting by navigating to the targetUrl:\`${targetUrl}\``;
-    await generateText({
-        model,
-        tools,
-        system: SYSTEM_PROMPT,
-        prompt: explorationPrompt,
-        stopWhen: stepCountIs(20),
-        onStepFinish({ stepNumber, text, toolCalls, toolResults, finishReason }) {
-            logger.debug(`Step ${stepNumber} finished (${finishReason})`);
-
-            let structuredOutput = {};
-
-            // Collect every text fragment (including intermediate reasoning)
-            if (text?.trim()) {
-                const currenStepText = `[Step ${stepNumber}]: ${text}`;
-                logger.debug(currenStepText);
+    constructor(
+        private readonly model: BaseChatModel,
+        private readonly isBrowserHeadless = true
+    ) {
+        setupObservability({
+            serviceName: "@uuv/mcp-server",
+            advanced: {
                 // eslint-disable-next-line dot-notation
-                structuredOutput["comment"] = text;
-            }
-
-            // Log tool calls for traceability
-            toolCalls?.forEach(tc => {
-                const input = `${tc.toolName} - ${JSON.stringify(tc.input)}`;
-                logger.debug(`  → ${input}`);
-            });
-            if (toolResults.length > 0) {
-                toolResults?.forEach(tr => {
-                    structuredOutput = {
-                        ...structuredOutput,
-                        ...parsePlaywrightToolResult((tr.output as any).content[0].text),
-                    };
-                    const input = `${tr.toolName} - ${JSON.stringify(tr.input)}`;
-                    // eslint-disable-next-line dot-notation
-                    structuredOutput["input"] = input;
-                    if (tr.toolName !== "browser_snapshot") {
-                        stepOutputs.push(structuredOutput);
-                    }
-                });
-            } else {
-                stepOutputs.push(structuredOutput);
-            }
-
-            logger.debug(`  ← ${JSON.stringify(structuredOutput)}`);
-        },
-    });
-
-    // Build the full trace for the structured output LLM
-    logger.debug("Full trace:");
-    logger.debug(stepOutputs);
-    const editedStepOutputs = stepOutputs.map(step => {
-        return {
-            // eslint-disable-next-line dot-notation
-            comment: step["comment"],
-            "Ran Playwright code": step["Ran Playwright code"],
-            action: extractAction(step),
-        };
-    });
-    logger.debug(editedStepOutputs);
-    return editedStepOutputs;
-}
-
-function extractAction(step): string {
-    const input = step.input || "";
-
-    if (input.includes("browser_navigate")) {
-        return "navigation";
-    }
-
-    if (input.includes("browser_click")) {
-        return "click";
-    }
-
-    if (input.includes("browser_type") || input.includes("browser_select_option")) {
-        return "type";
-    }
-
-    return "expect";
-}
-
-async function createMcpClient() {
-    return await createMCPClient({
-        transport: new Experimental_StdioMCPTransport({
-            command: "npx",
-            args: ["-y", "@playwright/mcp@latest"],
-        }),
-    });
-}
-
-function generateUUVGherkinStepTool(input: Step): TranslateSentences {
-    let sentenceService: AbstractElementService;
-    const action = refineAction(input);
-    if (action !== "navigation") {
-        switch (action) {
-            case "click":
-                sentenceService = new ClickElementService();
-                break;
-            case "type":
-                sentenceService = new TypeElementService();
-                break;
-            case "within":
-                sentenceService = new WithinElementService();
-                break;
-            case "expect":
-            default:
-                sentenceService = new ExpectElementService();
-        }
-        return sentenceService.generateSentenceForElement({
-            // eslint-disable-next-line dot-notation
-            accessibleName: input["targetElement"].accessibleName,
-            // eslint-disable-next-line dot-notation
-            accessibleRole: input["targetElement"].accessibleRole,
-            baseUrl: "fakeUrl",
-            // eslint-disable-next-line dot-notation
-            valueToType: input["targetElement"].value ?? input["valueToType"],
+                disabled: !process.env["LANGWATCH_API_KEY"],
+            },
         });
-        // eslint-disable-next-line dot-notation
-    } else if (input["targetUrl"]) {
-        // eslint-disable-next-line dot-notation
-        const sentence = new GeneralElementService().findSentenceFromKey("key.when.visit", input["targetUrl"]);
-        return {
-            steps: [
-                {
-                    keyword: StepCaseEnum.GIVEN,
-                    sentence,
-                },
-            ],
-            suggestion: undefined,
-        };
+        this.tracer = getLangWatchTracer("architect");
+        this.explorer = new ArchitectExplorerService(this.model, this.isBrowserHeadless);
+        this.formatter = new ArchitectFormatterService();
     }
-    return {
-        steps: [],
-        suggestion: undefined,
-    };
-}
 
-function refineAction(input: Step) {
-    // eslint-disable-next-line dot-notation
-    if (input.action === "click" && input.targetElement?.accessibleRole === "combobox" && input["valueToType"]) {
-        return "type";
+    async generateNominalCaseScenario(targetUrl: string, scenario: string): Promise<string | null> {
+        return await this.tracer.withActiveSpan("generateNominalCaseScenario", async () => {
+            logger.debug(`targetUrl: ${targetUrl} - scenario: ${scenario}`);
+
+            const explorationSteps = await this.tracer.withActiveSpan("exploration", async span => {
+                span.setAttributes({ targetUrl, scenario });
+                return await this.explorer.explore(targetUrl, scenario);
+            });
+
+            logger.debug("explorationSteps");
+            logger.debug(explorationSteps);
+
+            const scenarioResultRaw = await this.tracer.withActiveSpan("buildScenario", async () => {
+                return await this.explorer.buildScenario(explorationSteps);
+            });
+
+            logger.debug("scenarioResultRaw");
+            logger.debug(scenarioResultRaw);
+
+            return this.formatter.formatScenario(scenarioResultRaw);
+        });
     }
-    return input.action;
-}
-
-export function validateArgs(targetUrl?: string, scenario?: string) {
-    if (!targetUrl || !scenario) {
-        logger.error("Usage: architect <targetUrl> \"<scenario description>\"");
-        const message = "Example: architect https://make-it-soft.com \"User logs in with valid credentials\"";
-        logger.error(message);
-        throw Error(message);
-    }
-}
-
-export async function generateScenario(targetUrl: string, scenario: string, llmModel: string, llmApi?: string): Promise<string | null> {
-    logger.debug(`targetUrl: ${targetUrl} - scenario: ${scenario} - llmModel: ${llmModel} - llmApi: ${llmApi}`);
-    const client = await createMcpClient();
-    let response: string | null = null;
-    try {
-        const tools = await client.tools();
-        const filteredTools = filterTools(tools);
-        logger.debug("filteredTools");
-        logger.debug(filteredTools);
-        response = await analyzeScenario(targetUrl, scenario, filteredTools, llmModel, llmApi);
-    } catch (error) {
-        logger.error(error);
-    } finally {
-        // ensure the client is closed even if an error occurs
-        if (client) {
-            await client.close();
-        }
-    }
-    return response;
-}
-
-function formatSentences(mainKeyword: StepCaseEnum, input: TranslateSentences[]): string {
-    return input
-        .flatMap(item => item.steps)
-        .reduce((acc, tag, i) => acc + (i === 0 ? `${mainKeyword} ` : `\n     ${StepCaseEnum.AND} `) + tag.sentence, "");
-}
-
-async function formatScenario(scenarioResult: ScenarioResult): Promise<string> {
-    const resp = `
-  Scenario: ${scenarioResult.scenarioTitle}
-    ${formatSentences(
-        StepCaseEnum.GIVEN,
-        scenarioResult.givenSteps.map(s => generateUUVGherkinStepTool(s))
-    )}
-    ${formatSentences(
-        StepCaseEnum.WHEN,
-        scenarioResult.whenSteps.map(s => generateUUVGherkinStepTool(s))
-    )}
-    ${formatSentences(
-        StepCaseEnum.THEN,
-        scenarioResult.thenSteps.map(s => generateUUVGherkinStepTool(s))
-    )}
-`;
-    return resp;
 }

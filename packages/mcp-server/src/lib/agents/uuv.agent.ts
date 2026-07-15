@@ -1,23 +1,26 @@
-import { LanguageModel } from "ai";
 import { ClassificationResult, ImageClassifierService, ImageDescriberService } from "../services/image";
+import { ArchitectService } from "../services/architect/architect.service";
 import { File } from "node:buffer";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { serve } from "@hono/node-server";
-import { getLanguageModel, logger } from "../services/utils";
+import { getBooleanEnv, getLanguageModel, logger } from "../services/utils";
 import { Observable } from "rxjs";
+import { BaseChatModel } from "@langchain/core/language_models/chat_models";
 
 export class UuvAgent {
     private describerService!: ImageDescriberService;
     private classifierService!: ImageClassifierService;
+    private architectService!: ArchitectService;
     private server?: Hono;
-    private readonly model!: LanguageModel;
+    private readonly model!: BaseChatModel;
 
     constructor(private readonly llmModel: string, private readonly llmApi?: string) {
         logger.debug(`Parameters: [ llmModel: ${llmModel}, llmApi: ${llmApi} ]`);
-        this.model = getLanguageModel(llmModel, llmApi);
+        this.model = getLanguageModel(this.llmModel, this.llmApi);
         this.describerService = new ImageDescriberService(this.model);
         this.classifierService = new ImageClassifierService(this.model);
+        this.architectService = new ArchitectService(this.model, getBooleanEnv("UUV_BROWSER_HEADLESS"));
     }
 
     public async start() {
