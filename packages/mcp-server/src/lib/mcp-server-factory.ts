@@ -23,8 +23,9 @@ import {
 } from "./services/expect.service";
 import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 import { getBaseUrl } from "./services/general.service";
-import { generateScenario } from "./services/architect/architect.service";
 import { UuvAgent } from "./agents/uuv.agent";
+import { ArchitectService } from "./services/architect/architect.service";
+import { getBooleanEnv, getLanguageModel } from "./services/utils";
 
 function handleElementTestGeneration(input: Partial<FindElement> & { serviceType: ElementServiceType }): CallToolResult {
     let result: string;
@@ -64,10 +65,7 @@ export function createUUVServer() {
     // eslint-disable-next-line dot-notation
     const llmApi = process.env["UUV_LLM_API"];
     // eslint-disable-next-line dot-notation
-    const isApiEnabled = ["true", "1", "yes"].includes(
-        // eslint-disable-next-line dot-notation
-        (process.env["UUV_API_ENABLED"] || "true").toLowerCase()
-    );
+    const isApiEnabled = getBooleanEnv("UUV_API_ENABLED", false);
 
     if (isApiEnabled) {
         startApiServer(llmModel, llmApi);
@@ -426,11 +424,13 @@ export function createUUVServer() {
             },
         },
         async ({ baseUrl, testCase }) => {
+            const model = getLanguageModel(llmModel, llmApi);
+            const architect = new ArchitectService(model, getBooleanEnv("UUV_BROWSER_HEADLESS"));
             return {
                 content: [
                     {
                         type: "text",
-                        text: (await generateScenario(baseUrl, testCase, llmModel, llmApi)) ?? "",
+                        text: (await architect.generateNominalCaseScenario(baseUrl, testCase)) ?? "",
                     },
                 ],
             };

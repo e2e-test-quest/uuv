@@ -1,15 +1,16 @@
-import { generateText, LanguageModel, Output, zodSchema } from "ai";
+import { HumanMessage, SystemMessage } from "langchain";
 import { btoa, File } from "node:buffer";
 import { logger } from "../../utils";
 import { MultipleDescriptionResult, multipleDescriptionSchema, SingleDescriptionResult, singleDescriptionSchema } from "./image-describer.schema";
+import { BaseChatModel } from "@langchain/core/language_models/chat_models";
 
 export class ImageDescriberService {
-    constructor(private model: LanguageModel) {}
+    constructor(private readonly model: BaseChatModel) {}
 
     protected getSystemPromptForUniqueDescription(): string {
         return `You are an expert at describing images precisely and objectively.
 
-Describe in one single sentence what the image shows and include:
+Describe in one single sentence what the image shows maximum 500 characters and include:
 - The main visible objects or symbols
 - Any visible text or numbers, transcribed exactly as shown
 
@@ -19,6 +20,7 @@ STRICT RULES for text:
 - Do not count the same word twice
 - Do not infer or guess text from context. Only use what is clearly readable
 - If the text is partially cut or blurred, transcribe exactly what is readable
+- NO bullet points, dashes, numbered lists, *bold**, *italics*, or asterisks
 
 Other constraints:
 - Do not include "Image of", "Photo of", or similar prefaces
@@ -52,26 +54,16 @@ Output format: return exactly 4 descriptions as an array of strings.`;
         try {
             const imageToSend = await this.buildImageToSend(imageData);
 
-            const result = await generateText({
-                model: this.model,
-                system: this.getSystemPromptForUniqueDescription(),
-                messages: [
+            return this.model.withStructuredOutput(singleDescriptionSchema).invoke([
+                new SystemMessage(this.getSystemPromptForUniqueDescription()),
+                new HumanMessage([
+                    { type: "text", text: "Describe this image" },
                     {
-                        role: "user",
-                        content: [
-                            { type: "text", text: "Describe this image" },
-                            {
-                                type: "image",
-                                image: imageToSend,
-                            },
-                        ],
+                        type: "image_url",
+                        image_url: imageToSend,
                     },
-                ],
-                temperature: 1.0,
-                output: Output.object({ schema: zodSchema(singleDescriptionSchema) }),
-            });
-
-            return result.output;
+                ]),
+            ]);
         } catch (error) {
             logger.error({ error }, "Error in ImageDescriberService.describe");
             throw new Error(`Failed to describe image: ${error instanceof Error ? error.message : String(error)}`);
@@ -82,26 +74,16 @@ Output format: return exactly 4 descriptions as an array of strings.`;
         try {
             const imageToSend = await this.buildImageToSend(imageData);
 
-            const result = await generateText({
-                model: this.model,
-                system: this.getSystemPromptForMultipleDescription(),
-                messages: [
+            return this.model.withStructuredOutput(multipleDescriptionSchema).invoke([
+                new SystemMessage(this.getSystemPromptForMultipleDescription()),
+                new HumanMessage([
+                    { type: "text", text: "Describe this image with 4 distinct descriptions." },
                     {
-                        role: "user",
-                        content: [
-                            { type: "text", text: "Describe this image with 4 distinct descriptions." },
-                            {
-                                type: "image",
-                                image: imageToSend,
-                            },
-                        ],
+                        type: "image_url",
+                        image_url: imageToSend,
                     },
-                ],
-                temperature: 1.0,
-                output: Output.object({ schema: zodSchema(multipleDescriptionSchema) }),
-            });
-
-            return result.output;
+                ]),
+            ]);
         } catch (error) {
             logger.error({ error }, "Error in ImageDescriberService.describe");
             throw new Error(`Failed to describe image: ${error instanceof Error ? error.message : String(error)}`);

@@ -93,7 +93,12 @@ export class TypeTranslator extends Translator {
             })[0];
     }
     private buildSentencesWithRoleAndName(accessibleRole: string, accessibleName: string, useValueAsMockData = true): StepSentence[] {
-        const sentenceKey = accessibleRole === "textbox" ? "key.when.type" : "key.when.enter";
+        let sentenceKey = "key.when.enter";
+        if (accessibleRole === "textbox") {
+            sentenceKey = "key.when.type";
+        } else if (accessibleRole === "combobox") {
+            sentenceKey = "key.then.combobox.selectValue";
+        }
         const wording = this.buildWording(sentenceKey, accessibleRole, accessibleName, useValueAsMockData);
         return [
             {

@@ -10,44 +10,56 @@ import z from "zod";
  * Matches Python SignatureImageClassifier output
  */
 export const ClassificationResultSchema = z.object({
-    // Input: image description
-    image_description: z.string().describe(
-        "Description of the image as returned by a vision model: one objective sentence mentioning objects, symbols, and visible text"
-    ),
+    score: z
+        .string()
+        .describe(
+            "Internal step-by-step calculation following the STEP 1-4 method: base score, each applicable criterion with its weight, sum, final score. Technical and numeric. This field is internal only and never shown to end users."
+        ),
 
-    // Output: classification results
-    is_decorative: z.boolean().describe(
-        "Extract image's surrounding text, then determine if the image is decorative using image description and the image's surrounding text. Analyze the relationship between the image description and the surrounding text. False (informative) if: The surrounding text refers to the image AND the image provides additional information: add 0.6 to confidence. The image description alone refers to a message, a tutorial or call to action (text, objects, people, scenes): add 0.45 to confidence. True (decorative) if: The surrounding text doesn't refer to the image: add 0.3 to confidence. The image alone does not seem to convey a message or call to action: add 0.6 to confidence"
-    ),
+    is_decorative: z
+        .boolean()
+        .describe(
+            "Based solely on the calculation in scorescore: false if the calculated score >= 0.6 (meaning informative), else true (meaning decorative)"
+        ),
 
-    confidence: z.number().min(0).max(1).describe(
-        "Confidence score for the classification decision (0.0 to 1.0). High confidence (0.8-1.0): Clear decorative elements (pure patterns) or obvious informative content (text, diagrams, specific objects). Medium confidence (0.5-0.79): Some ambiguity but leaning toward classification. Low confidence (0.0-0.49): Significant uncertainty, classification may need review"
-    ),
+    confidence: z
+        .number()
+        .min(0)
+        .max(0.95)
+        .describe(
+            `How reliable this classification is, independent of the score value. This reflects the clarity and consistency of the evidence, not the weighted total.
+            High (0.80-0.95): the image description and the surrounding text clearly point the same way, with no contradictory signals (e.g. obvious pure pattern with no reference in the text, or an explicit call-to-action element directly discussed in the text).
+            Medium (0.5-0.75): the evidence leans one way but one signal is missing, weak, or only partially clear (e.g. surrounding text is vague, or the image description is ambiguous about intent).
+            Low (0.0-0.49): the image description and the surrounding text give conflicting or insufficient signals, making the classification uncertain and worth a human review.`
+        ),
 
-    analysis_details: z.string().max(500).describe("Single concise paragraph (2-3 sentences max) justifying the 'is_decorative' value. Format rules: One paragraph only (no bullet points, no list, no structure labels). Concise, clear, factual. Must include: 1) brief visual description, 2) brief reference (or absence of reference) from surrounding text, 3) final decision rationale. Examples: Image contains a call to action figure. The image is referenced in the text as \"see following image\" which suggests it is informative and not purely decorative. Image shows a decorative pattern with no text or objects conveying a message. The surrounding text does not refer to the image, indicating it is purely decorative."),
+    analysis_details: z.string().max(500).describe(`
+            Describe in one sentence what the image shows, then explain in one or two sentences the connection (or lack of connection) with the surrounding text, concluding naturally whether the image adds useful information or serves purely as decoration            
+            Example (decorative): "The image shows an abstract geometric pattern used purely as visual separation. It contains no text, icons, or objects that convey information, and the surrounding text does not mention it."
+            Example (informative): "The image shows a Register button. The preceding text discusses registration and refers the reader to step 2 below, confirming the image adds actionable information."
+        `),
 });
 
 /**
  * Complete classification result type
  */
-export type ClassificationResult = z.infer<typeof ClassificationResultSchema>;
+export type ClassificationResult = z.infer<typeof ClassificationResultSchema> & {
+    image_description: string;
+};
 
 /**
  * Complete classification input
  * Uses snake_case to match the Java/Python convention and avoid hydration issues
  */
 export const ClassifyImageComputedInputSchema = z.object({
+    /** Cleaned HTML */
+    cleanedHtml: z.string().describe("HTML with accessibility attributes removed"),
+
     /** Image description from vision model */
     imageDescription: z.string().describe("Description of the image as returned by a vision model"),
 
-    /** Text before the image in HTML */
-    textBefore: z.string().describe("Extracted text from HTML page before the image"),
-
-    /** Text after the image in HTML */
-    textAfter: z.string().describe("Extracted text from HTML page after the image"),
-
-    /** Cleaned HTML */
-    cleanedHtml: z.string().describe("HTML with accessibility attributes removed"),
+    /** Css selector the image in HTML */
+    imageCssSelector: z.string().describe("Css selector that help to localised image to classify"),
 });
 
 /**

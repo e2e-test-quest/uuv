@@ -18,13 +18,14 @@ As an MCP server, `@uuv/mcp-server` acts as a bridge between AI models and E2E t
 - **Node.js 20 or higher**
 
 ### Supported LLMs
+> ⚡ **LLM Optimization:** This server has been optimized to work seamlessly with lightweight language models (small LLMs) like `ollama/ministral-3:8b`, `openai/gpt-4.1-mini` or `ollama/gemma4:e4b` 
 
 `@uuv/mcp-server` supports the following LLM providers:
 
-- **OpenAI**: `openai/gpt-4.1`, `openai/gpt-3.5-turbo`, etc.
+- **OpenAI**: `openai/gpt-4.1-mini`, `openai/gpt-5.5`, etc.
 - **Anthropic**: `anthropic/claude-haiku-4-5`, `anthropic/claude-sonnet-4-6`, etc.
 - **Google**: `google/gemini-2.0-flash`, `google/gemini-pro`, etc.
-- **Ollama**: `ollama/qwen3-coder-next`, `ollama/llama3`, etc.
+- **Ollama**: Tested on models `ollama/ministral-3:8b`, `ollama/qwen3.5:9b`, `ollama/gemma4:e4b`, etc.
 
 ### MCP Configuration
 #### Standard MCP Configuration
@@ -85,12 +86,14 @@ gemini extensions install https://github.com/e2e-test-quest/uuv --auto-update
 
 #### Environment Variables
 
-| Environment Variable          | Format                   | Required                                  | Description                                                                                | examples                                                |
-|-------------------------------|--------------------------|-------------------------------------------|--------------------------------------------------------------------------------------------|---------------------------------------------------------|
+| Environment Variable          | Format                   | Required                                  | Description                                                                                | examples                                                 |
+|-------------------------------|--------------------------|-------------------------------------------|--------------------------------------------------------------------------------------------|----------------------------------------------------------|
 | `UUV_LLM_MODEL`               | `<provider>/<modelName>` | Yes                                       | Specifies the LLM model used by the MCP server.                                            | -`anthropic/claude-sonnet-4-6`<br/>-`ollama/qwen3.6:35b` |
-| `UUV_JSON_FLAT_MODEL_ENABLED` | boolean                  | Recommended (`true` for Anthropic/Gemini) | Enables flat JSON output formatting (strongly recommended for Anthropic and Gemini models) | -`true`<br/>-`false`                                    |
-| `UUV_LLM_API`                 | url                      | Optional (Required only for Ollama)  | Base API endpoint for local Ollama models                                                  | `http://localhost:11434`                             |
-| `UUV_API_ENABLED`             | boolean                  | Optional (`true` by default)         | Enables the internal image-classification API server powered by the configured LLM model   | -`true`<br/>-`false`                                 |
+| `UUV_JSON_FLAT_MODEL_ENABLED` | boolean                  | Recommended (`true` for Anthropic/Gemini) | Enables flat JSON output formatting (strongly recommended for Anthropic and Gemini models) | -`true`<br/>-`false`                                     |
+| `UUV_LLM_API`                 | url                      | Optional (Required only for Ollama)       | Base API endpoint for local Ollama models                                                  | `http://localhost:11434`                                 |
+| `UUV_API_ENABLED`             | boolean                  | Optional (`true` by default)              | Enables the internal image-classification API server powered by the configured LLM model   | -`true`<br/>-`false`                                     |
+| `UUV_BROWSER_HEADLESS`        | boolean                  | Optional (`true` by default)              | Specifies whether the browser should run in headless mode.                                 | -`true`<br/>-`false`                                     |
+
 
 ## Usage (MCP Prompts)
 

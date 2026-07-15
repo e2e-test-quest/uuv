@@ -3,8 +3,9 @@ import z from "zod";
 export const singleDescriptionSchema = z.object({
     imageDescription: z
         .string()
+        .max(300)
         .describe(
-            "One single sentence describing what the image shows. Include main visible objects or symbols and any visible text or numbers exactly as shown. Do not include 'Image of', 'Photo of', or similar prefaces. Only mention text if clearly visible. Do not infer or guess text from context. Output format: only the sentence, nothing else."
+            "One single sentence describing what the image shows. Include main visible objects or symbols and any visible text or numbers exactly as shown. Do not include 'Image of', 'Photo of', or similar prefaces. Only mention text if clearly visible. Do not infer or guess text from context. Output format: only the sentence of maximum 300 characters, nothing else."
         ),
 });
 
