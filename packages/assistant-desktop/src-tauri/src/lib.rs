@@ -17,6 +17,16 @@ async fn open_url_with_uuv_assistant(url: String, app: tauri::AppHandle) {
                 (document.head || document.documentElement).appendChild(script);
             }
 
+            const originalFetch = window.fetch;
+            window.fetch = async (input, init) => {
+                const url = typeof input === 'string' ? input : input.url;
+                if (url.startsWith('http://localhost:8000')) {
+                    // passe par l'IPC Tauri au lieu du fetch natif
+                    return window.__TAURI__.http.fetch(url, init);
+                }
+                return originalFetch(input, init);
+            };
+
             if (document.readyState === 'loading') {
                 document.addEventListener('DOMContentLoaded', loadScript);
             } else {
@@ -66,6 +76,7 @@ pub fn run() {
         .plugin(tauri_plugin_os::init())
         .plugin(tauri_plugin_opener::init())
         .plugin(tauri_plugin_shell::init())
+        .plugin(tauri_plugin_http::init())
         .invoke_handler(tauri::generate_handler![open_url_with_uuv_assistant, get_env_vars, kill_process_tree])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
