@@ -7,5 +7,5 @@
     "outDir": "dist", 
     "rootDir": "src"
   },
-  "include": ["src/**/*.ts", "src/**/*.vue"]
+  "include": [".nuxt/nuxt.d.ts", "src/**/*.ts", "src/**/*.vue"]
 }
