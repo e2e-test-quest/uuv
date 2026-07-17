@@ -39,7 +39,7 @@
         <h1 class="px-2"><i class="bi bi-window-fullscreen text-body-secondary" aria-hidden="true"></i> {{ $t("usecaseDetails.headline") }} <span class="text-primary">{{ state.app?.name }}</span></h1>
       </div>
       <p class="p-2 m-0 h4">{{ $t("appDetails.detailsHeadline") }}</p>
-      <div class="grid mt-3" v-masonry="usecaseList" transition-duration="0.3s" item-selector=".grid-item">
+      <div class="grid mt-3" v-masonry transition-duration="0.3s" item-selector=".grid-item">
         <div class="p-2 col-md-4 grid-item" v-for="usecase in state.usecases" :key="usecase.id">
           <CardWithCounter
             :title="usecase.name"

@@ -1,14 +1,17 @@
 {
-  "compilerOptions": {},
-  "files": [],
-  "include": [".nuxt/nuxt.d.ts"],
-  "references": [
-    {
-      "path": "./tsconfig.app.json"
+    "compilerOptions": {
+        "module": "ESNext", // or "Node16"/"NodeNext"
+        "moduleResolution": "Bundler" // or "NodeNext" if module is "NodeNext"
     },
-    {
-      "path": "./tsconfig.spec.json"
-    }
-  ],
-  "extends": "../../tsconfig.base.json"
+    "files": [],
+    "include": [".nuxt/nuxt.d.ts"],
+    "references": [
+        {
+            "path": "./tsconfig.app.json"
+        },
+        {
+            "path": "./tsconfig.spec.json"
+        }
+    ],
+    "extends": "../../tsconfig.base.json"
 }
