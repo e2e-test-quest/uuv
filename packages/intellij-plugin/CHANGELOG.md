@@ -1,3 +1,11 @@
+# [1.47.0](https://github.com/e2e-test-quest/uuv/compare/intellij-plugin-v1.46.0...intellij-plugin-v1.47.0) (2026-07-19)
+
+
+### Features
+
+* add support for uuv agent server start on windows ([a1b20c4](https://github.com/e2e-test-quest/uuv/commit/a1b20c4e5dbc860ae17f88e693ffc54daaad07b2))
+* rewrite mcp-server from vercel sdk to langchain ([fba8736](https://github.com/e2e-test-quest/uuv/commit/fba8736cea861fd7cd2bd91ba7ad96cc5fc3bb12))
+
 # [1.46.0](https://github.com/e2e-test-quest/uuv/compare/intellij-plugin-v1.45.0...intellij-plugin-v1.46.0) (2026-07-12)
 
 
