@@ -1,3 +1,11 @@
+# [1.0.0-beta.112](https://github.com/e2e-test-quest/uuv/compare/a11y-v1.0.0-beta.111...a11y-v1.0.0-beta.112) (2026-07-19)
+
+
+### Features
+
+* add support for uuv agent server start on windows ([a1b20c4](https://github.com/e2e-test-quest/uuv/commit/a1b20c4e5dbc860ae17f88e693ffc54daaad07b2))
+* rewrite mcp-server from vercel sdk to langchain ([fba8736](https://github.com/e2e-test-quest/uuv/commit/fba8736cea861fd7cd2bd91ba7ad96cc5fc3bb12))
+
 # [1.0.0-beta.111](https://github.com/e2e-test-quest/uuv/compare/a11y-v1.0.0-beta.110...a11y-v1.0.0-beta.111) (2026-07-12)
 
 
