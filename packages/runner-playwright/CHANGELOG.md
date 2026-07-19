@@ -1,3 +1,11 @@
+# [3.78.0](https://github.com/e2e-test-quest/uuv/compare/runner-playwright-v3.77.0...runner-playwright-v3.78.0) (2026-07-19)
+
+
+### Features
+
+* add support for uuv agent server start on windows ([a1b20c4](https://github.com/e2e-test-quest/uuv/commit/a1b20c4e5dbc860ae17f88e693ffc54daaad07b2))
+* rewrite mcp-server from vercel sdk to langchain ([fba8736](https://github.com/e2e-test-quest/uuv/commit/fba8736cea861fd7cd2bd91ba7ad96cc5fc3bb12))
+
 # [3.77.0](https://github.com/e2e-test-quest/uuv/compare/runner-playwright-v3.76.0...runner-playwright-v3.77.0) (2026-07-12)
 
 
