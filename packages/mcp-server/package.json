@@ -91,7 +91,7 @@
     },
     "devDependencies": {
         "@babel/preset-env": "7.29.0",
-        "@hono/node-server": "^1.19.14",
+        "@hono/node-server": "^2.0.5",
         "@modelcontextprotocol/inspector": "^0.22.0",
         "babel-jest": "30.4.1",
         "copyfiles": "^2.4.1",
