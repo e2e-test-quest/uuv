@@ -65,7 +65,7 @@
         "@uuv/dictionary": "0.23.0",
         "antd": "5.27.4",
         "dom-accessibility-api": "0.7.1",
-        "figlet": "1.11.0",
+        "figlet": "1.11.4",
         "playwright-chromium": "1.62.1",
         "tabbable": "6.4.0"
     },
