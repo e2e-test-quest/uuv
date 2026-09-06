@@ -10,16 +10,13 @@ import { GeneralElementService } from "../../element/general-element.service";
 export class ArchitectFormatterService {
     public formatScenario(scenarioResult: ScenarioResult): string {
         return `
-  Scenario: ${scenarioResult.scenarioTitle}
-    ${this.formatSentences(
+  Scenario: ${scenarioResult.scenarioTitle}${this.formatSentences(
         StepCaseEnum.GIVEN,
         scenarioResult.givenSteps.map(s => this.generateUUVGherkinStepTool(s))
-    )}
-    ${this.formatSentences(
+    )}${this.formatSentences(
         StepCaseEnum.WHEN,
         scenarioResult.whenSteps.map(s => this.generateUUVGherkinStepTool(s))
-    )}
-    ${this.formatSentences(
+    )}${this.formatSentences(
         StepCaseEnum.THEN,
         scenarioResult.thenSteps.map(s => this.generateUUVGherkinStepTool(s))
     )}
@@ -29,7 +26,7 @@ export class ArchitectFormatterService {
     private formatSentences(mainKeyword: StepCaseEnum, input: TranslateSentences[]): string {
         return input
             .flatMap(item => item.steps)
-            .reduce((acc, tag, i) => acc + (i === 0 ? `${mainKeyword} ` : `\n     ${StepCaseEnum.AND} `) + tag.sentence, "");
+            .reduce((acc, tag, i) => acc + (i === 0 ? `\n    ${mainKeyword} ` : `\n     ${StepCaseEnum.AND} `) + tag.sentence, "");
     }
 
     private generateUUVGherkinStepTool(input: Step): TranslateSentences {

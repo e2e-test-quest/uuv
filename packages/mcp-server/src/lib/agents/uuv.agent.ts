@@ -17,10 +17,10 @@ export class UuvAgent {
 
     constructor(private readonly llmModel: string, private readonly llmApi?: string) {
         logger.debug(`Parameters: [ llmModel: ${llmModel}, llmApi: ${llmApi} ]`);
-        this.model = getLanguageModel(this.llmModel, this.llmApi);
+        this.model = getLanguageModel(llmModel, llmApi);
         this.describerService = new ImageDescriberService(this.model);
         this.classifierService = new ImageClassifierService(this.model);
-        this.architectService = new ArchitectService(this.model, getBooleanEnv("UUV_BROWSER_HEADLESS"));
+        this.architectService = new ArchitectService(this.model);
     }
 
     public async start() {
@@ -43,6 +43,23 @@ export class UuvAgent {
                 llmApi: this.llmApi,
             })
         );
+
+        this.server.post("/api/v1/architect/generate-nominal-case", async c => {
+            const { targetUrl, scenario, isBrowserHeadless } = await c.req.json();
+
+            if (!targetUrl || !scenario) {
+                return c.json({ error: "targetUrl et scenario requis" }, 400);
+            }
+
+            try {
+                const result = await this.architectService.generateNominalCaseScenario(targetUrl, scenario, isBrowserHeadless ?? true);
+                return c.json({ result });
+            } catch (err) {
+                const message = err instanceof Error ? err.message : String(err);
+                logger.error(message);
+                return c.json({ error: message }, 500);
+            }
+        });
 
         this.server.post("/api/v1/image/classify-unified", async c => {
             const formData = await c.req.formData();

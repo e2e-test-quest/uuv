@@ -29,14 +29,13 @@ export class ArchitectExplorerService {
     private readonly langWatchCallbackHandler!: LangWatchCallbackHandler;
 
     constructor(
-        private readonly model: BaseChatModel,
-        private readonly isBrowserHeadless: boolean
+        private readonly model: BaseChatModel
     ) {
         this.langWatchCallbackHandler = new LangWatchCallbackHandler();
     }
 
-    async explore(targetUrl: string, scenario: string, maxStep = 50): Promise<Step[]> {
-        const browser = await chromium.launch({ headless: this.isBrowserHeadless });
+    async explore(targetUrl: string, scenario: string, isBrowserHeadless = true, maxStep = 50): Promise<Step[]> {
+        const browser = await chromium.launch({ headless: isBrowserHeadless });
         const page = await browser.newPage();
         const actionHistory: Step[] = [];
 

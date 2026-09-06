@@ -13,8 +13,7 @@ export class ArchitectService {
     private readonly formatter!: ArchitectFormatterService;
 
     constructor(
-        private readonly model: BaseChatModel,
-        private readonly isBrowserHeadless = true
+        private readonly model: BaseChatModel
     ) {
         setupObservability({
             serviceName: "@uuv/mcp-server",
@@ -24,17 +23,17 @@ export class ArchitectService {
             },
         });
         this.tracer = getLangWatchTracer("architect");
-        this.explorer = new ArchitectExplorerService(this.model, this.isBrowserHeadless);
+        this.explorer = new ArchitectExplorerService(this.model);
         this.formatter = new ArchitectFormatterService();
     }
 
-    async generateNominalCaseScenario(targetUrl: string, scenario: string): Promise<string | null> {
+    async generateNominalCaseScenario(targetUrl: string, scenario: string, isBrowserHeadless = true): Promise<string | null> {
         return await this.tracer.withActiveSpan("generateNominalCaseScenario", async () => {
             logger.debug(`targetUrl: ${targetUrl} - scenario: ${scenario}`);
 
             const explorationSteps = await this.tracer.withActiveSpan("exploration", async span => {
                 span.setAttributes({ targetUrl, scenario });
-                return await this.explorer.explore(targetUrl, scenario);
+                return await this.explorer.explore(targetUrl, scenario, isBrowserHeadless);
             });
 
             logger.debug("explorationSteps");

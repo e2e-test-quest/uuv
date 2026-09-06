@@ -30,9 +30,9 @@ function validateArgs(targetUrl?: string, scenario?: string) {
 async function main() {
     validateArgs(targetUrl, scenario);
 
-    const architectService = new ArchitectService(getLanguageModel(llmModel, llmApi), false);
+    const architectService = new ArchitectService(getLanguageModel(llmModel, llmApi));
     console.time("genNominalTestCase");
-    architectService.generateNominalCaseScenario(targetUrl, scenario)
+    architectService.generateNominalCaseScenario(targetUrl, scenario, false)
         .then(result => {
             console.timeEnd("genNominalTestCase");
             logger.info(result);

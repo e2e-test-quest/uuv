@@ -425,12 +425,12 @@ export function createUUVServer() {
         },
         async ({ baseUrl, testCase }) => {
             const model = getLanguageModel(llmModel, llmApi);
-            const architect = new ArchitectService(model, getBooleanEnv("UUV_BROWSER_HEADLESS"));
+            const architect = new ArchitectService(model);
             return {
                 content: [
                     {
                         type: "text",
-                        text: (await architect.generateNominalCaseScenario(baseUrl, testCase)) ?? "",
+                        text: (await architect.generateNominalCaseScenario(baseUrl, testCase, getBooleanEnv("UUV_BROWSER_HEADLESS"))) ?? "",
                     },
                 ],
             };
