@@ -67,7 +67,7 @@
         "dom-accessibility-api": "0.7.1",
         "figlet": "1.11.4",
         "playwright-chromium": "1.62.1",
-        "tabbable": "6.4.0"
+        "tabbable": "6.5.0"
     },
     "browserslist": {
         "production": [
