@@ -4,8 +4,8 @@ import CodeBlock from '@theme/CodeBlock';
 
 `@uuv` (**U**ser centric **U**secases **V**alidator) is an ecosystem that **simplifies** End to End test **writing** and **execution** using BDD (Behaviour Driven Development) and a user-centric approaches. Written **E2E tests** are therefore **understandable by any human being**.
 
-:::info[✨ New: AI-Powered Test Generation with MCP]
-Discover **[@uuv/mcp-server](/docs/tools/uuv-mcp-server)** - the AI-driven solution that automatically generates human-readable Gherkin test scenarios! Use LLMs like OpenAI, Anthropic, and Google to explore your app and generate accessible E2E tests in minutes.
+:::tip[✨ New: AI-Powered Test Generation with MCP]
+Discover **[@uuv/mcp-server](/docs/tools/uuv-mcp-server)**, an AI-powered(like OpenAI, Anthropic, and Google) solution that explores your app and automatically generates human-readable test scenarios in minutes.
 :::
 
 ## The problem

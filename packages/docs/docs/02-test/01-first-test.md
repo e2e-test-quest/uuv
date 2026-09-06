@@ -6,7 +6,7 @@
 
 ## Writing test
 To write your first test, create the file `uuv/e2e/first-test.feature` in the project root with the following content :
-```gherkin title='uuv/e2e/first-test.feature'
+```gherkin title='uuv/e2e/first-test.feature' showLineNumbers
 Feature: Hello World
 
   Scenario: Search - Successful case

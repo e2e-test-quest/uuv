@@ -6,7 +6,7 @@
 
 ## Ecriture du test
 Pour écrire votre premier test, créer à la racine du projet le fichier `uuv/e2e/first-test.feature` avec le contenu suivant :
-```gherkin title='uuv/e2e/first-test.feature'
+```gherkin title='uuv/e2e/first-test.feature' showLineNumbers
 Feature: Hello World
 
   Scenario: Search - Successful case

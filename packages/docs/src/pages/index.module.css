@@ -3,6 +3,10 @@
  * and scoped locally.
  */
 
+:root {
+  --prism-background-color: #282A36;
+}
+
 .heroBanner {
   padding: 4rem 0;
   text-align: center;
@@ -10,17 +14,101 @@
   overflow: hidden;
 }
 
-@media screen and (max-width: 996px) {
-  .heroBanner {
-    padding: 2rem;
-  }
+.heroTitle {
+  margin: 0.5rem auto 1rem;
+  max-width: 880px;
+  font-size: 2.4rem;
+  font-weight: var(--ifm-font-weight-bold);
+  line-height: 1.25;
+  color: var(--ifm-color-primary);
+}
+
+.heroTagline {
+  margin: 0 auto 1.25rem;
+  max-width: 760px;
+  font-size: 1.25rem;
+  font-weight: var(--ifm-font-weight-semibold);
+  line-height: 1.5;
+  color: var(--ifm-heading-color);
+}
+
+.heroDescription {
+  margin: 0 auto 2rem;
+  max-width: 640px;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--ifm-heading-color);
+}
+
+.uuvAssistantDesktopButton {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  height: 32px;
+}
+
+.keyPoints {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 2rem 0;
+  gap: 1.25rem;
+}
+
+.keyPointsCard {
+  padding: 1rem 0;
+  background-color: var(--prism-background-color);
+}
+
+.keyPointsCardHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.keyPointsCardHeaderIcon {
+  font-size: 3.5rem;
+  color: var(--ifm-color-primary);
+}
+
+.teamCardHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.teamCardHeaderIcon {
+  font-size: 2.5rem;
+  color: var(--ifm-color-primary);
 }
 
 .buttons {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
+  margin-bottom: 2.5rem;
+  gap: 2.5rem;
+}
+
+.keyNumbers {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  padding: 2rem 0;
+  gap: 1.25rem;
+}
+
+.keyNumber {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.keyNumberTitle {
+  color: var(--ifm-color-primary);
+  font-size: 4rem;
 }
 
 .button {
@@ -68,35 +156,78 @@
   background-image: url('../../static/img/rocket-yellow.svg');
 }
 
-
 .buttonIconGetStarted:hover {
   background-color: black;
   color: #f2cc31;
   border-color: #f2cc31;
 }
 
-.downloadSection {
+.codeExampleContainer {
   display: flex;
   justify-content: center;
-  gap: 10px;
-  margin-bottom: 20px;
+  border-radius: 14px;
+  text-align: initial;
 }
 
-@media (max-width: 800px) {
-  .downloadSection {
+.codePanel {
+  flex: 1 1 380px;
+  min-width: 0;
+  max-width: 980px;
+}
+
+/* Stack the two panels below ~900px. */
+@media screen and (max-width: 900px) {
+  .codeComparison {
     flex-direction: column;
-    gap: 10px;
+    padding: 16px;
+  }
+
+  .codePanel {
+    flex: 1 1 auto;
   }
 }
 
-.homepageShortDescription {
-  display: flex;
-  justify-content: center;
+.installCaption {
+  margin: 0 0 10px;
+  font-size: 0.9rem;
+  font-weight: var(--ifm-font-weight-semibold);
+  color: var(--ifm-color-secondary-dark);
 }
 
-.homepageShortDescription * {
-  max-width: 600px;
-  color: var(--ifm-color-primary);
-  font-style: italic;
-  font-weight: bold;
+.uuvStack {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.jetbrainPlugin {
+  height: 32px;
+}
+
+.packages {
+  display: flex;
+  gap: 2rem;
+  padding: 0.5rem 2rem;
+}
+
+@media screen and (max-width: 600px) {
+  .heroBanner {
+    padding: 0 !important;
+  }
+
+  .heroTitle {
+    font-size: 1.9rem !important;
+  }
+
+  .heroTagline {
+    font-size: 1.1rem !important;
+  }
+
+  .keyPoints {
+    flex-direction: column;
+  }
+
+  .packages {
+    flex-direction: column;
+  }
 }
