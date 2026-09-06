@@ -23,7 +23,6 @@ export const UuvAssistantResult: React.FC<UuvAssistantResultProps> = ({
   displayedResult,
   generatedScript,
   uuvGutter,
-  copyResult,
   onClose,
   onAiUnifiedClick,
   onAiStepByStepClick,
@@ -39,7 +38,7 @@ export const UuvAssistantResult: React.FC<UuvAssistantResultProps> = ({
     />
     <UuvAssistantResultToolbar
       generatedScript={generatedScript}
-      copyResult={copyResult}
+      enableCopy={true}
       onAiUnifiedClick={onAiUnifiedClick}
       onAiStepByStepClick={onAiStepByStepClick}
       selectedElement={selectedElement}

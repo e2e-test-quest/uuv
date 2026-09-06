@@ -5,7 +5,7 @@ import keyboardIcon from "./assets/keyboard.json";
 import formIcon from "./assets/form.json";
 import datatableIcon from "./assets/datatable.json";
 import modalIcon from "./assets/modal.json";
-import { ConfigProvider, MenuProps, message, theme, notification } from "antd";
+import { ConfigProvider, MenuProps, message, theme } from "antd";
 import { StyleProvider } from "@ant-design/cssinjs";
 import { CssHelper } from "./helper/css-helper";
 import { FocusableElement } from "tabbable";
@@ -27,19 +27,20 @@ import * as LayerHelper from "./helper/layer-helper";
 import { SelectionHelper } from "./helper/selection-helper";
 import { TranslateSentences } from "./translator/model";
 import { UuvAssistantResult } from "./component/result/UuvAssistantResult";
+import { UuvAssistantArchitect } from "./component/UuvAssistantArchitect";
 import { UuvAssistantSettings } from "./component/UuvAssistantSettings";
 import { UuvAssistantSidebar } from "./component/sidebar/UuvAssistantSidebar";
 import { UuvAssistantProps } from "./types/UuvTypes";
-import { GroupOutlined } from "@ant-design/icons";
+import { ExperimentOutlined, GroupOutlined } from "@ant-design/icons";
 import * as KeyboardNavigationHelper from "./helper/keyboard-navigation-helper";
 import { DialogService } from "./service/dialog-service";
 import { TableAndGridService } from "./service/table-and-grid-service";
 import { FormCompletionService } from "./service/form-completion-service";
 import { Translator } from "./translator/abstract-translator";
 import { InformativeNodesHelper } from "./helper/informative-nodes-helper";
-import type { NotificationArgsProps } from "antd";
+import { HelperService } from "./service/helper-service";
 
-type NotificationPlacement = NotificationArgsProps["placement"];
+
 type MenuItem = Required<MenuProps>["items"][number];
 
 function UuvAssistant(props: UuvAssistantProps) {
@@ -63,9 +64,6 @@ function UuvAssistant(props: UuvAssistantProps) {
     useState<boolean>(true);
   const [selectedElement, setSelectedElement] = useState<HTMLElement | undefined>(undefined);
   const [aiResult, setAiResult] = useState<UuvAssistantResultAIAnalysisType | undefined>(undefined);
-  const [api, contextHolder] = notification.useNotification({
-      getContainer: () => props.assistantRoot
-  });
 
   const [aiServerUrl, setAiServerUrl] = useAiServerUrl();
 
@@ -78,6 +76,7 @@ function UuvAssistant(props: UuvAssistantProps) {
   const dialogService = new DialogService();
   const tableAndGridService = new TableAndGridService();
   const formCompletionService = new FormCompletionService();
+  const helperService = new HelperService(props.assistantRoot);
 
   // Fonction pour nettoyer toutes les couches additionnelles
   function clearAllAdditionalLayer() {
@@ -254,25 +253,6 @@ function UuvAssistant(props: UuvAssistantProps) {
     endLoading();
   }
 
-  const copyResult = () => {
-    if (generatedScript.length > 0) {
-      navigator.clipboard.writeText(generatedScript);
-      message.success({
-        content: "Result copied to the clipboard",
-      });
-    }
-  };
-
-  const Context = React.createContext({ name: "default" });
-
-  const openNotification = (placement: NotificationPlacement, title: string, message?: string) => {
-    api.error({
-        message: title,
-        description: <Context.Consumer>{() => message}</Context.Consumer>,
-        placement,
-    });
-  };
-
   const callUnifiedAIForImage = async (imgElement: HTMLImageElement) => {
     const targetUrl = `${aiServerUrl}/api/v1/image/classify-unified`;
     try {
@@ -347,7 +327,11 @@ function UuvAssistant(props: UuvAssistantProps) {
         });
       }
     } catch (error) {
-      openNotification("topLeft", "An error occured", `When calling url '${targetUrl}' the following error occurred: ${error?.message}`);
+        helperService.openNotification(
+            "topLeft",
+            "An error occured",
+            `When calling url '${targetUrl}' the following error occurred: ${error?.message}`
+        );
       console.error("Erreur:", error);
       setAiResult(undefined);
     }
@@ -412,7 +396,11 @@ function UuvAssistant(props: UuvAssistantProps) {
         }
       });
     } catch (error) {
-      openNotification("topLeft", "An error occured", `When calling url '${targetUrl}' the following error occurred: ${error?.message}`);
+        helperService.openNotification(
+            "topLeft",
+            "An error occured",
+            `When calling url '${targetUrl}' the following error occurred: ${error?.message}`
+        );
       console.error("Erreur:", error);
       setAiResult(undefined);
     }
@@ -643,10 +631,26 @@ function UuvAssistant(props: UuvAssistantProps) {
     ],
   );
 
+    const architectActions = getItem(
+        "Achitect actions",
+        "architect-actions",
+        false,
+        undefined,
+        <div className={"menu-custom-svg-container"}>
+            <ExperimentOutlined aria-label={""} className={"menu-native-svg-from-black-to-white"} />
+        </div>,
+        [
+            getItem("Generate test", "generateTest", false, () => {
+                setVisibility(VisibilityEnum.ARCHITECT);
+            })
+        ]
+    );
+
   const actionMenuItems: MenuItem[] = [
     mouseActions,
     keyboardActions,
     componentActions,
+    architectActions
   ];
 
   function endLoading() {
@@ -660,60 +664,68 @@ function UuvAssistant(props: UuvAssistantProps) {
   }
 
   return (
-    <div id="uuvAssistantMenu">
-      <StyleProvider container={props.assistantRoot}>
-        <ConfigProvider
-          theme={{
-            algorithm: isDark ? theme.darkAlgorithm : theme.defaultAlgorithm,
-            token: {
-              fontSize: 14,
-              zIndexBase: 9999999989,
-              zIndexPopupBase: 9999999999
-            },
-          }}
-        >
-          {contextHolder}
-          {visibility === VisibilityEnum.WITH_RESULT && (
-            <UuvAssistantResult
-              displayedResult={displayedResult.toString()}
-              generatedScript={generatedScript}
-              uuvGutter={uuvGutter}
-              copyResult={copyResult}
-              onClose={handleCloseView}
-              onAiStepByStepClick={() => callStepByStepAIForImage(selectedElement as HTMLImageElement)}
-              onAiUnifiedClick={() => callUnifiedAIForImage(selectedElement as HTMLImageElement)}
-              selectedElement={selectedElement}
-              aiResult={aiResult}
-              getAsideParentInHierarchy={getAsideParentInHierarchy}
-            />
-          )}
+      <div id="uuvAssistantMenu">
+          <StyleProvider container={props.assistantRoot}>
+              <ConfigProvider
+                  theme={{
+                      algorithm: isDark ? theme.darkAlgorithm : theme.defaultAlgorithm,
+                      token: {
+                          fontSize: 14,
+                          zIndexBase: 9999999989,
+                          zIndexPopupBase: 9999999999,
+                      },
+                  }}
+              >
+                  {helperService.contextHolder}
+                  {visibility === VisibilityEnum.WITH_RESULT && (
+                      <UuvAssistantResult
+                          displayedResult={displayedResult.toString()}
+                          generatedScript={generatedScript}
+                          uuvGutter={uuvGutter}
+                          onClose={handleCloseView}
+                          onAiStepByStepClick={() => callStepByStepAIForImage(selectedElement as HTMLImageElement)}
+                          onAiUnifiedClick={() => callUnifiedAIForImage(selectedElement as HTMLImageElement)}
+                          selectedElement={selectedElement}
+                          aiResult={aiResult}
+                          getAsideParentInHierarchy={getAsideParentInHierarchy}
+                      />
+                  )}
 
-          {visibility === VisibilityEnum.SETTINGS && (
-            <UuvAssistantSettings
-              intelligentHighlight={intelligentHighlight}
-              switchIntelligentHighlight={switchIntelligentHighlight}
-              onClose={handleCloseView}
-              getAsideParentInHierarchy={getAsideParentInHierarchy}
-              aiServerUrl={aiServerUrl}
-              setAiServerUrl={setAiServerUrl}
-            />
-          )}
+                  {visibility === VisibilityEnum.SETTINGS && (
+                      <UuvAssistantSettings
+                          intelligentHighlight={intelligentHighlight}
+                          switchIntelligentHighlight={switchIntelligentHighlight}
+                          onClose={handleCloseView}
+                          getAsideParentInHierarchy={getAsideParentInHierarchy}
+                          aiServerUrl={aiServerUrl}
+                          setAiServerUrl={setAiServerUrl}
+                      />
+                  )}
 
-          {visibility !== VisibilityEnum.HIDE && (
-            <UuvAssistantSidebar
-              visibility={visibility}
-              isLoading={isLoading}
-              uuvLogoJson={uuvLogoJson}
-              actionMenuItems={actionMenuItems}
-              switchShowSettings={switchShowSettings}
-              getBottomButtonLabel={getBottomButtonLabel}
-              onVisibilityChange={setVisibility}
-              getAsideParentInHierarchy={getAsideParentInHierarchy}
-            />
-          )}
-        </ConfigProvider>
-      </StyleProvider>
-    </div>
+                  {visibility === VisibilityEnum.ARCHITECT && (
+                      <UuvAssistantArchitect
+                          intelligentHighlight={intelligentHighlight}
+                          onClose={handleCloseView}
+                          helperService={helperService}
+                          getAsideParentInHierarchy={getAsideParentInHierarchy}
+                      />
+                  )}
+
+                  {visibility !== VisibilityEnum.HIDE && (
+                      <UuvAssistantSidebar
+                          visibility={visibility}
+                          isLoading={isLoading}
+                          uuvLogoJson={uuvLogoJson}
+                          actionMenuItems={actionMenuItems}
+                          switchShowSettings={switchShowSettings}
+                          getBottomButtonLabel={getBottomButtonLabel}
+                          onVisibilityChange={setVisibility}
+                          getAsideParentInHierarchy={getAsideParentInHierarchy}
+                      />
+                  )}
+              </ConfigProvider>
+          </StyleProvider>
+      </div>
   );
 }
 

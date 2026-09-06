@@ -50,6 +50,20 @@
     border-bottom: solid 1px var(--ua-color-primary);
 }
 
+#nestedResult {
+    height: 55%;
+}
+
+#nestedResult header, #nestedResult #toolbar {
+    padding: 10px;
+    border-bottom: solid 1px var(--ua-color-primary);
+}
+
+#nestedResult header {
+    padding: 10px;
+    border-top: solid 1px var(--ua-color-primary);
+}
+
 #aiResult {
     border-top: solid 1px var(--ua-color-primary);
     padding: 10px;
@@ -97,6 +111,11 @@
 
 #uuvAssistantResultZone header h2 {
     font-size: 25px;
+    margin: 0;
+}
+
+#nestedResult header h3 {
+    font-size: 20px;
     margin: 0;
 }
 
@@ -234,4 +253,8 @@
 
 dialog::backdrop {
     background-color: rgba(0, 0, 0, 0.5);
+}
+
+form#architect .ant-form-item:first-child {
+    margin-bottom: 8px;
 }
