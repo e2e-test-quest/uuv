@@ -67,6 +67,16 @@
     color: white;
 }
 
-[data-theme='dark'] code {
-    background-color: #ffffff1a;
+.heroBackground {
+    background-color: var(--ifm-hero-background-color);
+    padding: 2rem 0;
+}
+
+.altBackground {
+    background-color: var(--ifm-background-color);
+    padding: 2rem 0;
+}
+
+.baseColor {
+    color: var(--ifm-font-color-base);
 }

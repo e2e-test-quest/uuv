@@ -64,6 +64,7 @@
         "@uuv/a11y": "1.0.0-beta.112",
         "@uuv/runner-commons": "2.89.0",
         "handlebars": "^4.7.9",
+        "react-icons": "^5.7.0",
         "remark-directive": "^3.0.0",
         "remark-parse": "^11.0.0",
         "ts-node": "^10.9.2",

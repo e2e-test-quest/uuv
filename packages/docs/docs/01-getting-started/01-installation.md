@@ -3,8 +3,8 @@ import TabItem from '@theme/TabItem';
 
 # Installation
 
-:::info[✨ New: AI-Powered Test Generation with MCP]
-Get started even faster with **[@uuv/mcp-server](/docs/tools/uuv-mcp-server)** - the AI-driven solution that automatically generates human-readable Gherkin test scenarios! Integrate LLMs like OpenAI, Anthropic, and Google to explore your app and generate accessible E2E tests in minutes.
+:::tip[✨ New: AI-Powered Test Generation with MCP]
+Get started faster with **[@uuv/mcp-server](/docs/tools/uuv-mcp-server)**, an AI-powered(like OpenAI, Anthropic, and Google) solution that explores your app and automatically generates human-readable test scenarios in minutes.
 :::
 
 :::warning[System requirements]
