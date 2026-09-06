@@ -75,7 +75,7 @@
         "@uuv/dictionary": "0.23.0",
         "jsdom": "29.1.1",
         "langchain": "^1.5.2",
-        "langwatch": "^0.34.0",
+        "langwatch": "^0.37.0",
         "mustache": "^4.2.0",
         "pino": "^10.3.1",
         "pino-pretty": "^13.1.3",
