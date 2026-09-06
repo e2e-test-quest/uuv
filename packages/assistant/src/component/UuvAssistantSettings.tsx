@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     Button,
     Divider,
@@ -9,10 +9,9 @@ import {
     Tooltip,
     Typography,
 } from "antd";
+const { Title } = Typography;
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 import { FieldType } from "../types/UuvTypes";
-
-const { Title } = Typography;
 
 interface UuvAssistantSettingsProps {
   intelligentHighlight: boolean;
@@ -20,7 +19,7 @@ interface UuvAssistantSettingsProps {
   onClose: () => void;
   getAsideParentInHierarchy: (triggerNode: HTMLElement) => HTMLElement;
   aiServerUrl: string;
-  setAiServerUrl: (newValue: string) => void
+  setAiServerUrl: (newValue: string) => void;
 }
 
 export const UuvAssistantSettings: React.FC<UuvAssistantSettingsProps> = ({
@@ -29,7 +28,7 @@ export const UuvAssistantSettings: React.FC<UuvAssistantSettingsProps> = ({
   onClose,
   getAsideParentInHierarchy,
   aiServerUrl,
-  setAiServerUrl
+  setAiServerUrl,
 }) => {
   return (
     <Flex id="uuvAssistantResultZone" vertical={true}>

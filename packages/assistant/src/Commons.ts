@@ -13,7 +13,11 @@ export class Suggestion {
 }
 
 export enum VisibilityEnum {
-  HIDE = "hide", WITH_RESULT = "withResult", WITHOUT_RESULT = "withoutResult", SETTINGS = "settings",
+    HIDE = "hide",
+    WITH_RESULT = "withResult",
+    WITHOUT_RESULT = "withoutResult",
+    ARCHITECT = "architect",
+    SETTINGS = "settings",
 }
 
 export enum ActionEnum {
