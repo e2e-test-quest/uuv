@@ -146,7 +146,6 @@ describe("ArchitectFormatterService", () => {
      And I enter the value "74.00" in the spin button named "Longitude"
      And I type the sentence "New York City" in the text box named "Description"
      And I click on button named "Submit new town form"
-    
   `);
     });
 });
