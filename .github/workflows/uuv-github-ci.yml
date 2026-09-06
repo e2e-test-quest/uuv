@@ -66,7 +66,6 @@ jobs:
             packages/a11y/dist
             packages/a11y/bundle
             packages/a11y-dashboard/.output
-            packages/assistant-ai/dist/
       - name: Upload docs artifact
         uses: actions/upload-pages-artifact@v3
         with:
@@ -534,7 +533,6 @@ jobs:
         with:
           python-version: ${{env.PYTHON_VERSION}}
           enable-cache: false
-      - run: npx nx build assistant-ai
       - name: Upload Release artifact
         uses: actions/upload-artifact@v4
         with:
@@ -545,7 +543,6 @@ jobs:
             packages/intellij-plugin/gradle.properties
             packages/vscode-extension/package.json
             packages/vscode-extension/CHANGELOG.md
-            packages/assistant-ai/dist
 
   publish-npm:
     if: github.ref == 'refs/heads/main'
@@ -589,26 +586,6 @@ jobs:
             fi
           done
           exit "$FAILED"
-
-  publish-pypi:
-    if: github.ref == 'refs/heads/main'
-    runs-on: ubuntu-22.04
-    needs: [ release ]
-    permissions:
-      id-token: write
-    environment:
-      name: pypi
-      url: https://pypi.org/p/uuv_assistant_ai
-    steps:
-      - uses: actions/checkout@v4
-      - name: Download Release artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: release-artifacts
-      - name: Publish distribution to PyPI
-        uses: pypa/gh-action-pypi-publish@release/v1
-        with:
-          packages-dir: packages/assistant-ai/dist/
 
   publish-vscode:
     if: github.ref == 'refs/heads/main'
