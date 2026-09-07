@@ -1,3 +1,32 @@
+# [1.20.0](https://github.com/e2e-test-quest/uuv/compare/assistant-desktop-v1.19.0...assistant-desktop-v1.20.0) (2026-09-07)
+
+
+### Bug Fixes
+
+* **deps:** update rust crate serde to v1.0.229 ([095ddf4](https://github.com/e2e-test-quest/uuv/commit/095ddf4f623f6f2d5e57492bbf1b8e69c345ae7d))
+* **deps:** update rust crate serde_json to v1.0.151 ([9c9f8e5](https://github.com/e2e-test-quest/uuv/commit/9c9f8e5875a005cc3b614cbebc12fa6d94e7eb4b))
+* **deps:** update rust crate tauri-plugin-http to v2.5.9 ([c78938c](https://github.com/e2e-test-quest/uuv/commit/c78938c44e333bc466f28a134454db90ef18fe66))
+* **deps:** update tauri monorepo to v2.11.5 ([9a0cbaf](https://github.com/e2e-test-quest/uuv/commit/9a0cbaf336b215ab34cf88fa420cb58620bc0626))
+* **runner-commons:** update dependency figlet to v1.11.4 ([8b958f9](https://github.com/e2e-test-quest/uuv/commit/8b958f966b2f25c9d256540d9d3040c765c1c600))
+* **runner-playwright:** update dependency nanoid to v3.3.18 ([522c7e6](https://github.com/e2e-test-quest/uuv/commit/522c7e69905340c22fe45bb5f175b77bab6587fe))
+
+
+### Features
+
+* **assistant:** add generate test case menu ([4209a7f](https://github.com/e2e-test-quest/uuv/commit/4209a7f598364130c8694118315292e311f3f52a))
+* **assistant:** update dependency playwright-chromium to v1.62.1 ([407b43b](https://github.com/e2e-test-quest/uuv/commit/407b43b9d18b50e3fb0d8fa89164a6eb290a1d1e))
+* **assistant:** update dependency playwright-chromium to v1.63.0 ([5df9c94](https://github.com/e2e-test-quest/uuv/commit/5df9c94feb05dcd3e3ee7b748ebc79b2b63f45cc))
+* **assistant:** update dependency playwright-chromium to v1.63.0 ([f3a6e95](https://github.com/e2e-test-quest/uuv/commit/f3a6e952eecac4c537dfe3098c06f23bd064a2f5))
+* **assistant:** update dependency tabbable to v6.5.0 ([47faa50](https://github.com/e2e-test-quest/uuv/commit/47faa506550ed23fb452ce593fc5960c161190a4))
+* **assistant:** update dependency tabbable to v6.5.0 ([dc622ce](https://github.com/e2e-test-quest/uuv/commit/dc622ceb803b54a0d69753538474bb741538dbb5))
+* **deps:** update dependency langwatch to ^0.37.0 ([63ec535](https://github.com/e2e-test-quest/uuv/commit/63ec5355e98209d7ea44098171fa25bd4a5aaa68))
+* **deps:** update rust crate tauri-plugin-http to v2.6.0 ([6892c9a](https://github.com/e2e-test-quest/uuv/commit/6892c9ae26e6e3738db086e3a582a3f707e6d93c))
+* **mcp-server:** update dependency zod to v4.5.4 ([3f503c4](https://github.com/e2e-test-quest/uuv/commit/3f503c4a95c44964a9129a26eedba8dab291c918))
+* remove assistant-ai package ([99d24df](https://github.com/e2e-test-quest/uuv/commit/99d24df4ca58ffd8b6c7d5a53c9dedf358c3dd62))
+* **runner-cypress:** update dependency cypress to v15.20.1 ([33f783b](https://github.com/e2e-test-quest/uuv/commit/33f783b77b2e71be612cc4d41cbda1cabff9721c))
+* **runner-cypress:** update dependency cypress to v15.21.1 ([27cae21](https://github.com/e2e-test-quest/uuv/commit/27cae213569304c244e8c639bec87308f22c3f3a))
+* **runner-playwright:** update dependency axe-core to v4.13.0 ([cc128b8](https://github.com/e2e-test-quest/uuv/commit/cc128b81b660af820e288ce76c3ea56db5ca86fe))
+
 # [1.19.0](https://github.com/e2e-test-quest/uuv/compare/assistant-desktop-v1.18.0...assistant-desktop-v1.19.0) (2026-07-19)
 
 
