@@ -69,7 +69,7 @@
         "@langchain/openai": "^1.5.3",
         "@modelcontextprotocol/sdk": "1.29.0",
         "@opentelemetry/context-async-hooks": "^2.9.0",
-        "@opentelemetry/sdk-node": "^0.220.0",
+        "@opentelemetry/sdk-node": "^0.223.0",
         "@types/mustache": "^4.2.6",
         "@uuv/assistant": "2.98.0",
         "@uuv/dictionary": "0.24.0",
