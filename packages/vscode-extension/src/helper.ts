@@ -1,9 +1,9 @@
 import * as vscode from "vscode";
 import { AstBuilder, GherkinClassicTokenMatcher, Parser } from "@cucumber/gherkin";
-import { IdGenerator } from "@cucumber/messages";
+import { v4 as uuidv4 } from "uuid";
 
-const uuidFn = IdGenerator.uuid();
-const builder = new AstBuilder(uuidFn);
+
+const builder = new AstBuilder(() => uuidv4());
 const matcher = new GherkinClassicTokenMatcher();
 const parser = new Parser(builder, matcher);
 const UUV_TERMINAL_NAME = "UUV";
