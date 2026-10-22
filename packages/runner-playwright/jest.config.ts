@@ -5,6 +5,9 @@ export default {
   testMatch: [
     '**/*/src/**/*.(spec|test).(js|ts)'
   ],
+  transformIgnorePatterns: [
+    'node_modules/(?!(?:@cucumber/gherkin|@cucumber/gherkin-utils|@cucumber/messages|@cucumber/tag-expressions)/)',
+  ],
   transform: {
     '^.+\\.[tj]s$': ['ts-jest', { tsconfig: '<rootDir>/tsconfig.spec.json' }],
   },
