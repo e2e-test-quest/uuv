@@ -354,26 +354,7 @@ describe("UUV MCP Server", () => {
             });
 
             expect(result.content[0]).toEqual({
-                text:
-                    `MCP error -32602: Input validation error: Invalid arguments for tool ${UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_ROLE_AND_NAME}: ` +
-                    JSON.stringify(
-                        [
-                            {
-                                expected: "string",
-                                code: "invalid_type",
-                                path: ["accessibleRole"],
-                                message: "Invalid input: expected string, received undefined",
-                            },
-                            {
-                                expected: "string",
-                                code: "invalid_type",
-                                path: ["accessibleName"],
-                                message: "Invalid input: expected string, received undefined",
-                            },
-                        ],
-                        null,
-                        2
-                    ),
+                text: `MCP error -32602: Input validation error: Invalid arguments for tool ${UUV_MCP_SERVER_ITEM.GENERATE_TEST_EXPECT_ROLE_AND_NAME}: Invalid input: expected string, received undefined at accessibleRole\nInvalid input: expected string, received undefined at accessibleName`,
                 type: "text",
             });
         });
@@ -445,25 +426,7 @@ describe("UUV MCP Server", () => {
 
             expect(result.content[0]).toEqual({
                 text:
-                    `MCP error -32602: Input validation error: Invalid arguments for tool ${UUV_MCP_SERVER_ITEM.GENERATE_TEST_CLICK_ROLE_AND_NAME}: ` +
-                    JSON.stringify(
-                        [
-                            {
-                                expected: "string",
-                                code: "invalid_type",
-                                path: ["accessibleRole"],
-                                message: "Invalid input: expected string, received undefined",
-                            },
-                            {
-                                expected: "string",
-                                code: "invalid_type",
-                                path: ["accessibleName"],
-                                message: "Invalid input: expected string, received undefined",
-                            },
-                        ],
-                        null,
-                        2
-                    ),
+                    `MCP error -32602: Input validation error: Invalid arguments for tool ${UUV_MCP_SERVER_ITEM.GENERATE_TEST_CLICK_ROLE_AND_NAME}: Invalid input: expected string, received undefined at accessibleRole\nInvalid input: expected string, received undefined at accessibleName`,
                 type: "text",
             });
         });
@@ -523,25 +486,7 @@ describe("UUV MCP Server", () => {
 
             expect(result.content[0]).toEqual({
                 text:
-                    `MCP error -32602: Input validation error: Invalid arguments for tool ${UUV_MCP_SERVER_ITEM.GENERATE_TEST_WITHIN_ROLE_AND_NAME}: ` +
-                    JSON.stringify(
-                        [
-                            {
-                                expected: "string",
-                                code: "invalid_type",
-                                path: ["accessibleRole"],
-                                message: "Invalid input: expected string, received undefined",
-                            },
-                            {
-                                expected: "string",
-                                code: "invalid_type",
-                                path: ["accessibleName"],
-                                message: "Invalid input: expected string, received undefined",
-                            },
-                        ],
-                        null,
-                        2
-                    ),
+                    `MCP error -32602: Input validation error: Invalid arguments for tool ${UUV_MCP_SERVER_ITEM.GENERATE_TEST_WITHIN_ROLE_AND_NAME}: Invalid input: expected string, received undefined at accessibleRole\nInvalid input: expected string, received undefined at accessibleName`,
                 type: "text",
             });
         });
@@ -600,25 +545,7 @@ describe("UUV MCP Server", () => {
 
             expect(result.content[0]).toEqual({
                 text:
-                    `MCP error -32602: Input validation error: Invalid arguments for tool ${UUV_MCP_SERVER_ITEM.GENERATE_TEST_TYPE_ROLE_AND_NAME}: ` +
-                    JSON.stringify(
-                        [
-                            {
-                                expected: "string",
-                                code: "invalid_type",
-                                path: ["accessibleRole"],
-                                message: "Invalid input: expected string, received undefined",
-                            },
-                            {
-                                expected: "string",
-                                code: "invalid_type",
-                                path: ["accessibleName"],
-                                message: "Invalid input: expected string, received undefined",
-                            },
-                        ],
-                        null,
-                        2
-                    ),
+                    `MCP error -32602: Input validation error: Invalid arguments for tool ${UUV_MCP_SERVER_ITEM.GENERATE_TEST_TYPE_ROLE_AND_NAME}: Invalid input: expected string, received undefined at accessibleRole\nInvalid input: expected string, received undefined at accessibleName`,
                 type: "text",
             });
         });
