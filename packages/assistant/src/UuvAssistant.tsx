@@ -258,28 +258,25 @@ function UuvAssistant(props: UuvAssistantProps) {
     try {
       let currentValue: UuvAssistantResultAIAnalysisType | undefined = {
         mode: AIAnalysisModeEnum.UNIFIED,
-        is_decorative: PENDING_VALUE,
+        isDecorative: PENDING_VALUE,
         confidence: PENDING_VALUE,
-        image_description: PENDING_VALUE,
-        analysis_details: PENDING_VALUE
+        imageDescription: PENDING_VALUE,
+        analysisDetails: PENDING_VALUE
       };
       setAiResult(currentValue);
 
       const start = Date.now();
       const response = await fetch(imgElement.src);
       const imageBlob = await response.blob();
-      console.log(new InformativeNodesHelper().findRelevantAccessibilityParent(imgElement));
-      // const { htmlContext, parentElement } = new InformativeNodesHelper().extractContextForElement(imgElement);
-      const parentElement = new InformativeNodesHelper().findRelevantAccessibilityParent(imgElement);
-      const htmlContext = parentElement!.outerHTML;
+      const parentElement = imgElement.ownerDocument.body;
       const cssSelector = parentElement ?
           Translator.getSelector(imgElement).replace(Translator.getSelector(parentElement) + " > ", "") :
           Translator.getSelector(imgElement);
 
       const formData = new FormData();
-      formData.append("html_content", htmlContext);
-      formData.append("target_img_file", imageBlob, "random_img.jpg");
-      formData.append("css_selector", cssSelector);
+      formData.append("htmlContent", parentElement.outerHTML);
+      formData.append("targetImgFile", imageBlob, "random_img.jpg");
+      formData.append("cssSelector", cssSelector);
 
         const uploadResponse = await fetch(targetUrl, {
         method: "POST",
@@ -342,18 +339,18 @@ function UuvAssistant(props: UuvAssistantProps) {
     try {
       const currentValue: UuvAssistantResultAIAnalysisType | undefined = {
         mode: AIAnalysisModeEnum.STEP_BY_STEP,
-        available_image_descriptions: PENDING_VALUE,
-        is_decorative: PENDING_VALUE,
+        availableImageDescriptions: PENDING_VALUE,
+        isDecorative: PENDING_VALUE,
         confidence: PENDING_VALUE,
-        image_description: PENDING_VALUE,
-        analysis_details: PENDING_VALUE
+        imageDescription: PENDING_VALUE,
+        analysisDetails: PENDING_VALUE
       };
       setAiResult(currentValue);
 
       const imgResponse = await fetch(imgElement.src);
       const imageBlob = await imgResponse.blob();
       const formData = new FormData();
-      formData.append("target_img_file", imageBlob, "random_img.jpg");
+      formData.append("targetImgFile", imageBlob, "random_img.jpg");
 
         const multipleDescriptionResponse = await fetch(targetUrl, {
         method: "POST",
@@ -364,23 +361,22 @@ function UuvAssistant(props: UuvAssistantProps) {
 
       setAiResult({
         ...currentValue as any,
-        available_image_descriptions: multipleDescriptionValue,
+        availableImageDescriptions: multipleDescriptionValue,
         onDescriptionSelected: async (selectedImageDescription: string) => {
           setAiResult({
             ...currentValue as any,
-            image_description: selectedImageDescription
+            imageDescription: selectedImageDescription
           });
           const start = Date.now();
-          const parentElement = new InformativeNodesHelper().findRelevantAccessibilityParent(imgElement);
-          const htmlContext = parentElement!.outerHTML;
+          const parentElement = imgElement.ownerDocument.body;
           const cssSelector = parentElement ?
               Translator.getSelector(imgElement).replace(Translator.getSelector(parentElement) + " > ", "") :
               Translator.getSelector(imgElement);
 
           const formData = new FormData();
-          formData.append("html_content", htmlContext);
-          formData.append("image_description", selectedImageDescription);
-          formData.append("css_selector", cssSelector);
+          formData.append("htmlContent", parentElement.outerHTML);
+          formData.append("imageDescription", selectedImageDescription);
+          formData.append("cssSelector", cssSelector);
 
           targetUrl = `${aiServerUrl}/api/v1/image/classify`;
           const imageAnalysisResponse = await fetch(targetUrl, {

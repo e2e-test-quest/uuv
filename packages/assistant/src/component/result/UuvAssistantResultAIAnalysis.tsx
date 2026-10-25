@@ -35,12 +35,12 @@ export const UuvAssistantResultAIAnalysis: React.FC<UuvAssistantResultAIAnalysis
 
     return (
         <div id="aiResult">
-            {aiResult.mode === AIAnalysisModeEnum.UNIFIED || aiResult.image_description !== PENDING_VALUE ?
+            {aiResult.mode === AIAnalysisModeEnum.UNIFIED || aiResult.imageDescription !== PENDING_VALUE ?
                 <Descriptions id="aiResultDescription" title="AI image analysis">
                     <Descriptions.Item label="Classification">{
                         renderLoadingField(
-                            aiResult?.is_decorative,
-                            formatClassification(aiResult?.is_decorative),
+                            aiResult?.isDecorative,
+                            formatClassification(aiResult?.isDecorative),
                             1
                         )
                     }</Descriptions.Item>
@@ -60,21 +60,21 @@ export const UuvAssistantResultAIAnalysis: React.FC<UuvAssistantResultAIAnalysis
                     }</Descriptions.Item>
                     <Descriptions.Item label="Image description" span={3}>{
                         renderLoadingField(
-                            aiResult?.image_description,
-                            aiResult?.image_description,
+                            aiResult?.imageDescription,
+                            aiResult?.imageDescription,
                             2
                         )
                     }</Descriptions.Item>
                     <Descriptions.Item label="Analyse details" span={3}>{
                         renderLoadingField(
-                            aiResult?.analysis_details,
-                            aiResult?.analysis_details,
+                            aiResult?.analysisDetails,
+                            aiResult?.analysisDetails,
                             2
                         )
                     }</Descriptions.Item>
                 </Descriptions> :
                 <UuvAssistantResultAIImageDescriptionSelector
-                    descriptions={aiResult.available_image_descriptions!}
+                    descriptions={aiResult.availableImageDescriptions!}
                     onDescriptionSelected={aiResult.onDescriptionSelected}
                 />
             }

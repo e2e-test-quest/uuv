@@ -22,5 +22,9 @@ export default {
                 "outputName": "junit-report.xml",
             }
         ]
-    ]
+    ],
+    testMatch: [
+        "**/*.test.ts",
+        "**/*.spec.ts",
+    ],
 };

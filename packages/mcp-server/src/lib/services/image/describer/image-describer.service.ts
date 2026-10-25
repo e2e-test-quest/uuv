@@ -3,6 +3,7 @@ import { btoa, File } from "node:buffer";
 import { logger } from "../../utils";
 import { MultipleDescriptionResult, multipleDescriptionSchema, SingleDescriptionResult, singleDescriptionSchema } from "./image-describer.schema";
 import { BaseChatModel } from "@langchain/core/language_models/chat_models";
+import { BraintrustLangChainCallbackHandler } from "braintrust";
 
 export class ImageDescriberService {
     constructor(private readonly model: BaseChatModel) {}
@@ -54,16 +55,23 @@ Output format: return exactly 4 descriptions as an array of strings.`;
         try {
             const imageToSend = await this.buildImageToSend(imageData);
 
-            return this.model.withStructuredOutput(singleDescriptionSchema).invoke([
-                new SystemMessage(this.getSystemPromptForUniqueDescription()),
-                new HumanMessage([
-                    { type: "text", text: "Describe this image" },
-                    {
-                        type: "image_url",
-                        image_url: imageToSend,
-                    },
-                ]),
-            ]);
+            return this.model
+                .withStructuredOutput(singleDescriptionSchema)
+                .withConfig({
+                    callbacks: [new BraintrustLangChainCallbackHandler()],
+                })
+                .invoke([
+                    new SystemMessage(this.getSystemPromptForUniqueDescription()),
+                    new HumanMessage([
+                        { type: "text", text: "Describe this image" },
+                        {
+                            type: "image_url",
+                            image_url: {
+                                url: imageToSend,
+                            },
+                        },
+                    ]),
+                ]);
         } catch (error) {
             logger.error({ error }, "Error in ImageDescriberService.describe");
             throw new Error(`Failed to describe image: ${error instanceof Error ? error.message : String(error)}`);
@@ -74,16 +82,23 @@ Output format: return exactly 4 descriptions as an array of strings.`;
         try {
             const imageToSend = await this.buildImageToSend(imageData);
 
-            return this.model.withStructuredOutput(multipleDescriptionSchema).invoke([
-                new SystemMessage(this.getSystemPromptForMultipleDescription()),
-                new HumanMessage([
-                    { type: "text", text: "Describe this image with 4 distinct descriptions." },
-                    {
-                        type: "image_url",
-                        image_url: imageToSend,
-                    },
-                ]),
-            ]);
+            return this.model
+                .withStructuredOutput(multipleDescriptionSchema)
+                .withConfig({
+                    callbacks: [new BraintrustLangChainCallbackHandler()],
+                })
+                .invoke([
+                    new SystemMessage(this.getSystemPromptForMultipleDescription()),
+                    new HumanMessage([
+                        { type: "text", text: "Describe this image with 4 distinct descriptions." },
+                        {
+                            type: "image_url",
+                            image_url: {
+                                url: imageToSend,
+                            },
+                        },
+                    ]),
+                ]);
         } catch (error) {
             logger.error({ error }, "Error in ImageDescriberService.describe");
             throw new Error(`Failed to describe image: ${error instanceof Error ? error.message : String(error)}`);
