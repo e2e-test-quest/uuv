@@ -1,3 +1,23 @@
+# [1.21.0](https://github.com/e2e-test-quest/uuv/compare/assistant-desktop-v1.20.0...assistant-desktop-v1.21.0) (2026-10-25)
+
+
+### Bug Fixes
+
+* **mcp-server:** replace langwatch by braintrust and improve agent with image similarity analysis ([3eb0b13](https://github.com/e2e-test-quest/uuv/commit/3eb0b134f23d0c5ed378b7bd34f82261f995dfd3))
+* **runner-playwright:** update dependency nanoid to v3.3.20 ([495f5a0](https://github.com/e2e-test-quest/uuv/commit/495f5a00ca8813b5372e062a4983409e38ee0c3b))
+
+
+### Features
+
+* **deps:** update dependency @modelcontextprotocol/sdk to v1.31.0 [security] ([8b329aa](https://github.com/e2e-test-quest/uuv/commit/8b329aaa9aec4939f4445cfb8a20e69d603020bc))
+* **deps:** update dependency @opentelemetry/sdk-node to ^0.223.0 ([c19ad9b](https://github.com/e2e-test-quest/uuv/commit/c19ad9bf1e5d67b2379615eed41a407dce234846))
+* **deps:** update dependency playwright-chromium to v1.64.1 ([636c908](https://github.com/e2e-test-quest/uuv/commit/636c908c86acfd789ce2e30653a10b80044b4b3d))
+* **deps:** update rust crate tauri-plugin-shell to v2.5.0 ([866a21b](https://github.com/e2e-test-quest/uuv/commit/866a21bea2c80766bf3c1250233f83c70517287a))
+* **runner-cypress:** update dependency @badeball/cypress-cucumber-preprocessor to v28 ([70c9a20](https://github.com/e2e-test-quest/uuv/commit/70c9a205a939fbb03e5d11493fbc58124027e344))
+* **runner-playwright:** update dependency @cucumber/cucumber to v13 ([634d49d](https://github.com/e2e-test-quest/uuv/commit/634d49d6cc2c90316562b361558cfd3d520289b6))
+* **runner-playwright:** update dependency @cucumber/tag-expressions to v11 ([96257d1](https://github.com/e2e-test-quest/uuv/commit/96257d1972a3c5c6861827c297508e5d4f32e88c))
+* **runner-playwright:** update dependency axe-core to v4.14.0 ([109e2bd](https://github.com/e2e-test-quest/uuv/commit/109e2bdb8c7e9a95be1dee76b86e60e202a19ce5))
+
 # [1.20.0](https://github.com/e2e-test-quest/uuv/compare/assistant-desktop-v1.19.0...assistant-desktop-v1.20.0) (2026-09-07)
 
 
