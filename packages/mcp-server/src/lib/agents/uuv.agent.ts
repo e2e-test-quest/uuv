@@ -4,9 +4,10 @@ import { File } from "node:buffer";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { serve } from "@hono/node-server";
-import { getBooleanEnv, getLanguageModel, logger } from "../services/utils";
+import { getEmbeddingModelFor, getLanguageModel, logger } from "../services/utils";
 import { Observable } from "rxjs";
 import { BaseChatModel } from "@langchain/core/language_models/chat_models";
+import { initLogger } from "braintrust";
 
 export class UuvAgent {
     private describerService!: ImageDescriberService;
@@ -18,12 +19,19 @@ export class UuvAgent {
     constructor(private readonly llmModel: string, private readonly llmApi?: string) {
         logger.debug(`Parameters: [ llmModel: ${llmModel}, llmApi: ${llmApi} ]`);
         this.model = getLanguageModel(llmModel, llmApi);
+        const embeddingConfig = getEmbeddingModelFor(llmModel, llmApi);
         this.describerService = new ImageDescriberService(this.model);
-        this.classifierService = new ImageClassifierService(this.model);
+        this.classifierService = new ImageClassifierService(this.model, embeddingConfig);
         this.architectService = new ArchitectService(this.model);
     }
 
     public async start() {
+        initLogger({
+            projectName: "UUV Assistant AI",
+            // eslint-disable-next-line dot-notation
+            apiKey: process.env["BRAINTRUST_API_KEY"],
+        });
+
         this.server = new Hono();
 
         this.server.use(
@@ -64,17 +72,17 @@ export class UuvAgent {
         this.server.post("/api/v1/image/classify-unified", async c => {
             const formData = await c.req.formData();
 
-            const htmlContent = formData.get("html_content") || "";
-            const cssSelector = formData.get("css_selector") || "";
+            const htmlContent = formData.get("htmlContent") || "";
+            const cssSelector = formData.get("cssSelector") || "";
 
             if (!htmlContent || !cssSelector) {
-                return c.json({ error: "html_content and css_selector are required" }, 400);
+                return c.json({ error: "htmlContent and cssSelector are required" }, 400);
             }
 
-            const targetImgFile = formData.get("target_img_file");
+            const targetImgFile = formData.get("targetImgFile");
 
             if (!(targetImgFile instanceof File)) {
-                return c.json({ error: "target_img_file is required" }, 400);
+                return c.json({ error: "targetImgFile is required" }, 400);
             }
 
             const encoder = new TextEncoder();
@@ -120,10 +128,10 @@ export class UuvAgent {
         this.server.post("/api/v1/image/multiple-describe", async c => {
             const formData = await c.req.formData();
 
-            const targetImgFile = formData.get("target_img_file");
+            const targetImgFile = formData.get("targetImgFile");
 
             if (!(targetImgFile instanceof File)) {
-                return c.json({ error: "target_img_file is required" }, 400);
+                return c.json({ error: "targetImgFile is required" }, 400);
             }
 
             const result = await this.describerService.multipleDescribe(targetImgFile);
@@ -133,12 +141,12 @@ export class UuvAgent {
         this.server.post("/api/v1/image/classify", async c => {
             const formData = await c.req.formData();
 
-            const htmlContent = formData.get("html_content") || "";
-            const cssSelector = formData.get("css_selector") || "";
-            const imageDescription = formData.get("image_description") || "";
+            const htmlContent = formData.get("htmlContent") || "";
+            const cssSelector = formData.get("cssSelector") || "";
+            const imageDescription = formData.get("imageDescription") || "";
 
             if (!htmlContent || !cssSelector || !imageDescription) {
-                return c.json({ error: "html_content, css_selector and image_description are required" }, 400);
+                return c.json({ error: "htmlContent, cssSelector and image_description are required" }, 400);
             }
 
             const result = await this.classifierService.classify({
@@ -167,7 +175,7 @@ export class UuvAgent {
             (async () => {
                 try {
                     const descriptionResult = await this.describerService.singleDescribe(imageToClassify);
-                    subscriber.next({ image_description: descriptionResult.imageDescription });
+                    subscriber.next({ imageDescription: descriptionResult.imageDescription });
                     logger.debug(`descriptionResult: ${JSON.stringify(descriptionResult)}`);
 
                     const result = await this.classifierService.classify({

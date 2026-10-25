@@ -2,9 +2,9 @@ import { BaseChatModel } from "@langchain/core/language_models/chat_models";
 import { chromium } from "playwright-chromium";
 import { FlatScenarioResultSchema, FlatStepSchema, ScenarioResult, ScenarioResultSchema, Step } from "../architect.model";
 import { HumanMessage, SystemMessage } from "langchain";
-import { LangWatchCallbackHandler } from "langwatch/observability/instrumentation/langchain";
 import { ArchitectExplorerHelper } from "./architect-explorer.helper";
 import { getBooleanEnv, logger } from "../../utils";
+import { BraintrustLangChainCallbackHandler } from "braintrust";
 
 const EXPLORATION_SYSTEM_PROMPT = `
  You are an automated testing agent with access to Playwright Web Snapshot.
@@ -26,12 +26,10 @@ const EXPLORATION_SYSTEM_PROMPT = `
 `;
 
 export class ArchitectExplorerService {
-    private readonly langWatchCallbackHandler!: LangWatchCallbackHandler;
 
     constructor(
         private readonly model: BaseChatModel
     ) {
-        this.langWatchCallbackHandler = new LangWatchCallbackHandler();
     }
 
     async explore(targetUrl: string, scenario: string, isBrowserHeadless = true, maxStep = 50): Promise<Step[]> {
@@ -67,7 +65,9 @@ export class ArchitectExplorerService {
                 const nextStepRaw = await this.model
                     .withStructuredOutput(FlatStepSchema)
                     .withConfig({
-                        callbacks: [this.langWatchCallbackHandler],
+                        callbacks: [
+                            new BraintrustLangChainCallbackHandler()
+                        ],
                     })
                     .invoke([new SystemMessage(EXPLORATION_SYSTEM_PROMPT), new HumanMessage(explorationPrompt)]);
 
@@ -115,7 +115,9 @@ export class ArchitectExplorerService {
         const scenarioResult = await this.model
             .withStructuredOutput(schemaToUse)
             .withConfig({
-                callbacks: [this.langWatchCallbackHandler],
+                callbacks: [
+                    new BraintrustLangChainCallbackHandler()
+                ],
             })
             .invoke([
                 new SystemMessage(`

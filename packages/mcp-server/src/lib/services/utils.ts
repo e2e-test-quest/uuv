@@ -1,9 +1,10 @@
 import pino from "pino";
-import { ChatOllama } from "@langchain/ollama";
+import { ChatOllama, OllamaEmbeddings } from "@langchain/ollama";
+import type { EmbeddingsInterface } from "@langchain/core/embeddings";
 import { BaseChatModel } from "@langchain/core/language_models/chat_models";
-import { ChatOpenAI } from "@langchain/openai";
+import { ChatOpenAI, OpenAIEmbeddings } from "@langchain/openai";
 import { ChatAnthropic } from "@langchain/anthropic";
-import { ChatGoogle } from "@langchain/google";
+import { ChatGoogleGenerativeAI, GoogleGenerativeAIEmbeddings } from "@langchain/google-genai";
 
 export const logger = pino({
     // eslint-disable-next-line dot-notation
@@ -36,7 +37,7 @@ export function getLanguageModel(llmModel: string, llmApi?: string): BaseChatMod
             process.env["OLLAMA_BASE_URL"] = llmApi;
             return new ChatOllama({
                 model: modelName,
-                temperature: 1.0,
+                temperature: 0.0,
                 topP: 0.95,
                 numCtx: 32768,
             });
@@ -45,7 +46,7 @@ export function getLanguageModel(llmModel: string, llmApi?: string): BaseChatMod
         case "anthropic":
             return new ChatAnthropic(modelName);
         case "google":
-            return new ChatGoogle(modelName);
+            return new ChatGoogleGenerativeAI(modelName);
         default:
             throw new Error("Model not suppported yet!");
     }
@@ -56,4 +57,61 @@ export function getBooleanEnv(propertyName: string, defaultValue = true): boolea
         // eslint-disable-next-line dot-notation
         (process.env[propertyName] || `${defaultValue}`).toLowerCase()
     );
+}
+
+export interface EmbeddingConfig {
+    embeddings: EmbeddingsInterface;
+    calibration: { low: number; high: number };
+}
+
+// Modèle d'embedding par défaut selon le fournisseur du LLM
+const DEFAULT_EMBEDDING: Record<string, string> = {
+    ollama: "bge-m3",
+    openai: "text-embedding-3-small",
+    google: "gemini-embedding-001",
+    // anthropic : pas de modèle d'embeddings, voir le fallback plus bas
+};
+
+// Placeholders à mesurer pour chaque modèle
+const CALIBRATION: Record<string, { low: number; high: number }> = {
+    "text-embedding-3-small": { low: 0.15, high: 0.55 },
+    "bge-m3": { low: 0.3, high: 0.7 },
+    "gemini-embedding-001": { low: 0.4, high: 0.8 },
+};
+const DEFAULT_CALIBRATION = { low: 0.15, high: 0.55 };
+
+export function getEmbeddingModelFor(
+    llmModel: string,
+    llmApi?: string,
+    override?: string, // ex: "openai/text-embedding-3-small"
+    fallback = "ollama/bge-m3" // utilisé si le fournisseur n'a pas d'embeddings
+): EmbeddingConfig {
+    const [llmProvider] = decomposeModel(llmModel);
+
+    let provider = llmProvider;
+    let modelName = DEFAULT_EMBEDDING[llmProvider];
+
+    if (override) {
+        [provider, modelName] = decomposeModel(override);
+    } else if (!modelName) {
+        // Ex: anthropic
+        logger.warn(`No embedding model for "${llmProvider}", falling back to "${fallback}"`);
+        [provider, modelName] = decomposeModel(fallback);
+    }
+
+    const calibration = CALIBRATION[modelName] ?? DEFAULT_CALIBRATION;
+    if (!CALIBRATION[modelName]) {
+        logger.warn(`No calibration for "${modelName}", using default values`);
+    }
+
+    switch (provider) {
+        case "ollama":
+            return { embeddings: new OllamaEmbeddings({ model: modelName, baseUrl: llmApi }), calibration };
+        case "openai":
+            return { embeddings: new OpenAIEmbeddings({ model: modelName }), calibration };
+        case "google":
+            return { embeddings: new GoogleGenerativeAIEmbeddings({ model: modelName }), calibration };
+        default:
+            throw new Error(`Embedding provider "${provider}" not supported`);
+    }
 }
