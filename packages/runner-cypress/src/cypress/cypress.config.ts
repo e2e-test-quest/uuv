@@ -45,9 +45,9 @@ export async function setupNodeEvents (
 
   on("before:run", async () => {
     // eslint-disable-next-line dot-notation
-    const a11yReportFilePath = config.env["uuvOptions"].report.a11y.outputFile;
+    const a11yReportFilePath = config.expose["uuvOptions"].report.a11y.outputFile;
     // eslint-disable-next-line dot-notation
-    const generateA11yReport = config.env["uuvOptions"].report.a11y.enabled;
+    const generateA11yReport = config.expose["uuvOptions"].report.a11y.enabled;
     clearA11yReport(a11yReportFilePath);
     if (generateA11yReport === true) {
       await initA11yReport(a11yReportFilePath);
@@ -108,7 +108,7 @@ export async function setupNodeEvents (
 
   async function initA11yReport(reportFilePath: string) {
     // eslint-disable-next-line dot-notation
-    const packageJson = await import(path.join(config.env["uuvOptions"].projectDir, "package.json"));
+    const packageJson = await import(path.join(config.expose["uuvOptions"].projectDir, "package.json"));
 
     const emptyReport = {
       app: {
@@ -121,7 +121,7 @@ export async function setupNodeEvents (
   }
 
   // eslint-disable-next-line dot-notation
-  config.env["a11yBundlePath"] = typeof require?.resolve === "function"
+  config.expose["a11yBundlePath"] = typeof require?.resolve === "function"
             ? require.resolve("@uuv/a11y/bundle")
             : "node_modules/@uuv/a11y/bundle/uuv-a11y.bundle.js";
 

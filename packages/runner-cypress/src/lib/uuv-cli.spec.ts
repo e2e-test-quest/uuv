@@ -49,7 +49,7 @@ describe("UUV Cli Cypress", () => {
     expect(mockOpen).toHaveBeenCalledWith(
       {
         project: projectDir,
-        env: {
+        expose: {
           uuvOptions: {
             command: "open",
             browser: "chrome",
@@ -85,7 +85,7 @@ describe("UUV Cli Cypress", () => {
     expect(mockOpen).toHaveBeenCalledWith(
       {
         project: projectDir,
-        env: {
+        expose: {
           a: "valueA",
           b: "valueB",
           uuvOptions: {
@@ -128,7 +128,7 @@ describe("UUV Cli Cypress", () => {
       {
         project: projectDir,
         browser: "chrome",
-        env: {
+        expose: {
           uuvOptions: {
             command: "e2e",
             browser: "chrome",
@@ -170,7 +170,7 @@ describe("UUV Cli Cypress", () => {
       {
         project: projectDir,
         browser: "chrome",
-        env: {
+        expose: {
           uuvOptions: {
             command: "e2e",
             browser: "chrome",
@@ -209,7 +209,7 @@ describe("UUV Cli Cypress", () => {
       {
         project: projectDir,
         browser: "chrome",
-        env: {
+        expose: {
           uuvOptions: {
             command: "e2e",
             browser: "chrome",
@@ -248,7 +248,7 @@ describe("UUV Cli Cypress", () => {
       {
         project: projectDir,
         browser: "chrome",
-        env: {
+        expose: {
           uuvOptions: {
             command: "e2e",
             browser: "chrome",
@@ -291,7 +291,7 @@ describe("UUV Cli Cypress", () => {
       {
         project: projectDir,
         browser: "chrome",
-        env: {
+        expose: {
           uuvOptions: {
             command: "e2e",
             browser: "chrome",
@@ -331,7 +331,7 @@ describe("UUV Cli Cypress", () => {
       {
         project: projectDir,
         browser: browser,
-        env: {
+        expose: {
           uuvOptions: {
             command: "e2e",
             browser: browser,
@@ -372,7 +372,7 @@ describe("UUV Cli Cypress", () => {
         project: projectDir,
         browser: "chrome",
         spec: targetTestFile,
-        env: {
+        expose: {
           uuvOptions: {
             command: "e2e",
             browser: "chrome",
@@ -412,7 +412,7 @@ describe("UUV Cli Cypress", () => {
       {
         project: projectDir,
         browser: "chrome",
-        env: {
+        expose: {
           ...extraArgs,
           uuvOptions: {
             extraArgs: {
