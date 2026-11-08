@@ -24,12 +24,12 @@ const contextAlias = "context";
 const foundedChildElementAlias = "foundedChildElement";
 
 export const shouldGenerateA11yReport = (): boolean => {
-    const generateA11yReport = Cypress.env("uuvOptions")?.report.a11y.enabled;
+    const generateA11yReport = Cypress.expose("uuvOptions")?.report.a11y.enabled;
     return generateA11yReport === true;
 };
 
 export const getA11yResultFilePath = (): string => {
-    return Cypress.env("uuvOptions").report.a11y.relativePath;
+    return Cypress.expose("uuvOptions").report.a11y.relativePath;
 };
 
 export const uuvGetContext = (): Chainable<Context> => {

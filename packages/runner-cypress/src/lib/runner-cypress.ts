@@ -41,10 +41,10 @@ export class UUVCliCypressRunner implements UUVCliRunner {
     }
 
     executeE2eCommand(options: Partial<UUVCliOptions>) {
-        const cypressOptions: Partial<CypressCommandLine.CypressRunOptions> = {
+        const cypressOptions: Partial<CypressCommandLine.CypressRunOptions> & { expose: any } = {
             project: this.projectDir,
             browser: options.browser,
-            env: {
+            expose: {
                 uuvOptions: options,
                 ...options.extraArgs
             }
@@ -92,11 +92,11 @@ export class UUVCliCypressRunner implements UUVCliRunner {
     executeOpenCommand(options: Partial<UUVCliOptions>) {
         return this.getCypress().open({
             project: this.projectDir,
-            env: {
+            expose: {
                 uuvOptions: options,
                 ...options.extraArgs
             },
-        });
+        } as Partial<CypressCommandLine.CypressRunOptions> & { expose: any });
     }
 
     private createReportDirectories(options: Pick<UUVCliOptions, "report">) {

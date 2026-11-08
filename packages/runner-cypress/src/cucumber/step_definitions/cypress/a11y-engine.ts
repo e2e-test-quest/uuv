@@ -83,12 +83,11 @@ export const showUvvA11yReport = (reference: A11yReferenceEnum) => {
 };
 
 function injectScript(targetScriptEnvVariable) {
-    cy.env([targetScriptEnvVariable]).then(({ a11yBundlePath }) =>
-        cy.readFile<string>(a11yBundlePath).then((source) =>
-            cy.window({ log: false }).then((window) => {
-                window.eval(source);
-            })
-        )
+    const a11yBundlePath = Cypress.expose(targetScriptEnvVariable);
+    cy.readFile<string>(a11yBundlePath).then(source =>
+        cy.window({ log: false }).then(window => {
+            window.eval(source);
+        })
     );
 }
 
