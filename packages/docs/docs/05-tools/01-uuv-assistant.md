@@ -19,6 +19,13 @@ The UUV assistant can be used to generate UUV phrases for keyboard behaviour.
 
 The sentences are used to check the actual order of keyboard navigation and generate checks sentences accordingly.
 
+### Image classification with AI
+The assistant classifies the images of the page as Decorative or Informative through the MCP server image-classification API, and only informative images are taken into account when generating the test scenarios.
+
+![Image classification in the assistant](@site/static/img/assistant/uuv-assistant-ai-image-workflow-demo.gif)
+
+![Classify unified workflow](https://github.com/e2e-test-quest/uuv/raw/HEAD/packages/mcp-server/src/lib/services/image/classify-unified-workflow.svg)
+
 ## Online demo
 
 <a href="https://uuv-assistant.vercel.app/">

@@ -19,6 +19,13 @@ L'assistant permet de générer des phrases UUV pour des comportements au clavie
 
 Les phrases permettent de vérifier l'ordre réel de navigation au clavier et génère les phrases de vérifications en conséquence.
 
+### Classification d'images avec IA
+L'assistant classe les images de la page en Décorative ou Informative grâce à l'API de classification d'images du serveur MCP, et seules les images informatives sont prises en compte lors de la génération des scénarios de test.
+
+![Classification d'images dans l'assistant](@site/static/img/assistant/uuv-assistant-ai-image-workflow-demo.gif)
+
+![Flux de classification unifié](https://github.com/e2e-test-quest/uuv/raw/HEAD/packages/mcp-server/src/lib/services/image/classify-unified-workflow.svg)
+
 ## Démo en ligne
 
 <a href="https://uuv-assistant.vercel.app/">

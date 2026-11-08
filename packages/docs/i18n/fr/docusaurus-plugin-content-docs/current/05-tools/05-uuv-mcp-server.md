@@ -93,6 +93,12 @@ gemini extensions install https://github.com/e2e-test-quest/uuv --auto-update
 | `UUV_JSON_FLAT_MODEL_ENABLED` | Recommandé (`true` pour Anthropic/Gemini) | Active le formatage de sortie JSON plat (fortement recommandé pour les modèles Anthropic et Gemini) |
 | `UUV_LLM_API`                 | Optionnel (Ollama uniquement)             | Endpoint d'API de base pour les modèles locaux Ollama                                               |
 
+## Classification d'images
+
+Le serveur expose une API interne de classification d'images (activée par `UUV_API_ENABLED`). Elle classe les images des pages web en **DÉCORATIVE** ou **INFORMATIVE** en combinant une description de l'image par un modèle de vision et une analyse de similarité sémantique entre cette description et le texte de la page environnant. Seules les images informatives portent un sens utile à tester, ce sont donc celles qui sont prises en compte lors de la génération des scénarios de test.
+
+![Flux de classification unifié](https://github.com/e2e-test-quest/uuv/raw/HEAD/packages/mcp-server/src/lib/services/image/classify-unified-workflow.svg)
+
 ## Utilisation (Prompts MCP)
 
 ### Deux modes de génération : exploration intelligente vs génération ciblée
