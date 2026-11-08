@@ -97,8 +97,7 @@
         "@cucumber/gherkin": "^39.0.0",
         "@types/node-ipc": "^9.2.3",
         "@uuv/runner-commons": "2.91.0",
-        "node-ipc": "^12.0.0",
-        "uuid": "^14.0.0"
+        "node-ipc": "^12.0.0"
     },
     "funding": {
         "type": "opencollective",

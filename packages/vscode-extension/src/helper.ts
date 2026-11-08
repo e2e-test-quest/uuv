@@ -1,9 +1,9 @@
 import * as vscode from "vscode";
 import { AstBuilder, GherkinClassicTokenMatcher, Parser } from "@cucumber/gherkin";
-import { v4 as uuidv4 } from "uuid";
+import { randomUUID } from "node:crypto";
 
 
-const builder = new AstBuilder(() => uuidv4());
+const builder = new AstBuilder(() => randomUUID());
 const matcher = new GherkinClassicTokenMatcher();
 const parser = new Parser(builder, matcher);
 const UUV_TERMINAL_NAME = "UUV";
