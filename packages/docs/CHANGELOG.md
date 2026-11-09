@@ -1,3 +1,21 @@
+# [1.126.0](https://github.com/e2e-test-quest/uuv/compare/docs-v1.125.0...docs-v1.126.0) (2026-11-09)
+
+
+### Bug Fixes
+
+* **docs:** add gif for AI Image Workflow demo ([44fc849](https://github.com/e2e-test-quest/uuv/commit/44fc8490ba2660f87651b569b78be2c3a8a6590b))
+* **runner-playwright:** update dependency playwright-bdd to v9.2.1 ([8ad21c9](https://github.com/e2e-test-quest/uuv/commit/8ad21c9dd0efb7c705bc78566261a9ed2cd2d1e3))
+
+
+### Features
+
+* **deps:** update dependency @modelcontextprotocol/sdk to v1.32.0 [security] ([567a5aa](https://github.com/e2e-test-quest/uuv/commit/567a5aa1dcd992df3d320ac02f539cfc1bab3647))
+* **deps:** update dependency uuid to v14 [security] ([d7d8177](https://github.com/e2e-test-quest/uuv/commit/d7d817766b7bea4c42c6fe9a5297788d94474359))
+* **deps:** update dependency zod to v4.6.6 [security] ([79f48cc](https://github.com/e2e-test-quest/uuv/commit/79f48cc2935fb96fce791afb1f142e32bbaa3ab8))
+* **mcp-server:** add workflow description and enrich documentation ([6ed86e1](https://github.com/e2e-test-quest/uuv/commit/6ed86e144b215b7efef1553c7c3e4f9339631ba6))
+* **runner-cypress:** replace Cypress.env by Cypress.expose ([74ec64e](https://github.com/e2e-test-quest/uuv/commit/74ec64e3271205ae560a25fc5253de0937f1b26c))
+* **runner-cypress:** update dependency cypress to v16 ([1642f75](https://github.com/e2e-test-quest/uuv/commit/1642f75d6aa60f6e2661ce49f0c42575ecbceb97))
+
 # [1.125.0](https://github.com/e2e-test-quest/uuv/compare/docs-v1.124.0...docs-v1.125.0) (2026-10-25)
 
 
