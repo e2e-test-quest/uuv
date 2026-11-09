@@ -1,3 +1,20 @@
+# [1.22.0](https://github.com/e2e-test-quest/uuv/compare/assistant-desktop-v1.21.0...assistant-desktop-v1.22.0) (2026-11-09)
+
+
+### Bug Fixes
+
+* **deps:** update rust crate serde_json to v1.0.154 ([bb5793b](https://github.com/e2e-test-quest/uuv/commit/bb5793be1de69f776cc3c5a6092646347bd8fdbe))
+* **runner-playwright:** update dependency playwright-bdd to v9.2.1 ([8ad21c9](https://github.com/e2e-test-quest/uuv/commit/8ad21c9dd0efb7c705bc78566261a9ed2cd2d1e3))
+
+
+### Features
+
+* **deps:** update dependency @modelcontextprotocol/sdk to v1.32.0 [security] ([567a5aa](https://github.com/e2e-test-quest/uuv/commit/567a5aa1dcd992df3d320ac02f539cfc1bab3647))
+* **deps:** update dependency uuid to v14 [security] ([d7d8177](https://github.com/e2e-test-quest/uuv/commit/d7d817766b7bea4c42c6fe9a5297788d94474359))
+* **deps:** update dependency zod to v4.6.6 [security] ([79f48cc](https://github.com/e2e-test-quest/uuv/commit/79f48cc2935fb96fce791afb1f142e32bbaa3ab8))
+* **deps:** update rust crate tauri-plugin-opener to v2.7.2 ([1e6c978](https://github.com/e2e-test-quest/uuv/commit/1e6c978a856219cfffb3a4893a80dadfdb4e71c4))
+* **runner-cypress:** update dependency cypress to v16 ([1642f75](https://github.com/e2e-test-quest/uuv/commit/1642f75d6aa60f6e2661ce49f0c42575ecbceb97))
+
 # [1.21.0](https://github.com/e2e-test-quest/uuv/compare/assistant-desktop-v1.20.0...assistant-desktop-v1.21.0) (2026-10-25)
 
 
