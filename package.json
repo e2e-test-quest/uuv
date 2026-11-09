@@ -39,7 +39,7 @@
         "@commitlint/cli": "^19.0.0",
         "@commitlint/config-conventional": "^19.0.0",
         "@commitlint/config-nx-scopes": "^19.0.0",
-        "@google/semantic-release-replace-plugin": "1.2.0",
+        "@google/semantic-release-replace-plugin": "1.2.7",
         "@jnxplus/nx-gradle": "1.22.0",
         "@nuxt/schema": "3.21.6",
         "@nx-tools/nx-container": "6.9.1",
