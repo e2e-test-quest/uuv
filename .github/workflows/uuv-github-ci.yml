@@ -32,7 +32,7 @@ jobs:
         with:
           node-version: ${{env.NODE_VERSION}}
           cache: 'npm'
-      - run: npm ci
+      - run: npm install
 
   build:
     runs-on: ubuntu-22.04
