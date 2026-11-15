@@ -21,15 +21,10 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Restore npm cache
-      uses: actions/cache/restore@v4
+    - name: Use Node.js ${{env.NODE_VERSION}}
+      uses: actions/setup-node@v7.1.0
       with:
-        path: ~/.npm
-        key: ${{ runner.os }}-npm-${{ hashFiles('package-lock.json') }}
-    - name: Use Node.js ${{ inputs.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ inputs.node-version }}
+        node-version: ${{env.NODE_VERSION}}
         cache: 'npm'
     - name: Install uv and set the Python version
       uses: astral-sh/setup-uv@v7
