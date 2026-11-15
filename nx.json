@@ -1,69 +1,56 @@
 {
-  "pluginsConfig": {
-    "@nx/js": {
-      "analyzeSourceFiles": true
-    }
-  },
-  "workspaceLayout": {
-    "appsDir": "packages",
-    "libsDir": "packages"
-  },
-  "tasksRunnerOptions": {
-    "default": {
-      "runner": "nx/tasks-runners/default",
-      "options": {
-        "cacheableOperations": [
-          "generate",
-          "build:tsc",
-          "build:react",
-          "build:copy-sentences",
-          "build:conf",
-          "build",
-          "lint",
-          "test",
-          "e2e"
-        ]
-      }
-    }
-  },
-  "extends": "nx/presets/npm.json",
-  "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "affected": {
-    "defaultBase": "master"
-  },
-  "targetDefaults": {
-    "build": {
-      "dependsOn": ["^build"]
+    "pluginsConfig": {
+        "@nx/js": {
+            "analyzeSourceFiles": true
+        }
     },
-    "lint": {
-      "inputs": [
-        "default",
-        "{workspaceRoot}/.eslintrc.json",
-        "{workspaceRoot}/.eslintignore"
-      ]
+    "workspaceLayout": {
+        "appsDir": "packages",
+        "libsDir": "packages"
     },
-    "test": {
-      "inputs": ["default", "^default", "{workspaceRoot}/jest.preset.js"]
+    "tasksRunnerOptions": {
+        "default": {
+            "runner": "nx/tasks-runners/default",
+            "options": {
+                "cacheableOperations": ["generate", "build:tsc", "build:react", "build:copy-sentences", "build:conf", "build", "lint", "test", "e2e"]
+            }
+        }
     },
-    "@nx/js:tsc": {
-      "cache": true,
-      "dependsOn": ["^build"],
-      "inputs": ["default", "^default"]
-    }
-  },
-  "plugins": [
-    {
-      "plugin": "@nx/nuxt/plugin",
-      "options": {
-        "buildTargetName": "build",
-        "serveTargetName": "serve"
-      }
+    "extends": "nx/presets/npm.json",
+    "$schema": "./node_modules/nx/schemas/nx-schema.json",
+    "affected": {
+        "defaultBase": "master"
     },
-    {
-      "plugin": "@nx/eslint/plugin",
-      "options": {
-        "targetName": "lint"
-      }
-    }
-  ]
+    "targetDefaults": {
+        "build": {
+            "dependsOn": ["^build"]
+        },
+        "lint": {
+            "inputs": ["default", "{workspaceRoot}/.eslintrc.json", "{workspaceRoot}/.eslintignore"]
+        },
+        "test": {
+            "inputs": ["default", "^default", "{workspaceRoot}/jest.preset.js"]
+        },
+        "@nx/js:tsc": {
+            "cache": true,
+            "dependsOn": ["^build"],
+            "inputs": ["default", "^default"]
+        }
+    },
+    "plugins": [
+        {
+            "plugin": "@nx/nuxt/plugin",
+            "options": {
+                "buildTargetName": "build",
+                "serveTargetName": "serve"
+            }
+        },
+        {
+            "plugin": "@nx/eslint/plugin",
+            "options": {
+                "targetName": "lint"
+            }
+        }
+    ],
+    "analytics": false
 }
