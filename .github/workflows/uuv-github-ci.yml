@@ -13,7 +13,7 @@ permissions:
 
 env:
   PYTHON_VERSION: 3.12.3
-  NODE_VERSION: 24.14.0
+  NODE_VERSION: 26.13.1
   NPM_PACKAGE_SCOPE: uuv
   UUV_BASE_URL: https://e2e-test-quest.github.io
 

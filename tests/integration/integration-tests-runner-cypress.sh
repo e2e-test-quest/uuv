@@ -30,6 +30,7 @@ A11Y_VERSION="../$NPM_PACKAGE_A11Y"
 sed -i "s|to-replace|${A11Y_VERSION}|" package.json
 
 log "I" "Installing npm dependencies"
+npm pkg set allowScripts.@uuv/cypress=true --json
 npm install -D "../$NPM_PACKAGE_DICTIONARY" "../$NPM_PACKAGE_COMMONS" "../$NPM_PACKAGE_CYPRESS" ts-loader
 
 log "I" "Copying test files and dependencies"
