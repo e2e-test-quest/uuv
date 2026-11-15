@@ -14,20 +14,15 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Restore npm cache
-      uses: actions/cache/restore@v4
-      with:
-        path: ~/.npm
-        key: ${{ runner.os }}-npm-${{ hashFiles('package-lock.json') }}
     - name: Download build artifact
       uses: actions/download-artifact@v4
       with:
         name: build-artifacts
         path: packages
-    - name: Use Node.js ${{ inputs.node-version }}
-      uses: actions/setup-node@v4
+    - name: Use Node.js ${{env.NODE_VERSION}}
+      uses: actions/setup-node@v7.1.0
       with:
-        node-version: ${{ inputs.node-version }}
+        node-version: ${{env.NODE_VERSION}}
         cache: 'npm'
     - run: npm ci
       shell: bash

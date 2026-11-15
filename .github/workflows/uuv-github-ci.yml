@@ -13,7 +13,7 @@ permissions:
 
 env:
   PYTHON_VERSION: 3.12.3
-  NODE_VERSION: 24.14.0
+  NODE_VERSION: 26.13.1
   NPM_PACKAGE_SCOPE: uuv
   UUV_BASE_URL: https://e2e-test-quest.github.io
 
@@ -22,13 +22,8 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
-      - name: Cache node modules
-        uses: actions/cache@v4
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-npm-${{ hashFiles('package-lock.json') }}
       - name: Use Node.js ${{env.NODE_VERSION}}
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7.1.0
         with:
           node-version: ${{env.NODE_VERSION}}
           cache: 'npm'
@@ -107,14 +102,8 @@ jobs:
           sudo apt-get update
           sudo apt install libwebkit2gtk-4.1-dev build-essential curl wget file libxdo-dev libssl-dev libayatana-appindicator3-dev librsvg2-dev
 
-      - name: Restore npm cache
-        uses: actions/cache/restore@v4
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-npm-${{ hashFiles('package-lock.json') }}
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Use Node.js ${{env.NODE_VERSION}}
+        uses: actions/setup-node@v7.1.0
         with:
           node-version: ${{env.NODE_VERSION}}
           cache: 'npm'
@@ -163,15 +152,10 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-      - name: Restore npm cache
-        uses: actions/cache/restore@v4
+      - name: Use Node.js ${{env.NODE_VERSION}}
+        uses: actions/setup-node@v7.1.0
         with:
-          path: ~/.npm
-          key: ${{ runner.os }}-npm-${{ hashFiles('package-lock.json') }}
-      - name: Use Node.js ${{ inputs.node-version }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ inputs.node-version }}
+          node-version: ${{env.NODE_VERSION}}
           cache: 'npm'
       - run: npm ci
         shell: bash
@@ -183,15 +167,10 @@ jobs:
     needs: install
     steps:
       - uses: actions/checkout@v4
-      - name: Restore npm cache
-        uses: actions/cache/restore@v4
+      - name: Use Node.js ${{env.NODE_VERSION}}
+        uses: actions/setup-node@v7.1.0
         with:
-          path: ~/.npm
-          key: ${{ runner.os }}-npm-${{ hashFiles('package-lock.json') }}
-      - name: Use Node.js ${{ inputs.node-version }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ inputs.node-version }}
+          node-version: ${{env.NODE_VERSION}}
           cache: 'npm'
       - run: npm ci
         shell: bash
@@ -328,18 +307,13 @@ jobs:
     needs: [ lint, unit-tests, build, build-gradle, build-docker ]
     steps:
       - uses: actions/checkout@v4
-      - name: Restore npm cache
-        uses: actions/cache/restore@v4
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-npm-${{ hashFiles('package-lock.json') }}
       - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
           name: build-artifacts
           path: packages
-      - name: Use Node.js ${{ inputs.node-version }}
-        uses: actions/setup-node@v4
+      - name: Use Node.js ${{env.NODE_VERSION}}
+        uses: actions/setup-node@v7.1.0
         with:
           node-version: ${{env.NODE_VERSION}}
           cache: 'npm'
@@ -372,18 +346,13 @@ jobs:
     needs: [ lint, unit-tests, build, build-gradle, build-docker ]
     steps:
       - uses: actions/checkout@v4
-      - name: Restore npm cache
-        uses: actions/cache/restore@v4
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-npm-${{ hashFiles('package-lock.json') }}
       - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
           name: build-artifacts
           path: packages
-      - name: Use Node.js ${{ inputs.node-version }}
-        uses: actions/setup-node@v4
+      - name: Use Node.js ${{env.NODE_VERSION}}
+        uses: actions/setup-node@v7.1.0
         with:
           node-version: ${{env.NODE_VERSION}}
           cache: 'npm'
@@ -437,7 +406,7 @@ jobs:
 #        with:
 #          name: build-artifacts
 #          path: packages
-#      - name: Use Node.js ${{ inputs.node-version }}
+#      - name: Use Node.js ${{ env.NODE_VERSION }}
 #        uses: actions/setup-node@v4
 #        with:
 #          node-version:
@@ -558,14 +527,12 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: release-artifacts
-      - name: Use Node.js
-        uses: actions/setup-node@v4
+      - name: Use Node.js ${{env.NODE_VERSION}}
+        uses: actions/setup-node@v7.1.0
         with:
           node-version: ${{env.NODE_VERSION}}
-          registry-url: 'https://registry.npmjs.org'
           cache: 'npm'
-      - name: Install npm 11
-        run: npm install -g npm@11 && npm --version
+          registry-url: 'https://registry.npmjs.org'
       - name: Publishing NPM packages
         run: |
           FAILED=0
@@ -594,17 +561,12 @@ jobs:
     needs: [ release, publish-npm ]
     steps:
       - uses: actions/checkout@v4
-      - name: Restore npm cache
-        uses: actions/cache/restore@v4
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-npm-${{ hashFiles('package-lock.json') }}
       - name: Download Release artifact
         uses: actions/download-artifact@v4
         with:
           name: release-artifacts
       - name: Use Node.js ${{env.NODE_VERSION}}
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7.1.0
         with:
           node-version: ${{env.NODE_VERSION}}
           cache: 'npm'

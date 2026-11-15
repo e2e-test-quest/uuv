@@ -47,6 +47,14 @@ yarn add -D @uuv/cypress
 </TabItem>
 </Tabs>
 
+:::info[npm v12 and later]
+npm v12+ blocks the lifecycle scripts of dependencies by default. If the postinstall scripts of `@uuv/cypress` do not run, allow them:
+
+```shell
+npm pkg set allowScripts.@uuv/cypress=true --json
+```
+:::
+
 ### What's installed
 
 ```
@@ -78,6 +86,14 @@ yarn add -D @uuv/playwright
 
 </TabItem>
 </Tabs>
+
+:::info[npm v12 and later]
+npm v12+ blocks the lifecycle scripts of dependencies by default. If the postinstall scripts of `@uuv/playwright` do not run, allow them:
+
+```shell
+npm pkg set allowScripts.@uuv/playwright=true --json
+```
+:::
 
 ### What's installed
 

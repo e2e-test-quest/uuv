@@ -33,6 +33,7 @@ sed -i "s|to-replace-dictionary|${DICTIONARY_VERSION}|" package.json
 
 log "I" "Installing npm dependencies"
 cat package.json
+npm pkg set allowScripts.@uuv/playwright=true --json
 npm install -D "../$NPM_PACKAGE_DICTIONARY" "../$NPM_PACKAGE_COMMONS" "../$NPM_PACKAGE_PLAYWRIGHT"
 
 log "I" "Copying test files and dependencies"
