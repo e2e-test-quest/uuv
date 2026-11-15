@@ -57,6 +57,7 @@
         "path": false
     },
     "dependencies": {
+        "@ant-design/cssinjs": "^1.24.0",
         "@ant-design/icons": "^5.0.1",
         "@codemirror/legacy-modes": "^6.4.0",
         "@codemirror/view": "^6.26.3",
